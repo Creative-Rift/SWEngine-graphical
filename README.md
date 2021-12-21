@@ -8,13 +8,13 @@
 ## Description
 
 This module built with OpenGL and GLFW provide several components to build your graphical project.
-OpenGLModule support linux platform. To create a graphical project you have to link all needed library
+OpenGLModule support linux platform. To create a graphical project you have to link all required library
 with this module and your project. Check our [documentation](https://docs.creative-rift.com/) for more information.
 
 ## Installation
 Just clone the project, and you can build the library.
 
-## Compiling
+## Compilation
 
 * Go to `module/`
 * Create a `build` folder

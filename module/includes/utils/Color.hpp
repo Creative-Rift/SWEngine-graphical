@@ -39,18 +39,21 @@ namespace sw
             ////////////////////////////////////////////////////////////
             constexpr Color(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha = 255);
 
-            static const Color Black;       // Black predefined color
-            static const Color White;       // White predefined color
-            static const Color Red;         // Red predefined color
-            static const Color Green;       // Green predefined color
-            static const Color Blue;        // Blue predefined color
-            static const Color Yellow;      // Yellow predefined color
-            static const Color Magenta;     // Magenta predefined color
-            static const Color Cyan;        // Cyan predefined color
-            static const Color Transparent; // Transparent (black) predefined color
     }; // class Color
 
     #include "Color.inl"
+
+    constexpr Color BlackColor(0, 0, 0);             // Black predefined color
+    constexpr Color WhiteColor(255, 255, 255);       // White predefined color
+    constexpr Color RedColor(255, 0, 0);             // Red predefined color
+    constexpr Color GreenColor(0, 255, 0);           // Green predefined color
+    constexpr Color BlueColor(0, 0, 255);            // Blue predefined color
+    constexpr Color YellowColor(255, 255, 0);        // Yellow predefined color
+    constexpr Color MagentaColor(255, 0, 255);       // Magenta predefined color
+    constexpr Color CyanColor(0, 255, 255);          // Cyan predefined color
+    constexpr Color TransparentColor(0, 0, 0, 0);    // Transparent (black) predefined color
+
+
 
 } // namespace sw
 
