@@ -27,6 +27,8 @@ set( EXT cpp )
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
+        ${CMAKE_SOURCE_DIR}/../module/
+        ${CMAKE_SOURCE_DIR}/../module/resources/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
@@ -34,20 +36,22 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libs/module/
         ${CMAKE_SOURCE_DIR}/libs/core/includes/
         ${CMAKE_SOURCE_DIR}/../module/includes/
+        ${CMAKE_SOURCE_DIR}/../module/includes/glad/
+        ${CMAKE_SOURCE_DIR}/../module/includes/KHR/
+        ${CMAKE_SOURCE_DIR}/../module/includes/resources/
+        ${CMAKE_SOURCE_DIR}/../module/includes/utils/
         )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         Jsnp
         SWEngine-Core
-        SWEngine-OpenGLModule
         glfw
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libs/libJsnp.so
         ${CMAKE_SOURCE_DIR}/libs/libSWEngine-Core.so
-        ${CMAKE_SOURCE_DIR}/libs/libSWEngine-OpenGLModule.so
-        ${CMAKE_SOURCE_DIR}/libs/libglfw.so
+        ${CMAKE_SOURCE_DIR}/../libs/libglfw.so
         )
 ## <=====================================>
 

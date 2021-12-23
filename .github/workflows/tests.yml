@@ -25,8 +25,9 @@ jobs:
         run: |
           cd tests
           cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-          apt-get update
-          at-get install lcov -y
+          apt update
+          apt install lcov -y
+          ./check_for_update.sh -i
 
       - name: Build tests
         run: cmake --build tests/build --config ${{env.BUILD_TYPE}} -- -j 9
