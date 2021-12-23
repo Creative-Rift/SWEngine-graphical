@@ -36,7 +36,7 @@ jobs:
         run: |
           ./tests/test.out
           lcov --directory ${{github.workspace}}/tests/build/ --capture --output-file ${{github.workspace}}/code_coverage.info -rc lcov_branch_coverage=1
-          lcov --remove ${{github.workspace}}/code_coverage.info '/usr/*' '*/tests/*' '*/build/*' --output-file ${{github.workspace}}/code_coverage.info
+          lcov --remove ${{github.workspace}}/code_coverage.info '/usr/*' '*/build/*' --output-file ${{github.workspace}}/code_coverage.info
           lcov --list ${{github.workspace}}/code_coverage.info >> coverage.txt
 
       - name: Create artefact
