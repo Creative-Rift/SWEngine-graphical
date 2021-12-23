@@ -23,6 +23,7 @@ if [[ ${1} == "-i" ]]; then
 
     download "SWEngine-Core" "core"
     download "JSONParser" "jsonparser"
+    download "Glfw" "openglmodule?file=glfw"
 
 fi
 

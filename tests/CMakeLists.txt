@@ -51,7 +51,7 @@ set( SHARED_LIB_NAME
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libs/libJsnp.so
         ${CMAKE_SOURCE_DIR}/libs/libSWEngine-Core.so
-        ${CMAKE_SOURCE_DIR}/../libs/libglfw.so
+        ${CMAKE_SOURCE_DIR}/libs/libglfw.so
         )
 ## <=====================================>
 
