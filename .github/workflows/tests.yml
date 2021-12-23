@@ -24,13 +24,13 @@ jobs:
       - name: Configure Environement
         run: |
           cd tests
-          cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake -B ${{github.workspace}}/tests/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           apt update
           apt install lcov -y
           ./check_for_update.sh -i
 
       - name: Build tests
-        run: cmake --build tests/build --config ${{env.BUILD_TYPE}} -- -j 9
+        run: cmake --build ${{github.workspace}}/tests/build --config ${{env.BUILD_TYPE}} -- -j 9
 
       - name: Lauch tests
         run: |
