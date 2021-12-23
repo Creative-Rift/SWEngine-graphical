@@ -1,0 +1,46 @@
+name: Module Test CI
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: DEBUG
+
+jobs:
+  Test_linux:
+    runs-on: ubuntu-latest
+    container: jfalcou/compilers:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure Environement
+        run: |
+          cd tests
+          cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          apt-get update
+          at-get install lcov -y
+
+      - name: Build tests
+        run: cmake --build tests/build --config ${{env.BUILD_TYPE}} -- -j 9
+
+      - name: Lauch tests
+        run: |
+          ./tests/test.out
+          lcov --directory ${{github.workspace}}/tests/build/ --capture --output-file ${{github.workspace}}/code_coverage.info -rc lcov_branch_coverage=1
+          lcov --remove ${{github.workspace}}/code_coverage.info '/usr/*' '*/tests/*' '*/build/*' --output-file ${{github.workspace}}/code_coverage.info
+          lcov --list ${{github.workspace}}/code_coverage.info >> coverage.txt
+
+      - name: Create artefact
+        continue-on-error: true
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage.txt
