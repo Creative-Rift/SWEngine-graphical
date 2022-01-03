@@ -37,4 +37,4 @@
 cmake-*
 
 # Libs folder
-libs
+libraries/
