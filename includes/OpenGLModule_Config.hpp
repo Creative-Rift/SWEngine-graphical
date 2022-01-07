@@ -22,6 +22,9 @@
 #if defined(SW_GRAPH_MODULE_WINDOWS_SYSTEM)
     #define SW_GRAPH_MODULE_EXPORT __declspec(dllexport)
     #define SW_GRAPH_MODULE_IMPORT __declspec(dllimport)
+#else
+    #define SW_GRAPH_MODULE_EXPORT
+    #define SW_GRAPH_MODULE_IMPORT
 #endif
 
 #endif //SWENGINE_OPENGLMODULE_OPENGLMODULE_CONFIG_HPP
