@@ -27,19 +27,19 @@ set( EXT cpp )
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
-        ${CMAKE_SOURCE_DIR}/../module/
-        ${CMAKE_SOURCE_DIR}/../module/resources/
+        ${CMAKE_SOURCE_DIR}/../
+        ${CMAKE_SOURCE_DIR}/../resources/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libs/
         ${CMAKE_SOURCE_DIR}/libs/module/
         ${CMAKE_SOURCE_DIR}/libs/core/includes/
-        ${CMAKE_SOURCE_DIR}/../module/includes/
-        ${CMAKE_SOURCE_DIR}/../module/includes/glad/
-        ${CMAKE_SOURCE_DIR}/../module/includes/KHR/
-        ${CMAKE_SOURCE_DIR}/../module/includes/resources/
-        ${CMAKE_SOURCE_DIR}/../module/includes/utils/
+        ${CMAKE_SOURCE_DIR}/../includes/
+        ${CMAKE_SOURCE_DIR}/../includes/glad/
+        ${CMAKE_SOURCE_DIR}/../includes/KHR/
+        ${CMAKE_SOURCE_DIR}/../includes/resources/
+        ${CMAKE_SOURCE_DIR}/../includes/utils/
         )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
