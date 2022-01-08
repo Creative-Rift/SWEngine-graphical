@@ -32,7 +32,7 @@ void sw::OpenGLModule::initialize()
         throw sw::Error("Failed to initialize GLAD", "");
 
     glViewport(0, 0, 800, 600);
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); TODO
+    setUpCallBack();
 }
 
 void sw::OpenGLModule::update()
@@ -59,4 +59,16 @@ bool sw::OpenGLModule::isDebuging()
 std::unique_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()
 {
     return (std::make_unique<sw::OpenResources>());
+}
+
+void sw::OpenGLModule::setUpCallBack()
+{
+    glfwSetFramebufferSizeCallback(m_window, resizeCallBack);
+}
+
+void sw::OpenGLModule::resizeCallBack(GLFWwindow *window, int width, int height)
+{
+    width = (width > 1920 ? 1920 : width);
+    height = (height > 1080 ? 1080 : height);
+    glViewport(0, 0, width, height);
 }

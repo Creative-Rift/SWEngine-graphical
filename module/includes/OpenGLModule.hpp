@@ -26,6 +26,9 @@ namespace sw
             void onInitialize() override;
             void onUpdate() override;
             void onTerminate() override;
+
+            static void resizeCallBack(GLFWwindow* window, int width, int height);
+            void setUpCallBack();
         public:
             OpenGLModule(const std::string& name);
             ~OpenGLModule() = default;

@@ -31,7 +31,10 @@
 *.out
 *.app
 
-#IDE cache
+# IDE cache
 .idea
 .vscode
 cmake-*
+
+# Libs folder
+libs

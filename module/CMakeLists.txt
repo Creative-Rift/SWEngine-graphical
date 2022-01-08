@@ -26,6 +26,7 @@ set( EXT cpp )
 set( SRC_FOLDERS
         ./sources/
         ./sources/resources/
+        ./sources/utils/
 )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
