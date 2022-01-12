@@ -1,7 +1,7 @@
 ## CMAKE VAR
 ## <=====================================>
 cmake_minimum_required( VERSION 3.18...3.22 )
-set( CMAKE_BUILD_TYPE Release ) # Release / RelWithDebInfo / Debug
+set( CMAKE_BUILD_TYPE Debug ) # Release / RelWithDebInfo / Debug
 set( CMAKE_CXX_STANDARD 20 )
 set( CMAKE_CXX_STANDARD_REQUIRED True )
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out/ )

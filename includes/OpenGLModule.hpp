@@ -18,6 +18,9 @@
 
 #include <memory>
 
+#define WINDOW_FULLSCREEN_WINDOWED 0
+#define WINDOW_FULLSCREEN 0
+
 namespace sw
 {
     class SW_GRAPH_MODULE_EXPORT OpenGLModule : public sw::AModule
