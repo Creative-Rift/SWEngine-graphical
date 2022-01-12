@@ -23,11 +23,11 @@ jobs:
 
       - name: Configure Environement
         run: |
+          ./check_for_update.sh -i
           cd tests
           cmake -B ${{github.workspace}}/tests/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           apt update
           apt install lcov -y
-          ../check_for_update.sh -i
 
       - name: Build tests
         run: cmake --build ${{github.workspace}}/tests/build --config ${{env.BUILD_TYPE}} -- -j 9
