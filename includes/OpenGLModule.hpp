@@ -17,6 +17,7 @@
 #include "OpenGLModule_Config.hpp"
 
 #include <memory>
+#include <array>
 
 #define WINDOW_FULLSCREEN_WINDOWED 0
 #define WINDOW_FULLSCREEN 0
@@ -29,6 +30,8 @@ namespace sw
             GLFWwindow *m_window{};
 
             static void resizeCallBack(GLFWwindow* window, int width, int height);
+            static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
+            static void mouse_button_callback(GLFWwindow* window, int button, int action,[[maybe_unused]] int mods);
             void setUpCallBack();
         public:
             explicit OpenGLModule();

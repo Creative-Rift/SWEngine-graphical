@@ -10,6 +10,9 @@
 
 #include "OpenGLModule.hpp"
 #include "resources/OpenResources.hpp"
+#include "utils/Buffer.hpp"
+
+sw::Input_buffer event_buffer;
 
 sw::OpenGLModule::OpenGLModule() :
 sw::AModule(),
@@ -54,6 +57,7 @@ void sw::OpenGLModule::update()
 {
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+    event_buffer.clear();
 }
 
 void sw::OpenGLModule::terminate()
@@ -74,6 +78,22 @@ std::unique_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()
 void sw::OpenGLModule::setUpCallBack()
 {
     glfwSetFramebufferSizeCallback(m_window, resizeCallBack);
+    glfwSetKeyCallback(m_window, input_callback);
+    glfwSetMouseButtonCallback(m_window, mouse_button_callback);
+}
+
+void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int)
+{
+    int input[2] = {key, action};
+
+    event_buffer.push(input);
+}
+
+void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action, int)
+{
+    int input[2] = {button, action};
+
+    event_buffer.push(input);
 }
 
 void sw::OpenGLModule::resizeCallBack(GLFWwindow *window, int width, int height)
