@@ -35,6 +35,6 @@
 .idea
 .vscode
 cmake-*
-
+build/
 # Libs folder
 libraries/

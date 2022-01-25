@@ -15,6 +15,7 @@
 #include "SW/Engine.hpp"
 
 #include "OpenGLModule_Config.hpp"
+#include "utils/Buffer.hpp"
 
 #include <memory>
 #include <array>
@@ -32,6 +33,8 @@ namespace sw
             static void resizeCallBack(GLFWwindow* window, int width, int height);
             static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
             static void mouse_button_callback(GLFWwindow* window, int button, int action,[[maybe_unused]] int mods);
+            static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+            static void position_callback(GLFWwindow* window, double xpos, double ypos);
             void setUpCallBack();
         public:
             explicit OpenGLModule();
@@ -45,6 +48,12 @@ namespace sw
 
             std::unique_ptr<sw::AResources> createResourceInstance() override;
     }; // class OpenGLModule
+
+    bool isKeyPressed(sw::Type&, const int&);//TODO template mouse/keyboard
+    bool isKeyReleased(sw::Type&, const int&);//same
+    bool isKeyDown(sw::Type&, const int&);//same
+    bool mouseScrolled(const std::pair<double,double>&);
+    bool mouseMoved(void);
 
     #ifdef GRAPHICAL_MODULE
         #undef GRAPHICAL_MODULE

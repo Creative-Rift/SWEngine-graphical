@@ -12,6 +12,8 @@
 #include "resources/OpenResources.hpp"
 #include "utils/Buffer.hpp"
 
+#include <iostream>
+
 sw::Input_buffer event_buffer;
 
 sw::OpenGLModule::OpenGLModule() :
@@ -57,6 +59,8 @@ void sw::OpenGLModule::update()
 {
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+    if (sw::mouseMoved())
+        std::cout << "mouse moved" << std::endl;
     event_buffer.clear();
 }
 
@@ -80,20 +84,44 @@ void sw::OpenGLModule::setUpCallBack()
     glfwSetFramebufferSizeCallback(m_window, resizeCallBack);
     glfwSetKeyCallback(m_window, input_callback);
     glfwSetMouseButtonCallback(m_window, mouse_button_callback);
+    glfwSetScrollCallback(m_window, scroll_callback);
+    glfwSetCursorPosCallback(m_window, position_callback);
 }
 
 void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int)
 {
-    int input[2] = {key, action};
+    std::pair<int,int> input = {key, action};
+    std::pair<double,double> pos{};
+    sw::Type tpe = sw::Keyboard;
 
-    event_buffer.push(input);
+    event_buffer.push(tpe, input, pos);
 }
 
 void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action, int)
 {
-    int input[2] = {button, action};
+    std::pair<int,int> ipt = {button, action};
+    std::pair<double,double> pos{};
+    sw::Type tpe = sw::Mouse;
 
-    event_buffer.push(input);
+    event_buffer.push(tpe, ipt, pos);
+}
+
+void sw::OpenGLModule::position_callback(GLFWwindow*, double xpos, double ypos)
+{
+    std::pair<int,int> kys{};
+    std::pair<double,double> ipt{xpos,ypos};
+    sw::Type tpe = sw::Position;
+
+    event_buffer.push(tpe, kys, ipt);
+}
+
+void sw::OpenGLModule::scroll_callback(GLFWwindow*, double x, double y)
+{
+    std::pair<int,int> kys{};
+    std::pair<double,double> ipt{x,y};
+    sw::Type tpe = sw::Scroll;
+
+    event_buffer.push(tpe, kys, ipt);
 }
 
 void sw::OpenGLModule::resizeCallBack(GLFWwindow *window, int width, int height)
@@ -106,4 +134,43 @@ void sw::OpenGLModule::resizeCallBack(GLFWwindow *window, int width, int height)
 std::string sw::OpenGLModule::type() const
 {
     return (std::string{"OpenGLModule"});
+}
+
+bool sw::isKeyPressed(sw::Type& evt, const int& kys)
+{
+    return false;
+}
+
+bool sw::isKeyDown(sw::Type &, const int &)
+{
+    return false;
+}
+
+bool sw::isKeyReleased(sw::Type &, const int &)
+{
+    return false;
+}
+
+bool sw::mouseMoved()
+{
+    const auto &tmp = event_buffer.get();
+
+    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
+    {
+        if (tmp[i].m_t == sw::Position)
+            return true;
+    }
+    return false;
+}
+
+bool sw::mouseScrolled(const std::pair<double, double> &evt)
+{
+    const auto& tmp = event_buffer.get();
+
+    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
+    {
+        if (tmp[i].m_t == sw::Scroll && tmp[i].m_os == evt)
+            return true;
+    }
+    return false;
 }
