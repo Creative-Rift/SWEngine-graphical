@@ -16,6 +16,21 @@ project( SWEngine-OpenGLModule
         "Graphical module for ShipwreckEngine"
         )
 
+## SOURCE FOLDERS
+set( SRC_FOLDERS
+        ${CMAKE_SOURCE_DIR}/sources/
+        ${CMAKE_SOURCE_DIR}/sources/components/
+        ${CMAKE_SOURCE_DIR}/sources/resources/
+        ${CMAKE_SOURCE_DIR}/sources/utils/
+        )
+## INCLUDE FOLDERS
+set( INC_FOLDERS
+        ${CMAKE_SOURCE_DIR}/libraries/
+        ${CMAKE_SOURCE_DIR}/libraries/core/
+        ${CMAKE_SOURCE_DIR}/includes/
+        ${CMAKE_SOURCE_DIR}/includes/components/
+        )
+
 if (WIN32)
     message("Windows system detected, prepare project...")
     include(.cmake_windows.cmake)
