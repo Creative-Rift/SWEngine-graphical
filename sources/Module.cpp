@@ -9,50 +9,17 @@
 #include "SW/utils/Speech.hpp"
 
 #include "OpenGLModule.hpp"
+#include "OpenGLModule_Config.hpp"
 #include "resources/OpenResources.hpp"
 #include "utils/Buffer.hpp"
 
 #include <iostream>
+#include <map>
+#include <ranges>
 
 sw::Input_buffer event_buffer;
 
-sw::OpenGLModule::OpenGLModule() :
-sw::AModule(),
-m_window(nullptr)
-{
-}
-
-void sw::OpenGLModule::initialize()
-{
-    if (!glfwInit())
-        throw sw::Error("Cannot initialize GLFW", "");
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-
-    GLFWmonitor* glfwMonitor = glfwGetPrimaryMonitor();
-
-    #if WINDOW_FULLSCREEN_WINDOWED == 1
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwMonitor);
-    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-    m_window = glfwCreateWindow(mode->width, mode->height, "Title 1",  glfwMonitor, nullptr);
-    #elif WINDOW_FULLSCREEN == 1
-    m_window = glfwCreateWindow(1920, 1080, "Title", glfwMonitor, nullptr);
-    #else
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    m_window = glfwCreateWindow(1920, 1080, "Title", nullptr, nullptr);
-    #endif
-    if (!m_window)
-        throw sw::Error("Failed to create window", "");
-    glfwMakeContextCurrent(m_window);
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        throw sw::Error("Failed to initialize GLAD", "");
-    glViewport(0, 0, 800, 600);
-    m_key_flags = {
+SW_GRAPH_MODULE_EXPORT std::map<int, sw::Actions> m_key_flags = {
         {sw::MouseBtn::Button_1, sw::Actions::A_UP},
         {sw::MouseBtn::Button_2, sw::Actions::A_UP},
         {sw::MouseBtn::Button_3, sw::Actions::A_UP},
@@ -208,16 +175,66 @@ void sw::OpenGLModule::initialize()
         {sw::Keyboard::Z, sw::Actions::A_UP},
         {sw::Keyboard::ZERO, sw::Actions::A_UP}
     };
+
+sw::OpenGLModule::OpenGLModule() :
+sw::AModule(),
+m_window(nullptr)
+{
+}
+
+void sw::OpenGLModule::initialize()
+{
+    if (!glfwInit())
+        throw sw::Error("Cannot initialize GLFW", "");
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+
+    GLFWmonitor* glfwMonitor = glfwGetPrimaryMonitor();
+
+    #if WINDOW_FULLSCREEN_WINDOWED == 1
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwMonitor);
+    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+    m_window = glfwCreateWindow(mode->width, mode->height, "Title 1",  glfwMonitor, nullptr);
+    #elif WINDOW_FULLSCREEN == 1
+    m_window = glfwCreateWindow(1920, 1080, "Title", glfwMonitor, nullptr);
+    #else
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    m_window = glfwCreateWindow(1920, 1080, "Title", nullptr, nullptr);
+    #endif
+    if (!m_window)
+        throw sw::Error("Failed to create window", "");
+    glfwMakeContextCurrent(m_window);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        throw sw::Error("Failed to initialize GLAD", "");
+    glViewport(0, 0, 800, 600);
+    
     setUpCallBack();
 }
 
+static auto notUp = [](sw::Actions i) { return i != sw::Actions::A_UP;};
+
 void sw::OpenGLModule::update()
 {
+    auto mouse = sw::Type::Mouse;
+    auto button_1 = sw::MouseBtn::Button_1;
+
+    auto kb = sw::Type::Keyboard;
+    auto z = sw::Keyboard::Z;
+
     glfwSwapBuffers(m_window);
     glfwPollEvents();
-    if (sw::mouseMoved())
-        std::cout << "mouse moved" << std::endl;
-    std::cout << m_key_flags.contains(sw::Keyboard::Z) << std::endl;
+    if (sw::isKeyPressed(mouse, button_1))
+        std::cout << "mouse pressed" << std::endl;
+    if (sw::isKeyPressed(kb, z))
+        std::cout << "keyboard pressed" << std::endl;
+    for (auto [key, value] : m_key_flags)
+        if (notUp(value))
+            m_key_flags.at(key) = sw::Actions::A_UP;
     event_buffer.clear();
 }
 
@@ -251,6 +268,7 @@ void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int
     std::pair<double,double> pos{};
     sw::Type tpe = sw::Keyboard;
 
+    m_key_flags.at(key) = static_cast<sw::Actions>(action);
     event_buffer.push(tpe, input, pos);
 }
 
@@ -260,6 +278,7 @@ void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action
     std::pair<double,double> pos{};
     sw::Type tpe = sw::Mouse;
 
+    m_key_flags.at((-button) - 2) = static_cast<sw::Actions>(action);
     event_buffer.push(tpe, ipt, pos);
 }
 
@@ -295,16 +314,49 @@ std::string sw::OpenGLModule::type() const
 
 bool sw::isKeyPressed(sw::Type& evt, const int& kys)
 {
+    switch (evt)
+    {
+    case sw::Type::Keyboard:
+        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_PRESS;
+        break;
+    case sw::Type::Mouse:
+        if (m_key_flags.contains(kys))
+            return m_key_flags.at(kys) == sw::Actions::A_PRESS;
+        break;
+    default:
+        break;
+    }
     return false;
 }
 
-bool sw::isKeyDown(sw::Type &, const int &)
+bool sw::isKeyDown(sw::Type &evt, const int &kys)
 {
+    switch (evt)
+    {
+    case sw::Type::Keyboard:
+        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_REPEAT;
+        break;
+    case sw::Type::Mouse:
+    default:
+        break;
+    }
     return false;
 }
 
-bool sw::isKeyReleased(sw::Type &, const int &)
+bool sw::isKeyReleased(sw::Type &evt, const int &kys)
 {
+    switch (evt)
+    {
+    case sw::Type::Keyboard:
+        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_RELEASE;
+        break;
+    case sw::Type::Mouse:
+        if (m_key_flags.contains(kys))
+            return m_key_flags.at(kys) == sw::Actions::A_RELEASE;
+        break;
+    default:
+        break;
+    }
     return false;
 }
 
