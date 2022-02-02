@@ -16,9 +16,11 @@
 
 #include "OpenGLModule_Config.hpp"
 #include "utils/Buffer.hpp"
+#include "utils/Inputs.hpp"
 
 #include <memory>
 #include <array>
+#include <map>
 
 #define WINDOW_FULLSCREEN_WINDOWED 0
 #define WINDOW_FULLSCREEN 0
@@ -29,6 +31,7 @@ namespace sw
     {
         private:
             GLFWwindow *m_window{};
+            static std::map<int, sw::Actions> m_key_flags;
 
             static void resizeCallBack(GLFWwindow* window, int width, int height);
             static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
@@ -52,6 +55,7 @@ namespace sw
     bool isKeyPressed(sw::Type&, const int&);//TODO template mouse/keyboard
     bool isKeyReleased(sw::Type&, const int&);//same
     bool isKeyDown(sw::Type&, const int&);//same
+    //bool isKeyUp(sw::Type&, const int&);
     bool mouseScrolled(const std::pair<double,double>&);
     bool mouseMoved(void);
 

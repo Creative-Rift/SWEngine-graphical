@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
+
 namespace sw
 {
     constexpr std::size_t MAX_BUFFER = 32;
