@@ -9,6 +9,8 @@
 #ifndef SWENGINE_OPENGLMODULE_TRANSFORM_HPP
 #define SWENGINE_OPENGLMODULE_TRANSFORM_HPP
 
+#include "dependencies/glm/glm.hpp"
+
 #include "SW/Component.hpp"
 #include "SW/Utils.hpp"
 
@@ -20,6 +22,8 @@ namespace sw
     {
 
         private:
+            glm::mat4 m_matrix;
+            glm::mat4 m_globalMatrix;
             sw::Vector3f m_position;
             sw::Vector3f m_globalPosition;
             sw::Vector3f m_scale;
@@ -30,20 +34,13 @@ namespace sw
 
             //sw::Vector2f m_position_origin;
 
-            mutable sw::Matrixf m_matrix;
-            mutable sw::Matrixf m_globalMatrix;
-            //mutable sf::Matrix m_sfTransform;
-            //mutable sf::Matrix m_globalSfTransform;
             mutable bool m_need_update;
-            mutable bool m_global_need_update;
 
             void needUpdate() {
                 m_need_update = true;
-                m_global_need_update = true;
             }
             void notNeedUpdate() {
                 m_need_update = false;
-                m_global_need_update = false;
             }
 
             ///////////////////////////////////////////////////////////////////
@@ -56,33 +53,7 @@ namespace sw
             /// Thanks to this, we can reduce the calculations to what
             /// is strictly necessary.
             //
-            void updateMatrix() const;
-            //
-            ///////////////////////////////////////////////////////////////////
-
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Update the sfTransform.
-            ///
-            /// @warning The const is just to can use it in get method,
-            /// It's modify m_sfTransform variable.
-            ///
-            /// Thanks to this, we can reduce the calculations to what
-            /// is strictly necessary.
-            //
-            void updateSfTransform() const;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Update the global sfTransform.
-            ///
-            /// @warning The const is just to can use it in get method,
-            /// It's modify m_sfTransform variable.
-            ///
-            /// Thanks to this, we can reduce the calculations to what
-            /// is strictly necessary.
-            //
-            void updateGlobalSfTransform() const;
+            void updateMatrix() noexcept ;
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -164,13 +135,13 @@ namespace sw
             ///
             /// Get the position of a Matrix Component.
             //
-            const sw::Vector3f& getPosition() const;
+            sw::Vector3f getPosition() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the globale position of a Matrix Component.
             //
-            const sw::Vector3f& getGlobalPosition() const;
+            const sw::Vector3f& getGlobalPosition() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -232,13 +203,13 @@ namespace sw
             ///
             /// Get the scalation of a Matrix Component.
             //
-            const sw::Vector3f& getScale() const;
+            sw::Vector3f getScale() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the global scalation of a Matrix Component.
             //
-            const sw::Vector3f& getGlobalScale() const;
+            const sw::Vector3f& getGlobalScale() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -271,31 +242,31 @@ namespace sw
             ///
             /// Get the orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getRotation() const;
+            sw::Vector3f getRotation() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the orientation of the Matrix Component in degree.
             //
-            float getAngle() const;
+            float getAngle() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the orientation of the Matrix Component in radiant.
             //
-            sw::Vector3f getRadianRotation() const;
+            sw::Vector3f getRadianRotation();
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the global orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getGlobalRotation() const;
+            sw::Vector3f getGlobalRotation();
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the global orientation of the Matrix Component in radiant.
             //
-            sw::Vector3f getGlobalRadianRotation() const;
+            sw::Vector3f getGlobalRadianRotation();
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -303,27 +274,13 @@ namespace sw
             ///
             /// Get the matrix of the Matrix Component.
             //
-            const sw::Matrixf& getMatrix() const;
+            const glm::mat4& getMatrix() noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the global matrix of the Matrix Component.
             //
-            const sw::Matrixf& getGlobalMatrix() const;
-            //
-            ///////////////////////////////////////////////////////////////////
-
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the sfTransform of the Matrix Component.
-            //
-            //const sf::Matrix& getTransform() const;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the sfTransform of the Matrix Component.
-            //
-            //const sf::Matrix& getGlobalTransform() const;
+            const glm::mat4& getGlobalMatrix();
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -334,7 +291,7 @@ namespace sw
             ///
             /// @param point The point to transform.
             //
-            const sw::Vector3f getTransformPoint(const sw::Vector3f& point) const;
+            sw::Vector3f getTransformPoint(const sw::Vector3f& point);
             //
             ///////////////////////////////////////////////////////////////////
             ///
@@ -344,7 +301,7 @@ namespace sw
             /// @param x X coordinate of the point to transform.
             /// @param y Y coordinate of the point to transform.
             //
-            const sw::Vector3f getTransformPoint(float x, float y, float z = 1) const;
+            sw::Vector3f getTransformPoint(float x, float y, float z = 1);
             //
             ///////////////////////////////////////////////////////////////////
             ///
@@ -353,7 +310,7 @@ namespace sw
             ///
             /// @param point The point to transform.
             //
-            const sw::Vector3f getGlobalTransformPoint(const sw::Vector3f& point) const;
+            sw::Vector3f getGlobalTransformPoint(const sw::Vector3f& point);
             //
             ///////////////////////////////////////////////////////////////////
             ///
@@ -363,7 +320,7 @@ namespace sw
             /// @param x X coordinate of the point to transform.
             /// @param y Y coordinate of the point to transform.
             //
-            const sw::Vector3f getGlobalTransformPoint(float x, float y, float z = 1) const;
+            sw::Vector3f getGlobalTransformPoint(float x, float y, float z = 1);
             //
             ///////////////////////////////////////////////////////////////////
             [[nodiscard]] std::string type() const override;

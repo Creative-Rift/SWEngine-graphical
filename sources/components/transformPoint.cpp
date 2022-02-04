@@ -8,59 +8,46 @@
 
 #include "components/Transform.hpp"
 
-const sw::Vector3f sw::Transform::getTransformPoint(const sw::Vector3f& point) const
+sw::Vector3f sw::Transform::getTransformPoint(const sw::Vector3f& point)
 {
     if (m_need_update) {
         updateMatrix();
-        //updateSfTransform();
         m_need_update = false;
     }
-    sw::Matrixf resultMatrix = m_matrix * sw::Matrixf({{point.x}, {point.y}, {point.z}});
-    std::vector<std::vector<float>> resultFlist = resultMatrix.getMatrix();
+    glm::vec4 resultMatrix = m_matrix * glm::vec4(point.x, point.y, point.z, 1);
 
-    return (sw::Vector3f{resultFlist[0][0], resultFlist[1][0], resultFlist[1][1]});
+    return (sw::Vector3f{resultMatrix.x, resultMatrix.y, resultMatrix.z});
 }
 
-const sw::Vector3f sw::Transform::getTransformPoint(float x, float y, float z) const
+sw::Vector3f sw::Transform::getTransformPoint(float x, float y, float z)
 {
     if (m_need_update) {
         updateMatrix();
-        //updateSfTransform();
         m_need_update = false;
     }
-    sw::Matrixf resultMatrix = m_matrix * sw::Matrixf({{x}, {y}, {z}});
-    std::vector<std::vector<float>> resultFlist = resultMatrix.getMatrix();
+    glm::vec4 resultMatrix = m_matrix * glm::vec4(x, y, z, 1);
 
-    return (sw::Vector3f{resultFlist[0][0], resultFlist[1][0], resultFlist[1][1]});
+    return (sw::Vector3f{resultMatrix.x, resultMatrix.y, resultMatrix.z});
 }
 
-const sw::Vector3f sw::Transform::getGlobalTransformPoint(const sw::Vector3f& point) const
+sw::Vector3f sw::Transform::getGlobalTransformPoint(const sw::Vector3f& point)
 {
-    if (m_global_need_update) {
+    if (m_need_update) {
         m_globalMatrix = getGlobalMatrix();
-        updateGlobalSfTransform();
-        m_global_need_update = false;
+        m_need_update = false;
     }
-    sw::Matrixf resultMatrix = m_globalMatrix * sw::Matrixf({{point.x}, {point.y}, {1}});
-    std::vector<std::vector<float>> resultFlist = resultMatrix.getMatrix();
+    glm::vec4 resultMatrix = m_globalMatrix * glm::vec4(point.x, point.y, point.z, 1);
 
-    return (sw::Vector3f{resultFlist[0][0], resultFlist[1][0], resultFlist[1][1]});
+    return (sw::Vector3f{resultMatrix.x, resultMatrix.y, resultMatrix.z});
 }
 
-const sw::Vector3f sw::Transform::getGlobalTransformPoint(float x, float y, float z) const
+sw::Vector3f sw::Transform::getGlobalTransformPoint(float x, float y, float z)
 {
-    if (m_global_need_update) {
+    if (m_need_update) {
         m_globalMatrix = getGlobalMatrix();
-        updateGlobalSfTransform();
-        m_global_need_update = false;
+        m_need_update = false;
     }
-    sw::Matrixf resultMatrix = m_globalMatrix * sw::Matrixf({{x}, {y}, {z}});
-    std::vector<std::vector<float>> resultFlist = resultMatrix.getMatrix();
+    glm::vec4 resultMatrix = m_globalMatrix * glm::vec4(x, y, z, 1);
 
-    return (sw::Vector3f{resultFlist[0][0], resultFlist[1][0], resultFlist[1][1]});
-}
-
-std::string sw::Transform::type() const
-{
-    return ("Transform");
+    return (sw::Vector3f{resultMatrix.x, resultMatrix.y, resultMatrix.z});
 }

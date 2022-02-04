@@ -6,44 +6,34 @@
 ** Description: [CHANGE]
 */
 
+#include "dependencies/glm/gtc/matrix_transform.hpp"
+
 #include "components/Transform.hpp"
 
-void sw::Transform::updateMatrix() const
+void sw::Transform::updateMatrix() noexcept
 {
-    //sw::Matrixf transformPosition({{1, 0, m_position.x},
-    //                               {0, 1, m_position.y},
-    //                               {0, 0, 1}});
-    //auto rotation = 0/*(double)(*this).getRadianRotation()*/;
-    //sw::Matrixf transformRotation({{(float)cos(rotation), (float)-sin(rotation), 0},
-    //                               {(float)sin(rotation), (float)cos(rotation),  0},
-    //                               {0,                    0,                     1}});
-    //sw::Matrixf transformScale({{m_scale.x, 0,          0},
-    //                            {0,         m_scale.y,  0},
-    //                            {0,         0,          1}});
-    //m_matrix.setIdentity();
-    //m_matrix = m_matrix * transformPosition;
-    //m_matrix = m_matrix * transformRotation;
-    //m_matrix = m_matrix * transformScale;
+    m_matrix = glm::mat4(1.0f);
+    m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
+    m_matrix = glm::rotate(m_matrix, glm::radians(m_angle), glm::vec3(m_rotation.x, m_rotation.y, m_rotation.z));
+    m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
 }
 
-const sw::Matrixf& sw::Transform::getMatrix() const
+const glm::mat4& sw::Transform::getMatrix() noexcept
 {
     if (m_need_update) {
         updateMatrix();
-        //updateSfTransform();
         m_need_update = false;
     }
     return (m_matrix);
 }
 
-const sw::Matrixf& sw::Transform::getGlobalMatrix() const
+const glm::mat4& sw::Transform::getGlobalMatrix()
 {
-    if (m_global_need_update) {
+    if (m_need_update) {
         m_globalMatrix = getMatrix();
         if (m_entity.m_parent.hasValue())
             m_globalMatrix = m_globalMatrix * m_entity.m_parent.value().getComponent<sw::Transform>("TransformFact").getGlobalMatrix();
-        updateGlobalSfTransform();
-        m_global_need_update = false;
+        m_need_update = false;
     }
     return (m_globalMatrix);
 }

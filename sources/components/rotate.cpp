@@ -18,6 +18,7 @@ void sw::Transform::setRotation(float angle, float rotationX, float rotationY, f
         m_globalRotation.x = rotationX;
         m_globalRotation.y = rotationY;
         m_globalRotation.z = rotationZ;
+
         for (auto& [_, entity] : m_entity.m_childrenMap)
             entity.get().getComponent<sw::Transform>("TransformManager").setRotation(rotationX, rotationY, rotationZ);
         needUpdate();
@@ -39,27 +40,27 @@ void sw::Transform::rotate(float angle, float rotationX, float rotationY, float 
     }
 }
 
-sw::Vector3f sw::Transform::getRotation() const
+sw::Vector3f sw::Transform::getRotation() const noexcept
 {
     return (m_rotation);
 }
 
-float sw::Transform::getAngle() const
+float sw::Transform::getAngle() const noexcept
 {
     return (m_angle);
 }
 
-sw::Vector3f sw::Transform::getRadianRotation() const
+sw::Vector3f sw::Transform::getRadianRotation()
 {
     return (m_rotation * (3.14f / 180));
 }
 
-sw::Vector3f sw::Transform::getGlobalRotation() const
+sw::Vector3f sw::Transform::getGlobalRotation()
 {
     return (m_globalRotation);
 }
 
-sw::Vector3f sw::Transform::getGlobalRadianRotation() const
+sw::Vector3f sw::Transform::getGlobalRadianRotation()
 {
     return (m_globalRotation * (3.14f / 180));
 }

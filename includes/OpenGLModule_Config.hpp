@@ -1,6 +1,10 @@
-//
-// Created by Admin on 03/01/2022.
-//
+/*
+** Society: Creative Rift
+** SHIPWRECK ENGINE, 2021
+** Author: Guillaume S.
+** File name: OpenGLModule_Config.hpp
+** Description: [CHANGE]
+*/
 
 #ifndef SWENGINE_OPENGLMODULE_OPENGLMODULE_CONFIG_HPP
 #define SWENGINE_OPENGLMODULE_OPENGLMODULE_CONFIG_HPP

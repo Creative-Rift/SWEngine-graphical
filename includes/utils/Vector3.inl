@@ -10,7 +10,7 @@
 #define SWENGINE_OPENGLMODULE_VECTOR3_INL
 
 template <typename T>
-ray::Vector3<T>::Vector3()
+sw::Vector3<T>::Vector3()
 {
     x = 0;
     y = 0;
@@ -18,7 +18,7 @@ ray::Vector3<T>::Vector3()
 }
 
 template <typename T>
-ray::Vector3<T>::Vector3(T X, T Y, T Z)
+sw::Vector3<T>::Vector3(T X, T Y, T Z)
 {
     x = X;
     y = Y;
@@ -26,53 +26,53 @@ ray::Vector3<T>::Vector3(T X, T Y, T Z)
 }
 
 template <typename T>
-ray::Vector3<T>::~Vector3()
+sw::Vector3<T>::~Vector3()
 {}
 
 template <typename T>
-ray::Vector3<T> operator-(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+sw::Vector3<T> operator-(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
-    return (ray::Vector3<T>(left.x - right.x, left.y - right.y, left.z - right.z));
+    return (sw::Vector3<T>(left.x - right.x, left.y - right.y, left.z - right.z));
 }
 
 template <typename T>
-ray::Vector3<T> operator-(const ray::Vector3<T>& right)
+sw::Vector3<T> operator-(const sw::Vector3<T>& right)
 {
-    return (ray::Vector3<T>(-right.x, -right.y, -right.z));
+    return (sw::Vector3<T>(-right.x, -right.y, -right.z));
 }
 
 template <typename T>
-ray::Vector3<T> operator+(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+sw::Vector3<T> operator+(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
-    return (ray::Vector3<T>(left.x + right.x, left.y + right.y, left.z + right.z));
+    return (sw::Vector3<T>(left.x + right.x, left.y + right.y, left.z + right.z));
 }
 
 template <typename T>
-ray::Vector3<T> operator*(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+sw::Vector3<T> operator*(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
-    return (ray::Vector3<T>(left.x * right.x, left.y * right.y, left.z * right.z));
+    return (sw::Vector3<T>(left.x * right.x, left.y * right.y, left.z * right.z));
 }
 
 template <typename T>
-ray::Vector3<T> operator*(const ray::Vector3<T>& left, T right)
+sw::Vector3<T> operator*(const sw::Vector3<T>& left, T right)
 {
-    return (ray::Vector3<T>(left.x * right, left.y * right, left.z * right));
+    return (sw::Vector3<T>(left.x * right, left.y * right, left.z * right));
 }
 
 template <typename T>
-ray::Vector3<T> operator/(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+sw::Vector3<T> operator/(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
-    return (ray::Vector3<T>(left.x / right.x, left.y / right.y, left.z / right.z));
+    return (sw::Vector3<T>(left.x / right.x, left.y / right.y, left.z / right.z));
 }
 
 template <typename T>
-inline ray::Vector3<T> operator/(const ray::Vector3<T>& left, T right)
+inline sw::Vector3<T> operator/(const sw::Vector3<T>& left, T right)
 {
-    return (ray::Vector3<T>(left.x / right, left.y / right, left.z / right));
+    return (sw::Vector3<T>(left.x / right, left.y / right, left.z / right));
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator-=(ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline sw::Vector3<T>& operator-=(sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     left.x -= right.x;
     left.y -= right.y;
@@ -81,7 +81,7 @@ inline ray::Vector3<T>& operator-=(ray::Vector3<T>& left, const ray::Vector3<T>&
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator+=(ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline sw::Vector3<T>& operator+=(sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     left.x += right.x;
     left.y += right.y;
@@ -90,7 +90,7 @@ inline ray::Vector3<T>& operator+=(ray::Vector3<T>& left, const ray::Vector3<T>&
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator*=(ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline sw::Vector3<T>& operator*=(sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     left.x *= right.x;
     left.y *= right.y;
@@ -99,7 +99,7 @@ inline ray::Vector3<T>& operator*=(ray::Vector3<T>& left, const ray::Vector3<T>&
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator*=(ray::Vector3<T>& left, T right)
+inline sw::Vector3<T>& operator*=(sw::Vector3<T>& left, T right)
 {
     left.x *= right;
     left.y *= right;
@@ -108,7 +108,7 @@ inline ray::Vector3<T>& operator*=(ray::Vector3<T>& left, T right)
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator/=(ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline sw::Vector3<T>& operator/=(sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     left.x /= right.x;
     left.y /= right.y;
@@ -117,7 +117,7 @@ inline ray::Vector3<T>& operator/=(ray::Vector3<T>& left, const ray::Vector3<T>&
 }
 
 template <typename T>
-inline ray::Vector3<T>& operator/=(ray::Vector3<T>& left, T right)
+inline sw::Vector3<T>& operator/=(sw::Vector3<T>& left, T right)
 {
     left.x /= right;
     left.y /= right;
@@ -126,19 +126,19 @@ inline ray::Vector3<T>& operator/=(ray::Vector3<T>& left, T right)
 }
 
 template <typename T>
-inline bool operator==(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline bool operator==(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     return ((left.x == right.x) && (left.y == right.y));
 }
 
 template <typename T>
-inline bool operator!=(const ray::Vector3<T>& left, const ray::Vector3<T>& right)
+inline bool operator!=(const sw::Vector3<T>& left, const sw::Vector3<T>& right)
 {
     return ((left.x != right.x) || (left.y != right.y) || (left.z != right.z));
 }
 
 template <typename T>
-inline std::ostream& operator<<(std::ostream& os, const ray::Vector3<T>& matrix)
+inline std::ostream& operator<<(std::ostream& os, const sw::Vector3<T>& matrix)
 {
     os << "(" << matrix.x << ", " << matrix.y << ", " << matrix.z << ")";
     return (os);

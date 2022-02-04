@@ -29,6 +29,7 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/core/
         ${CMAKE_SOURCE_DIR}/includes/
         ${CMAKE_SOURCE_DIR}/includes/components/
+        ${CMAKE_SOURCE_DIR}/includes/managers/
         )
 
 if (WIN32)

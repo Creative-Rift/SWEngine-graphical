@@ -34,12 +34,12 @@ void sw::Transform::move(float x, float y, float z)
     move({x, y, z});
 }
 
-const sw::Vector3f& sw::Transform::getPosition() const
+sw::Vector3f sw::Transform::getPosition() const noexcept
 {
     return (m_position);
 }
 
-const sw::Vector3f& sw::Transform::getGlobalPosition() const
+const sw::Vector3f& sw::Transform::getGlobalPosition() const noexcept
 {
     return (m_globalPosition);
 }

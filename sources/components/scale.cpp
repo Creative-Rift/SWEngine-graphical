@@ -15,9 +15,7 @@ void sw::Transform::setScale(const sw::Vector3f& value)
 
 void sw::Transform::setScale(float x, float y, float z)
 {
-    m_scale.x = x;
-    m_scale.y = y;
-    m_scale.z = z;
+    scale({x / m_scale.x, y / m_scale.y, z / m_scale.z});
 }
 
 void sw::Transform::scale(const sw::Vector3f& scale)
@@ -36,12 +34,12 @@ void sw::Transform::scale(float x, float y, float z)
     scale({x, y, z});
 }
 
-const sw::Vector3f& sw::Transform::getScale() const
+sw::Vector3f sw::Transform::getScale() const noexcept
 {
     return (m_scale);
 }
 
-const sw::Vector3f& sw::Transform::getGlobalScale() const
+const sw::Vector3f& sw::Transform::getGlobalScale() const noexcept
 {
     return (m_globalScale);
 }
