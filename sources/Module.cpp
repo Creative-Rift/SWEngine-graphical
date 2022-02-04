@@ -15,11 +15,13 @@
 
 #include <iostream>
 #include <map>
+#include <algorithm>
 #include <ranges>
+#include <execution>
 
 sw::Input_buffer event_buffer;
 
-SW_GRAPH_MODULE_EXPORT std::map<int, sw::Actions> m_key_flags = {
+SW_GRAPH_MODULE_EXPORT std::map<int, int> m_key_flags = {
         {sw::MouseBtn::Button_1, sw::Actions::A_UP},
         {sw::MouseBtn::Button_2, sw::Actions::A_UP},
         {sw::MouseBtn::Button_3, sw::Actions::A_UP},
@@ -216,8 +218,6 @@ void sw::OpenGLModule::initialize()
     setUpCallBack();
 }
 
-static auto notUp = [](sw::Actions i) { return i != sw::Actions::A_UP;};
-
 void sw::OpenGLModule::update()
 {
     auto mouse = sw::Type::Mouse;
@@ -232,9 +232,17 @@ void sw::OpenGLModule::update()
         std::cout << "mouse pressed" << std::endl;
     if (sw::isKeyPressed(kb, z))
         std::cout << "keyboard pressed" << std::endl;
-    for (auto [key, value] : m_key_flags)
-        if (notUp(value))
-            m_key_flags.at(key) = sw::Actions::A_UP;
+
+    auto notUp = [](int &i){ return i == sw::Actions::A_UP;};
+    std::ranges::replace_if(std::views::values(m_key_flags), notUp, sw::Actions::A_UP);
+
+    /*auto toUp = [](auto &i)
+    {
+        if (i.second != sw::Actions::A_UP)
+            i.second = sw::Actions::A_UP;
+    };
+
+    std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);*/
     event_buffer.clear();
 }
 
@@ -269,7 +277,6 @@ void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int
     sw::Type tpe = sw::Keyboard;
 
     m_key_flags.at(key) = static_cast<sw::Actions>(action);
-    event_buffer.push(tpe, input, pos);
 }
 
 void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action, int)
@@ -279,7 +286,6 @@ void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action
     sw::Type tpe = sw::Mouse;
 
     m_key_flags.at((-button) - 2) = static_cast<sw::Actions>(action);
-    event_buffer.push(tpe, ipt, pos);
 }
 
 void sw::OpenGLModule::position_callback(GLFWwindow*, double xpos, double ypos)
