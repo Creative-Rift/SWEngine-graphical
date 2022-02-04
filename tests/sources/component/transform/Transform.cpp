@@ -15,7 +15,7 @@
 #include "scenes/Main.hpp"
 #include "components/Transform.hpp"
 
-TEST(Trasnform, move)
+TEST(Trasnform, move_value)
 {
     sw::Engine::createModule<sw::OpenGLModule>();
     sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
@@ -32,7 +32,24 @@ TEST(Trasnform, move)
     sw::Engine::terminate();
 }
 
-TEST(Trasnform, setPosition)
+TEST(Trasnform, move_vector)
+{
+    sw::Engine::createModule<sw::OpenGLModule>();
+    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    sw::Engine::initialize();
+    sw::Engine::activeScene().load();
+    auto& entity = mainScene.createEntity("test");
+    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+
+    transform.move({10, 8, 789});
+
+    ASSERT_EQ(transform.getPosition().x, 10);
+    ASSERT_EQ(transform.getPosition().y, 8);
+    ASSERT_EQ(transform.getPosition().z, 789);
+    sw::Engine::terminate();
+}
+
+TEST(Trasnform, setPosition_value)
 {
     sw::Engine::createModule<sw::OpenGLModule>();
     sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
@@ -49,7 +66,24 @@ TEST(Trasnform, setPosition)
     sw::Engine::terminate();
 }
 
-TEST(Trasnform, scale)
+TEST(Trasnform, setPosition_vector)
+{
+    sw::Engine::createModule<sw::OpenGLModule>();
+    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    sw::Engine::initialize();
+    sw::Engine::activeScene().load();
+    auto& entity = mainScene.createEntity("test");
+    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+
+    transform.setPosition({10, 8, 7});
+
+    ASSERT_EQ(transform.getPosition().x, 10);
+    ASSERT_EQ(transform.getPosition().y, 8);
+    ASSERT_EQ(transform.getPosition().z, 7);
+    sw::Engine::terminate();
+}
+
+TEST(Trasnform, scale_value)
 {
     sw::Engine::createModule<sw::OpenGLModule>();
     sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
@@ -59,10 +93,66 @@ TEST(Trasnform, scale)
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.scale(2, 2, 2);
+    transform.scale(2, 2, 2);
 
-    ASSERT_EQ(transform.getScale().x, 2);
-    ASSERT_EQ(transform.getScale().y, 2);
-    ASSERT_EQ(transform.getScale().z, 2);
+    ASSERT_EQ(transform.getScale().x, 4);
+    ASSERT_EQ(transform.getScale().y, 4);
+    ASSERT_EQ(transform.getScale().z, 4);
+    sw::Engine::terminate();
+}
+
+TEST(Trasnform, scale_vector)
+{
+    sw::Engine::createModule<sw::OpenGLModule>();
+    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    sw::Engine::initialize();
+    sw::Engine::activeScene().load();
+    auto& entity = mainScene.createEntity("test");
+    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+
+    transform.scale({2, 2, 2});
+    transform.scale({20, 20, 20});
+
+    ASSERT_EQ(transform.getScale().x, 40);
+    ASSERT_EQ(transform.getScale().y, 40);
+    ASSERT_EQ(transform.getScale().z, 40);
+    sw::Engine::terminate();
+}
+
+TEST(Trasnform, setScale_value)
+{
+    sw::Engine::createModule<sw::OpenGLModule>();
+    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    sw::Engine::initialize();
+    sw::Engine::activeScene().load();
+    auto& entity = mainScene.createEntity("test");
+    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+
+    transform.setScale(2, 2, 2);
+    transform.setScale(20, 20, 20);
+
+    ASSERT_EQ(transform.getScale().x, 20);
+    ASSERT_EQ(transform.getScale().y, 20);
+    ASSERT_EQ(transform.getScale().z, 20);
+    sw::Engine::terminate();
+}
+
+TEST(Trasnform, setScale_vector)
+{
+    sw::Engine::createModule<sw::OpenGLModule>();
+    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    sw::Engine::initialize();
+    sw::Engine::activeScene().load();
+    auto& entity = mainScene.createEntity("test");
+    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+
+    transform.setScale({2, 2, 2});
+    transform.setScale({80, 80, 80});
+
+    ASSERT_EQ(transform.getScale().x, 80);
+    ASSERT_EQ(transform.getScale().y, 80);
+    ASSERT_EQ(transform.getScale().z, 80);
+    sw::Engine::terminate();
 }
 
 TEST(Trasnform, scale_translate_rotate)
@@ -94,4 +184,5 @@ TEST(Trasnform, scale_translate_rotate)
             std::cout << line << " " << col << std::endl;
             ASSERT_EQ(result[line][col], excepted[line][col]);
         }
+    sw::Engine::terminate();
 }
