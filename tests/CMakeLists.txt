@@ -27,6 +27,8 @@ set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
         ${CMAKE_SOURCE_DIR}/sources/component/transform/
         ${CMAKE_SOURCE_DIR}/sources/template/scenes/
+        ${CMAKE_SOURCE_DIR}/sources/fixture/
+        ${CMAKE_SOURCE_DIR}/../sources/
         ${CMAKE_SOURCE_DIR}/../sources/
         ${CMAKE_SOURCE_DIR}/../sources/resources/
         ${CMAKE_SOURCE_DIR}/../sources/components/
