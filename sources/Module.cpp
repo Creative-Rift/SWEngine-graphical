@@ -228,21 +228,14 @@ void sw::OpenGLModule::update()
 
     glfwSwapBuffers(m_window);
     glfwPollEvents();
-    if (sw::isKeyPressed(mouse, button_1))
-        std::cout << "mouse pressed" << std::endl;
-    if (sw::isKeyPressed(kb, z))
-        std::cout << "keyboard pressed" << std::endl;
 
-    auto notUp = [](int &i){ return i == sw::Actions::A_UP;};
-    std::ranges::replace_if(std::views::values(m_key_flags), notUp, sw::Actions::A_UP);
-
-    /*auto toUp = [](auto &i)
+    auto toUp = [](auto &i)
     {
         if (i.second != sw::Actions::A_UP)
             i.second = sw::Actions::A_UP;
     };
 
-    std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);*/
+    std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
     event_buffer.clear();
 }
 

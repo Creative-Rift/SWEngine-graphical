@@ -20,6 +20,15 @@ namespace sw
         Scroll
     };
 
+    ////////////////////////////////////////////////////////////
+    /// @brief Return a printable string of the event type
+    ///
+    /// @param sw::Type&
+    /// 
+    /// @return std::string
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     std::string getEventType(const sw::Type &evt)
     {
         switch(evt)
@@ -38,6 +47,15 @@ namespace sw
         return "None";
     };
 
+    ////////////////////////////////////////////////////////////
+    /// @brief Return a printable string of the event action
+    ///
+    /// @param sw::Type &, const int &
+    /// 
+    /// @return std::string
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     std::string getEventAction(const sw::Type &evt, const int &act)
     {
         switch(evt)
@@ -99,6 +117,15 @@ namespace sw
             ~EventInfo() = default;
     };
 
+    ////////////////////////////////////////////////////////////
+    /// @brief Print the entirety of the event buffer
+    ///
+    /// @param sw::EventInfo*
+    /// 
+    /// @return void
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     void dumpEvent(const sw::EventInfo* jaj)
     {
         for (size_t i = 0 ; i < sw::MAX_BUFFER; ++i)
@@ -136,7 +163,6 @@ namespace sw
         private:
             std::size_t m_index;
             std::pair<double, double> m_pos;
-            //std::array<EventInfo, sw::MAX_BUFFER> m_input_buffer{};
             EventInfo m_input[sw::MAX_BUFFER]{};
     };
 
@@ -149,7 +175,6 @@ namespace sw
 
         for (size_t i = 0; i < sw::MAX_BUFFER; ++i)
             m_input[i] = std::move(tmp);
-        //m_input_buffer.fill(tmp);
     }
 
     sw::Input_buffer::~Input_buffer()
@@ -166,12 +191,10 @@ namespace sw
         m_index = 0;
         for (size_t i = 0; i < sw::MAX_BUFFER; ++i)
             m_input[i] = std::move(tmp);
-        //m_input_buffer.fill(tmp);
     }
 
     void sw::Input_buffer::push(sw::Type& evt, std::pair<int,int>& ikv, std::pair<double,double>& mwi)
     {
-        //m_input_buffer[m_index] = {ikv[0], ikv[1]};
         if (evt == sw::Position)
             m_pos = mwi;
         m_input[m_index] = {evt, ikv, mwi};

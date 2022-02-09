@@ -51,11 +51,60 @@ namespace sw
             std::unique_ptr<sw::AResources> createResourceInstance() override;
     }; // class OpenGLModule
 
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given key was pressed
+    ///
+    /// @param sw::Type& const int&
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     bool isKeyPressed(sw::Type&, const int&);//TODO template mouse/keyboard
+    
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if give key was released
+    ///
+    /// @param sw::Type& const int&
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     bool isKeyReleased(sw::Type&, const int&);//same
+    
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given key is held down
+    ///
+    /// @param sw::Type& const int&
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     bool isKeyDown(sw::Type&, const int&);//same
     //bool isKeyUp(sw::Type&, const int&);
+    
+    ////////////////////////////////////////////////////////////
+    /// @brief Return true if given scroll direction is correct
+    ///
+    /// @param std::pair<double,double>&
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     bool mouseScrolled(const std::pair<double,double>&);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if mouse moved
+    ///
+    /// @param void
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
     bool mouseMoved(void);
 
     #ifdef GRAPHICAL_MODULE
