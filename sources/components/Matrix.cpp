@@ -14,7 +14,7 @@ void sw::Transform::updateMatrix() noexcept
 {
     m_matrix = glm::mat4(1.0f);
     m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
-    m_matrix = glm::rotate(m_matrix, glm::radians(m_angle), glm::vec3(m_rotation.x, m_rotation.y, m_rotation.z));
+    m_matrix = glm::rotate(m_matrix, glm::radians(m_angle), glm::vec3(m_rotationAxis.x, m_rotationAxis.y, m_rotationAxis.z));
     m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
 }
 

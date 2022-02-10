@@ -167,7 +167,7 @@ namespace sw
             /// @param x New horizontal scale factor.
             /// @param y New vertical scale factor.
             //
-            void setScale(float x, float y, float z = 0);
+            void setScale(float x, float y, float z = 1);
             //
             ///////////////////////////////////////////////////////////////////
 
@@ -191,22 +191,23 @@ namespace sw
             /// the Matrix Component.
             /// @see setScale() to overwrite the actual scalation.
             ///
-            /// @param x Horizontal scale factor.
-            /// @param y Vertical scale factor.
+            /// @param x scale factor for X axis.
+            /// @param y scale factor for Y axis.
+            /// @param z scale factor for Z axis.
             //
-            void scale(float x, float y, float z = 0);
+            void scale(float x, float y, float z = 1);
             //
             ///////////////////////////////////////////////////////////////////
 
             ///////////////////////////////////////////////////////////////////
             ///
-            /// Get the scalation of a Matrix Component.
+            /// Get the scale of a Matrix Component.
             //
-            sw::Vector3f getScale() const noexcept;
+            const sw::Vector3f& getScale() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
-            /// Get the global scalation of a Matrix Component.
+            /// Get the global scale of a Matrix Component.
             //
             const sw::Vector3f& getGlobalScale() const noexcept;
             //
@@ -241,19 +242,19 @@ namespace sw
             ///
             /// Get the orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getRotationAxis() const noexcept;
+            const sw::Vector3f& getRotationAxis() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the orientation of the Matrix Component in degree.
             //
-            float getAngle() const noexcept;
+            const float& getAngle() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
             /// Get the global orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getGlobalRotationAxis();
+            const sw::Vector3f& getGlobalRotationAxis();
             //
             ///////////////////////////////////////////////////////////////////
 

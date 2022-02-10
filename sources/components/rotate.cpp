@@ -40,17 +40,17 @@ void sw::Transform::rotate(float angle, float rotationX, float rotationY, float 
     }
 }
 
-sw::Vector3f sw::Transform::getRotationAxis() const noexcept
+const sw::Vector3f& sw::Transform::getRotationAxis() const noexcept
 {
     return (m_rotationAxis);
 }
 
-float sw::Transform::getAngle() const noexcept
+const float& sw::Transform::getAngle() const noexcept
 {
     return (m_angle);
 }
 
-sw::Vector3f sw::Transform::getGlobalRotationAxis()
+const sw::Vector3f& sw::Transform::getGlobalRotationAxis()
 {
     return (m_globalRotationAxis);
 }

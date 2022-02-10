@@ -34,7 +34,7 @@ void sw::Transform::scale(float x, float y, float z)
     scale({x, y, z});
 }
 
-sw::Vector3f sw::Transform::getScale() const noexcept
+const sw::Vector3f& sw::Transform::getScale() const noexcept
 {
     return (m_scale);
 }
