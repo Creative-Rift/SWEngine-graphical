@@ -34,7 +34,7 @@ void sw::Transform::move(float x, float y, float z)
     move({x, y, z});
 }
 
-sw::Vector3f sw::Transform::getPosition() const noexcept
+const sw::Vector3f& sw::Transform::getPosition() const noexcept
 {
     return (m_position);
 }

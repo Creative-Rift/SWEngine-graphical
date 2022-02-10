@@ -12,12 +12,12 @@ void sw::Transform::setRotation(float angle, float rotationX, float rotationY, f
 {
     if (rotationX != 0 || rotationY != 0 || rotationZ != 0 || angle != 0) {
         m_angle = angle;
-        m_rotation.x = rotationX;
-        m_rotation.y = rotationY;
-        m_rotation.z = rotationZ;
-        m_globalRotation.x = rotationX;
-        m_globalRotation.y = rotationY;
-        m_globalRotation.z = rotationZ;
+        m_rotationAxis.x = rotationX;
+        m_rotationAxis.y = rotationY;
+        m_rotationAxis.z = rotationZ;
+        m_globalRotationAxis.x = rotationX;
+        m_globalRotationAxis.y = rotationY;
+        m_globalRotationAxis.z = rotationZ;
 
         for (auto& [_, entity] : m_entity.m_childrenMap)
             entity.get().getComponent<sw::Transform>("TransformManager").setRotation(rotationX, rotationY, rotationZ);
@@ -28,21 +28,21 @@ void sw::Transform::rotate(float angle, float rotationX, float rotationY, float 
 {
     if (rotationX != 0 || rotationY != 0 || rotationZ != 0 || angle != 0) {
         m_angle += angle;
-        m_rotation.x += rotationX;
-        m_rotation.y += rotationY;
-        m_rotation.z += rotationZ;
-        m_globalRotation.x += rotationX;
-        m_globalRotation.y += rotationY;
-        m_globalRotation.z += rotationZ;
+        m_rotationAxis.x += rotationX;
+        m_rotationAxis.y += rotationY;
+        m_rotationAxis.z += rotationZ;
+        m_globalRotationAxis.x += rotationX;
+        m_globalRotationAxis.y += rotationY;
+        m_globalRotationAxis.z += rotationZ;
         for (auto& [_, entity] : m_entity.m_childrenMap)
             entity.get().getComponent<sw::Transform>("TransformManager").rotate(rotationX, rotationY, rotationZ);
         needUpdate();
     }
 }
 
-sw::Vector3f sw::Transform::getRotation() const noexcept
+sw::Vector3f sw::Transform::getRotationAxis() const noexcept
 {
-    return (m_rotation);
+    return (m_rotationAxis);
 }
 
 float sw::Transform::getAngle() const noexcept
@@ -50,17 +50,7 @@ float sw::Transform::getAngle() const noexcept
     return (m_angle);
 }
 
-sw::Vector3f sw::Transform::getRadianRotation()
+sw::Vector3f sw::Transform::getGlobalRotationAxis()
 {
-    return (m_rotation * (3.14f / 180));
-}
-
-sw::Vector3f sw::Transform::getGlobalRotation()
-{
-    return (m_globalRotation);
-}
-
-sw::Vector3f sw::Transform::getGlobalRadianRotation()
-{
-    return (m_globalRotation * (3.14f / 180));
+    return (m_globalRotationAxis);
 }

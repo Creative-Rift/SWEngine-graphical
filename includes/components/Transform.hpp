@@ -22,25 +22,23 @@ namespace sw
     {
 
         private:
-            glm::mat4 m_matrix;
-            glm::mat4 m_globalMatrix;
-            sw::Vector3f m_position;
-            sw::Vector3f m_globalPosition;
-            sw::Vector3f m_scale;
-            sw::Vector3f m_globalScale;
-            float m_angle;
-            sw::Vector3f m_rotation;
-            sw::Vector3f m_globalRotation;
+            glm::mat4 m_matrix;                 // Matrix(4x4) for local transform
+            glm::mat4 m_globalMatrix;           // Matrix(4x4) for global transform (include all parent)
+            sw::Vector3f m_position;            // Local Position of the Entity
+            sw::Vector3f m_globalPosition;      // Global position of the Entity (include all parent)
+            sw::Vector3f m_scale;               // Local Scale of the Entity
+            sw::Vector3f m_globalScale;         // Global Scale of the Entity (include all parent)
+            float m_angle;                      // Rotation angle
+            sw::Vector3f m_rotationAxis;        // Local Vector which define the axis rotation
+            sw::Vector3f m_globalRotationAxis;  // Global Vector which define the axis rotation (include all parent)
 
-            //sw::Vector2f m_position_origin;
-
-            mutable bool m_need_update;
+            mutable bool m_needUpdate;         // Define if the transform need an update
 
             void needUpdate() {
-                m_need_update = true;
+                m_needUpdate = true;
             }
             void notNeedUpdate() {
-                m_need_update = false;
+                m_needUpdate = false;
             }
 
             ///////////////////////////////////////////////////////////////////
@@ -70,8 +68,7 @@ namespace sw
             ///
             /// Initialize a Matrix Component attached to the given Entity.
             ///
-            /// @param engine The Engine data.
-            /// @param entity The Entity to wich the Matrix Component will
+            /// @param entity The Entity to which the Matrix Component will
             /// be attached.
             ///
             explicit Transform(sw::Entity& entityRef);
@@ -100,6 +97,7 @@ namespace sw
             ///
             /// @param x X coordinate of the new position.
             /// @param y Y coordinate of the new position.
+            /// @param z Z coordinate of the new position.
             //
             void setPosition(float x, float y, float z = 0);
             //
@@ -126,6 +124,7 @@ namespace sw
             ///
             /// @param x X offset.
             /// @param y Y offset.
+            /// @param z Z offset.
             //
             void move(float x, float y, float z = 0);
             //
@@ -135,7 +134,7 @@ namespace sw
             ///
             /// Get the position of a Matrix Component.
             //
-            sw::Vector3f getPosition() const noexcept;
+            const sw::Vector3f& getPosition() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
@@ -242,7 +241,7 @@ namespace sw
             ///
             /// Get the orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getRotation() const noexcept;
+            sw::Vector3f getRotationAxis() const noexcept;
             //
             ///////////////////////////////////////////////////////////////////
             ///
@@ -252,21 +251,9 @@ namespace sw
             //
             ///////////////////////////////////////////////////////////////////
             ///
-            /// Get the orientation of the Matrix Component in radiant.
-            //
-            sw::Vector3f getRadianRotation();
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Get the global orientation of the Matrix Component in degree.
             //
-            sw::Vector3f getGlobalRotation();
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the global orientation of the Matrix Component in radiant.
-            //
-            sw::Vector3f getGlobalRadianRotation();
+            sw::Vector3f getGlobalRotationAxis();
             //
             ///////////////////////////////////////////////////////////////////
 

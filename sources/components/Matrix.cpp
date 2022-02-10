@@ -20,20 +20,20 @@ void sw::Transform::updateMatrix() noexcept
 
 const glm::mat4& sw::Transform::getMatrix() noexcept
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         updateMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     return (m_matrix);
 }
 
 const glm::mat4& sw::Transform::getGlobalMatrix()
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         m_globalMatrix = getMatrix();
         if (m_entity.m_parent.hasValue())
             m_globalMatrix = m_globalMatrix * m_entity.m_parent.value().getComponent<sw::Transform>("TransformFact").getGlobalMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     return (m_globalMatrix);
 }

@@ -10,9 +10,9 @@
 
 sw::Vector3f sw::Transform::getTransformPoint(const sw::Vector3f& point)
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         updateMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     glm::vec4 resultMatrix = m_matrix * glm::vec4(point.x, point.y, point.z, 1);
 
@@ -21,9 +21,9 @@ sw::Vector3f sw::Transform::getTransformPoint(const sw::Vector3f& point)
 
 sw::Vector3f sw::Transform::getTransformPoint(float x, float y, float z)
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         updateMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     glm::vec4 resultMatrix = m_matrix * glm::vec4(x, y, z, 1);
 
@@ -32,9 +32,9 @@ sw::Vector3f sw::Transform::getTransformPoint(float x, float y, float z)
 
 sw::Vector3f sw::Transform::getGlobalTransformPoint(const sw::Vector3f& point)
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         m_globalMatrix = getGlobalMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     glm::vec4 resultMatrix = m_globalMatrix * glm::vec4(point.x, point.y, point.z, 1);
 
@@ -43,9 +43,9 @@ sw::Vector3f sw::Transform::getGlobalTransformPoint(const sw::Vector3f& point)
 
 sw::Vector3f sw::Transform::getGlobalTransformPoint(float x, float y, float z)
 {
-    if (m_need_update) {
+    if (m_needUpdate) {
         m_globalMatrix = getGlobalMatrix();
-        m_need_update = false;
+        m_needUpdate = false;
     }
     glm::vec4 resultMatrix = m_globalMatrix * glm::vec4(x, y, z, 1);
 

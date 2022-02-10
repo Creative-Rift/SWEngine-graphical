@@ -16,13 +16,13 @@ m_globalPosition(0, 0, 0),
 m_scale(1, 1, 1),
 m_globalScale(1, 1, 1),
 m_angle(0),
-m_rotation(0, 1, 0),
-m_globalRotation(0, 0, 0),
-m_need_update(false){}
+m_rotationAxis(0, 1, 0),
+m_globalRotationAxis(0, 0, 0),
+m_needUpdate(false){}
 
 bool sw::Transform::checkUpdate() const
 {
-    return (m_need_update);
+    return (m_needUpdate);
 }
 
 std::string sw::Transform::type() const
