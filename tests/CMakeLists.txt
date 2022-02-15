@@ -16,8 +16,6 @@ project( "SWEngine-OpenGLModule test"
         0.1
         DESCRIPTION
         "All test for a graphical module"
-        LANGUAGES
-        CXX C
         )
 set( EXEC test.out )
 set( EXT cpp )
