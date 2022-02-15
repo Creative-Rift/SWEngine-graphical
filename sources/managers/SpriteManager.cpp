@@ -15,6 +15,6 @@ void sw::SpriteManager::onUpdate()
     for (auto& [name, object] : m_components) {
         glUseProgram((*object).getShader().getId());
         glBindVertexArray((*object).getVertexArray().getVAO());
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     }
 }

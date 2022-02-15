@@ -19,13 +19,15 @@ namespace sw
         private:
             unsigned int m_vbo;
             unsigned int m_vao;
+            unsigned int m_ebo;
             ::std::vector<Vertex> m_array;
-            float vertices[9];
+            unsigned int m_indices[6];
         public:
             VertexArray();
             ~VertexArray();
             void update();
             [[nodiscard]] const unsigned int& getVAO() const noexcept;
+            [[nodiscard]] const unsigned int& getEBO() const noexcept;
     }; // class VertexArray
 } // namespace sw
 

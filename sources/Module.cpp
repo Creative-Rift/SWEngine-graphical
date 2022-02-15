@@ -46,7 +46,7 @@ void sw::OpenGLModule::initialize()
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         throw sw::Error("Failed to initialize GLAD", "");
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, 1920, 1080);
     setUpCallBack();
 }
 
