@@ -22,7 +22,7 @@ namespace sw
             ~OpenResources();
             void loadResources() override;
             void unloadResources() override;
-            void loadResourcesFile(const std::string &path) override;
+            void addNeededResource(const std::string& name, const std::string& path, const std::string& type) override;
     }; // class Resources
 
 } // namespace sw

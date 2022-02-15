@@ -54,6 +54,7 @@ void sw::OpenGLModule::update()
 {
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+    sw::Engine::activeScene().update();
 }
 
 void sw::OpenGLModule::terminate()
@@ -87,3 +88,6 @@ std::string sw::OpenGLModule::type() const
 {
     return (std::string{"OpenGLModule"});
 }
+
+void sw::OpenGLModule::loadResourcesFile(const std::string &path)
+{}

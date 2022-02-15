@@ -39,6 +39,7 @@ namespace sw
             void terminate() override;
             bool isOk() override;
             [[nodiscard]] std::string type() const override;
+            void loadResourcesFile(const std::string &path) override;
 
             std::unique_ptr<sw::AResources> createResourceInstance() override;
     }; // class OpenGLModule

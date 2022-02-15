@@ -6,8 +6,8 @@
 ** Description: [CHANGE]
 */
 
-#ifndef SWENGINE_OPENGLMODULE_TEST_VERTEX_HPP
-#define SWENGINE_OPENGLMODULE_TEST_VERTEX_HPP
+#ifndef SWENGINE_OPENGLMODULE_VERTEX_HPP
+#define SWENGINE_OPENGLMODULE_VERTEX_HPP
 
 #include "SW/Utils.hpp"
 #include "Vector3.hpp"
@@ -19,17 +19,17 @@ namespace sw
     {
         public:
             Vector3f m_position;
-            Vector2f m_textureCoord;
-            Color m_color;
+            //Vector2f m_textureCoord;
+            //Color m_color;
 
-            constexpr Vertex();
-            constexpr Vertex(Vector3f& position);
-            constexpr Vertex(Vector3f& position, Vector2f& textureCoord);
-            constexpr Vertex(Vector3f& position, Color& color);
-            constexpr Vertex(Vector3f& position, Vector2f& textureCoord, Color& color);
+            Vertex();
+            explicit Vertex(Vector3f& position);
+            //constexpr Vertex(Vector3f& position, Vector2f& textureCoord);
+            //constexpr Vertex(Vector3f& position, Color& color);
+            //constexpr Vertex(Vector3f& position, Vector2f& textureCoord, Color& color);
     }; // class Vertex
 
     #include "Vertex.inl"
 } // namespace sw
 
-#endif //SWENGINE_OPENGLMODULE_TEST_VERTEX_HPP
+#endif //SWENGINE_OPENGLMODULE_VERTEX_HPP

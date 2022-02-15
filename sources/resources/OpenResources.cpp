@@ -14,7 +14,7 @@ sw::OpenResources::~OpenResources()
 void sw::OpenResources::loadResources()
 {}
 
-void sw::OpenResources::loadResourcesFile(const std::string &path)
+void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {}
 
 void sw::OpenResources::unloadResources()

@@ -22,6 +22,7 @@ set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/components/
         ${CMAKE_SOURCE_DIR}/sources/resources/
         ${CMAKE_SOURCE_DIR}/sources/utils/
+        ${CMAKE_SOURCE_DIR}/sources/managers/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
@@ -29,6 +30,11 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/core/
         ${CMAKE_SOURCE_DIR}/includes/
         ${CMAKE_SOURCE_DIR}/includes/components/
+        ${CMAKE_SOURCE_DIR}/includes/dependencies/
+        ${CMAKE_SOURCE_DIR}/includes/managers/
+        ${CMAKE_SOURCE_DIR}/includes/resources/
+        ${CMAKE_SOURCE_DIR}/includes/utils/
+        ${CMAKE_SOURCE_DIR}/includes/managers/
         ${CMAKE_SOURCE_DIR}/includes/managers/
         )
 
