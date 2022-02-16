@@ -9,7 +9,12 @@
 #include "resources/OpenResources.hpp"
 
 sw::OpenResources::~OpenResources()
-{}
+{
+    while(!m_tx.empty())
+    {
+        m_tx.pop();
+    }
+}
 
 void sw::OpenResources::loadResources()
 {}
