@@ -9,7 +9,7 @@
 #ifndef SWENGINE_GRAPHICAL_OPENGLMODULE_HPP
 #define SWENGINE_GRAPHICAL_OPENGLMODULE_HPP
 
-#include "glad/glad.h"
+#include "dependencies/glad/glad.h"
 #include "GLFW/glfw3.h"
 
 #include "SW/Engine.hpp"
