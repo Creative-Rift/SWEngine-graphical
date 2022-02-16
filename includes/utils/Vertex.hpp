@@ -18,9 +18,9 @@ namespace sw
     class Vertex
     {
         public:
-            Vector3f m_position;
-            Color m_color;
-            //Vector2f m_textureCoord;
+            Vector3f position;
+            Color color;
+            //Vector2f textureCoord;
 
             Vertex();
             explicit Vertex(Vector3f& position);

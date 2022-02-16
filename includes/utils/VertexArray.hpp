@@ -28,6 +28,7 @@ namespace sw
             void update();
             [[nodiscard]] const unsigned int& getVAO() const noexcept;
             [[nodiscard]] const unsigned int& getEBO() const noexcept;
+            Vertex& operator [](std::size_t index);
     }; // class VertexArray
 } // namespace sw
 

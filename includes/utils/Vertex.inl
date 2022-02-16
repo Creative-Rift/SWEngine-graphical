@@ -7,14 +7,14 @@
 */
 
 inline Vertex::Vertex() :
-m_position{0, 0, 0},
-m_color(1.0f, 1.0f, 1.0f)
+position{0, 0, 0},
+color(1.0f, 1.0f, 1.0f)
 //m_textureCoord(0, 0),
 {}
 
 inline Vertex::Vertex(Vector3f& position) :
-m_position(position.x, position.y, position.z),
-m_color(1.0f, 1.0f, 1.0f, 1.0f)
+position(position.x, position.y, position.z),
+color(1.0f, 1.0f, 1.0f, 1.0f)
 //m_textureCoord(0, 0),
 {}
 
@@ -25,8 +25,8 @@ m_color(1.0f, 1.0f, 1.0f, 1.0f)
 //{}
 
 inline Vertex::Vertex(Vector3f& position, Color& color) :
-m_position(position.x, position.y, position.z),
-m_color(color.r, color.g, color.b, color.a)
+position(position.x, position.y, position.z),
+color(color.r, color.g, color.b, color.a)
 //m_textureCoord(0, 0),
 {}
 

@@ -71,3 +71,8 @@ const unsigned int& sw::VertexArray::getEBO() const noexcept
 {
     return (m_ebo);
 }
+
+sw::Vertex &sw::VertexArray::operator[](std::size_t index)
+{
+    return (m_array.at(index));
+}
