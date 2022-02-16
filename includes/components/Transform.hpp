@@ -34,13 +34,9 @@ namespace sw
 
             mutable bool m_needUpdate;         // Define if the transform need an update
 
-            void needUpdate() {
-                m_needUpdate = true;
+            void needUpdate(bool value) {
+                m_needUpdate = value;
             }
-            void notNeedUpdate() {
-                m_needUpdate = false;
-            }
-
             ///////////////////////////////////////////////////////////////////
             ///
             /// Update the matrix.
