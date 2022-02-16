@@ -15,10 +15,10 @@ namespace sw
 {
     class Color {
         public:
-            std::uint8_t r; // Red value
-            std::uint8_t g; // Green value
-            std::uint8_t b; // Blue value
-            std::uint8_t a; // Alpha value
+            float r; // Red value
+            float g; // Green value
+            float b; // Blue value
+            float a; // Alpha value
 
             ////////////////////////////////////////////////////////////
             /// @brief Default constructor
@@ -37,7 +37,7 @@ namespace sw
             /// @param alpha    Value in range [0, 255]
             ///
             ////////////////////////////////////////////////////////////
-            constexpr Color(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha = 255);
+            constexpr Color(float red, float green, float blue, float alpha = 255);
 
     }; // class Color
 

@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+#include "SW/Errors.hpp"
+
 #include "dependencies/glad/glad.h"
 
 #include "utils/Shader.hpp"
@@ -37,4 +39,33 @@ sw::Shader::~Shader()
 const unsigned int &sw::Shader::getId() const noexcept
 {
     return (m_id);
+}
+
+void sw::Shader::useShader() const
+{
+    glUseProgram(getId());
+}
+
+int sw::Shader::getUniLocation(std::string &name) const
+{
+    int result = glGetUniformLocation(m_id, name.c_str());
+
+    if (result == -1)
+        throw sw::Error("Uniform shader variable not found", "");
+    return (result);
+}
+
+void sw::Shader::setUniBool(std::string& varName, bool &value)
+{
+    glUniform1i(getUniLocation(varName), value);
+}
+
+void sw::Shader::setUniInt(std::string& varName, int &value)
+{
+    glUniform1i(getUniLocation(varName), value);
+}
+
+void sw::Shader::setUniFloat(std::string& varName, float &value)
+{
+    glUniform1f(getUniLocation(varName), value);
 }

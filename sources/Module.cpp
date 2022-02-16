@@ -89,5 +89,5 @@ std::string sw::OpenGLModule::type() const
     return (std::string{"OpenGLModule"});
 }
 
-void sw::OpenGLModule::loadResourcesFile(const std::string &path)
-{}
+//void sw::OpenGLModule::loadResourcesFile(const std::string &path)
+//{}

@@ -21,10 +21,17 @@ namespace sw
             ShaderSource m_vertex;
             int m_success;
             char m_info[512];
+
+            int getUniLocation(std::string& name) const;
         public:
             Shader();
             ~Shader();
             [[nodiscard]] const unsigned int& getId() const noexcept;
+            void useShader() const;
+            void setUniBool(std::string& varName, bool& value);
+            void setUniInt(std::string& varName, int& value);
+            void setUniFloat(std::string& varName, float& value);
+            // TODO Add more setUniform
     }; // class Shader
 } // namespace sw
 
