@@ -25,7 +25,7 @@ void sw::Transform::scale(const sw::Vector3f& scale)
         m_globalScale *= scale;
         for (auto& [_, entity] : m_entity.m_childrenMap)
             entity.get().getComponent<sw::Transform>("TransformManager").scale(scale);
-        needUpdate();
+        needUpdate(true);
     }
 }
 

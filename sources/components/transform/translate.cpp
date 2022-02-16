@@ -25,7 +25,7 @@ void sw::Transform::move(const sw::Vector3f& position)
         m_globalPosition += position;
         for (auto& [_, entity] : m_entity.m_childrenMap)
             entity.get().getComponent<sw::Transform>("TransformManager").move(position);
-        needUpdate();
+        needUpdate(true);
     }
 }
 
