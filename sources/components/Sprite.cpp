@@ -19,11 +19,11 @@ m_invertedX(false),
 m_invertedY(false)
 {
     //m_rect = {0.0f, 0.0f, (float)m_texture.getSize().x, (float)m_texture.getSize().y};
-    //m_vertexArray = sf::VertexArray(sf::TriangleStrip, 4);
-    //m_vertexArray[0].position = {m_rect.left, m_rect.top};
-    //m_vertexArray[1].position = {m_rect.left, m_rect.height};
-    //m_vertexArray[2].position = {m_rect.width, m_rect.top};
-    //m_vertexArray[3].position = {m_rect.width, m_rect.height};
+    m_rect = {-0.5, 0.5f, -0.5, 0.5};
+    m_vertexArray[0].position = {m_rect.left, m_rect.top, 0};
+    m_vertexArray[1].position = {m_rect.left, m_rect.height, 0};
+    m_vertexArray[2].position = {m_rect.width, m_rect.top, 0};
+    m_vertexArray[3].position = {m_rect.width, m_rect.height, 0};
     //m_vertexArray[0].texCoords = {m_rect.left, m_rect.top};
     //m_vertexArray[1].texCoords = {m_rect.left, m_rect.height};
     //m_vertexArray[2].texCoords = {m_rect.width, m_rect.top};
@@ -35,7 +35,7 @@ const sw::Shader &sw::Sprite::getShader() const noexcept
     return (m_shader);
 }
 
-const sw::VertexArray &sw::Sprite::getVertexArray() const
+sw::VertexArray &sw::Sprite::getVertexArray()
 {
     return (m_vertexArray);
 }
@@ -43,16 +43,19 @@ const sw::VertexArray &sw::Sprite::getVertexArray() const
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
     //TODO
+    return (*this);
 }
 
 sw::Sprite &sw::Sprite::setTextureRect(sw::FloatRect &rect)
 {
     m_rect = rect;
+    return (*this);
 }
 
 sw::Sprite &sw::Sprite::setColor(const sw::Color &color)
 {
     m_color = color;
+    return (*this);
 }
 
 void sw::Sprite::invertX(bool invert)

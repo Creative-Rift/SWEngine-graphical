@@ -30,10 +30,6 @@ namespace sw
             sw::FloatRect m_rect;
             bool m_invertedX;
             bool m_invertedY;
-
-            void updateInvert();
-
-            void defineRect();
         public:
             Sprite() = delete;
             Sprite(Sprite const&) = delete;
@@ -65,7 +61,7 @@ namespace sw
             ///
             /// \return A copy of vertex array
             ////////////////////////////////////////////////////////////////////////////
-            [[nodiscard]] const VertexArray& getVertexArray() const;
+            [[nodiscard]] VertexArray& getVertexArray();
 
             ////////////////////////////////////////////////////////////////////////////
             /// \brief Define the displayed texture
@@ -99,6 +95,10 @@ namespace sw
 
             [[nodiscard]] const Shader& getShader() const noexcept;
             [[nodiscard]] std::string type() const override { return("Sprite"); };
+
+            void updateInvert();
+
+            void defineRect();
 
     }; // class Sprite
 
