@@ -1,7 +1,7 @@
 #pragma once
 
 #include "dependencies/glad/glad.h"
-#include "dependencies/GLFW/glfw3.h"
+#include "GLFW/glfw3.h"
 
 #include <cstdint>
 #include <array>
