@@ -1,6 +1,6 @@
 #pragma once
 
-sw::Input_buffer::Input_buffer(): m_index(0), m_pos{0,0}
+inline sw::Input_buffer::Input_buffer(): m_index(0), m_pos{0,0}
 {
     sw::Type evt = sw::Type::None;
     std::pair<int,int> ikv{-1,-1};
@@ -11,11 +11,11 @@ sw::Input_buffer::Input_buffer(): m_index(0), m_pos{0,0}
         m_input[i] = std::move(tmp);
 }
 
-sw::Input_buffer::~Input_buffer()
+inline sw::Input_buffer::~Input_buffer()
 {
 }
 
-void sw::Input_buffer::clear()
+inline void sw::Input_buffer::clear()
 {
     sw::Type evt = sw::Type::None;
     std::pair<int,int> ikv{};
@@ -27,7 +27,7 @@ void sw::Input_buffer::clear()
         m_input[i] = std::move(tmp);
 }
 
-void sw::Input_buffer::push(sw::Type& evt, std::pair<int,int>& ikv, std::pair<double,double>& mwi)
+inline void sw::Input_buffer::push(sw::Type& evt, std::pair<int,int>& ikv, std::pair<double,double>& mwi)
 {
     if (evt == sw::Position)
         m_pos = mwi;
@@ -35,7 +35,7 @@ void sw::Input_buffer::push(sw::Type& evt, std::pair<int,int>& ikv, std::pair<do
     m_index = (m_index >= MAX_BUFFER) ? 0 : ++m_index;
 }
 
-const EventInfo* sw::Input_buffer::get() const
+inline const EventInfo* sw::Input_buffer::get() const
 {
     return m_input;
 }

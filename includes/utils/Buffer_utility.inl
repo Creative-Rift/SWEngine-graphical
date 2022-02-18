@@ -1,6 +1,6 @@
 #pragma once
 
-std::string getEventType(const sw::Type &evt)
+inline std::string getEventType(const sw::Type &evt)
 {
     switch(evt)
     {
@@ -18,7 +18,7 @@ std::string getEventType(const sw::Type &evt)
     return "None";
 };
 
-std::string getEventAction(const sw::Type &evt, const int &act)
+inline std::string getEventAction(const sw::Type &evt, const int &act)
 {
     switch(evt)
     {
@@ -48,7 +48,7 @@ std::string getEventAction(const sw::Type &evt, const int &act)
     return "None";
 };
 
-void dumpEvent(const sw::EventInfo* jaj)
+inline void dumpEvent(const sw::EventInfo* jaj)
 {
     for (size_t i = 0 ; i < sw::MAX_BUFFER; ++i)
     {
