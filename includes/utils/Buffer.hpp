@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../OpenGLModule.hpp"
+#include "dependencies/glad/glad.h"
+#include "GLFW/glfw3.h"
 
 #include <cstdint>
 #include <array>
