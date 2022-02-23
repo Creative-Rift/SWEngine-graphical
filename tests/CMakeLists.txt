@@ -16,8 +16,6 @@ project( "SWEngine-OpenGLModule test"
         0.1
         DESCRIPTION
         "All test for a graphical module"
-        LANGUAGES
-        CXX
         )
 set( EXEC test.out )
 set( EXT cpp )
@@ -25,18 +23,22 @@ set( EXT cpp )
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
-        ${CMAKE_SOURCE_DIR}/../
-        ${CMAKE_SOURCE_DIR}/../resources/
+        ${CMAKE_SOURCE_DIR}/sources/component/transform/
+        ${CMAKE_SOURCE_DIR}/sources/template/scenes/
+        ${CMAKE_SOURCE_DIR}/sources/fixture/
+        ${CMAKE_SOURCE_DIR}/../sources/
+        ${CMAKE_SOURCE_DIR}/../sources/resources/
+        ${CMAKE_SOURCE_DIR}/../sources/components/
+        ${CMAKE_SOURCE_DIR}/../sources/utils/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/../libraries/
         ${CMAKE_SOURCE_DIR}/../libraries/core/
         ${CMAKE_SOURCE_DIR}/../includes/
-        ${CMAKE_SOURCE_DIR}/../includes/glad/
-        ${CMAKE_SOURCE_DIR}/../includes/KHR/
         ${CMAKE_SOURCE_DIR}/../includes/resources/
         ${CMAKE_SOURCE_DIR}/../includes/utils/
+        ${CMAKE_SOURCE_DIR}/includes/
         )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME

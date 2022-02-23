@@ -22,6 +22,7 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/
         ${CMAKE_SOURCE_DIR}/libraries/core/
         ${CMAKE_SOURCE_DIR}/libraries/resources/
+        ${CMAKE_SOURCE_DIR}/includes/dependencies/
         )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME

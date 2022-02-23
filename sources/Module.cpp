@@ -7,6 +7,7 @@
 */
 
 #include "SW/utils/Speech.hpp"
+#include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule.hpp"
 #include "OpenGLModule_Config.hpp"
@@ -375,4 +376,38 @@ bool sw::mouseScrolled(const std::pair<double, double> &evt)
             return true;
     }
     return false;
+}
+
+static void addResourcesOnReqScene(jsnp::Token& token)
+{
+    auto& key = token.first;
+    auto& obj = token.second.value<jsnp::Object>();
+    auto& path = obj["Path"].second.value<std::string>();
+    auto& type = obj["Type"].second.value<std::string>();
+
+    if (!std::ifstream(path))
+        sw::Speech::Warning("sw::AddResourcesOnScene - Tag Path <" + path + "> is incorrect!", "3710");
+
+    for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
+        sw::AScene& currentScene = sw::Engine::getScene(value.value<std::string>());
+        currentScene.resources()->addNeededResource(key, path, type);
+    }
+}
+
+void sw::OpenGLModule::loadResourcesFile(const std::string &path)
+{
+    std::ifstream in(path);
+    jsnp::Data data(path);
+
+    if (!in)
+        sw::Speech::Error("sw::LoadResourcesFile - Unable to open file <" + path + ">", "4710");
+    else
+        for (auto token : data()) {
+            auto& obj = token.second.value<jsnp::Object>();
+            if (obj["Scene"].second.value<jsnp::Array>().size() == 0) {
+                sw::Speech::Warning("sw::LoadResourcesFile - tag Scene not found!", "3710");
+                continue;
+            }
+            addResourcesOnReqScene(token);
+        }
 }

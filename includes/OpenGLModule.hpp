@@ -9,7 +9,7 @@
 #ifndef SWENGINE_GRAPHICAL_OPENGLMODULE_HPP
 #define SWENGINE_GRAPHICAL_OPENGLMODULE_HPP
 
-#include "glad/glad.h"
+#include "dependencies/glad/glad.h"
 #include "GLFW/glfw3.h"
 
 #include "SW/Engine.hpp"
@@ -38,6 +38,8 @@ namespace sw
             static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
             static void position_callback(GLFWwindow* window, double xpos, double ypos);
             void setUpCallBack();
+            void loadResourcesFile(const std::string &path) override;
+        
         public:
             explicit OpenGLModule();
             ~OpenGLModule() override = default;
