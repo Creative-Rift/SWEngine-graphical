@@ -11,23 +11,14 @@
 sw::Sprite::Sprite(sw::Entity& entityRef) :
 sw::Component(entityRef),
 m_vertexArray{},
-//m_texture(**sfml::Module::getTexture(std::string("MissingTexture"))),
+m_texture(sw::OpenResources::m_ntext["MissingTexture"]),
 m_textureName("MissingTexture"),
 m_color(),
 m_rect(),
 m_invertedX(false),
 m_invertedY(false)
 {
-    //m_rect = {0.0f, 0.0f, (float)m_texture.getSize().x, (float)m_texture.getSize().y};
-    m_rect = {-0.5, 0.5f, -0.5, 0.5};
-    m_vertexArray[0].position = {m_rect.left, m_rect.top, 0};
-    m_vertexArray[1].position = {m_rect.left, m_rect.height, 0};
-    m_vertexArray[2].position = {m_rect.width, m_rect.top, 0};
-    m_vertexArray[3].position = {m_rect.width, m_rect.height, 0};
-    //m_vertexArray[0].texCoords = {m_rect.left, m_rect.top};
-    //m_vertexArray[1].texCoords = {m_rect.left, m_rect.height};
-    //m_vertexArray[2].texCoords = {m_rect.width, m_rect.top};
-    //m_vertexArray[3].texCoords = {m_rect.width, m_rect.height};
+    m_rect = {0.0f, 0.0f, (float)m_texture->getWidth(), (float)m_texture->getHeight()};
 }
 
 const sw::Shader &sw::Sprite::getShader() const noexcept
@@ -42,7 +33,9 @@ sw::VertexArray &sw::Sprite::getVertexArray()
 
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
-    //TODO
+    m_texture = sw::OpenResources::m_ntext[name];
+    m_rect = {0.0f, 0.0f, (float)m_texture->getWidth(), (float)m_texture->getHeight()};
+    m_textureName = name;
     return (*this);
 }
 
@@ -100,12 +93,23 @@ void sw::Sprite::updateInvert()
 
 void sw::Sprite::defineRect()
 {
-    //m_vertexArray[0].texCoords = {sp.m_rect.left, sp.m_rect.top};
-    //m_vertexArray[1].texCoords = {sp.m_rect.left, sp.m_rect.top + sp.m_rect.height};
-    //m_vertexArray[2].texCoords = {sp.m_rect.left + sp.m_rect.width, sp.m_rect.top};
-    //m_vertexArray[3].texCoords = {sp.m_rect.left + sp.m_rect.width, sp.m_rect.top + sp.m_rect.height};
-    m_vertexArray[0].position = {0, 0, 0};
-    m_vertexArray[1].position = {0, m_rect.height, 0};
-    m_vertexArray[2].position = {m_rect.width, 0, 0};
-    m_vertexArray[3].position = {m_rect.width, m_rect.height, 0};
+    float a = m_rect.left / static_cast<float>(m_texture->getWidth());
+    float b = m_rect.width / static_cast<float>(m_texture->getWidth());
+    float c = m_rect.top / static_cast<float>(m_texture->getHeight());
+    float d = m_rect.height / static_cast<float>(m_texture->getHeight());
+    float scale = 6.0f;
+
+    m_vertexArray[0].textureCoord = {a + b, c + d};
+    m_vertexArray[1].textureCoord = {a + b, c};
+    m_vertexArray[2].textureCoord = {a, c};
+    m_vertexArray[3].textureCoord = {a, c + d};
+    m_vertexArray[1].position = {(m_rect.width / 1920.0f) * scale, 0, 0};
+    m_vertexArray[2].position = {0, 0, 0};
+    m_vertexArray[3].position = {0, (m_rect.height / 1080.0f) * scale, 0};
+    m_vertexArray[0].position = {(m_rect.width / 1920.0f) * scale, (m_rect.height / 1080.0f) * scale, 0};
+}
+
+std::shared_ptr<sw::Texture> sw::Sprite::texture() const
+{
+    return (m_texture);
 }

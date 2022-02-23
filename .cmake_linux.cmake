@@ -9,32 +9,17 @@ project( SWEngine-OpenGLModule
         )
 set( EXEC SWEngine-OpenGLModule )
 set( EXT cpp )
-
-## SOURCE FOLDERS
-set( SRC_FOLDERS
-        ${CMAKE_SOURCE_DIR}/sources/
-        ${CMAKE_SOURCE_DIR}/sources/resources/
-        ${CMAKE_SOURCE_DIR}/sources/utils/
-        )
-## INCLUDE FOLDERS
-set( INC_FOLDERS
-        ${CMAKE_SOURCE_DIR}/includes/
-        ${CMAKE_SOURCE_DIR}/libraries/
-        ${CMAKE_SOURCE_DIR}/libraries/core/
-        ${CMAKE_SOURCE_DIR}/libraries/resources/
-        ${CMAKE_SOURCE_DIR}/includes/dependencies/
-        )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         glfw3
         Jsnp
-        SWEngine-Core
+        SWEngine-Core-Debug
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/libglfw.so
         ${CMAKE_SOURCE_DIR}/libraries/libJsnp.so
-        ${CMAKE_SOURCE_DIR}/libraries/libSWEngine-Core.so
+        ${CMAKE_SOURCE_DIR}/libraries/libSWEngine-Core-Debug.so
         )
 ## <=====================================>
 

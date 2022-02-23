@@ -9,10 +9,10 @@
 #ifndef SWENGINE_OPENGLMODULE_OPENRESOURCES_HPP
 #define SWENGINE_OPENGLMODULE_OPENRESOURCES_HPP
 
-#include "stb_image.h"
 #include "core/includes/resources/AResources.hpp"
 
 #include "dependencies/glad/glad.h"
+#include "dependencies/resources/stb_image.h"
 
 #include <queue>
 #include <memory>
@@ -34,12 +34,13 @@ namespace sw
             glBindTexture(GL_TEXTURE_2D, id);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            stbi_set_flip_vertically_on_load(true);
             unsigned char *data = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
             if (data)
             {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, wdt, hgt, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
                 glGenerateMipmap(GL_TEXTURE_2D);
             } else
                 std::cout << "Failed to load texture" << std::endl;

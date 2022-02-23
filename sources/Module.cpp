@@ -186,6 +186,7 @@ m_window(nullptr)
 
 void sw::OpenGLModule::initialize()
 {
+    sw::Speech::flush();
     if (!glfwInit())
         throw sw::Error("Cannot initialize GLFW", "");
 
@@ -215,6 +216,7 @@ void sw::OpenGLModule::initialize()
         throw sw::Error("Failed to initialize GLAD", "");
 
     glViewport(0, 0, 1920, 1080);
+    loadResourcesFile("resources/textures.json");
     setUpCallBack();
 }
 

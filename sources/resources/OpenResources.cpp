@@ -14,9 +14,10 @@
 #include <filesystem>
 #include <memory>
 
+sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
+
 sw::OpenResources::~OpenResources()
-{
-}
+= default;
 
 void sw::OpenResources::loadResources()
 {
@@ -46,9 +47,9 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
 
 void sw::OpenResources::unloadResources()
 {
-    for(auto &itr = m_ntext.begin(); itr != m_ntext.end(); itr++)
+    for(auto &[_, ptr] : m_ntext)
     {
-        delete (itr->second);
+        ptr.reset();
     }
     m_ntext.clear();
 }

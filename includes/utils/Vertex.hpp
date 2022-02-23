@@ -20,13 +20,13 @@ namespace sw
         public:
             Vector3f position;
             Color color;
-            //Vector2f textureCoord;
+            Vector2f textureCoord;
 
             Vertex();
             explicit Vertex(Vector3f& position);
-            //constexpr Vertex(Vector3f& position, Vector2f& textureCoord);
+            Vertex(Vector3f& position, Vector2f& textureCoord);
             Vertex(Vector3f& position, Color& color);
-            //constexpr Vertex(Vector3f& position, Vector2f& textureCoord, Color& color);
+            Vertex(Vector3f& position, Vector2f& textureCoord, Color& color);
     }; // class Vertex
 
     #include "Vertex.inl"
