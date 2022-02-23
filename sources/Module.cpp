@@ -220,12 +220,6 @@ void sw::OpenGLModule::initialize()
 
 void sw::OpenGLModule::update()
 {
-    auto mouse = sw::Type::Mouse;
-    auto button_1 = sw::MouseBtn::Button_1;
-
-    auto kb = sw::Type::Keyboard;
-    auto z = sw::Keyboard::Z;
-
     glfwSwapBuffers(m_window);
     glfwPollEvents();
 
