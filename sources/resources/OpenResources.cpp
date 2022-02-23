@@ -46,5 +46,9 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
 
 void sw::OpenResources::unloadResources()
 {
+    for(auto &itr = m_ntext.begin(); itr != m_ntext.end(); itr++)
+    {
+        delete (itr->second);
+    }
     m_ntext.clear();
 }
