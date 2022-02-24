@@ -41,6 +41,7 @@ namespace sw
             void loadResourcesFile(const std::string &path) override;
         
         public:
+            sw::Chrono m_chrono;
             explicit OpenGLModule();
             ~OpenGLModule() override = default;
 

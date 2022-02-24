@@ -40,7 +40,8 @@ namespace sw
             unsigned char *data = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
             if (data)
             {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+                glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
                 glGenerateMipmap(GL_TEXTURE_2D);
             } else
                 std::cout << "Failed to load texture" << std::endl;

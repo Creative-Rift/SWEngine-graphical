@@ -14,8 +14,8 @@ void sw::SpriteManager::onUpdate()
 {
     for (auto& [_, object] : m_components) {
         glBindTexture(GL_TEXTURE_2D, object->texture()->getId());
-        object->getShader().useShader();
         object->defineRect();
+        object->getShader().useShader();
         //object->updateInvert();
         object->getVertexArray().update();
         glBindVertexArray((*object).getVertexArray().getVAO());

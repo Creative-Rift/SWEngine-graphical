@@ -181,7 +181,8 @@ SW_GRAPH_MODULE_EXPORT std::map<int, int> m_key_flags = {
 
 sw::OpenGLModule::OpenGLModule() :
 sw::AModule(),
-m_window(nullptr)
+m_window(nullptr),
+m_chrono(sw::Chrono::Wait)
 {}
 
 void sw::OpenGLModule::initialize()
@@ -218,6 +219,7 @@ void sw::OpenGLModule::initialize()
     glViewport(0, 0, 1920, 1080);
     loadResourcesFile("resources/textures.json");
     setUpCallBack();
+    m_chrono.start();
 }
 
 void sw::OpenGLModule::update()
@@ -234,6 +236,7 @@ void sw::OpenGLModule::update()
     std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
     event_buffer.clear();
     sw::Engine::activeScene().update();
+    m_chrono.tour();
 }
 
 void sw::OpenGLModule::terminate()

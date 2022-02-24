@@ -111,6 +111,18 @@ namespace sw
             /// \return reference to your sprite
             ////////////////////////////////////////////////////////////////////////////
             Animator& setFPS(float fps);
+
+            [[nodiscard]]const bool& isLoop() const;
+            [[nodiscard]]const sw::Vector2u& getRect() const;
+            [[nodiscard]]float& getLastFrame();
+            [[nodiscard]]int& getEndFrame();
+            [[nodiscard]]const float& getLoopDelay() const;
+            [[nodiscard]]const float& getFPS() const;
+            [[nodiscard]]sw::FloatRect& getDisplayRect();
+            [[nodiscard]]sw::Sprite& getSprite();
+            Animator& setPlaying(bool play);
+            Animator& setDisplayRect(sw::FloatRect rect);
+
     }; // class Animator
 
 } // namespace sw

@@ -18,7 +18,7 @@ namespace sw
     {
         public:
             using sw::AManager<Sprite>::AManager;
-            ~SpriteManager() = default;
+            ~SpriteManager() override = default;
 
             void onUpdate() override;
             [[nodiscard]] std::string type() const override { return(std::string("Sprite Manager")); };
