@@ -51,7 +51,7 @@ int sw::Shader::getUniLocation(std::string &name) const
     int result = glGetUniformLocation(m_id, name.c_str());
 
     if (result == -1)
-        throw sw::Error("Uniform shader variable not found", "");
+        throw sw::Error("Uniform shader variable not found: " + name, "");
     return (result);
 }
 
