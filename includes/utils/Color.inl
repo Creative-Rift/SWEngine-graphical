@@ -13,7 +13,7 @@ b(0),
 a(255)
 {}
 
-constexpr sw::Color::Color(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha) :
+constexpr sw::Color::Color(float red, float green, float blue, float alpha) :
 r(red),
 g(green),
 b(blue),

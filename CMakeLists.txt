@@ -20,6 +20,8 @@ project( SWEngine-OpenGLModule
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/
         ${CMAKE_SOURCE_DIR}/sources/components/
+        ${CMAKE_SOURCE_DIR}/sources/components/transform/
+        ${CMAKE_SOURCE_DIR}/sources/managers/
         ${CMAKE_SOURCE_DIR}/sources/resources/
         ${CMAKE_SOURCE_DIR}/sources/utils/
         )
@@ -29,7 +31,10 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/core/
         ${CMAKE_SOURCE_DIR}/includes/
         ${CMAKE_SOURCE_DIR}/includes/components/
+        ${CMAKE_SOURCE_DIR}/includes/dependencies/
         ${CMAKE_SOURCE_DIR}/includes/managers/
+        ${CMAKE_SOURCE_DIR}/includes/resources/
+        ${CMAKE_SOURCE_DIR}/includes/utils/
         )
 
 if (WIN32)

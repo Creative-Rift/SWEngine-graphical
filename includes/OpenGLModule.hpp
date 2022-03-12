@@ -38,7 +38,10 @@ namespace sw
             static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
             static void position_callback(GLFWwindow* window, double xpos, double ypos);
             void setUpCallBack();
+            void loadResourcesFile(const std::string &path) override;
+        
         public:
+            sw::Chrono m_chrono;
             explicit OpenGLModule();
             ~OpenGLModule() override = default;
 
@@ -47,6 +50,7 @@ namespace sw
             void terminate() override;
             bool isOk() override;
             [[nodiscard]] std::string type() const override;
+            //void loadResourcesFile(const std::string &path) override;
 
             std::unique_ptr<sw::AResources> createResourceInstance() override;
     }; // class OpenGLModule

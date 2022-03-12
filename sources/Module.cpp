@@ -7,6 +7,7 @@
 */
 
 #include "SW/utils/Speech.hpp"
+#include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule.hpp"
 #include "OpenGLModule_Config.hpp"
@@ -180,12 +181,13 @@ SW_GRAPH_MODULE_EXPORT std::map<int, int> m_key_flags = {
 
 sw::OpenGLModule::OpenGLModule() :
 sw::AModule(),
-m_window(nullptr)
-{
-}
+m_window(nullptr),
+m_chrono(sw::Chrono::Wait)
+{}
 
 void sw::OpenGLModule::initialize()
 {
+    sw::Speech::flush();
     if (!glfwInit())
         throw sw::Error("Cannot initialize GLFW", "");
 
@@ -213,19 +215,15 @@ void sw::OpenGLModule::initialize()
     glfwMakeContextCurrent(m_window);
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         throw sw::Error("Failed to initialize GLAD", "");
-    glViewport(0, 0, 800, 600);
-    
+
+    glViewport(0, 0, 1920, 1080);
+    loadResourcesFile("resources/textures.json");
     setUpCallBack();
+    m_chrono.start();
 }
 
 void sw::OpenGLModule::update()
 {
-    auto mouse = sw::Type::Mouse;
-    auto button_1 = sw::MouseBtn::Button_1;
-
-    auto kb = sw::Type::Keyboard;
-    auto z = sw::Keyboard::Z;
-
     glfwSwapBuffers(m_window);
     glfwPollEvents();
 
@@ -237,6 +235,8 @@ void sw::OpenGLModule::update()
 
     std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
     event_buffer.clear();
+    sw::Engine::activeScene().update();
+    m_chrono.tour();
 }
 
 void sw::OpenGLModule::terminate()
@@ -382,3 +382,41 @@ bool sw::mouseScrolled(const std::pair<double, double> &evt)
     }
     return false;
 }
+
+static void addResourcesOnReqScene(jsnp::Token& token)
+{
+    auto& key = token.first;
+    auto& obj = token.second.value<jsnp::Object>();
+    auto& path = obj["Path"].second.value<std::string>();
+    auto& type = obj["Type"].second.value<std::string>();
+
+    if (!std::ifstream(path))
+        sw::Speech::Warning("sw::AddResourcesOnScene - Tag Path <" + path + "> is incorrect!", "3710");
+
+
+    for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
+        auto yolo = value.value<std::string>();
+
+        std::cout << yolo << std::endl;
+        sw::AScene& currentScene = sw::Engine::getScene(yolo);
+        currentScene.resources()->addNeededResource(key, path, type);
+    }
+}
+
+void sw::OpenGLModule::loadResourcesFile(const std::string &path)
+{
+    std::ifstream in(path);
+    jsnp::Data data(path);
+
+    if (!in)
+        sw::Speech::Error("sw::LoadResourcesFile - Unable to open file <" + path + ">", "4710");
+    else
+        for (auto token : data()) {
+            auto& obj = token.second.value<jsnp::Object>();
+            if (obj["Scene"].second.value<jsnp::Array>().size() == 0) {
+                sw::Speech::Warning("sw::LoadResourcesFile - tag Scene not found!", "3710");
+                continue;
+            }
+            addResourcesOnReqScene(token);
+        }
+} 
