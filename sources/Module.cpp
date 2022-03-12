@@ -393,8 +393,12 @@ static void addResourcesOnReqScene(jsnp::Token& token)
     if (!std::ifstream(path))
         sw::Speech::Warning("sw::AddResourcesOnScene - Tag Path <" + path + "> is incorrect!", "3710");
 
+
     for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
-        sw::AScene& currentScene = sw::Engine::getScene(value.value<std::string>());
+        auto yolo = value.value<std::string>();
+
+        std::cout << yolo << std::endl;
+        sw::AScene& currentScene = sw::Engine::getScene(yolo);
         currentScene.resources()->addNeededResource(key, path, type);
     }
 }
@@ -415,4 +419,4 @@ void sw::OpenGLModule::loadResourcesFile(const std::string &path)
             }
             addResourcesOnReqScene(token);
         }
-}
+} 
