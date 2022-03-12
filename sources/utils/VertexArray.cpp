@@ -21,10 +21,10 @@ m_indices{0, 1, 3, 1, 2, 3}
     sw::Vector3f b{0.5f, -0.5f, 0.0f};
     sw::Vector3f c{-0.5f, -0.5f, 0.0f};
     sw::Vector3f d{-0.5f, 0.5f, 0.0f};
-    sw::Color c1{1, 0, 0};
-    sw::Color c2{0, 1, 0};
-    sw::Color c3{0, 0, 1};
-    sw::Color c4{1, 1, 0};
+    sw::Color c1{1, 1, 1, 1};
+    sw::Color c2{1, 1, 1, 1};
+    sw::Color c3{1, 1, 1, 1};
+    sw::Color c4{1, 1, 1, 1};
     m_array.emplace_back(sw::Vertex{a, c1});
     m_array.emplace_back(sw::Vertex{b, c2});
     m_array.emplace_back(sw::Vertex{c, c3});

@@ -48,6 +48,10 @@ sw::Sprite &sw::Sprite::setTextureRect(sw::FloatRect &rect)
 sw::Sprite &sw::Sprite::setColor(const sw::Color &color)
 {
     m_color = color;
+    m_vertexArray[1].color = m_color;
+    m_vertexArray[0].color = m_color;
+    m_vertexArray[3].color = m_color;
+    m_vertexArray[2].color = m_color;
     return (*this);
 }
 
@@ -97,16 +101,15 @@ void sw::Sprite::defineRect()
     float b = m_rect.width / static_cast<float>(m_texture->getWidth());
     float c = m_rect.top / static_cast<float>(m_texture->getHeight());
     float d = m_rect.height / static_cast<float>(m_texture->getHeight());
-    float scale = 6.0f;
 
-    m_vertexArray[0].textureCoord = {a + b, c + d};
-    m_vertexArray[1].textureCoord = {a + b, c};
-    m_vertexArray[2].textureCoord = {a, c};
-    m_vertexArray[3].textureCoord = {a, c + d};
-    m_vertexArray[1].position = {(m_rect.width / 1920.0f) * scale, 0, 0};
+    m_vertexArray[1].textureCoord = {a + b, c + d};
+    m_vertexArray[0].textureCoord = {a + b, c};
+    m_vertexArray[3].textureCoord = {a, c};
+    m_vertexArray[2].textureCoord = {a, c + d};
+    m_vertexArray[1].position = {(m_rect.width), 0, 0};
     m_vertexArray[2].position = {0, 0, 0};
-    m_vertexArray[3].position = {0, (m_rect.height / 1080.0f) * scale, 0};
-    m_vertexArray[0].position = {(m_rect.width / 1920.0f) * scale, (m_rect.height / 1080.0f) * scale, 0};
+    m_vertexArray[3].position = {0, (m_rect.height), 0};
+    m_vertexArray[0].position = {(m_rect.width), (m_rect.height), 0};
 }
 
 std::shared_ptr<sw::Texture> sw::Sprite::texture() const

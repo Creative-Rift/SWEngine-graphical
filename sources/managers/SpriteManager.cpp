@@ -17,7 +17,10 @@ void sw::SpriteManager::onUpdate()
 {
     glm::mat4 view          = glm::mat4(1.0f);
     glm::mat4 projection    = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)1920 / (float)1080, 0.1f, 100.0f);
+    view = glm::translate(view, glm::vec3(0, 0, -10.0f));
+    //projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 1000.0f);
+    //projection = glm::ortho(-1920.0f / 2, 1920.0f / 2, 1080.0f / 2, -1080.0f / 2, 0.3f, 1000.0f); // 0, 0 at center
+    projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, 0.3f, 1000.0f);
 
     for (auto& [_, object] : m_components) {
         auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
@@ -31,5 +34,6 @@ void sw::SpriteManager::onUpdate()
         object->getVertexArray().update();
         glBindVertexArray((*object).getVertexArray().getVAO());
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glBindVertexArray(0);
     }
 }
