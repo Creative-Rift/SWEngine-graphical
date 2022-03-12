@@ -6,6 +6,7 @@
 ** Description: [CHANGE]
 */
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "resources/OpenResources.hpp"
 #include "SW/Engine.hpp"
 #include "dependencies/glad/glad.h"

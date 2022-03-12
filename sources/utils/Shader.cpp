@@ -55,17 +55,22 @@ int sw::Shader::getUniLocation(std::string &name) const
     return (result);
 }
 
-void sw::Shader::setUniBool(std::string& varName, bool &value)
+void sw::Shader::setUniBool(std::string varName, bool &value) const
 {
     glUniform1i(getUniLocation(varName), value);
 }
 
-void sw::Shader::setUniInt(std::string& varName, int &value)
+void sw::Shader::setUniInt(std::string varName, int &value) const
 {
     glUniform1i(getUniLocation(varName), value);
 }
 
-void sw::Shader::setUniFloat(std::string& varName, float &value)
+void sw::Shader::setUniFloat(std::string varName, float &value) const
 {
     glUniform1f(getUniLocation(varName), value);
+}
+
+void sw::Shader::setUniMat4(std::string varName, const glm::mat4 &matrix) const
+{
+    glUniformMatrix4fv(getUniLocation(varName), 1, GL_FALSE, glm::value_ptr(matrix));
 }

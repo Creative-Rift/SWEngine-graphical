@@ -9,6 +9,9 @@
 #ifndef SWENGINE_OPENGLMODULE_SHADER_HPP
 #define SWENGINE_OPENGLMODULE_SHADER_HPP
 
+#include "dependencies/glm/glm.hpp"
+#include "dependencies/glm/gtc/type_ptr.hpp"
+
 #include "ShaderSource.hpp"
 
 namespace sw
@@ -28,9 +31,10 @@ namespace sw
             ~Shader();
             [[nodiscard]] const unsigned int& getId() const noexcept;
             void useShader() const;
-            void setUniBool(std::string& varName, bool& value);
-            void setUniInt(std::string& varName, int& value);
-            void setUniFloat(std::string& varName, float& value);
+            void setUniBool(std::string varName, bool& value) const;
+            void setUniInt(std::string varName, int& value) const;
+            void setUniFloat(std::string varName, float& value) const;
+            void setUniMat4(std::string varName, const glm::mat4& matrix) const;
             // TODO Add more setUniform
     }; // class Shader
 } // namespace sw
