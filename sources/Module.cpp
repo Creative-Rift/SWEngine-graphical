@@ -233,9 +233,9 @@ void sw::OpenGLModule::update()
             i.second = sw::Actions::A_UP;
     };
 
+    sw::Engine::activeScene().update();
     std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
     event_buffer.clear();
-    sw::Engine::activeScene().update();
     m_chrono.tour();
 }
 
@@ -316,7 +316,8 @@ bool sw::isKeyPressed(sw::Type& evt, const int& kys)
     switch (evt)
     {
     case sw::Type::Keyboard:
-        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_PRESS;
+        if (m_key_flags.contains(kys))
+            return m_key_flags.at(kys) == sw::Actions::A_PRESS;
         break;
     case sw::Type::Mouse:
         if (m_key_flags.contains(kys))
@@ -419,4 +420,4 @@ void sw::OpenGLModule::loadResourcesFile(const std::string &path)
             }
             addResourcesOnReqScene(token);
         }
-} 
+}
