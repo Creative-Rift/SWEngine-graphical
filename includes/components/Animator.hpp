@@ -18,6 +18,15 @@ namespace sw
 {
     class Animator : public sw::Component
     {
+        public:
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Define the type of the animation
+            ////////////////////////////////////////////////////////////////////////////
+            enum AnimType {
+                ANIM_SPRITE,
+                ANIM_LINE
+            };
+
         private:
             sw::Vector2u m_rect;
             sw::FloatRect m_displayRect;
@@ -27,17 +36,10 @@ namespace sw
             bool m_isPlaying;
             bool m_loop;
             float m_framePerSecond;
+            AnimType m_type;
 
             Sprite& m_spr;
         public:
-
-            ////////////////////////////////////////////////////////////////////////////
-            /// \brief Define the type of the animation
-            ////////////////////////////////////////////////////////////////////////////
-            enum Anim_type {
-                ANIM_SPRITE,
-                ANIM_LINE
-            } m_animType;
 
             ////////////////////////////////////////////////////////////////////////////
             /// \brief Default constructor
@@ -112,14 +114,17 @@ namespace sw
             ////////////////////////////////////////////////////////////////////////////
             Animator& setFPS(float fps);
 
+            Animator& setAnimType(AnimType type);
+
             [[nodiscard]]const bool& isLoop() const;
             [[nodiscard]]const sw::Vector2u& getRect() const;
             [[nodiscard]]float& getLastFrame();
             [[nodiscard]]int& getEndFrame();
             [[nodiscard]]const float& getLoopDelay() const;
             [[nodiscard]]const float& getFPS() const;
-            [[nodiscard]]sw::FloatRect& getDisplayRect();
-            [[nodiscard]]sw::Sprite& getSprite();
+            [[nodiscard]]FloatRect& getDisplayRect();
+            [[nodiscard]]Sprite& getSprite();
+            [[nodiscard]]AnimType& getAnimType();
             Animator& setPlaying(bool play);
             Animator& setDisplayRect(sw::FloatRect rect);
 

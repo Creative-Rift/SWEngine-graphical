@@ -224,7 +224,8 @@ void sw::OpenGLModule::initialize()
 
 void sw::OpenGLModule::update()
 {
-    glfwSwapBuffers(m_window);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
     glfwPollEvents();
 
     auto toUp = [](auto &i)
@@ -237,6 +238,7 @@ void sw::OpenGLModule::update()
     std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
     event_buffer.clear();
     m_chrono.tour();
+    glfwSwapBuffers(m_window);
 }
 
 void sw::OpenGLModule::terminate()

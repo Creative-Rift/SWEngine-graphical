@@ -16,6 +16,7 @@
 #include "utils/VertexArray.hpp"
 #include "utils/Shader.hpp"
 #include "resources/OpenResources.hpp"
+#include "components/Material.hpp"
 
 namespace sw
 {
@@ -24,10 +25,8 @@ namespace sw
 
         private:
             VertexArray m_vertexArray;
-            std::shared_ptr<sw::Texture> m_texture;
-            std::string m_textureName;
+            Material m_material;
             Color m_color;
-            Shader m_shader;
             sw::FloatRect m_rect;
             bool m_invertedX;
             bool m_invertedY;

@@ -21,14 +21,15 @@ void sw::AnimatorManager::onUpdate()
         if (!obj->isPlaying()) {
             if (obj->isLoop() && (currentTime - obj->getLastFrame()) > obj->getLoopDelay()) {
                 obj->setPlaying(true);
-                obj->setDisplayRect({0, 0, static_cast<float>(obj->getRect().x), static_cast<float>(obj->getRect().y)});
+                obj->getDisplayRect().width = static_cast<float>(obj->getRect().x);
+                obj->getDisplayRect().height = static_cast<float>(obj->getRect().y);
             } else
                 obj->reset();
         }
         if ((currentTime - obj->getLastFrame()) > obj->getFPS()) {
-            if ((*obj).m_animType == sw::Animator::ANIM_LINE) {
+            if ((*obj).getAnimType() == sw::Animator::ANIM_LINE) {
                 animLine((*obj), currentTime);
-            } else if ((*obj).m_animType == sw::Animator::ANIM_SPRITE)
+            } else if ((*obj).getAnimType() == sw::Animator::ANIM_SPRITE)
                 animSprite((*obj), currentTime);
         }
         //}
