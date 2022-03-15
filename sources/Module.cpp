@@ -22,6 +22,13 @@
 
 sw::Input_buffer event_buffer;
 
+SW_GRAPH_MODULE_EXPORT char current_key_flags[sw::Keyboard::LAST];
+SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
+
+SW_GRAPH_MODULE_EXPORT char current_mouse_flags[sw::MouseBtn::Button_last];
+SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
+
+/*
 SW_GRAPH_MODULE_EXPORT std::map<int, int> m_key_flags = {
         {sw::MouseBtn::Button_1, sw::Actions::A_UP},
         {sw::MouseBtn::Button_2, sw::Actions::A_UP},
@@ -178,6 +185,7 @@ SW_GRAPH_MODULE_EXPORT std::map<int, int> m_key_flags = {
         {sw::Keyboard::Z, sw::Actions::A_UP},
         {sw::Keyboard::ZERO, sw::Actions::A_UP}
     };
+*/
 
 sw::OpenGLModule::OpenGLModule() :
 sw::AModule(),
@@ -225,18 +233,21 @@ void sw::OpenGLModule::initialize()
 void sw::OpenGLModule::update()
 {
     glfwSwapBuffers(m_window);
-    glfwPollEvents();
 
+    sw::Engine::activeScene().update();
     auto toUp = [](auto &i)
     {
         if (i.second != sw::Actions::A_UP)
             i.second = sw::Actions::A_UP;
     };
-
-    sw::Engine::activeScene().update();
-    std::for_each(m_key_flags.begin(), m_key_flags.end(), toUp);
+    for (int i = 0; i < sw::Keyboard::LAST; ++i) 
+        previous_key_flags[i] = current_key_flags[i];
+    for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
+        previous_mouse_flags[i] = current_mouse_flags[i];
     event_buffer.clear();
     m_chrono.tour();
+
+    glfwPollEvents();
 }
 
 void sw::OpenGLModule::terminate()
@@ -265,20 +276,15 @@ void sw::OpenGLModule::setUpCallBack()
 
 void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int)
 {
-    std::pair<int,int> input = {key, action};
-    std::pair<double,double> pos{};
-    sw::Type tpe = sw::Keyboard;
-
-    m_key_flags.at(key) = static_cast<sw::Actions>(action);
+    if (action == GLFW_RELEASE) 
+        current_key_flags[key] = 0;
+    else 
+        current_key_flags[key] = 1;
 }
 
 void sw::OpenGLModule::mouse_button_callback(GLFWwindow*, int button, int action, int)
 {
-    std::pair<int,int> ipt = {button, action};
-    std::pair<double,double> pos{};
-    sw::Type tpe = sw::Mouse;
-
-    m_key_flags.at((-button) - 2) = static_cast<sw::Actions>(action);
+    current_mouse_flags[button] = action;
 }
 
 void sw::OpenGLModule::position_callback(GLFWwindow*, double xpos, double ypos)
@@ -311,53 +317,58 @@ std::string sw::OpenGLModule::type() const
     return (std::string{"OpenGLModule"});
 }
 
-bool sw::isKeyPressed(sw::Type& evt, const int& kys)
+bool sw::isKeyPressed(const int& kys)
 {
-    switch (evt)
-    {
-    case sw::Type::Keyboard:
-        if (m_key_flags.contains(kys))
-            return m_key_flags.at(kys) == sw::Actions::A_PRESS;
-        break;
-    case sw::Type::Mouse:
-        if (m_key_flags.contains(kys))
-            return m_key_flags.at(kys) == sw::Actions::A_PRESS;
-        break;
-    default:
-        break;
-    }
+    if ((previous_key_flags[kys] == 0) && (current_key_flags[kys] == 1))
+        return true;
     return false;
 }
 
-bool sw::isKeyDown(sw::Type &evt, const int &kys)
+bool sw::isKeyDown(const int &kys)
 {
-    switch (evt)
-    {
-    case sw::Type::Keyboard:
-        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_REPEAT;
-        break;
-    case sw::Type::Mouse:
-    default:
-        break;
-    }
+    if (current_key_flags[kys] == 1) 
+        return true;
     return false;
 }
 
-bool sw::isKeyReleased(sw::Type &evt, const int &kys)
+bool sw::isKeyReleased(const int &kys)
 {
-    switch (evt)
-    {
-    case sw::Type::Keyboard:
-        if (m_key_flags.contains(kys)) return m_key_flags.at(kys) == sw::Actions::A_RELEASE;
-        break;
-    case sw::Type::Mouse:
-        if (m_key_flags.contains(kys))
-            return m_key_flags.at(kys) == sw::Actions::A_RELEASE;
-        break;
-    default:
-        break;
-    }
+    if ((previous_key_flags[kys] == 1) && (current_key_flags[kys] == 0)) 
+        return true;
     return false;
+}
+
+bool sw::isKeyUp(const int &kys)
+{
+    if (current_key_flags[kys] == 0)
+        return true;
+    return false;
+}
+
+bool sw::isMouseButtonPressed(const int &btn)
+{
+    if ((previous_mouse_flags[btn] == 0) && (current_mouse_flags[btn] == 1))
+        return true;
+    return false;
+}
+
+bool sw::isMouseButtonDown(const int &btn)
+{
+    if (current_mouse_flags[btn] == 1)
+        return true;
+    return false;
+}
+
+bool sw::isMouseButtonReleased(const int &btn)
+{
+    if ((previous_mouse_flags[btn] == 1) && (current_mouse_flags[btn] == 0))
+        return true;
+    return false;
+}
+
+bool sw::isMouseButtonUp(const int &btn)
+{
+    return !sw::isMouseButtonDown(btn);
 }
 
 bool sw::mouseMoved()
