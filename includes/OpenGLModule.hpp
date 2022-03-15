@@ -56,39 +56,94 @@ namespace sw
     }; // class OpenGLModule
 
     ////////////////////////////////////////////////////////////
-    /// @brief Return True if given key was pressed
+    /// @brief Return True if given key was pressed once
     ///
-    /// @param sw::Type& const int&
+    /// @param key Selected key from sw::Keyboard enum
     /// 
     /// @return bool
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyPressed(sw::Type&, const int&);//TODO template mouse/keyboard
+    bool isKeyPressed(const int&);//TODO template mouse/keyboard
     
     ////////////////////////////////////////////////////////////
     /// @brief Return True if give key was released
     ///
-    /// @param sw::Type& const int&
+    /// @param key Selected key from sw::Keyboard enum
     /// 
     /// @return bool
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyReleased(sw::Type&, const int&);//same
+    bool isKeyReleased(const int&);//same
     
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given key is held down
     ///
-    /// @param sw::Type& const int&
+    /// @param key Selected key from sw::Keyboard enum
     /// 
     /// @return bool
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyDown(sw::Type&, const int&);//same
+    bool isKeyDown(const int&);//same
     //bool isKeyUp(sw::Type&, const int&);
-    
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given key is not being pressed
+    ///
+    /// @param key Selected button from sw::Keyboard enum
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    bool isKeyUp(const int &kys);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given button is being pressed once
+    ///
+    /// @param button Selected button from sw::Mousebtn enum
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    bool isMouseButtonPressed(const int &btn);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given button is being pressed
+    ///
+    /// @param button Selected button from sw::Mousebtn enum
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    bool isMouseButtonDown(const int &btn);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given button has been released
+    ///
+    /// @param button Selected button from sw::Mousebtn enum
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    bool isMouseButtonReleased(const int &btn);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return True if given button is not being pressed
+    ///
+    /// @param button Selected button from sw::Mousebtn enum
+    /// 
+    /// @return bool
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    bool isMouseButtonUp(const int &btn);
+
     ////////////////////////////////////////////////////////////
     /// @brief Return true if given scroll direction is correct
     ///
