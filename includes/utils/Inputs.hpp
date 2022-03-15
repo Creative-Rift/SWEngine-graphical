@@ -132,17 +132,17 @@ namespace sw
 
     enum MouseBtn
     {
-        Button_1 = GLFW_MOUSE_BUTTON_1 - 2,
-        Button_2 = -GLFW_MOUSE_BUTTON_2 - 2,
-        Button_3 = -GLFW_MOUSE_BUTTON_3 - 2,
-        Button_4 = -GLFW_MOUSE_BUTTON_4 - 2,
-        Button_5 = -GLFW_MOUSE_BUTTON_5 - 2,
-        Button_6 = -GLFW_MOUSE_BUTTON_6 - 2,
-        Button_7 = -GLFW_MOUSE_BUTTON_7 - 2,
-        Button_8 = -GLFW_MOUSE_BUTTON_8 - 2,
-        Button_last = -GLFW_MOUSE_BUTTON_LAST - 2,
-        Button_left = -GLFW_MOUSE_BUTTON_LEFT - 2,
-        Button_right = -GLFW_MOUSE_BUTTON_RIGHT - 2
+        Button_1 = GLFW_MOUSE_BUTTON_1,
+        Button_2 = GLFW_MOUSE_BUTTON_2,
+        Button_3 = GLFW_MOUSE_BUTTON_3,
+        Button_4 = GLFW_MOUSE_BUTTON_4,
+        Button_5 = GLFW_MOUSE_BUTTON_5,
+        Button_6 = GLFW_MOUSE_BUTTON_6,
+        Button_7 = GLFW_MOUSE_BUTTON_7,
+        Button_8 = GLFW_MOUSE_BUTTON_8,
+        Button_last = GLFW_MOUSE_BUTTON_LAST,
+        Button_left = GLFW_MOUSE_BUTTON_LEFT,
+        Button_right = GLFW_MOUSE_BUTTON_RIGHT
     };
 
     enum Actions {
