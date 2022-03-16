@@ -234,6 +234,7 @@ void sw::OpenGLModule::update()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glfwSwapBuffers(m_window);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     sw::Engine::activeScene().update();
     auto toUp = [](auto &i)
@@ -411,7 +412,6 @@ static void addResourcesOnReqScene(jsnp::Token& token)
     for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
         auto yolo = value.value<std::string>();
 
-        std::cout << yolo << std::endl;
         sw::AScene& currentScene = sw::Engine::getScene(yolo);
         currentScene.resources()->addNeededResource(key, path, type);
     }

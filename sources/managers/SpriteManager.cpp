@@ -17,7 +17,8 @@ void sw::SpriteManager::onUpdate()
 {
     sw::ConcreteComponent auto& camera = m_scene.getEntity("MainCamera").getComponent<sw::Camera>("CameraManager");
 
-    for (auto& [_, object] : m_components) {
+    for (auto& [_, name] : m_componentsLayers) {
+        auto& object = m_components[name];
         sw::ConcreteComponent auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
         glBindTexture(GL_TEXTURE_2D, object->texture()->getId());
         object->defineRect();
