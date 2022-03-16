@@ -16,12 +16,12 @@ m_lastFrame(-1.0f),
 m_endFrame(-1.0f),
 m_loopDelay(0.0f),
 m_isPlaying(false),
-m_loop(true),
+m_loop(false),
 m_framePerSecond(0.2),
 m_spr(entityRef.getComponent<sw::Sprite>("SpriteManager")),
 m_type(ANIM_SPRITE)
 {
-    m_displayRect = {0, 0, (float)m_spr.texture()->getWidth(), (float)m_spr.texture()->getHeight()};
+    m_displayRect = {0, 0, static_cast<float>(m_spr.texture()->getWidth()), static_cast<float>(m_spr.texture()->getHeight())};
 }
 
 bool sw::Animator::isPlaying() const
@@ -42,7 +42,7 @@ void sw::Animator::pause()
 void sw::Animator::reset()
 {
     m_isPlaying = false;
-    m_displayRect = {0, 0, (float)m_rect.x, (float)m_rect.y};
+    m_displayRect = {0, 0, static_cast<float>(m_rect.y), static_cast<float>(m_rect.x)};
 }
 
 sw::Animator& sw::Animator::setLoop(bool loop, float delay)
@@ -69,7 +69,6 @@ sw::Animator& sw::Animator::setRect(sw::Vector2u rect)
     m_displayRect.height = m_rect.y;
     m_displayRect.width = m_rect.x;
     m_endFrame = (int)(m_spr.texture()->getWidth() / m_rect.x) + 1;
-    m_displayRect.left -= m_rect.x;
     m_spr.setTextureRect(m_displayRect);
     return (*this);
 }

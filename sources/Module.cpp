@@ -74,7 +74,6 @@ void sw::OpenGLModule::initialize()
 void sw::OpenGLModule::update()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glfwSwapBuffers(m_window);
     glClear(GL_COLOR_BUFFER_BIT);
 
     sw::Engine::activeScene().update();
