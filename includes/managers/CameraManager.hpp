@@ -25,6 +25,6 @@ namespace sw
             [[nodiscard]] std::string type() const override { return(std::string("Camera Manager")); };
     }; // class TransformManager
 
-} // namespace ray
+} // namespace sw
 
 #endif //SWENGINE_OPENGLMODULE_CAMERAMANAGER_HPP

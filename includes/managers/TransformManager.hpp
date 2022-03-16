@@ -25,6 +25,6 @@ namespace sw
             [[nodiscard]] std::string type() const override { return(std::string("Transform Manager")); };
     }; // class TransformManager
 
-} // namespace ray
+} // namespace sw
 
 #endif //SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP
