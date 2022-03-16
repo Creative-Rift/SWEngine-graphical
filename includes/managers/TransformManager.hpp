@@ -6,8 +6,8 @@
 ** Description: [CHANGE]
 */
 
-#ifndef __RAYLIB_MODULE_TRANSFORM_MANAGER_HPP__
-#define __RAYLIB_MODULE_TRANSFORM_MANAGER_HPP__
+#ifndef SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP
+#define SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP
 
 #include "SW/Manager.hpp"
 #include "../components/Transform.hpp"
@@ -25,6 +25,6 @@ namespace sw
             [[nodiscard]] std::string type() const override { return(std::string("Transform Manager")); };
     }; // class TransformManager
 
-} // namespace ray
+} // namespace sw
 
-#endif //__RAYLIB_MODULE_TRANSFORM_MANAGER_HPP__
+#endif //SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP

@@ -235,11 +235,6 @@ void sw::OpenGLModule::update()
     glfwSwapBuffers(m_window);
 
     sw::Engine::activeScene().update();
-    auto toUp = [](auto &i)
-    {
-        if (i.second != sw::Actions::A_UP)
-            i.second = sw::Actions::A_UP;
-    };
     for (int i = 0; i < sw::Keyboard::LAST; ++i) 
         previous_key_flags[i] = current_key_flags[i];
     for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
