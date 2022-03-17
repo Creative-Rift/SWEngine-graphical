@@ -33,7 +33,6 @@ sw::Texture::Texture(std::string path)
     {
         int x,y,n;
         stbi_info(path.c_str(), &x, &y, &n);
-        std::cout << "nbr of component " << n << " for texture: " + path << "\n";
     }
 
     if (data)
@@ -56,7 +55,7 @@ sw::Texture::Texture(std::string path)
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, wdt, hgt, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
                 }break;
             case 4:{
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
                 }break;
             default:
             break;

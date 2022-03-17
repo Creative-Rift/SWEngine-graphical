@@ -24,10 +24,6 @@ m_view(1.0)
 sw::Camera& sw::Camera::setProjection(Projection projection)
 {
     m_type = projection;
-    if (m_type == Projection::ORTHOGRAPHIC)
-        m_view = glm::ortho(0.0f, 1920.0f * m_size, 1080.0f * m_size, 0.0f, m_clippingNear, m_clippingFar);
-    else
-        m_view = glm::perspective(m_fov, 1920.0f / 1080.0f, m_clippingNear, m_clippingFar);
     return (*this);
 }
 
@@ -64,6 +60,11 @@ sw::Camera &sw::Camera::setClippingFar(float far)
 
 const glm::mat4 &sw::Camera::getProjection()
 {
+    if (m_type == Projection::ORTHOGRAPHIC)
+        m_view = glm::ortho(0.0f, 1920.0f * m_size, 1080.0f * m_size, 0.0f, m_clippingNear, m_clippingFar);
+    else
+        m_view = glm::perspective(m_fov, 1920.0f / 1080.0f, m_clippingNear, m_clippingFar);
+
     return (m_view);
 }
 

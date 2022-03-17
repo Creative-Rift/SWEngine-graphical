@@ -16,12 +16,12 @@ m_lastFrame(-1.0f),
 m_endFrame(-1.0f),
 m_loopDelay(0.0f),
 m_isPlaying(false),
-m_loop(true),
+m_loop(false),
 m_framePerSecond(0.2),
 m_spr(entityRef.getComponent<sw::Sprite>("SpriteManager")),
-m_animType(ANIM_SPRITE)
+m_type(ANIM_SPRITE)
 {
-    m_displayRect = {0, 0, (float)m_spr.texture()->getWidth(), (float)m_spr.texture()->getHeight()};
+    m_displayRect = {0, 0, static_cast<float>(m_spr.texture()->getWidth()), static_cast<float>(m_spr.texture()->getHeight())};
 }
 
 bool sw::Animator::isPlaying() const
@@ -42,7 +42,7 @@ void sw::Animator::pause()
 void sw::Animator::reset()
 {
     m_isPlaying = false;
-    m_displayRect = {0, 0, (float)m_rect.x, (float)m_rect.y};
+    m_displayRect = {0, 0, static_cast<float>(m_rect.y), static_cast<float>(m_rect.x)};
 }
 
 sw::Animator& sw::Animator::setLoop(bool loop, float delay)
@@ -54,11 +54,11 @@ sw::Animator& sw::Animator::setLoop(bool loop, float delay)
 
 sw::Animator& sw::Animator::setLine(int line, int end)
 {
-    //if (line * m_rect.y >= m_spr.texture().getSize().y) {
-    //    std::cout << "The line line is out of range!\n";
-    //    return (*this);
-    //}
-    //m_endFrame = (end == -1) ? (int)(m_spr.texture().getSize().x / m_rect.x) + 1 : end;
+    if (line * m_rect.y >= m_spr.texture()->getHeight()) {
+        std::cout << "The line line is out of range!\n";
+        return (*this);
+    }
+    m_endFrame = (end == -1) ? (int)(m_spr.texture()->getWidth() / m_rect.x) + 1 : end;
     m_displayRect.top = line * m_rect.y;
     return (*this);
 }
@@ -69,7 +69,6 @@ sw::Animator& sw::Animator::setRect(sw::Vector2u rect)
     m_displayRect.height = m_rect.y;
     m_displayRect.width = m_rect.x;
     m_endFrame = (int)(m_spr.texture()->getWidth() / m_rect.x) + 1;
-    m_displayRect.left -= m_rect.x;
     m_spr.setTextureRect(m_displayRect);
     return (*this);
 }
@@ -130,4 +129,15 @@ sw::Animator &sw::Animator::setDisplayRect(sw::FloatRect rect)
 {
     m_displayRect = rect;
     return (*this);
+}
+
+sw::Animator &sw::Animator::setAnimType(sw::Animator::AnimType type)
+{
+    m_type = type;
+    return (*this);
+}
+
+sw::Animator::AnimType &sw::Animator::getAnimType()
+{
+    return (m_type);
 }
