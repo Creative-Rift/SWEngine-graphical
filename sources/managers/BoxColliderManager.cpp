@@ -17,7 +17,7 @@ void sw::BoxColliderManager::onUpdate()
 
     for (auto&[_, obj]: m_components) {
         sw::CollisionEvent info(obj->entity().name(), "target->entity().name()");
-        for (auto&[_, target]: m_static) {
+        for (auto&[name, target]: m_static) {
             sw::ConcreteComponent auto& objTransform = obj->entity().getComponent<sw::Transform>("TransformManager");
             sw::ConcreteComponent auto& targetTransform = target->entity().getComponent<sw::Transform>("TransformManager");
 
@@ -31,8 +31,9 @@ void sw::BoxColliderManager::onUpdate()
                     info.m_horizontal = (targetTransform.getPosition().x > objTransform.getPosition().x + obj->getSize().x / 2) ? CollisionEvent::RIGHT : CollisionEvent::LEFT;
                     info.m_horizontal = (targetTransform.getPosition().y < objTransform.getPosition().y + 1 || targetTransform.getPosition().y > objTransform.getPosition().y + obj->getSize().y - 1 ? CollisionEvent::H_NONE : info.m_horizontal);
                 }
-                if (info.m_vertical == sw::CollisionEvent::V_NONE){
-                    info.m_vertical = (targetTransform.getPosition().y > objTransform.getPosition().y + 10) ? CollisionEvent::DOWN : CollisionEvent::UP;
+                if (info.m_vertical == sw::CollisionEvent::V_NONE) {
+                    info.m_target = name;
+                    info.m_vertical = (targetTransform.getPosition().y > objTransform.getPosition().y + obj->getSize().y / 2) ? CollisionEvent::DOWN : CollisionEvent::UP;
                     info.m_vertical = (targetTransform.getPosition().x < objTransform.getPosition().x + 1 || targetTransform.getPosition().x > objTransform.getPosition().x + obj->getSize().x - 1 ? CollisionEvent::V_NONE : info.m_vertical);
 
                 }
