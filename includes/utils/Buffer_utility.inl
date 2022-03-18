@@ -48,7 +48,7 @@ inline std::string getEventAction(const sw::Type &evt, const int &act)
     return "None";
 };
 
-inline void dumpEvent(const sw::EventInfo* jaj)
+inline void dumpEvent(const sw::MouseEvent* jaj)
 {
     for (size_t i = 0 ; i < sw::MAX_BUFFER; ++i)
     {
