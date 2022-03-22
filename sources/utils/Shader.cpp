@@ -31,6 +31,23 @@ m_info()
     }
 }
 
+sw::Shader::Shader(std::string fragment, std::string vertex) :
+m_id(glCreateProgram()),
+m_fragment(std::move(fragment), ShaderSource::FRAGMENT),
+m_vertex(std::move(vertex), ShaderSource::VERTEX),
+m_success(),
+m_info()
+{
+    glAttachShader(m_id, m_fragment.getId());
+    glAttachShader(m_id, m_vertex.getId());
+    glLinkProgram(m_id);
+    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
+    if (!m_success) {
+        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
+        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
+    }
+}
+
 sw::Shader::~Shader()
 {
     glDeleteProgram(m_id);
@@ -73,4 +90,9 @@ void sw::Shader::setUniFloat(std::string varName, float &value) const
 void sw::Shader::setUniMat4(std::string varName, const glm::mat4 &matrix) const
 {
     glUniformMatrix4fv(getUniLocation(varName), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void sw::Shader::setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const
+{
+    glUniform3f(getUniLocation(varName), v1, v2, v3);
 }

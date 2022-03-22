@@ -28,6 +28,7 @@ namespace sw
             int getUniLocation(std::string& name) const;
         public:
             Shader();
+            Shader(std::string fragment, std::string vertex);
             ~Shader();
             [[nodiscard]] const unsigned int& getId() const noexcept;
             void useShader() const;
@@ -35,6 +36,7 @@ namespace sw
             void setUniInt(std::string varName, int& value) const;
             void setUniFloat(std::string varName, float& value) const;
             void setUniMat4(std::string varName, const glm::mat4& matrix) const;
+            void setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const;
             // TODO Add more setUniform
     }; // class Shader
 } // namespace sw

@@ -9,6 +9,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "dependencies/resources/stb_image.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+#include "resources/Font.hpp"
+
 #include "resources/OpenResources.hpp"
 #include "SW/Engine.hpp"
 #include "dependencies/glad/glad.h"
@@ -29,11 +34,6 @@ sw::Texture::Texture(std::string path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     stbi_set_flip_vertically_on_load(true);
     unsigned char *data = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
-
-    {
-        int x,y,n;
-        stbi_info(path.c_str(), &x, &y, &n);
-    }
 
     if (data)
     {
@@ -72,6 +72,10 @@ sw::Texture::Texture(std::string path)
 
 sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
 
+sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
+
+sw::Ftlib fontlb;
+
 sw::OpenResources::~OpenResources()
 = default;
 
@@ -80,10 +84,20 @@ void sw::OpenResources::loadResources()
     sw::Speech::Info("Loading all resources...", "1227");
     try {
         loadTextures();
+        loadFonts();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
     }
+}
+
+void sw::OpenResources::loadFonts()
+{
+    for (auto &[name, path] : m_nft) {
+        m_nfont.emplace(name, std::make_shared<Font>(path));
+    }
+    if (m_nfont.empty())
+        sw::Speech::Warning("No Font was loaded.", "3720");
 }
 
 void sw::OpenResources::loadTextures()
@@ -95,10 +109,15 @@ void sw::OpenResources::loadTextures()
         sw::Speech::Warning("No Texture was loaded.", "3720");
 }
 
-void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string&)
+void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {
-    if (m_ntx.find(name) == m_ntx.end())
-        m_ntx.emplace(name, path);
+    if (type == "Texture") 
+    {
+        if (m_ntx.find(name) == m_ntx.end())
+            m_ntx.emplace(name, path);
+    } else if (type == "Font")
+        if (m_nft.find(name) == m_nft.end())
+            m_nft.emplace(name, path);
 }
 
 void sw::OpenResources::unloadResources()
