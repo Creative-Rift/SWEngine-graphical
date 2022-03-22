@@ -20,6 +20,7 @@ namespace sw
         private:
             Vector2f m_size;
             bool m_static;
+            bool m_isTrigger;
 
         public:
             explicit BoxCollider(sw::Entity& entity);
@@ -27,9 +28,11 @@ namespace sw
             BoxCollider& setSize(float x, float y);
             BoxCollider& setSize(Vector2f size);
             BoxCollider& setStatic(bool state);
+            BoxCollider& setTrigger(bool trigger);
 
             [[nodiscard]] const Vector2f& getSize() const;
             [[nodiscard]] const bool& isStatic() const;
+            [[nodiscard]] const bool& isTrigger() const;
     }; // class BoxCollider
 } // namespace sw
 

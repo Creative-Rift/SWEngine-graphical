@@ -11,7 +11,9 @@
 
 sw::BoxCollider::BoxCollider(sw::Entity &entity) :
 sw::Component(entity),
-m_size(100, 100)
+m_size(100, 100),
+m_static(false),
+m_isTrigger(false)
 {}
 
 sw::BoxCollider &sw::BoxCollider::setSize(Vector2f size)
@@ -42,4 +44,15 @@ sw::BoxCollider &sw::BoxCollider::setStatic(bool state)
 const bool &sw::BoxCollider::isStatic() const
 {
     return (m_static);
+}
+
+sw::BoxCollider &sw::BoxCollider::setTrigger(bool trigger)
+{
+    m_isTrigger = trigger;
+    return (*this);
+}
+
+const bool &sw::BoxCollider::isTrigger() const
+{
+    return (m_isTrigger);
 }

@@ -18,7 +18,7 @@ void sw::RigidBody2DManager::onUpdate()
     auto currentTime = (float)sw::Engine::getModule<sw::OpenGLModule>().m_chrono.getElapsedTime();
 
     for (auto& [_, obj] : m_components) {
-        if (!obj->isActive())
+        if (!obj->isActive() || !obj->entity().isActive())
             continue;
         sw::ConcreteComponent auto& transform = obj->entity().getComponent<sw::Transform>("TransformManager");
         sw::Vector2f vel = {obj->getVelocity().x, obj->getVelocity().y};

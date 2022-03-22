@@ -59,6 +59,8 @@ void sw::RigidBody2D::onCollision(sw::EventInfo& info)
 {
     sw::ConcreteEventInfo auto& eInfo = info.getInfo<sw::CollisionEvent>();
 
+    if (m_entity.scene().getEntity(eInfo.m_target).getComponent<sw::BoxCollider>("BoxColliderManager").isTrigger())
+        return;
     if (eInfo.m_obj == m_entity.name()) {
         m_collideX = eInfo.m_horizontal;
         m_collideY = eInfo.m_vertical;

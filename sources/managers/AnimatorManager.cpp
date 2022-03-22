@@ -17,6 +17,8 @@ void sw::AnimatorManager::onUpdate()
     double currentTime = sw::Engine::getModule<sw::OpenGLModule>().m_chrono.getTotalTime();
 
     for (auto&[_, obj]: m_components) {
+        if (!obj->isActive() || !obj->entity().isActive())
+            continue;
         if (!obj->isPlaying()) {
             if (obj->isLoop() && (currentTime - obj->getLastFrame()) > obj->getLoopDelay()) {
                 obj->setPlaying(true);
