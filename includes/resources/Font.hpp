@@ -14,18 +14,19 @@ namespace sw
 {
     class Font
     {
-    private:
-        FT_Face face;
+    public:
         struct Character {
             unsigned int TextureID;
             glm::ivec2 Size;
             glm::ivec2 Bearing;
             FT_Pos Advance;
         };
-        std::map<FT_ULong, Character> characters;
-    public:
         Font(std::string);
+        const std::map<FT_ULong, Character> getCharacters() const;
         ~Font();
+    private:
+        FT_Face face;
+        std::map<FT_ULong, Character> characters;
     };
     
     class Ftlib

@@ -55,6 +55,11 @@ sw::Font::Font(std::string font)
     }
 }
 
+const std::map<FT_ULong, sw::Font::Character> sw::Font::getCharacters() const
+{
+    return (characters);
+}
+
 sw::Font::~Font()
 {
     if (fontlb.load)
