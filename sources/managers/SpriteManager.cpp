@@ -25,7 +25,7 @@ void sw::SpriteManager::onUpdate()
         object->getShader().useShader();
         object->getShader().setUniMat4("projection", camera.getProjection());
         object->getShader().setUniMat4("view", camera.getView());
-        object->getShader().setUniMat4("model", transform.getMatrix());
+        object->getShader().setUniMat4("model", transform.getGlobalMatrix());
         object->updateInvert();
         object->getVertexArray().update();
         glBindVertexArray((*object).getVertexArray().getVAO());

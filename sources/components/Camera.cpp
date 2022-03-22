@@ -68,9 +68,14 @@ const glm::mat4 &sw::Camera::getProjection()
     return (m_view);
 }
 
-const glm::mat4 &sw::Camera::getView() const
+const glm::mat4 sw::Camera::getView() const
 {
     sw::ConcreteComponent auto& transform = m_entity.getComponent<sw::Transform>("TransformManager");
+    glm::mat4 matrix = glm::mat4(1.0f);
 
-    return (transform.getMatrix());
+    matrix = glm::translate(matrix, glm::vec3(-transform.getPosition().x, -transform.getPosition().y, -transform.getPosition().z));
+    matrix = glm::rotate(matrix, glm::radians(transform.getAngle()), glm::vec3(transform.getRotationAxis().x, transform.getRotationAxis().y, transform.getRotationAxis().z));
+    matrix = glm::scale(matrix, glm::vec3(transform.getScale().x, transform.getScale().y, transform.getScale().z));
+
+    return (matrix);
 }
