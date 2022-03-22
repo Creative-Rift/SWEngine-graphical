@@ -13,6 +13,8 @@
 
 #include "dependencies/glad/glad.h"
 
+#include "resources/Font.hpp"
+
 #include <queue>
 #include <memory>
 #include <map>
@@ -55,8 +57,10 @@ namespace sw
     {
         private:
             std::map<std::string, std::string> m_ntx{};
+            std::map<std::string, std::string> m_nft{};
 
             void loadTextures();
+            void loadFonts();
             //std::priority_queue<std::unique_ptr<Font>> m_ft{}; font -> dev 2 final
             //std::priority_queue<std::unique_ptr<void>> m_sh; shaders -> dev 2/3
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
@@ -68,6 +72,13 @@ namespace sw
                     using std::map<std::string, std::shared_ptr<Texture>>::operator[];
                     friend OpenResources;
             } m_ntext;
+
+            static class FontsMap : private std::map<std::string, std::shared_ptr<Font>>
+            {
+                public:
+                    using std::map<std::string, std::shared_ptr<Font>>::operator[];
+                    friend OpenResources;
+            } m_nfont;
             OpenResources() = default;
             ~OpenResources();
             void loadResources() override;
