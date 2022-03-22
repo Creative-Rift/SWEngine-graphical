@@ -43,26 +43,26 @@ namespace sw
     ////////////////////////////////////////////////////////////
     std::string getEventAction(const sw::Type &evt, const int &act);
 
-    class EventInfo
+    class MouseEvent
     {
         public:
             sw::Type m_t;
             std::pair<int,int> m_ki;
             std::pair<double,double> m_os;
 
-            EventInfo(): m_t(sw::Type::None), m_ki{}, m_os{}
+            MouseEvent(): m_t(sw::Type::None), m_ki{}, m_os{}
             {
             }
 
-            EventInfo(const sw::EventInfo &evt): m_t(evt.m_t), m_ki(evt.m_ki), m_os(evt.m_os)
+            MouseEvent(const sw::MouseEvent &evt): m_t(evt.m_t), m_ki(evt.m_ki), m_os(evt.m_os)
             {
             }
 
-            EventInfo(sw::Type& evt, std::pair<int,int>& ikv, std::pair<double,double>& mwi): m_t(evt), m_ki{ikv}, m_os{mwi}
+            MouseEvent(sw::Type& evt, std::pair<int,int>& ikv, std::pair<double,double>& mwi): m_t(evt), m_ki{ikv}, m_os{mwi}
             {
             }
 
-            EventInfo& operator=(const EventInfo& evt)
+            MouseEvent& operator=(const MouseEvent& evt)
             {
                 m_t = evt.m_t;
                 m_ki = evt.m_ki;
@@ -71,7 +71,7 @@ namespace sw
                 return *this;
             }
 
-            ~EventInfo() = default;
+            ~MouseEvent() = default;
     };
 
     ////////////////////////////////////////////////////////////
@@ -95,12 +95,12 @@ namespace sw
 
             void clear();
             void push(sw::Type& evt, std::pair<int,int>& ikf, std::pair<double,double>& mwi);
-            const EventInfo* get() const;
+            const MouseEvent* get() const;
             const std::size_t getIdx() const { return m_index; }
         private:
             std::size_t m_index;
             std::pair<double, double> m_pos;
-            EventInfo m_input[sw::MAX_BUFFER]{};
+            MouseEvent m_input[sw::MAX_BUFFER]{};
     };
 
 #include "Buffer.inl"

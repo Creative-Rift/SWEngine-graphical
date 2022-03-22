@@ -32,7 +32,7 @@ namespace sw
             Camera& setClippingFar(float far);
 
             [[nodiscard]] const glm::mat4& getProjection();
-            [[nodiscard]] const glm::mat4& getView() const;
+            [[nodiscard]] const glm::mat4 getView() const;
 
         private:
             Projection m_type;

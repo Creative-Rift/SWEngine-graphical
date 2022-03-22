@@ -45,8 +45,8 @@ namespace sw
             Text& setText(std::string& text);
             //Text& setFontSize(unsigned int size);
             Text& setFont(std::string& name);
-            Text& setColor(sw::Color& color);
-            Text &setPosition(float &xpos, float &ypos);
+            Text& setColor(sw::Color color);
+            Text &setPosition(float xpos, float ypos);
 
             [[nodiscard]] const Shader& getShader() const noexcept;
             [[nodiscard]] const Color& getColor() const noexcept;

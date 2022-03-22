@@ -26,7 +26,7 @@ sw::Text &sw::Text::setFontSize(unsigned int size)
 }
 */
 
-sw::Text &sw::Text::setPosition(float &xpos, float &ypos)
+sw::Text &sw::Text::setPosition(float xpos, float ypos)
 {
     m_pos.first = xpos;
     m_pos.second = ypos;
@@ -39,7 +39,7 @@ sw::Text &sw::Text::setFont(std::string& name)
     return (*this);
 }
 
-sw::Text &sw::Text::setColor(sw::Color &color)
+sw::Text &sw::Text::setColor(sw::Color color)
 {
     m_color = color;
     return (*this);

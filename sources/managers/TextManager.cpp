@@ -41,6 +41,8 @@ void sw::TextManager::onUpdate()
 
     for (auto& [_, name] : m_componentsLayers) {
         auto& object = m_components[name];
+        if (!object->isActive() || !object->entity().isActive())
+            continue;
         //sw::ConcreteComponent auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
 
         auto &shader = object->getShader();
@@ -97,4 +99,6 @@ void sw::TextManager::onUpdate()
             glBindTexture(GL_TEXTURE_2D, 0);
         }
     }
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_BLEND);
 }

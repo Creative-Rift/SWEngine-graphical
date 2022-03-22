@@ -24,6 +24,7 @@ set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/managers/
         ${CMAKE_SOURCE_DIR}/sources/resources/
         ${CMAKE_SOURCE_DIR}/sources/utils/
+        ${CMAKE_SOURCE_DIR}/sources/event/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
@@ -35,6 +36,7 @@ set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/includes/managers/
         ${CMAKE_SOURCE_DIR}/includes/resources/
         ${CMAKE_SOURCE_DIR}/includes/utils/
+        ${CMAKE_SOURCE_DIR}/includes/event/
         )
 
 if (WIN32)

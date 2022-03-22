@@ -30,9 +30,10 @@ const glm::mat4& sw::Transform::getMatrix() noexcept
 const glm::mat4& sw::Transform::getGlobalMatrix()
 {
     if (m_needUpdate) {
-        m_globalMatrix = getMatrix();
-        if (m_entity.m_parent.hasValue())
-            m_globalMatrix = m_globalMatrix * m_entity.m_parent.value().getComponent<sw::Transform>("TransformFact").getGlobalMatrix();
+        m_globalMatrix = glm::mat4(1.0f);
+        m_globalMatrix = glm::translate(m_globalMatrix, glm::vec3(m_globalPosition.x, m_globalPosition.y, m_globalPosition.z));
+        m_globalMatrix = glm::rotate(m_globalMatrix, glm::radians(m_angle), glm::vec3(m_rotationAxis.x, m_rotationAxis.y, m_rotationAxis.z));
+        m_globalMatrix = glm::scale(m_globalMatrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
         m_needUpdate = false;
     }
     return (m_globalMatrix);
