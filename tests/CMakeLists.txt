@@ -19,38 +19,50 @@ project( "SWEngine-OpenGLModule test"
         )
 set( EXEC test.out )
 set( EXT cpp )
+set( FT freetype )
 
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
+        ${CMAKE_SOURCE_DIR}/sources/component/
         ${CMAKE_SOURCE_DIR}/sources/component/transform/
         ${CMAKE_SOURCE_DIR}/sources/template/scenes/
         ${CMAKE_SOURCE_DIR}/sources/fixture/
         ${CMAKE_SOURCE_DIR}/../sources/
-        ${CMAKE_SOURCE_DIR}/../sources/resources/
         ${CMAKE_SOURCE_DIR}/../sources/components/
+        ${CMAKE_SOURCE_DIR}/../sources/components/transform/
+        ${CMAKE_SOURCE_DIR}/../sources/managers/
+        ${CMAKE_SOURCE_DIR}/../sources/resources/
         ${CMAKE_SOURCE_DIR}/../sources/utils/
+        ${CMAKE_SOURCE_DIR}/../sources/event/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/../libraries/
         ${CMAKE_SOURCE_DIR}/../libraries/core/
         ${CMAKE_SOURCE_DIR}/../includes/
+        ${CMAKE_SOURCE_DIR}/../includes/components/
+        ${CMAKE_SOURCE_DIR}/../includes/dependencies/
+        ${CMAKE_SOURCE_DIR}/../includes/managers/
         ${CMAKE_SOURCE_DIR}/../includes/resources/
         ${CMAKE_SOURCE_DIR}/../includes/utils/
+        ${CMAKE_SOURCE_DIR}/../includes/event/
         ${CMAKE_SOURCE_DIR}/includes/
         )
+
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         Jsnp
         SWEngine-Core
         glfw
+        yaml
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/../libraries/libJsnp.so
-        ${CMAKE_SOURCE_DIR}/../libraries/libSWEngine-Core.so
         ${CMAKE_SOURCE_DIR}/../libraries/libglfw.so
+        ${CMAKE_SOURCE_DIR}/../libraries/libSWEngine-Core-Debug.so
+        ${CMAKE_SOURCE_DIR}/../libraries/libyaml-cpp.so
         )
 ## <=====================================>
 
@@ -81,6 +93,8 @@ add_executable(${EXEC} ${SRC})
 ## ADD INCLUDES
 ## <=====================================>
 target_include_directories(${EXEC} PRIVATE ${INC_FOLDERS})
+include_directories (/usr/include/freetype2)
+target_link_libraries(${EXEC} PUBLIC ${FT})
 ## <=====================================>
 
 ## ADD PARAMETER
