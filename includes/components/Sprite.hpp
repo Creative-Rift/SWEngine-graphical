@@ -94,6 +94,7 @@ namespace sw
             [[nodiscard]] bool isInvertY() const;
 
             [[nodiscard]] const Shader& getShader() const noexcept;
+            [[nodiscard]] Material& getMaterial() noexcept;
             [[nodiscard]] std::string type() const override { return("Sprite"); };
 
             void updateInvert();

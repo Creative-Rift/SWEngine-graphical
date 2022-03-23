@@ -17,13 +17,15 @@ namespace sw
     class Material
     {
         public:
-            std::shared_ptr<sw::Texture> texture;
-            Shader shader;
+            std::shared_ptr<sw::Texture> m_texture;
+            Shader m_shader;
 
             Material();
             explicit Material(std::shared_ptr<sw::Texture>& texture);
             explicit Material(std::string textureName);
             Material(std::shared_ptr<sw::Texture>& texture, Shader& shader);
+            Material& setShader(sw::Shader shader);
+            Material& setTexture(std::string textureName);
     };
 } // namespace sw
 
