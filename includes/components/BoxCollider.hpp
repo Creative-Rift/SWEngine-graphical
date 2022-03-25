@@ -13,9 +13,11 @@
 
 #include "SW/Utils.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class BoxCollider : public sw::Component
+    class SW_GRAPH_MODULE_EXPORT BoxCollider : public sw::Component
     {
         private:
             Vector2f m_size;

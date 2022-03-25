@@ -7,12 +7,14 @@
 #include "resources/Font.hpp"
 #include "utils/Shader.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 #include <string>
 #include <memory>
 
 namespace sw
 {
-    class Text : public sw::Component
+    class SW_GRAPH_MODULE_EXPORT Text : public sw::Component
     {
         private:
             std::string m_text;

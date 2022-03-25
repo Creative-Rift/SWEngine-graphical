@@ -13,9 +13,11 @@
 
 #include "includes/event/EventInfo.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class CollisionEvent : public sw::IEventInfo
+    class SW_GRAPH_MODULE_EXPORT CollisionEvent : public sw::IEventInfo
     {
         public:
             std::string m_obj;

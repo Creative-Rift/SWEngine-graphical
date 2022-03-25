@@ -6,10 +6,8 @@
 ** Description: [CHANGE]
 */
 
-#ifndef SWENGINE_OPENGLMODULE_VECTOR3_INL
-#define SWENGINE_OPENGLMODULE_VECTOR3_INL
-
 template <typename T>
+requires std::is_arithmetic_v<T>
 sw::Vector3<T>::Vector3()
 {
     x = 0;
@@ -18,6 +16,7 @@ sw::Vector3<T>::Vector3()
 }
 
 template <typename T>
+requires std::is_arithmetic_v<T>
 sw::Vector3<T>::Vector3(T X, T Y, T Z)
 {
     x = X;
@@ -26,6 +25,7 @@ sw::Vector3<T>::Vector3(T X, T Y, T Z)
 }
 
 template <typename T>
+requires std::is_arithmetic_v<T>
 sw::Vector3<T>::~Vector3()
 {}
 
@@ -143,5 +143,3 @@ inline std::ostream& operator<<(std::ostream& os, const sw::Vector3<T>& matrix)
     os << "(" << matrix.x << ", " << matrix.y << ", " << matrix.z << ")";
     return (os);
 }
-
-#endif //SWENGINE_OPENGLMODULE_VECTOR3_INL

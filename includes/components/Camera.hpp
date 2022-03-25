@@ -12,9 +12,11 @@
 #include "SW/Component.hpp"
 #include "dependencies/glm/glm.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class Camera : public sw::Component
+    class SW_GRAPH_MODULE_EXPORT Camera : public sw::Component
     {
         public:
             enum Projection {

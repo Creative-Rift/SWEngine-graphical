@@ -18,9 +18,11 @@
 #include "resources/OpenResources.hpp"
 #include "components/Material.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class Sprite : public sw::Component
+    class SW_GRAPH_MODULE_EXPORT Sprite : public sw::Component
     {
 
         private:

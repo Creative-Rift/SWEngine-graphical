@@ -8,18 +8,21 @@ set( SHARED_LIB_NAME
         glfw3
         Jsnp
         SWEngine-Core
+        freetype
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/glfw3.dll
         ${CMAKE_SOURCE_DIR}/libraries/Jsnp.dll
         ${CMAKE_SOURCE_DIR}/libraries/core/SWEngine-Core.dll
+        ${CMAKE_SOURCE_DIR}/libraries/core/freetype.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/glfw3.lib
         ${CMAKE_SOURCE_DIR}/libraries/Jsnp.lib
-        ${CMAKE_SOURCE_DIR}/libraries/core/SWEngine-Core.lib
+        ${CMAKE_SOURCE_DIR}/libraries/SWEngine-Core.lib
+        ${CMAKE_SOURCE_DIR}/libraries/freetype.lib
         )
 ## <=====================================>
 

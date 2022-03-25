@@ -11,11 +11,12 @@
 
 #include <string>
 
+#include "OpenGLModule_Config.hpp"
 #include "dependencies/glad/glad.h"
 
 namespace sw
 {
-    class ShaderSource
+    class SW_GRAPH_MODULE_EXPORT ShaderSource
     {
         private:
             std::string m_shaderContent;

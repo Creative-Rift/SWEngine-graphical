@@ -11,11 +11,12 @@
 
 #include "SW/Manager.hpp"
 
+#include "OpenGLModule_Config.hpp"
 #include "components/Animator.hpp"
 
 namespace sw
 {
-    class AnimatorManager : public sw::AManager<Animator>
+    class SW_GRAPH_MODULE_EXPORT AnimatorManager : public sw::AManager<Animator>
     {
         private:
             void animLine(Animator &animator, double &current_time);

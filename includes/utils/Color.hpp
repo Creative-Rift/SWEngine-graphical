@@ -10,10 +10,11 @@
 #define SWENGINE_OPENGLMODULE_COLOR_HPP
 
 #include <cstdint>
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class Color {
+    class SW_GRAPH_MODULE_EXPORT Color {
         public:
             float r; // Red value
             float g; // Green value
@@ -43,15 +44,15 @@ namespace sw
 
     #include "Color.inl"
 
-    constexpr Color BlackColor(0, 0, 0);             // Black predefined color
-    constexpr Color WhiteColor(255, 255, 255);       // White predefined color
-    constexpr Color RedColor(255, 0, 0);             // Red predefined color
-    constexpr Color GreenColor(0, 255, 0);           // Green predefined color
-    constexpr Color BlueColor(0, 0, 255);            // Blue predefined color
-    constexpr Color YellowColor(255, 255, 0);        // Yellow predefined color
-    constexpr Color MagentaColor(255, 0, 255);       // Magenta predefined color
-    constexpr Color CyanColor(0, 255, 255);          // Cyan predefined color
-    constexpr Color TransparentColor(0, 0, 0, 0);    // Transparent (black) predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color BlackColor(0, 0, 0);             // Black predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color WhiteColor(255, 255, 255);       // White predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color RedColor(255, 0, 0);             // Red predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color GreenColor(0, 255, 0);           // Green predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color BlueColor(0, 0, 255);            // Blue predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color YellowColor(255, 255, 0);        // Yellow predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color MagentaColor(255, 0, 255);       // Magenta predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color CyanColor(0, 255, 255);          // Cyan predefined color
+    constexpr SW_GRAPH_MODULE_EXPORT Color TransparentColor(0, 0, 0, 0);    // Transparent (black) predefined color
 
 
 

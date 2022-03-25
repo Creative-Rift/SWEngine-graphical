@@ -12,9 +12,11 @@
 #include "resources/OpenResources.hpp"
 #include "utils/Shader.hpp"
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class Material
+    class SW_GRAPH_MODULE_EXPORT Material
     {
         public:
             std::shared_ptr<sw::Texture> texture;

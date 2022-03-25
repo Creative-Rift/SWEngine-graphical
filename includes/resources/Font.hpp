@@ -10,9 +10,11 @@
 #include <string>
 #include <iostream>
 
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
-    class Font
+    class SW_GRAPH_MODULE_EXPORT Font
     {
     public:
         struct Character {

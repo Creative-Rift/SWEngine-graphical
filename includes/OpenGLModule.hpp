@@ -64,7 +64,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyPressed(const int&);//TODO template mouse/keyboard
+    SW_GRAPH_MODULE_EXPORT bool isKeyPressed(const int&);//TODO template mouse/keyboard
     
     ////////////////////////////////////////////////////////////
     /// @brief Return True if give key was released
@@ -75,7 +75,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyReleased(const int&);//same
+    SW_GRAPH_MODULE_EXPORT bool isKeyReleased(const int&);//same
     
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given key is held down
@@ -86,7 +86,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyDown(const int&);//same
+    SW_GRAPH_MODULE_EXPORT bool isKeyDown(const int&);//same
     //bool isKeyUp(sw::Type&, const int&);
 
     ////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isKeyUp(const int &kys);
+    SW_GRAPH_MODULE_EXPORT bool isKeyUp(const int &kys);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given button is being pressed once
@@ -109,7 +109,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isMouseButtonPressed(const int &btn);
+    SW_GRAPH_MODULE_EXPORT bool isMouseButtonPressed(const int &btn);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given button is being pressed
@@ -120,7 +120,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isMouseButtonDown(const int &btn);
+    SW_GRAPH_MODULE_EXPORT bool isMouseButtonDown(const int &btn);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given button has been released
@@ -131,7 +131,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isMouseButtonReleased(const int &btn);
+    SW_GRAPH_MODULE_EXPORT bool isMouseButtonReleased(const int &btn);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given button is not being pressed
@@ -142,7 +142,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool isMouseButtonUp(const int &btn);
+    SW_GRAPH_MODULE_EXPORT bool isMouseButtonUp(const int &btn);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return true if given scroll direction is correct
@@ -153,7 +153,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool mouseScrolled(const std::pair<double,double>&);
+    SW_GRAPH_MODULE_EXPORT bool mouseScrolled(const std::pair<double,double>&);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if mouse moved
@@ -164,7 +164,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    bool mouseMoved(void);
+    SW_GRAPH_MODULE_EXPORT bool mouseMoved();
 
     #ifdef GRAPHICAL_MODULE
         #undef GRAPHICAL_MODULE

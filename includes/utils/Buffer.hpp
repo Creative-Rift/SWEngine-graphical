@@ -2,6 +2,7 @@
 
 #include "dependencies/glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "OpenGLModule_Config.hpp"
 
 #include <cstdint>
 #include <array>
@@ -43,7 +44,7 @@ namespace sw
     ////////////////////////////////////////////////////////////
     std::string getEventAction(const sw::Type &evt, const int &act);
 
-    class MouseEvent
+    class SW_GRAPH_MODULE_EXPORT MouseEvent
     {
         public:
             sw::Type m_t;
@@ -87,7 +88,7 @@ namespace sw
 
 #include "Buffer_utility.inl"
 
-    class Input_buffer //currently fix typed buffer, TODO template buffer
+    class SW_GRAPH_MODULE_EXPORT Input_buffer //currently fix typed buffer, TODO template buffer
     {
         public:
             Input_buffer();

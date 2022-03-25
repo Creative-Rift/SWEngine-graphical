@@ -11,10 +11,11 @@
 
 #include "SW/Manager.hpp"
 #include "components/Sprite.hpp"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class SpriteManager : public sw::AManager<Sprite>
+    class SW_GRAPH_MODULE_EXPORT SpriteManager : public sw::AManager<Sprite>
     {
         public:
             using sw::AManager<Sprite>::AManager;

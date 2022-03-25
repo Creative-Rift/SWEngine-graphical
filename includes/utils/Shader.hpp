@@ -12,11 +12,12 @@
 #include "dependencies/glm/glm.hpp"
 #include "dependencies/glm/gtc/type_ptr.hpp"
 
+#include "OpenGLModule_Config.hpp"
 #include "ShaderSource.hpp"
 
 namespace sw
 {
-    class Shader
+    class SW_GRAPH_MODULE_EXPORT Shader
     {
         private:
             unsigned int m_id;

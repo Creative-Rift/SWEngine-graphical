@@ -11,10 +11,11 @@
 
 #include <vector>
 #include "Vertex.hpp"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class VertexArray
+    class SW_GRAPH_MODULE_EXPORT VertexArray
     {
         private:
             unsigned int m_vbo;

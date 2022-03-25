@@ -11,11 +11,12 @@
 
 #include "SW/Manager.hpp"
 
+#include "OpenGLModule_Config.hpp"
 #include "components/RigidBody2D.hpp"
 
 namespace sw
 {
-    class RigidBody2DManager : public sw::AManager<RigidBody2D>
+    class SW_GRAPH_MODULE_EXPORT RigidBody2DManager : public sw::AManager<RigidBody2D>
     {
         public:
             using sw::AManager<RigidBody2D>::AManager;

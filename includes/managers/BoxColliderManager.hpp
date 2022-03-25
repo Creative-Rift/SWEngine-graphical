@@ -10,11 +10,13 @@
 #define SWENGINE_OPENGLMODULE_BOXCOLLIDERMANAGER_HPP
 
 #include "SW/Manager.hpp"
+
+#include "OpenGLModule_Config.hpp"
 #include "components/BoxCollider.hpp"
 
 namespace sw
 {
-    class BoxColliderManager : public sw::AManager<BoxCollider>
+    class SW_GRAPH_MODULE_EXPORT BoxColliderManager : public sw::AManager<BoxCollider>
     {
         private:
             std::unordered_map<std::string, std::shared_ptr<BoxCollider>> m_static;

@@ -13,6 +13,7 @@
 
 #include "dependencies/glad/glad.h"
 
+#include "OpenGLModule_Config.hpp"
 #include "resources/Font.hpp"
 
 #include <queue>
@@ -22,7 +23,7 @@
 
 namespace sw
 {
-    class Texture
+    class SW_GRAPH_MODULE_EXPORT Texture
     {
         public:
 
@@ -46,14 +47,7 @@ namespace sw
             int dsc = 0;
     };
 
-    /*
-    class Font
-    {
-
-    };
-    */
-
-    class OpenResources : public sw::AResources
+    class SW_GRAPH_MODULE_EXPORT OpenResources : public sw::AResources
     {
         private:
             std::map<std::string, std::string> m_ntx{};

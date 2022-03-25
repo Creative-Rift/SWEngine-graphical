@@ -12,11 +12,12 @@
 #include "SW/Component.hpp"
 #include "SW/Utils.hpp"
 
+#include "OpenGLModule_Config.hpp"
 #include "Sprite.hpp"
 
 namespace sw
 {
-    class Animator : public sw::Component
+    class SW_GRAPH_MODULE_EXPORT Animator : public sw::Component
     {
         public:
             ////////////////////////////////////////////////////////////////////////////

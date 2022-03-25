@@ -9,11 +9,14 @@
 #ifndef SWENGINE_OPENGLMODULE_VECTOR3_HPP
 #define SWENGINE_OPENGLMODULE_VECTOR3_HPP
 
+#include <ostream>
+#include "OpenGLModule_Config.hpp"
+
 namespace sw
 {
     template <typename T>
     requires std::is_arithmetic_v<T>
-    class Vector3
+    class SW_GRAPH_MODULE_EXPORT Vector3
     {
 
         public:

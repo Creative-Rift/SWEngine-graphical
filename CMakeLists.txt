@@ -30,6 +30,7 @@ set( SRC_FOLDERS
 set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/
         ${CMAKE_SOURCE_DIR}/libraries/core/
+        ${CMAKE_SOURCE_DIR}/libraries/freetype/
         ${CMAKE_SOURCE_DIR}/includes/
         ${CMAKE_SOURCE_DIR}/includes/components/
         ${CMAKE_SOURCE_DIR}/includes/dependencies/

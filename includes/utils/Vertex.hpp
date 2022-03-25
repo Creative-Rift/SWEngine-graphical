@@ -12,10 +12,11 @@
 #include "SW/Utils.hpp"
 #include "Vector3.hpp"
 #include "Color.hpp"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class Vertex
+    class SW_GRAPH_MODULE_EXPORT Vertex
     {
         public:
             Vector3f position;

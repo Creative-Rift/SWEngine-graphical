@@ -248,7 +248,7 @@ static void addResourcesOnReqScene(jsnp::Token& token)
         auto yolo = value.value<std::string>();
 
         sw::AScene& currentScene = sw::Engine::getScene(yolo);
-        currentScene.resources()->addNeededResource(key, path, type);
+        currentScene.resources().addNeededResource(key, path, type);
     }
 }
 

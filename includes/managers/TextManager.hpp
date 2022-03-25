@@ -11,10 +11,11 @@
 
 #include "SW/Manager.hpp"
 #include "components/Text.hpp"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class TextManager : public sw::AManager<Text>
+    class SW_GRAPH_MODULE_EXPORT TextManager : public sw::AManager<Text>
     {
         public:
             using sw::AManager<Text>::AManager;
