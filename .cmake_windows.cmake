@@ -14,14 +14,14 @@ set( SHARED_LIB_NAME
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/glfw3.dll
         ${CMAKE_SOURCE_DIR}/libraries/Jsnp.dll
-        ${CMAKE_SOURCE_DIR}/libraries/core/SWEngine-Core.dll
+        ${CMAKE_SOURCE_DIR}/libraries/core/SWEngine-Cored.dll
         ${CMAKE_SOURCE_DIR}/libraries/core/freetype.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/glfw3.lib
         ${CMAKE_SOURCE_DIR}/libraries/Jsnp.lib
-        ${CMAKE_SOURCE_DIR}/libraries/SWEngine-Core.lib
+        ${CMAKE_SOURCE_DIR}/libraries/SWEngine-Cored.lib
         ${CMAKE_SOURCE_DIR}/libraries/freetype.lib
         )
 ## <=====================================>
@@ -83,3 +83,8 @@ target_link_libraries(${EXEC}
         ${SHARED_LIB_NAME}
         )
 ## <=====================================>
+
+if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+    set_target_properties(${EXEC} PROPERTIES
+            DEBUG_POSTFIX "d")
+endif()

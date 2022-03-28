@@ -17,6 +17,9 @@ namespace sw
 {
     class SW_GRAPH_MODULE_EXPORT SpriteManager : public sw::AManager<Sprite>
     {
+        private:
+            static void updateInvert(sw::Sprite& sprite);
+            static void defineRect(sw::Sprite& sprite);
         public:
             using sw::AManager<Sprite>::AManager;
             ~SpriteManager() override = default;

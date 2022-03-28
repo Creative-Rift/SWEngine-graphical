@@ -6,8 +6,8 @@
 ** Description: [CHANGE]
 */
 
-#ifndef SWENGINE_OPENGLMODULE_TEST_SPRITE_HPP
-#define SWENGINE_OPENGLMODULE_TEST_SPRITE_HPP
+#ifndef SWENGINE_OPENGLMODULE_SPRITE_HPP
+#define SWENGINE_OPENGLMODULE_SPRITE_HPP
 
 #include "SW/Component.hpp"
 #include "SW/Utils.hpp"
@@ -22,16 +22,19 @@
 
 namespace sw
 {
+
+    class SpriteManager;
+
     class SW_GRAPH_MODULE_EXPORT Sprite : public sw::Component
     {
-
-        private:
+        protected:
             VertexArray m_vertexArray;
             Material m_material;
             Color m_color;
             sw::FloatRect m_rect;
             bool m_invertedX;
             bool m_invertedY;
+
         public:
             Sprite() = delete;
             Sprite(Sprite const&) = delete;
@@ -57,13 +60,6 @@ namespace sw
             /// \return reference to the texture
             ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]std::shared_ptr<Texture> texture() const;
-
-            ////////////////////////////////////////////////////////////////////////////
-            /// \brief Get the vertex array (this array compose the displayed sprite)
-            ///
-            /// \return A copy of vertex array
-            ////////////////////////////////////////////////////////////////////////////
-            [[nodiscard]] VertexArray& getVertexArray();
 
             ////////////////////////////////////////////////////////////////////////////
             /// \brief Define the displayed texture
@@ -98,12 +94,10 @@ namespace sw
             [[nodiscard]] const Shader& getShader() const noexcept;
             [[nodiscard]] std::string type() const override { return("Sprite"); };
 
-            void updateInvert();
-
-            void defineRect();
+            friend SpriteManager;
 
     }; // class Sprite
 
 } // namespace sw
 
-#endif //SWENGINE_OPENGLMODULE_TEST_SPRITE_HPP
+#endif //SWENGINE_OPENGLMODULE_SPRITE_HPP
