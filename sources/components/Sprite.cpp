@@ -48,22 +48,24 @@ sw::Sprite &sw::Sprite::setColor(const sw::Color &color)
     return (*this);
 }
 
-void sw::Sprite::invertX(bool invert)
+sw::Sprite& sw::Sprite::flipOnX(bool invert)
 {
     m_invertedX = invert;
+    return (*this);
 }
 
-void sw::Sprite::invertY(bool invert)
+sw::Sprite& sw::Sprite::flipOnY(bool invert)
 {
     m_invertedY = invert;
+    return (*this);
 }
 
-bool sw::Sprite::isInvertX() const
+bool sw::Sprite::isFlippedX() const
 {
     return (m_invertedX);
 }
 
-bool sw::Sprite::isInvertY() const
+bool sw::Sprite::isFlippedY() const
 {
     return (m_invertedY);
 }
