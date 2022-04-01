@@ -59,15 +59,15 @@ sw::Animator& sw::Animator::setLine(int line, int end)
         return (*this);
     }
     m_endFrame = (end == -1) ? (int)(m_spr.texture()->getWidth() / m_rect.x) + 1 : end;
-    m_displayRect.top = line * m_rect.y;
+    m_displayRect.top = (float)line * (float)m_rect.y;
     return (*this);
 }
 
 sw::Animator& sw::Animator::setRect(sw::Vector2u rect)
 {
     m_rect = rect;
-    m_displayRect.height = m_rect.y;
-    m_displayRect.width = m_rect.x;
+    m_displayRect.height = (float)m_rect.y;
+    m_displayRect.width = (float)m_rect.x;
     m_endFrame = (int)(m_spr.texture()->getWidth() / m_rect.x) + 1;
     m_spr.setTextureRect(m_displayRect);
     return (*this);
@@ -89,16 +89,6 @@ const sw::Vector2u &sw::Animator::getRect() const
     return (m_rect);
 }
 
-float &sw::Animator::getLastFrame()
-{
-    return (m_lastFrame);
-}
-
-int &sw::Animator::getEndFrame()
-{
-    return (m_endFrame);
-}
-
 const float &sw::Animator::getLoopDelay() const
 {
     return (m_loopDelay);
@@ -107,16 +97,6 @@ const float &sw::Animator::getLoopDelay() const
 const float &sw::Animator::getFPS() const
 {
     return (m_framePerSecond);
-}
-
-sw::FloatRect &sw::Animator::getDisplayRect()
-{
-    return (m_displayRect);
-}
-
-sw::Sprite &sw::Animator::getSprite()
-{
-    return (m_spr);
 }
 
 sw::Animator &sw::Animator::setPlaying(bool play)

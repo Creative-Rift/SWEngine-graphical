@@ -17,6 +17,9 @@
 
 namespace sw
 {
+
+    class AnimatorManager;
+
     class SW_GRAPH_MODULE_EXPORT Animator : public sw::Component
     {
         public:
@@ -31,7 +34,7 @@ namespace sw
         private:
             sw::Vector2u m_rect;
             sw::FloatRect m_displayRect;
-            float m_lastFrame;
+            double m_lastFrame;
             int m_endFrame;
             float m_loopDelay;
             bool m_isPlaying;
@@ -119,15 +122,13 @@ namespace sw
 
             [[nodiscard]]const bool& isLoop() const;
             [[nodiscard]]const sw::Vector2u& getRect() const;
-            [[nodiscard]]float& getLastFrame();
-            [[nodiscard]]int& getEndFrame();
             [[nodiscard]]const float& getLoopDelay() const;
             [[nodiscard]]const float& getFPS() const;
-            [[nodiscard]]FloatRect& getDisplayRect();
-            [[nodiscard]]Sprite& getSprite();
             [[nodiscard]]AnimType& getAnimType();
             Animator& setPlaying(bool play);
             Animator& setDisplayRect(sw::FloatRect rect);
+
+            friend AnimatorManager;
 
     }; // class Animator
 

@@ -19,8 +19,8 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT AnimatorManager : public sw::AManager<Animator>
     {
         private:
-            void animLine(Animator &animator, double &current_time);
-            void animSprite(Animator &animator, double &current_time);
+            static void animLine(Animator &animator, double &current_time);
+            static void animSprite(Animator &animator, double &current_time);
         public:
             using sw::AManager<Animator>::AManager;
             ~AnimatorManager() override = default;
