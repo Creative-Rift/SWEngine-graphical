@@ -30,7 +30,9 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT OpenGLModule : public sw::AModule
     {
         private:
+            sw::Chrono m_chronoWindow;
             GLFWwindow *m_window{};
+            double m_frameRate;
 
             static void resizeCallBack(GLFWwindow* window, int width, int height);
             static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
@@ -53,6 +55,8 @@ namespace sw
             //void loadResourcesFile(const std::string &path) override;
 
             std::unique_ptr<sw::AResources> createResourceInstance() override;
+
+            void setFrameRateLimit(unsigned int frameRate);
     }; // class OpenGLModule
 
     ////////////////////////////////////////////////////////////

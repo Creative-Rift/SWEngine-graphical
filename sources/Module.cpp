@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <ranges>
 #include <execution>
+#include <thread>
 
 sw::Input_buffer event_buffer;
 
@@ -31,7 +32,8 @@ SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
 sw::OpenGLModule::OpenGLModule() :
 sw::AModule(),
 m_window(nullptr),
-m_chrono(sw::Chrono::Wait)
+m_chrono(sw::Chrono::Wait),
+m_frameRate(1.0/60.0)
 {}
 
 void sw::OpenGLModule::initialize()
@@ -86,6 +88,11 @@ void sw::OpenGLModule::update()
 
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+    if (m_frameRate != 0.0) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000)));
+        m_chronoWindow.stop();
+        m_chronoWindow.start();
+    }
 }
 
 void sw::OpenGLModule::terminate()
@@ -153,6 +160,11 @@ void sw::OpenGLModule::resizeCallBack(GLFWwindow *window, int width, int height)
 std::string sw::OpenGLModule::type() const
 {
     return (std::string{"OpenGLModule"});
+}
+
+void sw::OpenGLModule::setFrameRateLimit(unsigned int frameRate)
+{
+    m_frameRate = 1.0 / static_cast<double>(frameRate);
 }
 
 bool sw::isKeyPressed(const int& kys)
