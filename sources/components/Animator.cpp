@@ -99,18 +99,6 @@ const float &sw::Animator::getFPS() const
     return (m_framePerSecond);
 }
 
-sw::Animator &sw::Animator::setPlaying(bool play)
-{
-    m_isPlaying = play;
-    return (*this);
-}
-
-sw::Animator &sw::Animator::setDisplayRect(sw::FloatRect rect)
-{
-    m_displayRect = rect;
-    return (*this);
-}
-
 sw::Animator &sw::Animator::setAnimType(sw::Animator::AnimType type)
 {
     m_type = type;

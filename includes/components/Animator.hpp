@@ -20,6 +20,10 @@ namespace sw
 
     class AnimatorManager;
 
+    ////////////////////////////////////////////////////////////////////////////
+    /// \brief Animator allow you to animate a simple sprite sheet.
+    /// You can change several properties to personnalize the animation
+    ///
     class SW_GRAPH_MODULE_EXPORT Animator : public sw::Component
     {
         public:
@@ -44,14 +48,10 @@ namespace sw
 
             Sprite& m_spr;
         public:
-
             ////////////////////////////////////////////////////////////////////////////
-            /// \brief Default constructor
+            /// \brief All default constructor are deleted because a component must
+            /// be attached to an Entity
             ///
-            /// \param engine
-            /// \param entity
-            ////////////////////////////////////////////////////////////////////////////
-            explicit Animator(sw::Entity& entity);
             Animator() = delete;
             Animator(Animator const&) = delete;
             Animator(Animator&&) = delete;
@@ -59,12 +59,19 @@ namespace sw
             Animator& operator=(Animator&&) = delete;
 
             ////////////////////////////////////////////////////////////////////////////
+            /// \brief Default constructor
+            ///
+            /// \param entity Reference to the entity
+            ////////////////////////////////////////////////////////////////////////////
+            explicit Animator(sw::Entity& entity);
+
+            ////////////////////////////////////////////////////////////////////////////
             /// \brief Play your animation
             ////////////////////////////////////////////////////////////////////////////
             void play();
 
             ////////////////////////////////////////////////////////////////////////////
-            /// \brief Set pause on your animation
+            /// \brief Pause on your animation
             ////////////////////////////////////////////////////////////////////////////
             void pause();
 
@@ -94,9 +101,8 @@ namespace sw
             ///        the line you want here and the number of the frame (if you have
             ///        les frame than the length of your texture)
             ///
-            /// \param engine
-            /// \param line
-            /// \param end number of frame in your animation
+            /// \param line Number of the line where the animation is (start below of the texture)
+            /// \param end Number of frame in your animation
             /// \return reference to your sprite animator
             ////////////////////////////////////////////////////////////////////////////
             Animator& setLine(int line, int end = -1);
@@ -104,7 +110,6 @@ namespace sw
             ////////////////////////////////////////////////////////////////////////////
             /// \brief Define the displayed rect on your texture
             ///
-            /// \param engine
             /// \param rect
             /// \return reference to your sprite animator
             ////////////////////////////////////////////////////////////////////////////
@@ -118,15 +123,48 @@ namespace sw
             ////////////////////////////////////////////////////////////////////////////
             Animator& setFPS(float fps);
 
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Define the type of your animation. See AnimationType
+            ///
+            /// \param type Type of your animation
+            /// \return reference to your sprite
+            ////////////////////////////////////////////////////////////////////////////
             Animator& setAnimType(AnimType type);
 
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get id the animation is set to loop
+            ///
+            /// \return bool
+            ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]const bool& isLoop() const;
+
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the displayed rect
+            ///
+            /// \return sw::Rect
+            ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]const sw::Vector2u& getRect() const;
+
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the delay of your animation loop
+            ///
+            /// \return float
+            ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]const float& getLoopDelay() const;
+
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the speed of your animation
+            ///
+            /// \return float In Frame per second
+            ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]const float& getFPS() const;
+
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the type of your animation
+            ///
+            /// \return AnimType
+            ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]AnimType& getAnimType();
-            Animator& setPlaying(bool play);
-            Animator& setDisplayRect(sw::FloatRect rect);
 
             friend AnimatorManager;
 
