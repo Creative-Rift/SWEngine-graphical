@@ -19,8 +19,8 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT Material
     {
         public:
-            std::shared_ptr<sw::Texture> m_texture;
-            Shader m_shader;
+            std::shared_ptr<sw::Texture> texture;
+            Shader shader;
 
             Material();
             explicit Material(std::shared_ptr<sw::Texture>& texture);
