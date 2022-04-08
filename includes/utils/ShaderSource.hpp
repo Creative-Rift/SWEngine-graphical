@@ -29,7 +29,7 @@ namespace sw
                 FRAGMENT = GL_FRAGMENT_SHADER
             };
 
-            explicit ShaderSource(std::string&& shaderFile, ShaderType type);
+            explicit ShaderSource(std::string shaderFile, ShaderType type);
             void compile();
             [[nodiscard]] const std::string& getShader() const noexcept;
             [[nodiscard]] const unsigned int& getId() const noexcept;

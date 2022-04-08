@@ -63,6 +63,27 @@ void sw::Shader::useShader() const
     glUseProgram(getId());
 }
 
+sw::Shader &sw::Shader::setShaderSource(std::string source, sw::ShaderSource::ShaderType type)
+{
+    if (type == sw::ShaderSource::FRAGMENT) {
+        glDetachShader(m_id, m_fragment.getId());
+        m_fragment = sw::ShaderSource(source, type);
+        glAttachShader(m_id, m_fragment.getId());
+    }
+    else {
+        glDetachShader(m_id, m_vertex.getId());
+        m_vertex = sw::ShaderSource(source, type);
+        glAttachShader(m_id, m_vertex.getId());
+    }
+    glLinkProgram(m_id);
+    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
+    if (!m_success) {
+        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
+        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
+    }
+    return (*this);
+}
+
 int sw::Shader::getUniLocation(std::string &name) const
 {
     int result = glGetUniformLocation(m_id, name.c_str());

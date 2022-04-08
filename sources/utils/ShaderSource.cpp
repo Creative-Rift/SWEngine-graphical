@@ -16,7 +16,7 @@
 #include "utils/ShaderSource.hpp"
 #include "SW/Errors.hpp"
 
-sw::ShaderSource::ShaderSource(std::string&& shaderFile, ShaderType type) :
+sw::ShaderSource::ShaderSource(std::string shaderFile, ShaderType type) :
 m_shaderContent{},
 m_id{},
 m_success{},

@@ -31,6 +31,9 @@ namespace sw
             Shader();
             Shader(std::string fragment, std::string vertex);
             ~Shader();
+
+            Shader &setShaderSource(std::string source, ShaderSource::ShaderType type);
+
             [[nodiscard]] const unsigned int& getId() const noexcept;
             void useShader() const;
             void setUniBool(std::string varName, bool& value) const;

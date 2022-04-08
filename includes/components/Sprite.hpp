@@ -147,6 +147,14 @@ namespace sw
             [[nodiscard]] const Shader& getShader() const noexcept;
             ////////////////////////////////////////////////////////////////////////////
 
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the shader associated
+            ///
+            /// \return A reference to the Shader
+            ///
+            [[nodiscard]] Material& getMaterial() noexcept;
+            ////////////////////////////////////////////////////////////////////////////
+
             friend SpriteManager;
 
     }; // class Sprite

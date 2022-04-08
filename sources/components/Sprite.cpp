@@ -25,6 +25,11 @@ const sw::Shader &sw::Sprite::getShader() const noexcept
     return (m_material.shader);
 }
 
+sw::Material &sw::Sprite::getMaterial() noexcept
+{
+    return (m_material);
+}
+
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
     m_material.texture = sw::OpenResources::m_ntext[name];
