@@ -17,12 +17,17 @@ m_rect(),
 m_invertedX(false),
 m_invertedY(false)
 {
-    m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
+    m_rect = {0.0f, 0.0f, (float)m_material.m_texture->getWidth(), (float)m_material.m_texture->getHeight()};
 }
 
 const sw::Shader &sw::Sprite::getShader() const noexcept
 {
-    return (m_material.shader);
+    return (m_material.m_shader);
+}
+
+sw::Material &sw::Sprite::getMaterial() noexcept
+{
+    return (m_material);
 }
 
 sw::Material &sw::Sprite::getMaterial() noexcept
@@ -32,8 +37,8 @@ sw::Material &sw::Sprite::getMaterial() noexcept
 
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
-    m_material.texture = sw::OpenResources::m_ntext[name];
-    m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
+    m_material.m_texture = sw::OpenResources::m_ntext[name];
+    m_rect = {0.0f, 0.0f, (float)m_material.m_texture->getWidth(), (float)m_material.m_texture->getHeight()};
     return (*this);
 }
 
@@ -75,7 +80,44 @@ bool sw::Sprite::isFlippedY() const
     return (m_invertedY);
 }
 
+void sw::Sprite::updateInvert()
+{
+    if (m_invertedX) {
+        auto save1 = m_vertexArray[0].position;
+        auto save2 = m_vertexArray[1].position;
+        m_vertexArray[0].position = m_vertexArray[3].position;
+        m_vertexArray[1].position = m_vertexArray[2].position;
+        m_vertexArray[2].position = save2;
+        m_vertexArray[3].position = save1;
+    }
+    if (m_invertedY) {
+        auto save1 = m_vertexArray[0].position;
+        auto save2 = m_vertexArray[2].position;
+        m_vertexArray[0].position = m_vertexArray[1].position;
+        m_vertexArray[2].position = m_vertexArray[3].position;
+        m_vertexArray[1].position = save1;
+        m_vertexArray[3].position = save2;
+    }
+}
+
+void sw::Sprite::defineRect()
+{
+    float a = m_rect.left / static_cast<float>(m_material.m_texture->getWidth());
+    float b = m_rect.width / static_cast<float>(m_material.m_texture->getWidth());
+    float c = m_rect.top / static_cast<float>(m_material.m_texture->getHeight());
+    float d = m_rect.height / static_cast<float>(m_material.m_texture->getHeight());
+
+    m_vertexArray[1].textureCoord = {a + b, c + d};
+    m_vertexArray[0].textureCoord = {a + b, c};
+    m_vertexArray[3].textureCoord = {a, c};
+    m_vertexArray[2].textureCoord = {a, c + d};
+    m_vertexArray[1].position = {(m_rect.width), 0, 0};
+    m_vertexArray[2].position = {0, 0, 0};
+    m_vertexArray[3].position = {0, (m_rect.height), 0};
+    m_vertexArray[0].position = {(m_rect.width), (m_rect.height), 0};
+}
+
 std::shared_ptr<sw::Texture> sw::Sprite::texture() const
 {
-    return (m_material.texture);
+    return (m_material.m_texture);
 }

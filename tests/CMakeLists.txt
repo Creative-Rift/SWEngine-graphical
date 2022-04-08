@@ -19,10 +19,12 @@ project( "SWEngine-OpenGLModule test"
         )
 set( EXEC test.out )
 set( EXT cpp )
+set( FT freetype )
 
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_SOURCE_DIR}/sources/Color/
+        ${CMAKE_SOURCE_DIR}/sources/component/
         ${CMAKE_SOURCE_DIR}/sources/component/transform/
         ${CMAKE_SOURCE_DIR}/sources/template/scenes/
         ${CMAKE_SOURCE_DIR}/sources/fixture/
@@ -114,6 +116,8 @@ add_executable(${EXEC} ${SRC})
 ## ADD INCLUDES
 ## <=====================================>
 target_include_directories(${EXEC} PRIVATE ${INC_FOLDERS})
+include_directories (/usr/include/freetype2)
+target_link_libraries(${EXEC} PUBLIC ${FT})
 ## <=====================================>
 
 ## ADD PARAMETER

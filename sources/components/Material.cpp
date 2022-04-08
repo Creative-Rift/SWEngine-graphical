@@ -9,21 +9,33 @@
 #include "components/Material.hpp"
 
 sw::Material::Material() :
-texture(sw::OpenResources::m_ntext["MissingTexture"]),
-shader()
+m_texture(sw::OpenResources::m_ntext["MissingTexture"]),
+m_shader()
 {}
 
 sw::Material::Material(std::shared_ptr<sw::Texture>& texture) :
-texture(texture),
-shader()
+m_texture(texture),
+m_shader()
 {}
 
 sw::Material::Material(std::string textureName) :
-texture(sw::OpenResources::m_ntext[textureName]),
-shader()
+m_texture(sw::OpenResources::m_ntext[textureName]),
+m_shader()
 {}
 
 sw::Material::Material(std::shared_ptr<sw::Texture>& texture, Shader& shader) :
-texture(texture),
-shader(shader)
+m_texture(texture),
+m_shader(shader)
 {}
+
+sw::Material &sw::Material::setShader(sw::Shader shader)
+{
+    m_shader = shader;
+    return (*this);
+}
+
+sw::Material &sw::Material::setTexture(std::string textureName)
+{
+    m_texture = sw::OpenResources::m_ntext[textureName];
+    return (*this);
+}
