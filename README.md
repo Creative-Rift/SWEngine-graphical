@@ -8,20 +8,24 @@
 ## Description
 
 This module built with OpenGL and GLFW provide several components to build your graphical project.
-OpenGLModule support linux platform. To create a graphical project you have to link all required library
+OpenGLModule support Linux and Windows platform. To create a graphical project you have to link all required library
 with this module and your project. Check our [documentation](https://docs.creative-rift.com/) for more information.
 
 ## Installation
-Just clone the project, and you can build the library.
+Just clone the project, then do `./check_for_update -i` (only on Linux)
 
 ## Compilation
 
-* Go to `module/`
-* Create a `build` folder
-* Go to this folder
-* Run `cmake ..`
-* Run `cmake --build .`
-* Check on `module/lib` if the build successful
+Linux :
+* Do `./check_for_update -b`
+
+Windows:
+* `mkdir build`
+* `cd build`
+* `cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug/Release ..`
+* `cmake --build .`
+
+The default output is in `out/`
 
 ## Documentation
 
