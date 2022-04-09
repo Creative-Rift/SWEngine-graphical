@@ -1,51 +1,11 @@
-## CMAKE VAR
-## <=====================================>
 cmake_minimum_required( VERSION 3.18...3.22 )
-set( CMAKE_BUILD_TYPE Debug ) # Release / RelWithDebInfo / Debug
-set( CMAKE_CXX_STANDARD 20 )
-set( CMAKE_CXX_STANDARD_REQUIRED True )
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out/ )
-set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out/ )
-set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out/ )
-## <=====================================>
 
-project( SWEngine-OpenGLModule
+project( "ShipWreck Engine"
         VERSION
-        0.1
+        0.2
         DESCRIPTION
-        "Graphical module for ShipwreckEngine"
+        "Library shipwreck"
         )
 
-## SOURCE FOLDERS
-set( SRC_FOLDERS
-        ${CMAKE_SOURCE_DIR}/sources/
-        ${CMAKE_SOURCE_DIR}/sources/components/
-        ${CMAKE_SOURCE_DIR}/sources/components/transform/
-        ${CMAKE_SOURCE_DIR}/sources/managers/
-        ${CMAKE_SOURCE_DIR}/sources/resources/
-        ${CMAKE_SOURCE_DIR}/sources/utils/
-        ${CMAKE_SOURCE_DIR}/sources/event/
-        )
-## INCLUDE FOLDERS
-set( INC_FOLDERS
-        ${CMAKE_SOURCE_DIR}/libraries/
-        ${CMAKE_SOURCE_DIR}/libraries/core/
-        ${CMAKE_SOURCE_DIR}/libraries/freetype/
-        ${CMAKE_SOURCE_DIR}/includes/
-        ${CMAKE_SOURCE_DIR}/includes/components/
-        ${CMAKE_SOURCE_DIR}/includes/dependencies/
-        ${CMAKE_SOURCE_DIR}/includes/managers/
-        ${CMAKE_SOURCE_DIR}/includes/resources/
-        ${CMAKE_SOURCE_DIR}/includes/utils/
-        ${CMAKE_SOURCE_DIR}/includes/event/
-        )
-
-if (WIN32)
-    message("Windows system detected, prepare project...")
-    include(.cmake_windows.cmake)
-elseif(UNIX)
-    message("Linux system detected, prepare project...")
-    include(.cmake_linux.cmake)
-else()
-    message(FATAL_ERROR "System not supported!")
-endif()
+add_subdirectory(core/)
+add_subdirectory(module/)
