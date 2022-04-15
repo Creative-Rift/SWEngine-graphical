@@ -6,8 +6,7 @@ sw::Font::Font(std::string font)
     {
         std::cerr << "Failed to load font" << std::endl;  
         return;
-    } else
-        std::cout << "Font loaded" << std::endl;
+    }
     FT_Set_Pixel_Sizes(face, 0, 48);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

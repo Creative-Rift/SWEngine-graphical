@@ -91,7 +91,6 @@ void sw::OpenGLModule::initialize()
     if (!alcMakeContextCurrent(m_audioContext))
         sw::Speech::Warning("Audio Context cannot be set!");
 
-    displayAudioDevice();
     sw::Speech::flush();
 
     glViewport(0, 0, 1920, 1080);

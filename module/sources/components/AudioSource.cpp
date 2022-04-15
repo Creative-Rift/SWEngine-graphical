@@ -34,8 +34,26 @@ sw::AudioSource &sw::AudioSource::play()
     return (*this);
 }
 
+sw::AudioSource &sw::AudioSource::pause()
+{
+    alSourcePause(m_source);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::stop()
+{
+    alSourceStop(m_source);
+    return (*this);
+}
+
 sw::AudioSource &sw::AudioSource::setVolume(float volume)
 {
     alSourcef(m_source, AL_GAIN, volume);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setPitch(float pitch)
+{
+    alSourcef(m_source, AL_PITCH, pitch);
     return (*this);
 }

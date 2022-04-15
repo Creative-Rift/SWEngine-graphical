@@ -28,7 +28,10 @@ namespace sw
 
             AudioSource& setAudio(std::string audio);
             AudioSource& play();
+            AudioSource& pause();
+            AudioSource& stop();
             AudioSource& setVolume(float volume);
+            AudioSource& setPitch(float pitch);
     };
 }
 
