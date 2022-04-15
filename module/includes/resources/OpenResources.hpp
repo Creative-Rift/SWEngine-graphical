@@ -15,6 +15,7 @@
 
 #include "OpenGLModule_Config.hpp"
 #include "resources/Font.hpp"
+#include "resources/Audio.hpp"
 
 #include <queue>
 #include <memory>
@@ -52,9 +53,11 @@ namespace sw
         private:
             std::map<std::string, std::string> m_ntx{};
             std::map<std::string, std::string> m_nft{};
+            std::map<std::string, std::string> m_nau{};
 
             void loadTextures();
             void loadFonts();
+            void loadAudio();
             //std::priority_queue<std::unique_ptr<Font>> m_ft{}; font -> dev 2 final
             //std::priority_queue<std::unique_ptr<void>> m_sh; shaders -> dev 2/3
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
@@ -73,6 +76,13 @@ namespace sw
                     using std::map<std::string, std::shared_ptr<Font>>::operator[];
                     friend OpenResources;
             } m_nfont;
+
+            static class AudioMap : private std::map<std::string, std::shared_ptr<Audio>>
+            {
+                public:
+                    using std::map<std::string, std::shared_ptr<Audio>>::operator[];
+                    friend OpenResources;
+            } m_naudio;
             OpenResources() = default;
             ~OpenResources();
             void loadResources() override;

@@ -38,3 +38,9 @@ cmake-*
 build/
 # Libs folder
 libraries/
+
+*.zip
+
+module/out/
+
+core/out/

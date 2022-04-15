@@ -66,7 +66,6 @@ try
         sw::Speech::Warning(sw::Log::warning360(FUNCTION, m_name));
         return;
     }
-    sw::Speech::Info(sw::Log::info360(FUNCTION, m_name));
 
     if (m_managersLayers.needSort)
         m_managersLayers.sort();
@@ -83,7 +82,6 @@ try
     deleteRequestedEntities();
     deleteRequestedManagers();
 
-    sw::Speech::Info(sw::Log::info360_Success(FUNCTION, m_name));
 }
 catch (sw::Error& error) {
     sw::Speech::Error(error.getMessage(), error.getCode());

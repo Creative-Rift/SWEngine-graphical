@@ -3,43 +3,26 @@
 set( EXEC SWEngine-Core )
 set( EXT cpp )
 
-## SOURCE FOLDERS
-set( SRC_FOLDERS
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/engine/
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/scene/
-        )
-## INCLUDE FOLDERS
-set( INC_FOLDERS
-        ${CMAKE_SOURCE_DIR}/libraries/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/component/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/engine/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/entity/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/error/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/event/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/manager/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/module/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/resources/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/scene/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/
-        ${CMAKE_CURRENT_SOURCE_DIR}/
-        )
+if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
+    set(DEBUG_SUFFIX "d")
+else()
+    set(DEBUG_SUFFIX "")
+endif()
+
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         Jsnp
-        yaml-cppd
+        yaml-cpp
 )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
-        ${CMAKE_SOURCE_DIR}/libraries/Jsnp.dll
-        ${CMAKE_SOURCE_DIR}/libraries/yaml-cppd.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
-        ${CMAKE_SOURCE_DIR}/libraries/Jsnp.lib
-        ${CMAKE_SOURCE_DIR}/libraries/yaml-cppd.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.lib
         )
 ## <=====================================>
 
