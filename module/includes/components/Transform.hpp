@@ -14,7 +14,7 @@
 #include "SW/Component.hpp"
 #include "SW/Utils.hpp"
 
-#include "OpenGLModule_Config.hpp"
+#include "../OpenGLModule_Config.hpp"
 #include "utils/Vector3.hpp"
 
 namespace sw

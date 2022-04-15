@@ -74,6 +74,8 @@ sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
 
 sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
 
+sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
+
 sw::Ftlib fontlb;
 
 sw::OpenResources::~OpenResources()
@@ -85,6 +87,7 @@ void sw::OpenResources::loadResources()
     try {
         loadTextures();
         loadFonts();
+        loadAudio();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
@@ -109,15 +112,29 @@ void sw::OpenResources::loadTextures()
         sw::Speech::Warning("No Texture was loaded.", "3720");
 }
 
+void sw::OpenResources::loadAudio()
+{
+    for (auto &[name, path] : m_nau) {
+        m_naudio.emplace(name, std::make_shared<Audio>(path));
+    }
+    if (m_naudio.empty())
+        sw::Speech::Warning("No Audio was loaded.", "3720");
+}
+
 void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {
-    if (type == "Texture") 
+    if (type == "Texture")
     {
         if (m_ntx.find(name) == m_ntx.end())
             m_ntx.emplace(name, path);
-    } else if (type == "Font")
+    } else if (type == "Font") {
         if (m_nft.find(name) == m_nft.end())
             m_nft.emplace(name, path);
+    } else if (type == "Audio") {
+        if (m_nau.find(name) == m_nau.end())
+            m_nau.emplace(name, path);
+    }
+
 }
 
 void sw::OpenResources::unloadResources()

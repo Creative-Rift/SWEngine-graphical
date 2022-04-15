@@ -7,6 +7,8 @@ set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
 set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
 ## <=====================================>
 
+set(PREFIX_MESSAGE "[SWEngine-OpenGL] ")
+
 ## SOURCE FOLDERS
 set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/
@@ -31,14 +33,14 @@ set( INC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/event/
         )
 
-message( DEBUG "[SWEngine-OpenGL] Build type set to ${CMAKE_BUILD_TYPE}")
+message(${PREFIX_MESSAGE} "Build type set to: " ${CMAKE_BUILD_TYPE})
 
 
 if (WIN32)
-    message("[SWEngine-OpenGL] Windows system detected, prepare project...")
+    message(${PREFIX_MESSAGE} "Windows system detected, prepare project...")
     include(.cmake_windows.cmake)
 elseif(UNIX)
-    message("[SWEngine-OpenGL] Linux system detected, prepare project...")
+    message(${PREFIX_MESSAGE} "Linux system detected, prepare project...")
     include(.cmake_linux.cmake)
 else()
     message(FATAL_ERROR "System not supported!")

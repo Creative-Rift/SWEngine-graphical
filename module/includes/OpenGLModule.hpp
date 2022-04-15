@@ -11,6 +11,8 @@
 
 #include "dependencies/glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "openal/al.h"
+#include "openal/alc.h"
 
 #include "SW/Engine.hpp"
 
@@ -32,7 +34,11 @@ namespace sw
         private:
             sw::Chrono m_chronoWindow;
             GLFWwindow *m_window{};
+            ALCdevice *m_audioDevice;
+            ALCcontext *m_audioContext;
             double m_frameRate;
+
+            std::vector<std::string> m_devices;
 
             static void resizeCallBack(GLFWwindow* window, int width, int height);
             static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
@@ -41,6 +47,7 @@ namespace sw
             static void position_callback(GLFWwindow* window, double xpos, double ypos);
             void setUpCallBack();
             void loadResourcesFile(const std::string &path) override;
+            void displayAudioDevice();
         
         public:
             sw::Chrono m_chrono;
