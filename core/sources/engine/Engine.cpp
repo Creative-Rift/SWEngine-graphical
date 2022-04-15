@@ -37,7 +37,6 @@ try
         sw::Speech::clearConsole();
     sw::Speech::Info(sw::Log::info150(FUNCTION));
 
-    GRAPHICAL_MODULE;
     getModule().initialize();
     m_isLoad = true;
 
@@ -55,8 +54,6 @@ try
         sw::Speech::Warning(sw::Log::warning160(FUNCTION));
         return;
     }
-    sw::Speech::Info(sw::Log::info160(FUNCTION));
-
     getModule().update();
 
     if (!m_nextActiveScene.empty())
@@ -68,7 +65,6 @@ try
     if (m_moduleToDelete)
         executeDeleteModule();
 
-    sw::Speech::Info(sw::Log::info160_Success(FUNCTION));
     sw::Speech::flush();
 }
 catch (sw::Error& error) {

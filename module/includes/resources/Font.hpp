@@ -43,8 +43,7 @@ namespace sw
                 std::cerr << "Could not init FreeType Library" << std::endl;
                 load = false;
                 return;
-            } else
-                std::cout << "FreeType Library loaded" << std::endl;
+            }
             load = true;
         };
 

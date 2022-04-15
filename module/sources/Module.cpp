@@ -36,6 +36,21 @@ m_chrono(sw::Chrono::Wait),
 m_frameRate(1.0/60.0)
 {}
 
+void sw::OpenGLModule::displayAudioDevice()
+{
+    m_devices.clear();
+    const ALCchar* deviceList = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
+
+    if (!deviceList)
+        return;
+    while (strlen(deviceList) > 0) {
+        m_devices.emplace_back(deviceList);
+        deviceList += strlen(deviceList) + 1;
+    }
+    for (auto& str : m_devices)
+        std::cout << str << std::endl;
+}
+
 void sw::OpenGLModule::initialize()
 {
     sw::Speech::flush();
@@ -67,10 +82,22 @@ void sw::OpenGLModule::initialize()
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         throw sw::Error("Failed to initialize GLAD", "");
 
+    m_audioDevice = alcOpenDevice(nullptr);
+    if (!m_audioDevice)
+        sw::Speech::Warning("Audio device cannot be initialized!");
+    m_audioContext = alcCreateContext(m_audioDevice, nullptr);
+    if (!m_audioContext)
+        sw::Speech::Warning("Audio Context cannot be initialized!");
+    if (!alcMakeContextCurrent(m_audioContext))
+        sw::Speech::Warning("Audio Context cannot be set!");
+
+    sw::Speech::flush();
+
     glViewport(0, 0, 1920, 1080);
     loadResourcesFile("resources/textures.json");
     setUpCallBack();
     m_chrono.start();
+
 }
 
 void sw::OpenGLModule::update()
@@ -98,6 +125,9 @@ void sw::OpenGLModule::update()
 void sw::OpenGLModule::terminate()
 {
     glfwTerminate();
+    alcMakeContextCurrent(nullptr);
+    alcDestroyContext(m_audioContext);
+    alcCloseDevice(m_audioDevice);
 }
 
 bool sw::OpenGLModule::isOk()
@@ -121,6 +151,8 @@ void sw::OpenGLModule::setUpCallBack()
 
 void sw::OpenGLModule::input_callback(GLFWwindow*, int key, int, int action, int)
 {
+    if (key == -1)
+        return;
     if (action == GLFW_RELEASE)
         current_key_flags[key] = 0;
     else

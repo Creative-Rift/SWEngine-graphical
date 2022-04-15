@@ -9,20 +9,42 @@ set( SHARED_LIB_NAME
         Jsnp
         ShipWreckEngine-Core
         freetype
+        sndfile
+        OpenAL32
         )
+
+if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
+    set(DEBUG_SUFFIX "d")
+else()
+    set(DEBUG_SUFFIX "")
+endif()
+
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
-        ${CMAKE_SOURCE_DIR}/libraries/glfw3.dll
-        ${CMAKE_SOURCE_DIR}/libraries/Jsnp.dll
-        ${CMAKE_SOURCE_DIR}/libraries/core/SWEngine-Cored.dll
-        ${CMAKE_SOURCE_DIR}/libraries/core/freetype.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/core/SWEngine-Core${DEBUG_SUFFIX}.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/core/freetype.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
+        ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
-        ${CMAKE_SOURCE_DIR}/libraries/glfw3.lib
-        ${CMAKE_SOURCE_DIR}/libraries/Jsnp.lib
-        ${CMAKE_SOURCE_DIR}/libraries/SWEngine-Cored.lib
-        ${CMAKE_SOURCE_DIR}/libraries/freetype.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/SWEngine-Core${DEBUG_SUFFIX}.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.lib
+        ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.lib
+        )
+
+## IMPORTED STATIC LIBRARY NAME
+set( STATIC_LIB_NAME
+        )
+
+## IMPORTED STATIC LIBRARY .lib file
+set( STATIC_LIB
+
         )
 ## <=====================================>
 
@@ -81,6 +103,25 @@ endforeach()
 target_link_libraries(${EXEC}
         PUBLIC
         ${SHARED_LIB_NAME}
+        )
+## <=====================================>
+
+## STATIC LIBRARY LINKING
+## <=====================================>
+list(LENGTH STATIC_LIB_NAME  list_len)
+math(EXPR LIST_LEN "${list_len} - 1")
+
+foreach(ctr RANGE ${LIST_LEN})
+    list(GET STATIC_LIB_NAME ${ctr} lib)
+    list(GET STATIC_LIB ${ctr} filelib)
+    #add_library(${lib} STATIC IMPORTED)
+    #set_target_properties(${lib} PROPERTIES
+    #        IMPORTED_LOCATION ${filelib}
+    #        )
+endforeach()
+target_link_libraries(${EXEC}
+        PUBLIC
+        ${STATIC_LIB_NAME}
         )
 ## <=====================================>
 
