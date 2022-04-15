@@ -19,6 +19,7 @@
 #include "OpenGLModule_Config.hpp"
 #include "utils/Buffer.hpp"
 #include "utils/Inputs.hpp"
+#include "scenes_manager/SceneManager.hpp"
 
 #include <memory>
 #include <array>
@@ -51,6 +52,7 @@ namespace sw
         
         public:
             sw::Chrono m_chrono;
+            SceneManager sceneManager;
             explicit OpenGLModule();
             ~OpenGLModule() override = default;
 
