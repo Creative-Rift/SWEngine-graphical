@@ -25,7 +25,7 @@
 
 namespace sw
 {
-    class _IEventListener
+    class SW_CORE_API_EXPORT _IEventListener
     {
 
         public:

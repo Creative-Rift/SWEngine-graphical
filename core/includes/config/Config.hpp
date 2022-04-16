@@ -9,8 +9,9 @@
 #ifndef SHIPWRECK_CONFIG_HPP
 #define SHIPWRECK_CONFIG_HPP
 
-#include "yaml-cpp/yaml.h"
+#define YAML_CPP_API
 
+#include "yaml-cpp/yaml.h"
 
 namespace sw
 {

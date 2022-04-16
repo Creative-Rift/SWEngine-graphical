@@ -26,6 +26,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <string>
 
 #include "Chrono.hpp"
 #include "../Log.hpp"
@@ -44,6 +45,7 @@ namespace sw
             /// The second corresponding to the log built with the message
             /// and the log sended.
             //
+            #pragma warning(disable: 4251)
             static std::vector<std::pair<std::string, std::string>> m_logList;
             ///
 

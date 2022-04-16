@@ -15,10 +15,10 @@
 #include "utils/Speech.hpp"
 #include "config/Config.hpp"
 
-std::vector<std::pair<std::string, std::string>> sw::Speech::m_logList;
-std::vector<std::pair<std::string, std::string>> sw::Speech::m_lastLogList;
+SW_CORE_API_EXPORT std::vector<std::pair<std::string, std::string>> sw::Speech::m_logList;
+SW_CORE_API_EXPORT std::vector<std::pair<std::string, std::string>> sw::Speech::m_lastLogList;
 
-std::map<std::string, std::map<std::string, std::vector<std::string>>> sw::Speech::m_listSpeech;
+SW_CORE_API_EXPORT std::map<std::string, std::map<std::string, std::vector<std::string>>> sw::Speech::m_listSpeech;
 
 SW_CORE_API_EXPORT bool sw::Speech::colorized   = false;
 SW_CORE_API_EXPORT bool sw::Speech::displayed   = true;
@@ -87,7 +87,7 @@ std::string sw::Speech::time()
             return ("--:--:--");
     }
 
-    time_t now = std::time(0);
+    time_t now = std::time(nullptr);
     tm *stime = std::localtime(&now);
     std::stringstream sstr;
 
@@ -227,8 +227,8 @@ void sw::Speech::Info(const std::string& message, const std::string& code)
 
 static bool isSame(std::vector<std::pair<std::string, std::string>> list1, std::vector<std::pair<std::string, std::string>> list2)
 {
-    int ctr1 = list1.size() - 1;
-    int ctr2 = list2.size() - 1;
+    int ctr1 = (int)list1.size() - 1;
+    int ctr2 = (int)list2.size() - 1;
 
     while (ctr1 >= 0 && ctr2 >= 0) {
         if (list1[ctr1].second == list2[ctr2].second) {
@@ -262,7 +262,7 @@ void sw::Speech::flush(std::ostream& os)
         }
         chrono.start();
 
-        unsigned line = (m_logList.size() <= m_lastLogList.size() ? m_logList.size() : m_lastLogList.size());
+        unsigned line = (unsigned(m_logList.size() <= m_lastLogList.size() ? m_logList.size() : m_lastLogList.size());
         os << "\033[" + std::to_string(line) + "A";
     }
 

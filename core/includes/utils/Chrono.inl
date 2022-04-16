@@ -44,7 +44,7 @@ inline double sw::Chrono::getElapsedTime() const
 {
     if (m_isRunning)
         m_end = std::chrono::steady_clock::now();
-    double step = std::chrono::duration_cast<std::chrono::milliseconds>(m_end - m_tour).count();
+    double step = (double)std::chrono::duration_cast<std::chrono::milliseconds>(m_end - m_tour).count();
     return (step / 1000);
 }
 
@@ -52,7 +52,7 @@ inline double sw::Chrono::getTotalTime() const
 {
     if (m_isRunning)
         m_end = std::chrono::steady_clock::now();
-    double step = std::chrono::duration_cast<std::chrono::milliseconds>(m_end - m_start).count();
+    double step = (double)std::chrono::duration_cast<std::chrono::milliseconds>(m_end - m_start).count();
     return (step / 1000);
 }
 
