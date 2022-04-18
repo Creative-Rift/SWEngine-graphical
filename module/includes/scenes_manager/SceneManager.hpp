@@ -17,11 +17,14 @@
 #include <string>
 #include <map>
 
+#include "OpenGLModule_Config.hpp"
+#include "scene/Scene.hpp"
+
 namespace sw
 {
     class Scene;
 
-    class SceneManager
+    class SW_GRAPH_MODULE_EXPORT SceneManager
     {
         private:
             std::map<std::string, Scene> m_scenes;

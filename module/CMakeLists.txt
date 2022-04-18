@@ -16,6 +16,7 @@ set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/transform/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/exception/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/gameObject/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/managers/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/resources/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/

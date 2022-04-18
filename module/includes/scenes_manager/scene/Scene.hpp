@@ -27,8 +27,7 @@
 #include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule_Config.hpp"
-#include "OpenGLModule.hpp"
-#include "OpenResources.hpp"
+#include "resources/OpenResources.hpp"
 
 #include "gameObject/IGameObject.hpp"
 

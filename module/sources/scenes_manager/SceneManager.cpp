@@ -32,7 +32,7 @@ void sw::SceneManager::loadScene(std::string sceneName)
     m_scenes.at(sceneName).load();
     sw::SceneLoadEvent newScene(m_scenes.at(sceneName));
     sw::EventInfo info(newScene);
-    sw::OpenGLModule::eventManager.drop("SceneLoad", info);
+    sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
     m_nameActiveScene = sceneName;
 }
 

@@ -22,7 +22,7 @@
 #include <iostream>
 
 #include "IComponent.hpp"
-#include "../gameObject/GameObject.hpp"
+#include "../../gameObject/GameObject.hpp"
 
 namespace sw
 {
