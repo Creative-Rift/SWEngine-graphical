@@ -9,10 +9,8 @@
 #ifndef SWENGINE_OPENGLMODULE_BOXCOLLIDER_HPP
 #define SWENGINE_OPENGLMODULE_BOXCOLLIDER_HPP
 
-#include "SW/Component.hpp"
-
-#include "SW/Utils.hpp"
-
+#include "components/base/Component.hpp"
+#include "utils/Vector2.hpp"
 #include "OpenGLModule_Config.hpp"
 
 namespace sw
@@ -25,7 +23,7 @@ namespace sw
             bool m_isTrigger;
 
         public:
-            explicit BoxCollider(sw::Entity& entity);
+            explicit BoxCollider(sw::GameObject& gameObject);
 
             BoxCollider& setSize(float x, float y);
             BoxCollider& setSize(Vector2f size);

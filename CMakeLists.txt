@@ -7,5 +7,4 @@ project( "ShipWreck Engine"
         "Library shipwreck"
         )
 
-add_subdirectory(core/)
 add_subdirectory(module/)

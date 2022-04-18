@@ -9,7 +9,7 @@
 #ifndef SHIPWRECK_ENGINE_AUDIOSOURCE_HPP
 #define SHIPWRECK_ENGINE_AUDIOSOURCE_HPP
 
-#include "SW/Component.hpp"
+#include "components/base/Component.hpp"
 #include "../OpenGLModule_Config.hpp"
 
 #include "../resources/Audio.hpp"
@@ -23,7 +23,7 @@ namespace sw
         private:
             ALuint m_source;
         public:
-            explicit AudioSource(sw::Entity& entity);
+            explicit AudioSource(sw::GameObject& entity);
             ~AudioSource() override;
 
             AudioSource& setAudio(std::string audio);

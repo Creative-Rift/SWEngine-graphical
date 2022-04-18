@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-#include "SW/Errors.hpp"
+#include "../exception/Error.hpp"
 
 #include "dependencies/glad/glad.h"
 

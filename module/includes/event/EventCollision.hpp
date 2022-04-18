@@ -11,7 +11,7 @@
 
 #include <string>
 
-#include "includes/event/EventInfo.hpp"
+#include "event/EventInfo.hpp"
 
 #include "OpenGLModule_Config.hpp"
 

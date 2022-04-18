@@ -11,8 +11,8 @@
 
 #include "Camera.hpp"
 
-sw::Camera::Camera(sw::Entity &entity) :
-sw::Component(entity),
+sw::Camera::Camera(sw::GameObject &gameObject) :
+sw::Component(gameObject),
 m_type(Projection::ORTHOGRAPHIC),
 m_fov(45),
 m_size(1),
@@ -70,7 +70,7 @@ const glm::mat4 &sw::Camera::getProjection()
 
 const glm::mat4 sw::Camera::getView() const
 {
-    sw::ConcreteComponent auto& transform = m_entity.getComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.getComponent<sw::Transform>("TransformManager");
     glm::mat4 matrix = glm::mat4(1.0f);
 
     matrix = glm::translate(matrix, glm::vec3(-transform.getPosition().x, -transform.getPosition().y, -transform.getPosition().z));

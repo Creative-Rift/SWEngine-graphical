@@ -6,16 +6,17 @@
 ** Description: [CHANGE]
 */
 
-#include "SW/utils/Speech.hpp"
 #include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule.hpp"
 #include "OpenGLModule_Config.hpp"
 #include "resources/OpenResources.hpp"
 #include "utils/Buffer.hpp"
+#include "utils/Speech.hpp"
+#include "exception/Error.hpp"
+#include "scenes_manager/scene/Scene.hpp"
 
 #include <iostream>
-#include <map>
 #include <algorithm>
 #include <ranges>
 #include <execution>
@@ -29,11 +30,18 @@ SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char current_mouse_flags[sw::MouseBtn::Button_last];
 SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
 
-sw::OpenGLModule::OpenGLModule() :
-sw::AModule(),
-m_window(nullptr),
-m_chrono(sw::Chrono::Wait),
-m_frameRate(1.0/60.0)
+SW_GRAPH_MODULE_EXPORT sw::SceneManager sw::OpenGLModule::sceneManager;
+SW_GRAPH_MODULE_EXPORT sw::EventManager sw::OpenGLModule::eventManager;
+SW_GRAPH_MODULE_EXPORT sw::Chrono sw::OpenGLModule::m_chrono(sw::Chrono::Wait);
+SW_GRAPH_MODULE_EXPORT sw::Chrono sw::OpenGLModule::m_chronoWindow(sw::Chrono::Wait);
+SW_GRAPH_MODULE_EXPORT bool sw::OpenGLModule::m_isLoad(false);
+SW_GRAPH_MODULE_EXPORT double sw::OpenGLModule::m_frameRate(1.0/60.0);
+SW_GRAPH_MODULE_EXPORT GLFWwindow* sw::OpenGLModule::m_window(nullptr);
+SW_GRAPH_MODULE_EXPORT ALCdevice* sw::OpenGLModule::m_audioDevice(nullptr);
+SW_GRAPH_MODULE_EXPORT ALCcontext* sw::OpenGLModule::m_audioContext(nullptr);
+SW_GRAPH_MODULE_EXPORT std::vector<std::string> sw::OpenGLModule::m_devices;
+
+sw::OpenGLModule::OpenGLModule()
 {}
 
 void sw::OpenGLModule::displayAudioDevice()
@@ -51,7 +59,7 @@ void sw::OpenGLModule::displayAudioDevice()
         std::cout << str << std::endl;
 }
 
-void sw::OpenGLModule::initialize()
+void sw::OpenGLModule::load()
 {
     sw::Speech::flush();
     if (!glfwInit())
@@ -97,7 +105,7 @@ void sw::OpenGLModule::initialize()
     loadResourcesFile("resources/textures.json");
     setUpCallBack();
     m_chrono.start();
-
+    m_isLoad = true;
 }
 
 void sw::OpenGLModule::update()
@@ -105,7 +113,7 @@ void sw::OpenGLModule::update()
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    sw::Engine::activeScene().update();
+    sceneManager.getActiveScene().update();
     for (int i = 0; i < sw::Keyboard::LAST; ++i)
         previous_key_flags[i] = current_key_flags[i];
     for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
@@ -122,12 +130,18 @@ void sw::OpenGLModule::update()
     }
 }
 
-void sw::OpenGLModule::terminate()
+void sw::OpenGLModule::unload()
 {
     glfwTerminate();
     alcMakeContextCurrent(nullptr);
     alcDestroyContext(m_audioContext);
     alcCloseDevice(m_audioDevice);
+    m_isLoad = false;
+}
+
+bool sw::OpenGLModule::isLoad() const
+{
+    return (m_isLoad);
 }
 
 bool sw::OpenGLModule::isOk()
@@ -135,9 +149,9 @@ bool sw::OpenGLModule::isOk()
     return (!glfwWindowShouldClose(m_window));
 }
 
-std::unique_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()
+std::shared_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()
 {
-    return (std::make_unique<sw::OpenResources>());
+    return (std::make_shared<sw::OpenResources>());
 }
 
 void sw::OpenGLModule::setUpCallBack()
@@ -291,8 +305,8 @@ static void addResourcesOnReqScene(jsnp::Token& token)
     for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
         auto yolo = value.value<std::string>();
 
-        sw::AScene& currentScene = sw::Engine::getScene(yolo);
-        currentScene.resources().addNeededResource(key, path, type);
+        sw::Scene& currentScene = sw::OpenGLModule::sceneManager.getScene(yolo);
+        currentScene.resources.addNeededResource(key, path, type);
     }
 }
 

@@ -11,8 +11,7 @@
 
 #include "dependencies/glm/glm.hpp"
 
-#include "SW/Component.hpp"
-#include "SW/Utils.hpp"
+#include "base/Component.hpp"
 
 #include "../OpenGLModule_Config.hpp"
 #include "utils/Vector3.hpp"
@@ -38,7 +37,6 @@ namespace sw
             void needUpdate(bool value) {
                 m_needUpdate = value;
             }
-            ///////////////////////////////////////////////////////////////////
             ///
             /// Update the matrix.
             ///
@@ -47,32 +45,20 @@ namespace sw
             ///
             /// Thanks to this, we can reduce the calculations to what
             /// is strictly necessary.
-            //
             void updateMatrix() noexcept ;
-            //
-            ///////////////////////////////////////////////////////////////////
 
         public:
-            ///////////////////////////////////////////////////////////////////
             ///
             /// Check if the Matrix need to be update.
-            //
             bool checkUpdate() const;
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
             ///
             /// Initialize a Matrix Component attached to the given Entity.
             ///
             /// @param entity The Entity to which the Matrix Component will
             /// be attached.
-            ///
-            explicit Transform(sw::Entity& entityRef);
-            ///
-            ///////////////////////////////////////////////////////////////////
+            explicit Transform(sw::GameObject& gameObject);
 
-            ///////////////////////////////////////////////////////////////////
             ///
             /// Set the position of a Matrix Component.
             /// The default position of a Matrix Component is (0, 0).
@@ -81,11 +67,8 @@ namespace sw
             /// @see move() to add to the current position.
             ///
             /// @param position New position.
-            //
             void setPosition(const sw::Vector3f& position);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Set the position of a Matrix Component.
             /// The default position of a Matrix Component is (0, 0).
             ///
@@ -95,13 +78,8 @@ namespace sw
             /// @param x X coordinate of the new position.
             /// @param y Y coordinate of the new position.
             /// @param z Z coordinate of the new position.
-            //
             void setPosition(float x, float y, float z = 0);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Move a Matrix Component
             ///
             /// @warning This function adds to the current position.
@@ -109,11 +87,8 @@ namespace sw
             ///
             /// @param offset Add to the actual position of
             /// the Matrix Component.
-            //
             void move(const sw::Vector3f& position);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Move a Matrix Component.
             ///
             /// @warning This function adds to the current position.
@@ -122,27 +97,15 @@ namespace sw
             /// @param x X offset.
             /// @param y Y offset.
             /// @param z Z offset.
-            //
             void move(float x, float y, float z = 0);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
             ///
             /// Get the position of a Matrix Component.
-            //
             const sw::Vector3f& getPosition() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the globale position of a Matrix Component.
-            //
-            const sw::Vector3f& getGlobalPosition() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
+            /// Get the globale position of a Matrix Component.
+            const sw::Vector3f& getGlobalPosition() const noexcept;
+
             /// Set the scalation of a Matrix Component.
             /// The default scalation of a Matrix Component is (1, 1).
             ///
@@ -150,11 +113,8 @@ namespace sw
             /// @see scale() to add to the current scalation.
             ///
             /// @param scale New scalation.
-            //
             void setScale(const sw::Vector3f& scale);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Set the scalation of a Matrix Component.
             /// The default scalation of a Matrix Component is (1, 1).
             ///
@@ -163,13 +123,8 @@ namespace sw
             ///
             /// @param x New horizontal scale factor.
             /// @param y New vertical scale factor.
-            //
             void setScale(float x, float y, float z = 1);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Scale the Matrix Component.
             ///
             /// @warning This function multiplies the current scale of
@@ -177,11 +132,8 @@ namespace sw
             /// @see setScale() to overwrite the actual scalation.
             ///
             /// @param scale Scale factor.
-            //
             void scale(const sw::Vector3f& scale);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Scale the Matrix Component.
             ///
             /// @warning This function multiplies the current scale of
@@ -191,124 +143,70 @@ namespace sw
             /// @param x scale factor for X axis.
             /// @param y scale factor for Y axis.
             /// @param z scale factor for Z axis.
-            //
             void scale(float x, float y, float z = 1);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Get the scale of a Matrix Component.
-            //
             const sw::Vector3f& getScale() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the global scale of a Matrix Component.
-            //
-            const sw::Vector3f& getGlobalScale() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
+            /// Get the global scale of a Matrix Component.
+            const sw::Vector3f& getGlobalScale() const noexcept;
+
             /// Set the orientation of the Matrix Component.
             /// The default rotation of a Matrix Component is 0.
             ///
             /// @warning This function completely overwrites
             /// the previous rotation.
             /// @see rotate() to add an angle on the previous rotation.
-            //
             void setRotation(float angle, float rotationX = 0, float rotationY = 1, float rotationZ = 0);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Rotate the Matrix Component.
             ///
             /// @warning This function adds to the current rotation of
             /// the Matrix Component.
             /// @see setRotation() to overwrite the actual orientation.
-            //
             void rotate(float angle, float rotationX = 0, float rotationY = 1, float rotationZ = 0);
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Get the orientation of the Matrix Component in degree.
-            //
             const sw::Vector3f& getRotationAxis() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Get the orientation of the Matrix Component in degree.
-            //
             const float& getAngle() const noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Get the global orientation of the Matrix Component in degree.
-            //
             const sw::Vector3f& getGlobalRotationAxis();
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
             /// Get the matrix of the Matrix Component.
-            //
             const glm::mat4& getMatrix() noexcept;
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
-            /// Get the global matrix of the Matrix Component.
-            //
-            const glm::mat4& getGlobalMatrix();
-            //
-            ///////////////////////////////////////////////////////////////////
 
-            ///////////////////////////////////////////////////////////////////
-            ///
+            /// Get the global matrix of the Matrix Component.
+            const glm::mat4& getGlobalMatrix();
+
             /// Return the position of the given point, transform by
             /// the Matrix Component.
-            ///
             /// @param point The point to transform.
-            //
             sw::Vector3f getTransformPoint(const sw::Vector3f& point);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Return the position of the given point, transform by
             /// the Matrix Component.
             ///
             /// @param x X coordinate of the point to transform.
             /// @param y Y coordinate of the point to transform.
-            //
             sw::Vector3f getTransformPoint(float x, float y, float z = 1);
-            //
-            ///////////////////////////////////////////////////////////////////
-            ///
+
             /// Return the position of the given point, transform by
             /// the Matrix Component.
             ///
             /// @param point The point to transform.
-            //
             sw::Vector3f getGlobalTransformPoint(const sw::Vector3f& point);
-            //
-            ///////////////////////////////////////////////////////////////////
+
             ///
             /// Return the position of the given point, transform by
             /// the Matrix Component.
             ///
             /// @param x X coordinate of the point to transform.
             /// @param y Y coordinate of the point to transform.
-            //
             sw::Vector3f getGlobalTransformPoint(float x, float y, float z = 1);
-            //
-            ///////////////////////////////////////////////////////////////////
-            [[nodiscard]] std::string type() const override;
+
 
     }; // class Transform
 

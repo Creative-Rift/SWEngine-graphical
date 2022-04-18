@@ -6,18 +6,16 @@
 ** Description: [CHANGE]
 */
 
-#include "SW/Engine.hpp"
-
 #include "OpenGLModule.hpp"
 
 #include "AnimatorManager.hpp"
 
 void sw::AnimatorManager::onUpdate()
 {
-    double currentTime = sw::Engine::getModule<sw::OpenGLModule>().m_chrono.getTotalTime();
+    double currentTime = sw::OpenGLModule::m_chrono.getTotalTime();
 
     for (auto&[_, obj]: m_components) {
-        if (!obj->isActive() || !obj->entity().isActive())
+        if (!obj->isActive() || !obj->gameObject().isActive())
             continue;
         if (!obj->isPlaying()) {
             if (obj->isLoop() && (currentTime - obj->m_lastFrame) > obj->getLoopDelay()) {

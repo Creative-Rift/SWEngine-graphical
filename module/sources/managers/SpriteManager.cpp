@@ -15,13 +15,13 @@
 
 void sw::SpriteManager::onUpdate()
 {
-    sw::ConcreteComponent auto& camera = m_scene.getEntity("MainCamera").getComponent<sw::Camera>("CameraManager");
+    sw::ConcreteComponent auto& camera = m_scene.getGameObject("MainCamera").getComponent<sw::Camera>("CameraManager");
 
     for (auto& [_, name] : m_componentsLayers) {
         auto& object = m_components[name];
-        if (!object->isActive() || !object->entity().isActive())
+        if (!object->isActive() || !object->gameObject().isActive())
             continue;
-        sw::ConcreteComponent auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
+        sw::ConcreteComponent auto& transform = object->gameObject().getComponent<sw::Transform>("TransformManager");
         glBindTexture(GL_TEXTURE_2D, object->texture()->getId());
         defineRect(*object);
         object->getShader().useShader();

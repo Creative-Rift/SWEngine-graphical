@@ -15,8 +15,9 @@
 #include "resources/Font.hpp"
 
 #include "resources/OpenResources.hpp"
-#include "SW/Engine.hpp"
 #include "dependencies/glad/glad.h"
+#include "utils/Speech.hpp"
+#include "exception/Error.hpp"
 
 #include <iostream>
 #include <filesystem>
@@ -70,11 +71,11 @@ sw::Texture::Texture(std::string path)
     }
 }
 
-sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
 
-sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
 
-sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
 
 sw::Ftlib fontlb;
 

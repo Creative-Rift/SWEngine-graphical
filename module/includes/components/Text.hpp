@@ -1,7 +1,7 @@
 #ifndef SWENGINE_OPENGLMODULE_TEXT_TXT_HPP
 #define SWENGINE_OPENGLMODULE_TEXT_TXT_HPP
 
-#include "SW/Component.hpp"
+#include "base/Component.hpp"
 
 #include "utils/Color.hpp"
 #include "resources/Font.hpp"
@@ -42,7 +42,7 @@ namespace sw
             Text(Text&&) = delete;
             Text& operator=(Text const&) = delete;
             Text& operator=(Text&&) = delete;
-            explicit Text(sw::Entity& entityRef);
+            explicit Text(sw::GameObject& gameObject);
 
             Text& setText(std::string& text);
             //Text& setFontSize(unsigned int size);

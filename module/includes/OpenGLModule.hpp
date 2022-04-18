@@ -14,11 +14,12 @@
 #include "openal/al.h"
 #include "openal/alc.h"
 
-#include "SW/Engine.hpp"
-
 #include "OpenGLModule_Config.hpp"
 #include "utils/Buffer.hpp"
 #include "utils/Inputs.hpp"
+#include "scenes_manager/SceneManager.hpp"
+#include "utils/Chrono.hpp"
+#include "event/EventManager.hpp"
 
 #include <memory>
 #include <array>
@@ -29,41 +30,48 @@
 
 namespace sw
 {
-    class SW_GRAPH_MODULE_EXPORT OpenGLModule : public sw::AModule
+    class SW_GRAPH_MODULE_EXPORT OpenGLModule
     {
         private:
-            sw::Chrono m_chronoWindow;
-            GLFWwindow *m_window{};
-            ALCdevice *m_audioDevice;
-            ALCcontext *m_audioContext;
-            double m_frameRate;
+            static bool m_isLoad;
+            static sw::Chrono m_chronoWindow;
+            static GLFWwindow *m_window;
+            static ALCdevice *m_audioDevice;
+            static ALCcontext *m_audioContext;
+            static double m_frameRate;
 
-            std::vector<std::string> m_devices;
+            static std::vector<std::string> m_devices;
 
             static void resizeCallBack(GLFWwindow* window, int width, int height);
             static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
             static void mouse_button_callback(GLFWwindow* window, int button, int action,[[maybe_unused]] int mods);
             static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
             static void position_callback(GLFWwindow* window, double xpos, double ypos);
-            void setUpCallBack();
-            void loadResourcesFile(const std::string &path) override;
-            void displayAudioDevice();
+            static void setUpCallBack();
+            static void loadResourcesFile(const std::string &path);
+            static void displayAudioDevice();
         
         public:
-            sw::Chrono m_chrono;
+            static sw::Chrono m_chrono;
+            static SceneManager sceneManager;
+            static EventManager eventManager;
             explicit OpenGLModule();
-            ~OpenGLModule() override = default;
+            ~OpenGLModule() = default;
 
-            void initialize() override;
-            void update() override;
-            void terminate() override;
-            bool isOk() override;
-            [[nodiscard]] std::string type() const override;
-            //void loadResourcesFile(const std::string &path) override;
+            /// @brief Return the statut of the @b Module.
+            ///
+            /// @return True if the @b Module is load. False if not.
+            bool isLoad() const;
 
-            std::unique_ptr<sw::AResources> createResourceInstance() override;
+            static void load();
+            static void update();
+            static void unload();
+            static bool isOk();
+            [[nodiscard]] std::string type() const;
 
-            void setFrameRateLimit(unsigned int frameRate);
+            std::shared_ptr<sw::AResources> createResourceInstance();
+
+            static void setFrameRateLimit(unsigned int frameRate);
     }; // class OpenGLModule
 
     ////////////////////////////////////////////////////////////
@@ -176,11 +184,6 @@ namespace sw
     /// @throw none
     ////////////////////////////////////////////////////////////
     SW_GRAPH_MODULE_EXPORT bool mouseMoved();
-
-    #ifdef GRAPHICAL_MODULE
-        #undef GRAPHICAL_MODULE
-    #endif
-    #define GRAPHICAL_MODULE sw::Engine::createModule<OpenGLModule>("OpenGL");
 } // namespace sw
 
 #endif //SWENGINE_GRAPHICAL_OPENGLMODULE_HPP

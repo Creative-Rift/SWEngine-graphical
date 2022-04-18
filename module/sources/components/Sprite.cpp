@@ -8,8 +8,8 @@
 
 #include "components/Sprite.hpp"
 
-sw::Sprite::Sprite(sw::Entity& entityRef) :
-sw::Component(entityRef),
+sw::Sprite::Sprite(sw::GameObject& gameObject) :
+sw::Component(gameObject),
 m_vertexArray{},
 m_material(),
 m_color(),

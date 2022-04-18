@@ -6,8 +6,8 @@ set( EXT cpp )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         glfw3
+        yaml-cpp
         Jsnp
-        ShipWreckEngine-Core
         freetype
         sndfile
         OpenAL32
@@ -23,19 +23,19 @@ endif()
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.dll
-        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/core/SWEngine-Core${DEBUG_SUFFIX}.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/core/freetype.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.lib
-        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/SWEngine-Core${DEBUG_SUFFIX}.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.lib
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.lib
         )
 
 ## IMPORTED STATIC LIBRARY NAME

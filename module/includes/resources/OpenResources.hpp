@@ -9,7 +9,9 @@
 #ifndef SWENGINE_OPENGLMODULE_OPENRESOURCES_HPP
 #define SWENGINE_OPENGLMODULE_OPENRESOURCES_HPP
 
-#include "core/includes/resources/AResources.hpp"
+#pragma warning(disable: 4251)
+
+#include "AResources.hpp"
 
 #include "dependencies/glad/glad.h"
 
@@ -21,6 +23,7 @@
 #include <memory>
 #include <map>
 #include <iostream>
+
 
 namespace sw
 {

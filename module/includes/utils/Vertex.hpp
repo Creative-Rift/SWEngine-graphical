@@ -9,10 +9,10 @@
 #ifndef SWENGINE_OPENGLMODULE_VERTEX_HPP
 #define SWENGINE_OPENGLMODULE_VERTEX_HPP
 
-#include "SW/Utils.hpp"
 #include "Vector3.hpp"
 #include "Color.hpp"
 #include "OpenGLModule_Config.hpp"
+#include "../utils/Vector2.hpp"
 
 namespace sw
 {

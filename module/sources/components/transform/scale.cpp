@@ -23,8 +23,8 @@ void sw::Transform::scale(const sw::Vector3f& scale)
     if (scale.x != 0 || scale.y != 0 || scale.z != 0) {
         m_scale *= scale;
         m_globalScale *= scale;
-        for (auto& [_, entity] : m_entity.m_childrenMap)
-            entity.get().getComponent<sw::Transform>("TransformManager").scale(scale);
+        //for (auto& [_, entity] : m_gameObject.m_childrenMap)
+        //    entity.get().getComponent<sw::Transform>("TransformManager").scale(scale);
         needUpdate(true);
     }
 }

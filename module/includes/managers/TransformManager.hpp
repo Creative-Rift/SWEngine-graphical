@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_TRANSFORMMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 #include "../components/Transform.hpp"
 #include "../OpenGLModule_Config.hpp"
 
@@ -22,7 +22,6 @@ namespace sw
             ~TransformManager() = default;
 
             void onUpdate() override {};
-            [[nodiscard]] std::string type() const override { return(std::string("Transform Manager")); };
     }; // class TransformManager
 
 } // namespace sw

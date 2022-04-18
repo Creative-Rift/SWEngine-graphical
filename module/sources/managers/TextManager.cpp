@@ -37,11 +37,11 @@ void sw::TextManager::onUpdate()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    sw::ConcreteComponent auto& camera = m_scene.getEntity("MainCamera").getComponent<sw::Camera>("CameraManager");
+    sw::ConcreteComponent auto& camera = m_scene.getGameObject("MainCamera").getComponent<sw::Camera>("CameraManager");
 
     for (auto& [_, name] : m_componentsLayers) {
         auto& object = m_components[name];
-        if (!object->isActive() || !object->entity().isActive())
+        if (!object->isActive() || !object->gameObject().isActive())
             continue;
         //sw::ConcreteComponent auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
 

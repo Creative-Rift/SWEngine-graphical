@@ -3,6 +3,7 @@
 #include "dependencies/glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "OpenGLModule_Config.hpp"
+#include "event/EventInfo.hpp"
 
 #include <cstdint>
 #include <array>
@@ -22,26 +23,20 @@ namespace sw
         Scroll
     };
 
-    ////////////////////////////////////////////////////////////
     /// @brief Return a printable string of the event type
     ///
     /// @param sw::Type&
     /// 
     /// @return std::string
     ///
-    /// @throw none
-    ////////////////////////////////////////////////////////////
     std::string getEventType(const sw::Type &evt);
 
-    ////////////////////////////////////////////////////////////
     /// @brief Return a printable string of the event action
     ///
     /// @param sw::Type &, const int &
     /// 
     /// @return std::string
     ///
-    /// @throw none
-    ////////////////////////////////////////////////////////////
     std::string getEventAction(const sw::Type &evt, const int &act);
 
     class SW_GRAPH_MODULE_EXPORT MouseEvent

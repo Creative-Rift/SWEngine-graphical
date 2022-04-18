@@ -8,8 +8,8 @@
 
 #include "components/Transform.hpp"
 
-sw::Transform::Transform(sw::Entity& entityRef) :
-sw::Component(entityRef),
+sw::Transform::Transform(sw::GameObject& gameObject) :
+sw::Component(gameObject),
 m_matrix(1.0f),
 m_position(0, 0, 0),
 m_globalPosition(0, 0, 0),
@@ -23,9 +23,4 @@ m_needUpdate(false){}
 bool sw::Transform::checkUpdate() const
 {
     return (m_needUpdate);
-}
-
-std::string sw::Transform::type() const
-{
-    return ("Transform");
 }

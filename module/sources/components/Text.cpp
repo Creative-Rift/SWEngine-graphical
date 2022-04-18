@@ -1,8 +1,8 @@
 #include "components/Text.hpp"
 #include "resources/OpenResources.hpp"
 
-sw::Text::Text(sw::Entity& entityRef) :
-sw::Component(entityRef),
+sw::Text::Text(sw::GameObject& gameObject) :
+sw::Component(gameObject),
 m_text(std::string("Hello world")),
 m_size(48),
 m_font(sw::OpenResources::m_nfont["DefaultFont"]),

@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_FONTMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_FONTMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 #include "components/Text.hpp"
 #include "OpenGLModule_Config.hpp"
 
@@ -22,7 +22,6 @@ namespace sw
             ~TextManager() override = default;
 
             void onUpdate() override;
-            [[nodiscard]] std::string type() const override { return(std::string("Text Manager")); };
     }; // class FONTManager
 } // namespace FONTManager
 

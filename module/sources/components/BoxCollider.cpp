@@ -9,8 +9,8 @@
 #include "components/BoxCollider.hpp"
 #include "managers/BoxColliderManager.hpp"
 
-sw::BoxCollider::BoxCollider(sw::Entity &entity) :
-sw::Component(entity),
+sw::BoxCollider::BoxCollider(sw::GameObject& gameObject) :
+sw::Component(gameObject),
 m_size(100, 100),
 m_static(false),
 m_isTrigger(false)
@@ -37,7 +37,7 @@ const sw::Vector2f &sw::BoxCollider::getSize() const
 sw::BoxCollider &sw::BoxCollider::setStatic(bool state)
 {
     m_static = state;
-    m_entity.scene().getManager<sw::BoxColliderManager>("BoxColliderManager").addStatic(m_entity.name());
+    m_gameObject.scene().getManager<sw::BoxColliderManager>("BoxColliderManager").addStatic(m_gameObject.name());
     return (*this);
 }
 
