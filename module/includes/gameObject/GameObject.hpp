@@ -23,6 +23,8 @@
 
 namespace sw
 {
+    class Transform;
+
     class GameObject : public IGameObject
     {
         private:
@@ -38,13 +40,16 @@ namespace sw
             Scene& m_scene;
 
         public:
+
+            Transform& transform;
+
             GameObject() = delete;
 
             /// @brief Default @c Constructor of an @b Entity.
             ///
             /// @param entityName The futur name of the @b Entity.
             /// @param sceneRef The reference of the parent @b Scene.
-            GameObject(const std::string& entityName, Scene& sceneRef);
+            GameObject(const std::string& gameObjectName, Scene& sceneRef);
 
             /// @brief Second @c Constructor of an @b Entity. You can determine
             /// the activity of the @b Entity directly.

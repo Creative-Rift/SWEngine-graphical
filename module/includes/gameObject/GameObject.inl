@@ -11,18 +11,6 @@
  * Description:
  */
 
-inline sw::GameObject::GameObject(const std::string& GameObjectName, sw::Scene& sceneRef)
-        :   m_isActive(true),
-            m_name(GameObjectName),
-            m_scene(sceneRef)
-{}
-
-inline sw::GameObject::GameObject(const std::string& gameObjectName, sw::Scene& sceneRef, bool isActive)
-        :   m_isActive(isActive),
-            m_name(gameObjectName),
-            m_scene(sceneRef)
-{}
-
 inline sw::Scene& sw::GameObject::scene()
 {
     return (m_scene);
