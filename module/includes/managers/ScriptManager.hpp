@@ -18,7 +18,7 @@
 
 #include "managers/base/AManager.hpp"
 
-#include "base/Component.hpp"
+#include "../components/base/Component.hpp"
 
 namespace sw
 {

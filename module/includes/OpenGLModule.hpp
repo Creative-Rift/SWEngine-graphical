@@ -53,20 +53,22 @@ namespace sw
         
         public:
             static sw::Chrono m_chrono;
-            static SceneManager sceneManager;
-            static EventManager eventManager;
+            static SceneManager m_sceneManager;
+            static EventManager m_eventManager;
             explicit OpenGLModule();
             ~OpenGLModule() = default;
 
             /// @brief Return the statut of the @b Module.
             ///
             /// @return True if the @b Module is load. False if not.
-            bool isLoad() const;
+            [[nodiscard]] bool isLoad() const;
 
             static void load();
             static void update();
             static void unload();
             static bool isOk();
+            static SceneManager sceneManager();
+            static EventManager eventManager();
             [[nodiscard]] std::string type() const;
 
             std::shared_ptr<sw::AResources> createResourceInstance();

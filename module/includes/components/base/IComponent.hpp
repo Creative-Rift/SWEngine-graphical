@@ -22,7 +22,7 @@
 
 #include <string>
 
-#include "../concepts.hpp"
+#include "../../concepts.hpp"
 
 namespace sw
 {
