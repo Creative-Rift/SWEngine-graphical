@@ -10,11 +10,11 @@
 #include <sstream>
 #include <iostream>
 
-#include "SW/utils/Speech.hpp"
+#include "utils/Speech.hpp"
 
 #include "dependencies/glad/glad.h"
 #include "utils/ShaderSource.hpp"
-#include "SW/Errors.hpp"
+#include "exception/Error.hpp"
 
 sw::ShaderSource::ShaderSource(std::string shaderFile, ShaderType type) :
 m_shaderContent{},

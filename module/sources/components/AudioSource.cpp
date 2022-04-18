@@ -9,8 +9,8 @@
 #include "AudioSource.hpp"
 #include "OpenResources.hpp"
 
-sw::AudioSource::AudioSource(sw::Entity &entity) :
-sw::Component(entity),
+sw::AudioSource::AudioSource(sw::GameObject &gameObject) :
+sw::Component(gameObject),
 m_source(-1)
 {
     alGenSources(1, &m_source);

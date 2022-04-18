@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_AUDIOSOURCEMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_AUDIOSOURCEMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 #include "../components/AudioSource.hpp"
 #include "../OpenGLModule_Config.hpp"
 

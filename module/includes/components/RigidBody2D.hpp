@@ -9,8 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_RIGIDBODY2D_HPP
 #define SWENGINE_OPENGLMODULE_RIGIDBODY2D_HPP
 
-#include "SW/Component.hpp"
-#include "SW/Utils.hpp"
+#include "base/Component.hpp"
 #include "event/EventCollision.hpp"
 
 #include "OpenGLModule_Config.hpp"
@@ -29,7 +28,7 @@ namespace sw
             sw::CollisionEvent::Horizontal m_collideX;
             sw::CollisionEvent::Vertical m_collideY;
 
-            explicit RigidBody2D(sw::Entity& entity);
+            explicit RigidBody2D(sw::GameObject& gameObject);
             ~RigidBody2D() override = default;
 
             void onCollision(sw::EventInfo& info);

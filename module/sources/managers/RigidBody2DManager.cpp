@@ -9,18 +9,19 @@
 #include "components/Transform.hpp"
 #include "event/EventCollision.hpp"
 #include "OpenGLModule.hpp"
+#include "utils/Vector2.hpp"
 
 #include "managers/RigidBody2DManager.hpp"
 
 void sw::RigidBody2DManager::onUpdate()
 {
     auto gravity = 9.81f;
-    auto currentTime = (float)sw::Engine::getModule<sw::OpenGLModule>().m_chrono.getElapsedTime();
+    auto currentTime = (float)sw::OpenGLModule::m_chrono.getElapsedTime();
 
     for (auto& [_, obj] : m_components) {
-        if (!obj->isActive() || !obj->entity().isActive())
+        if (!obj->isActive() || !obj->gameObject().isActive())
             continue;
-        sw::ConcreteComponent auto& transform = obj->entity().getComponent<sw::Transform>("TransformManager");
+        sw::ConcreteComponent auto& transform = obj->gameObject().getComponent<sw::Transform>("TransformManager");
         sw::Vector2f vel = {obj->getVelocity().x, obj->getVelocity().y};
 
         vel.x = obj->getVelocity().x * 100;

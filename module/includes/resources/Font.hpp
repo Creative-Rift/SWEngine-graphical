@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4251)
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

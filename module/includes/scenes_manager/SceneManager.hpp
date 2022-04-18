@@ -14,22 +14,27 @@
 #ifndef SHIPWRECK_ENGINE_SCENEMANAGER_HPP
 #define SHIPWRECK_ENGINE_SCENEMANAGER_HPP
 
-#include "Scene.hpp"
+#include <string>
+#include <map>
 
 namespace sw
 {
+    class Scene;
+
     class SceneManager
     {
         private:
             std::map<std::string, Scene> m_scenes;
+            std::string m_nameActiveScene;
 
         public:
-            SceneManager();
+            SceneManager() noexcept;
 
             void createScene(std::string name);
             void loadScene(std::string SceneName);
-            sw::Scene& getScene(int index);
-            sw::Scene& getScene(std::string sceneName);
+            Scene& getScene(int index);
+            Scene& getScene(std::string sceneName);
+            Scene getActiveScene();
     };
 }
 

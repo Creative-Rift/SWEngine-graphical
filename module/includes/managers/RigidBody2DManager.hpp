@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_RIGIDBODY2DMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_RIGIDBODY2DMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 
 #include "OpenGLModule_Config.hpp"
 #include "components/RigidBody2D.hpp"

@@ -9,9 +9,10 @@
 #ifndef SWENGINE_OPENGLMODULE_ANIMATOR_HPP
 #define SWENGINE_OPENGLMODULE_ANIMATOR_HPP
 
-#include "SW/Component.hpp"
-#include "SW/Utils.hpp"
-
+#include "base/Component.hpp"
+#include "utils/Vector2.hpp"
+#include "utils/Rect.hpp"
+#include "gameObject/GameObject.hpp"
 #include "OpenGLModule_Config.hpp"
 #include "Sprite.hpp"
 
@@ -63,7 +64,7 @@ namespace sw
             ///
             /// \param entity Reference to the entity
             ////////////////////////////////////////////////////////////////////////////
-            explicit Animator(sw::Entity& entity);
+            explicit Animator(sw::GameObject& gameObject);
 
             ////////////////////////////////////////////////////////////////////////////
             /// \brief Play your animation

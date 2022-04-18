@@ -8,17 +8,17 @@
 
 #include "components/Animator.hpp"
 
-sw::Animator::Animator(sw::Entity& entityRef) :
-sw::Component(entityRef),
+sw::Animator::Animator(sw::GameObject& gameObject) :
+sw::Component(gameObject),
 m_rect(),
 m_displayRect(),
-m_lastFrame(-1.0f),
-m_endFrame(-1.0f),
+m_lastFrame(-1),
+m_endFrame(-1),
 m_loopDelay(0.0f),
 m_isPlaying(false),
 m_loop(false),
 m_framePerSecond(0.2),
-m_spr(entityRef.getComponent<sw::Sprite>("SpriteManager")),
+m_spr(gameObject.getComponent<sw::Sprite>("SpriteManager")),
 m_type(ANIM_SPRITE)
 {
     m_displayRect = {0, 0, static_cast<float>(m_spr.texture()->getWidth()), static_cast<float>(m_spr.texture()->getHeight())};

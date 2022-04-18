@@ -16,17 +16,17 @@ void sw::BoxColliderManager::onUpdate()
     bool sendEvent = false;
 
     for (auto&[_, obj]: m_components) {
-        sw::CollisionEvent info(obj->entity().name(), "target->entity().name()");
-        if (!obj->isActive() || !obj->entity().isActive() || obj->isStatic())
+        sw::CollisionEvent info(obj->gameObject().name(), "target->entity().name()");
+        if (!obj->isActive() || !obj->gameObject().isActive() || obj->isStatic())
             continue;
         for (auto&[name, target]: m_static) {
-            if (!target->isActive() || !target->entity().isActive())
+            if (!target->isActive() || !target->gameObject().isActive())
                 continue;
             try {
 
-                sw::ConcreteComponent auto &objTransform = obj->entity().getComponent<sw::Transform>(
+                sw::ConcreteComponent auto &objTransform = obj->gameObject().getComponent<sw::Transform>(
                         "TransformManager");
-                sw::ConcreteComponent auto &targetTransform = target->entity().getComponent<sw::Transform>(
+                sw::ConcreteComponent auto &targetTransform = target->gameObject().getComponent<sw::Transform>(
                         "TransformManager");
 
                 bool collisionX = objTransform.getPosition().x + obj->getSize().x >= targetTransform.getPosition().x &&
@@ -60,7 +60,7 @@ void sw::BoxColliderManager::onUpdate()
                 if (sendEvent) {
                     sendEvent = false;
                     sw::EventInfo ye(info);
-                    m_scene.eventManager().drop("Collision", ye);
+                    m_scene.eventManager.drop("Collision", ye);
                 }
             } catch (sw::Error &e) {
 

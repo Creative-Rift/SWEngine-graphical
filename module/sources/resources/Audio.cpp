@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "Audio.hpp"
-#include "includes/error/Error.hpp"
+#include "exception/Error.hpp"
 
 sw::Audio::Audio(std::string path) :
 m_file(nullptr),

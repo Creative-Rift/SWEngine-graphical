@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_CAMERAMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_CAMERAMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 #include "../components/Camera.hpp"
 #include "../OpenGLModule_Config.hpp"
 
@@ -22,7 +22,6 @@ namespace sw
             ~CameraManager() override = default;
 
             void onUpdate() override {};
-            [[nodiscard]] std::string type() const override { return(std::string("Camera Manager")); };
     }; // class TransformManager
 
 } // namespace sw

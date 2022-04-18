@@ -9,17 +9,17 @@
 #include "components/Transform.hpp"
 #include "components/BoxCollider.hpp"
 #include "components/RigidBody2D.hpp"
-#include "SW/Engine.hpp"
+#include "event/EventManager.hpp"
 
-sw::RigidBody2D::RigidBody2D(sw::Entity &entity) :
-sw::Component(entity),
+sw::RigidBody2D::RigidBody2D(sw::GameObject &gameObject) :
+sw::Component(gameObject),
 m_velocity(0, 0),
 m_maxVelocity(10, 10),
 m_mass(1),
 m_collideY(sw::CollisionEvent::V_NONE),
 m_collideX(sw::CollisionEvent::H_NONE)
 {
-    m_entity.scene().eventManager()["Collision"].subscribe(this, &RigidBody2D::onCollision);
+    m_gameObject.scene().eventManager["Collision"].subscribe(this, &RigidBody2D::onCollision);
 }
 
 sw::RigidBody2D &sw::RigidBody2D::setMass(float mass)
@@ -59,15 +59,15 @@ void sw::RigidBody2D::onCollision(sw::EventInfo& info)
 {
     sw::ConcreteEventInfo auto& eInfo = info.getInfo<sw::CollisionEvent>();
 
-    if (m_entity.scene().getEntity(eInfo.m_target).getComponent<sw::BoxCollider>("BoxColliderManager").isTrigger())
+    if (m_gameObject.scene().getGameObject(eInfo.m_target).getComponent<sw::BoxCollider>("BoxColliderManager").isTrigger())
         return;
-    if (eInfo.m_obj == m_entity.name()) {
+    if (eInfo.m_obj == m_gameObject.name()) {
         m_collideX = eInfo.m_horizontal;
         m_collideY = eInfo.m_vertical;
     }
     if (m_collideY == sw::CollisionEvent::DOWN) {
-        auto& transform = m_entity.getComponent<sw::Transform>("TransformManager");
-        if (transform.getPosition().y + m_entity.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y > m_entity.scene().getEntity(eInfo.m_target).getComponent<sw::Transform>("TransformManager").getPosition().y)
-            transform.move(0, (m_entity.scene().getEntity(eInfo.m_target).getComponent<sw::Transform>("TransformManager").getPosition().y - m_entity.getComponent<sw::Transform>("TransformManager").getPosition().y - m_entity.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y));
+        auto& transform = m_gameObject.getComponent<sw::Transform>("TransformManager");
+        if (transform.getPosition().y + m_gameObject.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y > m_gameObject.scene().getGameObject(eInfo.m_target).getComponent<sw::Transform>("TransformManager").getPosition().y)
+            transform.move(0, (m_gameObject.scene().getGameObject(eInfo.m_target).getComponent<sw::Transform>("TransformManager").getPosition().y - m_gameObject.getComponent<sw::Transform>("TransformManager").getPosition().y - m_gameObject.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y));
     }
 }

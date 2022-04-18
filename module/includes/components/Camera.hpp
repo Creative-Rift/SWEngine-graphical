@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_CAMERA_HPP
 #define SWENGINE_OPENGLMODULE_CAMERA_HPP
 
-#include "SW/Component.hpp"
+#include "base/Component.hpp"
 #include "dependencies/glm/glm.hpp"
 
 #include "OpenGLModule_Config.hpp"
@@ -24,7 +24,7 @@ namespace sw
                 PERSPECTIVE,
             };
 
-            explicit Camera(sw::Entity& entity);
+            explicit Camera(sw::GameObject& gameObject);
             ~Camera() override = default;
             Camera& setProjection(Projection projection);
             Camera& setFov(float fov);

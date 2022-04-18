@@ -9,7 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_BOXCOLLIDERMANAGER_HPP
 #define SWENGINE_OPENGLMODULE_BOXCOLLIDERMANAGER_HPP
 
-#include "SW/Manager.hpp"
+#include "base/AManager.hpp"
 
 #include "OpenGLModule_Config.hpp"
 #include "components/BoxCollider.hpp"
@@ -26,7 +26,6 @@ namespace sw
             ~BoxColliderManager() override = default;
 
             void onUpdate() override;
-            [[nodiscard]] std::string type() const override { return(std::string("BoxColliderManager")); };
             void addStatic(std::string name);
 
     };

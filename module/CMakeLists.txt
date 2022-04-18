@@ -14,23 +14,31 @@ set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/transform/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/exception/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/managers/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/resources/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/scene/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/utils/
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
         ${CMAKE_SOURCE_DIR}/libraries/
-        ${CMAKE_SOURCE_DIR}/libraries/core/
         ${CMAKE_SOURCE_DIR}/libraries/freetype/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/components/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/components/base/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/dependencies/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/managers/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/resources/
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/event/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/exception/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/gameObject/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/managers/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/managers/base/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/resources/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/scene/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/
         )
 
 message(${PREFIX_MESSAGE} "Build type set to: " ${CMAKE_BUILD_TYPE})
