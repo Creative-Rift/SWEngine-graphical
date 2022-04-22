@@ -103,6 +103,7 @@ void sw::OpenGLModule::load()
     setUpCallBack();
     m_chrono.start();
     m_isLoad = true;
+    sw::Speech::flush();
 }
 
 void sw::OpenGLModule::update()
@@ -125,14 +126,16 @@ void sw::OpenGLModule::update()
         m_chronoWindow.stop();
         m_chronoWindow.start();
     }
+     sceneManager().checkForNewScene();
+    sw::Speech::flush();
 }
 
-sw::SceneManager sw::OpenGLModule::sceneManager()
+sw::SceneManager& sw::OpenGLModule::sceneManager()
 {
     return (m_sceneManager);
 }
 
-sw::EventManager sw::OpenGLModule::eventManager()
+sw::EventManager& sw::OpenGLModule::eventManager()
 {
     return (m_eventManager);
 }

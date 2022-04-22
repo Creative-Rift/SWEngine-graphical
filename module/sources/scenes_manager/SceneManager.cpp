@@ -19,8 +19,19 @@
 
 sw::SceneManager::SceneManager() noexcept :
 m_scenes(),
-m_nameActiveScene()
+m_nameActiveScene(),
+m_nameNextActiveScene()
 {}
+
+void sw::SceneManager::checkForNewScene()
+{
+    if (m_nameNextActiveScene.empty())
+        return;
+    getActiveScene().unload();
+    m_nameActiveScene = m_nameNextActiveScene;
+    m_nameNextActiveScene.clear();
+    m_scenes.at(m_nameActiveScene).load();
+}
 
 void sw::SceneManager::createScene(std::string name)
 {
@@ -29,11 +40,12 @@ void sw::SceneManager::createScene(std::string name)
 
 void sw::SceneManager::loadScene(std::string sceneName)
 {
-    m_scenes.at(sceneName).load();
-    sw::SceneLoadEvent newScene(m_scenes.at(sceneName));
-    sw::EventInfo info(newScene);
-    sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
-    m_nameActiveScene = sceneName;
+    if (m_nameActiveScene.empty()) {
+        m_nameActiveScene = sceneName;
+        m_scenes.at(sceneName).load();
+    } else {
+        m_nameNextActiveScene = sceneName;
+    }
 }
 
 sw::Scene sw::SceneManager::getActiveScene()

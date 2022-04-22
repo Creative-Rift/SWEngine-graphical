@@ -12,19 +12,19 @@
  * Implementation of EventListener functions
  */
 
-template<EventCallable Element>
+template<class Element>
 inline sw::EventListener<Element>::EventListener(Element& obj, void (Element::*call)())
     :   m_element{obj},
         m_call{call}
 {}
 
-template<EventCallable Element>
+template<class Element>
 inline sw::EventListener<Element>::EventListener(Element& obj, void (Element::*call)(EventInfo&))
     :   m_element{obj},
         m_call{call}
 {}
 
-template<EventCallable Element>
+template<class Element>
 inline void sw::EventListener<Element>::catchEvent()
 try
 {
@@ -36,7 +36,7 @@ catch (std::bad_variant_access&)
     sw::Speech::Warning(sw::Log::warningC40(FUNCTION, "m_element.entity().name()"));
 }
 
-template<EventCallable Element>
+template<class Element>
 inline void sw::EventListener<Element>::catchEvent(EventInfo& info)
 try
 {
@@ -48,7 +48,7 @@ catch (std::bad_variant_access&)
     sw::Speech::Warning(sw::Log::warningC40(FUNCTION, "m_element.entity().name()"));
 }
 
-template<EventCallable Element>
+template<class Element>
 inline std::string sw::EventListener<Element>::linkedElement() const
 {
     return (m_element.name());

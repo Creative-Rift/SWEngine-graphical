@@ -67,8 +67,8 @@ namespace sw
             static void update();
             static void unload();
             static bool isOk();
-            static SceneManager sceneManager();
-            static EventManager eventManager();
+            static SceneManager& sceneManager();
+            static EventManager& eventManager();
             [[nodiscard]] std::string type() const;
 
             std::shared_ptr<sw::AResources> createResourceInstance();

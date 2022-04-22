@@ -17,15 +17,13 @@
 sw::GameObject::GameObject(const std::string& GameObjectName, sw::Scene& sceneRef)
         :   m_isActive(true),
             m_name(GameObjectName),
-            m_scene(sceneRef),
-            transform(createComponent<sw::Transform>("TransformManager"))
+            m_scene(sceneRef)
 {}
 
 sw::GameObject::GameObject(const std::string& gameObjectName, sw::Scene& sceneRef, bool isActive)
         :   m_isActive(isActive),
             m_name(gameObjectName),
-            m_scene(sceneRef),
-            transform(createComponent<sw::Transform>("TransformManager"))
+            m_scene(sceneRef)
 {}
 
 std::string sw::GameObject::name() const
