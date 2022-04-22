@@ -13,6 +13,7 @@ set(PREFIX_MESSAGE "[SWEngine-OpenGL] ")
 set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/base/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/transform/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/exception/

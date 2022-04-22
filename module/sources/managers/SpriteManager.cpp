@@ -12,6 +12,7 @@
 
 #include "components/Transform.hpp"
 #include "components/Camera.hpp"
+#include "GameObject.hpp"
 
 void sw::SpriteManager::onUpdate()
 {
@@ -21,7 +22,7 @@ void sw::SpriteManager::onUpdate()
         auto& object = m_components[name];
         if (!object->isActive() || !object->gameObject().isActive())
             continue;
-        sw::ConcreteComponent auto& transform = object->gameObject().getComponent<sw::Transform>("TransformManager");
+        sw::ConcreteComponent auto& transform = object->gameObject().transform();
         glBindTexture(GL_TEXTURE_2D, object->texture()->getId());
         defineRect(*object);
         object->getShader().useShader();

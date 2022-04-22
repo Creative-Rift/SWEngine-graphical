@@ -17,14 +17,37 @@
 sw::GameObject::GameObject(const std::string& GameObjectName, sw::Scene& sceneRef)
         :   m_isActive(true),
             m_name(GameObjectName),
-            m_scene(sceneRef)
+            m_scene(sceneRef),
+            m_transform(std::make_shared<Transform>(*this)),
+            m_parent(),
+            m_childrenMap()
 {}
 
 sw::GameObject::GameObject(const std::string& gameObjectName, sw::Scene& sceneRef, bool isActive)
         :   m_isActive(isActive),
             m_name(gameObjectName),
-            m_scene(sceneRef)
+            m_scene(sceneRef),
+            m_transform(std::make_shared<Transform>(*this)),
+            m_parent(),
+            m_childrenMap()
+
 {}
+
+void sw::GameObject::addChild(const std::string& entityName)
+{
+    auto& entity = m_scene.getGameObject(entityName);
+
+    entity.m_parent = *this;
+    m_childrenMap.insert({entity.m_name, entity});
+}
+
+void sw::GameObject::removeChild(const std::string& entityName)
+{
+    auto& entity = m_scene.getGameObject(entityName);
+
+    entity.m_parent.erase();
+    m_childrenMap.erase(entityName);
+}
 
 std::string sw::GameObject::name() const
 {
@@ -57,4 +80,9 @@ catch (sw::Error& error)
         throw sw::Error(sw::Log::error514(FUNCTION, m_name, managerName));
     else
         throw error;
+}
+
+sw::Transform &sw::GameObject::transform()
+{
+    return (*m_transform);
 }

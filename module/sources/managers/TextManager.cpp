@@ -16,6 +16,7 @@
 #include "dependencies/glm/glm.hpp"
 #include "dependencies/glm/gtc/matrix_transform.hpp"
 #include "dependencies/glm/gtc/type_ptr.hpp"
+#include "GameObject.hpp"
 
 #include <iostream>
 

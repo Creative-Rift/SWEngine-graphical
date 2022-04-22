@@ -22,14 +22,14 @@
 #include <iostream>
 
 #include "IComponent.hpp"
-#include "../../gameObject/GameObject.hpp"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
 
     class GameObject;
 
-    class  Component :
+    class SW_GRAPH_MODULE_EXPORT Component :
         public IComponent
     {
 
@@ -109,8 +109,6 @@ namespace sw
     //
     //std::ostream& operator<<(std::ostream& os, const Component& cpt);
     ///
-
-    #include "Component.inl"
 
 } // namespace sw
 

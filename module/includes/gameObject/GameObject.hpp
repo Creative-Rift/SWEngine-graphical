@@ -16,16 +16,19 @@
 
 #include <string>
 #include "concepts.hpp"
+#include "OpenGLModule_Config.hpp"
 #include "../managers/base/AManager.hpp"
+#include "utils/Reference.hpp"
 
 #include "scenes_manager/scene/Scene.hpp"
 #include "gameObject/IGameObject.hpp"
 
 namespace sw
 {
+
     class Transform;
 
-    class GameObject : public IGameObject
+    class SW_GRAPH_MODULE_EXPORT GameObject : public IGameObject
     {
         private:
             /// @brief The activity of an @b Entity.
@@ -39,9 +42,19 @@ namespace sw
             /// @brief The reference of the parent scene of the @b Entity.
             Scene& m_scene;
 
-        public:
+            std::shared_ptr<Transform> m_transform;
 
-            //Transform transform;
+        public:
+            /// @brief The parent @b Entity of this @b Entity.
+            /// Some @b Component can use it to recover its informations.
+            Reference<GameObject> m_parent;
+
+            /// @brief The map use to store the children of the @b Entity.
+            /// Some @b Component can use it to recover their informations.
+            ///
+            /// @arg std::string             The @b Entity name.
+            /// @arg std::unique_ptr<Entity> An @b Entity child.
+            std::unordered_map<std::string, std::reference_wrapper<GameObject>> m_childrenMap;
 
             GameObject() = delete;
 
@@ -80,7 +93,7 @@ namespace sw
             /// @return True or false.
             /// True by default, so the @b Manager will update its component.
             /// If it is false, the @b Manager will not update its component.
-            bool isActive() const override;
+            [[nodiscard]] bool isActive() const override;
 
             /// @brief Change the activity of the @b Entity.
             ///
@@ -93,13 +106,13 @@ namespace sw
             /// a child of the @b Entity.
             ///
             /// @param entityName The futur @b Entity child name.
-            ///void addChild(const std::string& entityName);
+            void addChild(const std::string& entityName);
 
             /// @brief Remove the @b Entity corresponding to the given name as
             /// a child of the @b Entity.
             ///
             /// @param entityName The @b Entity child name to remove.
-            ///void removeChild(const std::string& entityName);
+            void removeChild(const std::string& entityName);
 
             /// @brief Make a request to the @b Manager corresponding to the
             /// given name to create a @b Component for the @b Entity.
@@ -144,6 +157,8 @@ namespace sw
             ///
             /// @param managerName The @b Manager name.
             void setLayer(const std::string& managerName, int layer) override;
+
+            Transform& transform();
     };
 
 }
