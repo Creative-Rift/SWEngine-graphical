@@ -29,10 +29,12 @@ namespace sw
         private:
             std::map<std::string, Scene> m_scenes;
             std::string m_nameActiveScene;
+            std::string m_nameNextActiveScene;
 
         public:
             SceneManager() noexcept;
 
+            void checkForNewScene();
             void createScene(std::string name);
             void loadScene(std::string SceneName);
             Scene& getScene(int index);

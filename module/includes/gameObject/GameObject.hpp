@@ -41,7 +41,7 @@ namespace sw
 
         public:
 
-            Transform& transform;
+            //Transform transform;
 
             GameObject() = delete;
 

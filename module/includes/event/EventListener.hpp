@@ -29,7 +29,7 @@
 namespace sw
 {
 
-    template<EventCallable Element>
+    template<class Element>
     class SW_GRAPH_MODULE_EXPORT EventListener
         :   public _IEventListener
     {
