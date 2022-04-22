@@ -10,6 +10,7 @@
 
 #include "managers/BoxColliderManager.hpp"
 #include "event/EventCollision.hpp"
+#include "GameObject.hpp"
 
 void sw::BoxColliderManager::onUpdate()
 {
@@ -24,10 +25,8 @@ void sw::BoxColliderManager::onUpdate()
                 continue;
             try {
 
-                sw::ConcreteComponent auto &objTransform = obj->gameObject().getComponent<sw::Transform>(
-                        "TransformManager");
-                sw::ConcreteComponent auto &targetTransform = target->gameObject().getComponent<sw::Transform>(
-                        "TransformManager");
+                sw::ConcreteComponent auto &objTransform = obj->gameObject().transform();
+                sw::ConcreteComponent auto &targetTransform = target->gameObject().transform();
 
                 bool collisionX = objTransform.getPosition().x + obj->getSize().x >= targetTransform.getPosition().x &&
                                   targetTransform.getPosition().x + target->getSize().x >= objTransform.getPosition().x;

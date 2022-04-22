@@ -8,6 +8,7 @@
 
 #include "Transform.hpp"
 #include "dependencies/glm/gtc/matrix_transform.hpp"
+#include "GameObject.hpp"
 
 #include "Camera.hpp"
 
@@ -70,7 +71,7 @@ const glm::mat4 &sw::Camera::getProjection()
 
 const glm::mat4 sw::Camera::getView() const
 {
-    sw::ConcreteComponent auto& transform = m_gameObject.getComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.transform();
     glm::mat4 matrix = glm::mat4(1.0f);
 
     matrix = glm::translate(matrix, glm::vec3(-transform.getPosition().x, -transform.getPosition().y, -transform.getPosition().z));

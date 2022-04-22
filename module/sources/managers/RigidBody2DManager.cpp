@@ -10,6 +10,7 @@
 #include "event/EventCollision.hpp"
 #include "OpenGLModule.hpp"
 #include "utils/Vector2.hpp"
+#include "GameObject.hpp"
 
 #include "managers/RigidBody2DManager.hpp"
 
@@ -21,7 +22,7 @@ void sw::RigidBody2DManager::onUpdate()
     for (auto& [_, obj] : m_components) {
         if (!obj->isActive() || !obj->gameObject().isActive())
             continue;
-        sw::ConcreteComponent auto& transform = obj->gameObject().getComponent<sw::Transform>("TransformManager");
+        sw::ConcreteComponent auto& transform = obj->gameObject().transform();
         sw::Vector2f vel = {obj->getVelocity().x, obj->getVelocity().y};
 
         vel.x = obj->getVelocity().x * 100;

@@ -8,6 +8,7 @@
 
 #include "components/BoxCollider.hpp"
 #include "managers/BoxColliderManager.hpp"
+#include "GameObject.hpp"
 
 sw::BoxCollider::BoxCollider(sw::GameObject& gameObject) :
 sw::Component(gameObject),
