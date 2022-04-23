@@ -14,13 +14,13 @@ set( FT freetype )
 set( SHARED_LIB_NAME
         glfw3
         Jsnp
-        SWEngine-Core-Debug
+        yaml-cpp
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/libglfw.so
         ${CMAKE_SOURCE_DIR}/libraries/libJsnp.so
-        ${CMAKE_SOURCE_DIR}/libraries/libSWEngine-Core-Debug.so
+        ${CMAKE_SOURCE_DIR}/libraries/libyaml-cpp.so
         )
 ## <=====================================>
 

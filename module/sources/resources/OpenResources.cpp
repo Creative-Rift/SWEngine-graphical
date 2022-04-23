@@ -9,7 +9,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "dependencies/resources/stb_image.h"
 
-#include "freetype/ft2build.h"
+#include "ft2build.h"
 #include FT_FREETYPE_H"freetype/freetype/freetype.h"
 
 #include "resources/Font.hpp"
