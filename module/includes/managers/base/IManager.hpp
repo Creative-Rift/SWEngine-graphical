@@ -20,6 +20,8 @@
 #define __SHIPWRECK_CORE_IMANAGER_HPP__
 
 #include <string>
+#define YAML_CPP_API
+#include "yaml-cpp/yaml.h"
 
 #include "concepts.hpp"
 
@@ -151,6 +153,8 @@ namespace sw
             //
             [[nodiscard]] virtual int getLayer(const std::string& entityName) const = 0;
             ///
+
+            [[nodiscard]] virtual YAML::Node save() const = 0;
 
     }; // class IManager
 

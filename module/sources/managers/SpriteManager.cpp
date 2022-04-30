@@ -73,3 +73,15 @@ void sw::SpriteManager::defineRect(sw::Sprite& sprite)
     sprite.m_vertexArray[3].position = {0, (sprite.m_rect.height), 0};
     sprite.m_vertexArray[0].position = {(sprite.m_rect.width), (sprite.m_rect.height), 0};
 }
+
+YAML::Node sw::SpriteManager::save() const
+{
+    YAML::Node node;
+
+    node["valid"] = true;
+    node["name"] = name();
+    for (auto &[_, component]: m_components)
+        node["components"].push_back(component->save());
+
+    return (node);
+}

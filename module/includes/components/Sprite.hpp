@@ -12,6 +12,10 @@
 #include "base/Component.hpp"
 #include "utils/Rect.hpp"
 
+#define YAML_CPP_API
+#include "yaml-cpp/yaml.h"
+#include "yaml-cpp/node/detail/node.h"
+
 #include "utils/Color.hpp"
 #include "utils/VertexArray.hpp"
 #include "utils/Shader.hpp"
@@ -37,6 +41,8 @@ namespace sw
             sw::FloatRect m_rect;
             bool m_invertedX;
             bool m_invertedY;
+
+            YAML::Node save() const;
 
         public:
             /// \brief All default constructor are deleted because a component must
@@ -115,9 +121,11 @@ namespace sw
             /// \return A reference to the Shader
             [[nodiscard]] Material& getMaterial() noexcept;
 
+
             friend SpriteManager;
 
     }; // class Sprite
+
 
 } // namespace sw
 

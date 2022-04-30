@@ -242,6 +242,8 @@ namespace sw
             /// @return The layer of the wanted @b Manager.
             [[nodiscard]] int getOrder(const std::string managerName) const;
 
+            void save() const;
+
             friend void LoadResourcesFile(const std::string& path);
             friend void AddResourcesOnScene(jsnp::Token& it);
     };

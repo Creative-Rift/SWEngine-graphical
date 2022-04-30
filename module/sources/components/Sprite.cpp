@@ -6,6 +6,7 @@
 ** Description: [CHANGE]
 */
 
+
 #include "components/Sprite.hpp"
 
 sw::Sprite::Sprite(sw::GameObject& gameObject) :
@@ -78,4 +79,23 @@ bool sw::Sprite::isFlippedY() const
 std::shared_ptr<sw::Texture> sw::Sprite::texture() const
 {
     return (m_material.texture);
+}
+
+YAML::Node sw::Sprite::save() const
+{
+    YAML::Node node;
+
+    node["entity_name"] = name();
+    node["invertX"] = isFlippedX();
+    node["invertY"] = isFlippedY();
+    node["rect"].push_back(m_rect.top);
+    node["rect"].push_back(m_rect.left);
+    node["rect"].push_back(m_rect.width);
+    node["rect"].push_back(m_rect.height);
+    node["color"].push_back(m_color.r);
+    node["color"].push_back(m_color.g);
+    node["color"].push_back(m_color.b);
+    node["color"].push_back(m_color.a);
+
+    return (node);
 }

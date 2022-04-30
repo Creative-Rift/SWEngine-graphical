@@ -32,7 +32,10 @@ namespace sw
             /// \param sprite Get a reference to the Sprite
             static void defineRect(sw::Sprite& sprite);
 
+
         public:
+            [[nodiscard]] YAML::Node save() const override;
+
             /// \brief Default constructor of the AManager class
             using sw::AManager<Sprite>::AManager;
 

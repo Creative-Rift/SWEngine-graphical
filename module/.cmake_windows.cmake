@@ -6,7 +6,6 @@ set( EXT cpp )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         glfw3
-        yaml-cpp
         Jsnp
         freetype
         sndfile
@@ -23,10 +22,9 @@ endif()
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.dll
-        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/core/freetype.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.dll
-        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
@@ -35,15 +33,16 @@ set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.lib
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.lib
-        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.lib
         )
 
 ## IMPORTED STATIC LIBRARY NAME
 set( STATIC_LIB_NAME
+        yaml-cpp
         )
 
 ## IMPORTED STATIC LIBRARY .lib file
 set( STATIC_LIB
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.lib
 
         )
 ## <=====================================>
@@ -114,10 +113,10 @@ math(EXPR LIST_LEN "${list_len} - 1")
 foreach(ctr RANGE ${LIST_LEN})
     list(GET STATIC_LIB_NAME ${ctr} lib)
     list(GET STATIC_LIB ${ctr} filelib)
-    #add_library(${lib} STATIC IMPORTED)
-    #set_target_properties(${lib} PROPERTIES
-    #        IMPORTED_LOCATION ${filelib}
-    #        )
+    add_library(${lib} STATIC IMPORTED)
+    set_target_properties(${lib} PROPERTIES
+            IMPORTED_LOCATION ${filelib}
+            )
 endforeach()
 target_link_libraries(${EXEC}
         PUBLIC

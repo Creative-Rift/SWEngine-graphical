@@ -263,6 +263,8 @@ namespace sw
             /// @return The last iterator of the list.
             typename std::unordered_map<std::string, std::shared_ptr<Cpt>>::iterator end();
 
+            [[nodiscard]] virtual YAML::Node save() const override;
+
     }; // class AManager
 
     template <ConcreteComponent Cpt>

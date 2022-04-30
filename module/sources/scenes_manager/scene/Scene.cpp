@@ -14,6 +14,7 @@
 #include "scenes_manager/scene/Scene.hpp"
 #include "SceneLoadEvent.hpp"
 #include "OpenGLModule.hpp"
+#include "yaml-cpp/yaml.h"
 
 sw::Scene::Scene(const std::string &sceneName) :
 m_isLoad{false},
@@ -93,4 +94,17 @@ void sw::Scene::unload()
     m_isLoad = false;
 
     sw::Speech::Info(sw::Log::info370_Success(FUNCTION, name));
+}
+
+void sw::Scene::save() const
+{
+    YAML::Node node;
+
+    node["name"] = name;
+    
+    for (auto& [_, manager] : m_managers)
+        node["Manager"].push_back(manager->save());
+
+    std::ofstream file("save/" + name + ".fish");
+    file << node;
 }

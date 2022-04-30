@@ -285,3 +285,13 @@ inline std::ostream& operator<<(std::ostream& os, const sw::AManager<Cpt>& manag
         << "\nComponents count : " << manager.componentsCount() << "\n";
     return (os);
 }
+
+template<ConcreteComponent Cpt>
+inline YAML::Node sw::AManager<Cpt>::save() const
+{
+    YAML::Node node;
+
+    node["name"] = name();
+    node["valid"] = false;
+    return (node);
+}
