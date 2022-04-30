@@ -55,6 +55,8 @@ namespace sw
             ///
             /// @param managerName The manager name.
             virtual void setLayer(const std::string& managerName, int layer) = 0;
+
+            [[nodiscard]] virtual YAML::Node save() const = 0;
     };
 }
 

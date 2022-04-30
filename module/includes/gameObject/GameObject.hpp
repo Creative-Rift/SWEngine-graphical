@@ -159,6 +159,8 @@ namespace sw
             void setLayer(const std::string& managerName, int layer) override;
 
             Transform& transform();
+
+            [[nodiscard]] YAML::Node save() const override;
     };
 
 }

@@ -86,3 +86,14 @@ sw::Transform &sw::GameObject::transform()
 {
     return (*m_transform);
 }
+
+YAML::Node sw::GameObject::save() const
+{
+    YAML::Node node;
+
+    node["name"] = name();
+    node["active"] = m_isActive;
+    node["transform"] = m_transform->save();
+
+    return (node);
+}

@@ -101,9 +101,11 @@ void sw::Scene::save() const
     YAML::Node node;
 
     node["name"] = name;
-    
+
+    for (auto& [_, entity] : m_entities)
+        node["entities"].push_back(entity->save());
     for (auto& [_, manager] : m_managers)
-        node["Manager"].push_back(manager->save());
+        node["manager"].push_back(manager->save());
 
     std::ofstream file("save/" + name + ".fish");
     file << node;

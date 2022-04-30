@@ -24,3 +24,22 @@ bool sw::Transform::checkUpdate() const
 {
     return (m_needUpdate);
 }
+
+YAML::Node sw::Transform::save() const
+{
+    YAML::Node node;
+
+    node["entity_name"] = name();
+    node["position"].push_back(m_position.x);
+    node["position"].push_back(m_position.y);
+    node["position"].push_back(m_position.z);
+    node["scale"].push_back(m_scale.x);
+    node["scale"].push_back(m_scale.y);
+    node["scale"].push_back(m_scale.z);
+    node["angle"] = m_angle;
+    node["rotation_axis"].push_back(m_rotationAxis.x);
+    node["rotation_axis"].push_back(m_rotationAxis.y);
+    node["rotation_axis"].push_back(m_rotationAxis.z);
+
+    return (node);
+}

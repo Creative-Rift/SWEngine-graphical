@@ -12,6 +12,8 @@
 #include "dependencies/glm/glm.hpp"
 
 #include "base/Component.hpp"
+#define YAML_CPP_API
+#include "yaml-cpp/yaml.h"
 
 #include "../OpenGLModule_Config.hpp"
 #include "utils/Vector3.hpp"
@@ -46,6 +48,8 @@ namespace sw
             /// Thanks to this, we can reduce the calculations to what
             /// is strictly necessary.
             void updateMatrix() noexcept ;
+
+            YAML::Node save() const;
 
         public:
             ///
@@ -207,6 +211,7 @@ namespace sw
             /// @param y Y coordinate of the point to transform.
             sw::Vector3f getGlobalTransformPoint(float x, float y, float z = 1);
 
+            friend GameObject;
 
     }; // class Transform
 
