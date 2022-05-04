@@ -109,3 +109,12 @@ sw::Animator::AnimType &sw::Animator::getAnimType()
 {
     return (m_type);
 }
+
+YAML::Node sw::Animator::save() const
+{
+    YAML::Node node;
+
+    node["entity_name"] = name();
+
+    return (node);
+}

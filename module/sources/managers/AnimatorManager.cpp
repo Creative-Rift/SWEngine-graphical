@@ -59,3 +59,15 @@ void sw::AnimatorManager::animSprite(Animator &animator, double &current_time)
     if (newRect.top >= (float)animator.m_spr.texture()->getHeight())
         animator.reset();
 }
+
+YAML::Node sw::AnimatorManager::save() const
+{
+    YAML::Node node;
+
+    node["name"] = name();
+    node["valid"] = true;
+    for (auto &[_, component]: m_components)
+        node["components"].push_back(component->save());
+
+    return (node);
+}

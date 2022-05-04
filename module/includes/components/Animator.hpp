@@ -48,6 +48,8 @@ namespace sw
             AnimType m_type;
 
             Sprite& m_spr;
+
+            [[nodiscard]] YAML::Node save() const;
         public:
             ////////////////////////////////////////////////////////////////////////////
             /// \brief All default constructor are deleted because a component must

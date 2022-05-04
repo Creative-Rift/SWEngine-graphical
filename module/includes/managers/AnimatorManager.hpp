@@ -30,7 +30,9 @@ namespace sw
             /// \param current_time get total time
             static void animLine(Animator &animator, double &current_time);
             static void animSprite(Animator &animator, double &current_time);
+
         public:
+            [[nodiscard]] YAML::Node save() const override;
             /// \brief Default constructor of the AManager class
             using sw::AManager<Animator>::AManager;
 
