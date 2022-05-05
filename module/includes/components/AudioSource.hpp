@@ -18,10 +18,19 @@
 
 namespace sw
 {
+    class AudioSourceManager;
+
     class SW_GRAPH_MODULE_EXPORT AudioSource : public sw::Component
     {
         private:
             ALuint m_source;
+            bool m_loop;
+            float m_currentSample;
+            float m_startPoint;
+            float m_startLoopPoint;
+            float m_endPoint;
+            float m_endLoopPoint;
+
         public:
             explicit AudioSource(sw::GameObject& entity);
             ~AudioSource() override;
@@ -32,6 +41,13 @@ namespace sw
             AudioSource& stop();
             AudioSource& setVolume(float volume);
             AudioSource& setPitch(float pitch);
+            AudioSource& setLoop(bool loop);
+            AudioSource& setStartPoint(float second);
+            AudioSource& setStartLoopPoint(float second);
+            AudioSource& setEndPoint(float second);
+            AudioSource& setEndLoopPoint(float second);
+
+            friend AudioSourceManager;
     };
 }
 

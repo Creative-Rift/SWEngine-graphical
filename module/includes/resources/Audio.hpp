@@ -22,19 +22,21 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT Audio
     {
         private:
-            SF_INFO m_fileInfo;
             SNDFILE *m_file;
+            SF_INFO m_fileInfo;
             ALsizei m_numberSamples;
             ALsizei m_rate;
             std::vector<ALshort> m_samples;
             ALenum m_format;
             ALuint m_buffer;
+            double m_duration;
 
         public:
             explicit Audio(std::string path);
             ~Audio();
 
             [[nodiscard]] ALuint getBuffer() const;
+            [[nodiscard]] double getDuration() const;
     };
 }
 

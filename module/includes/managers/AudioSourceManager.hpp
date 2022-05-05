@@ -21,7 +21,7 @@ namespace sw
             using sw::AManager<AudioSource>::AManager;
             ~AudioSourceManager() override = default;
 
-            void onUpdate() override {};
+            void onUpdate() override;
     }; // class AudioSourceManager
 
 } // namespace sw

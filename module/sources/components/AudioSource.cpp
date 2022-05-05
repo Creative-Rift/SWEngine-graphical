@@ -8,10 +8,17 @@
 
 #include "AudioSource.hpp"
 #include "OpenResources.hpp"
+#include "GameObject.hpp"
 
 sw::AudioSource::AudioSource(sw::GameObject &gameObject) :
 sw::Component(gameObject),
-m_source(-1)
+m_source(-1),
+m_loop(false),
+m_currentSample(0.0f),
+m_startPoint(0.0f),
+m_startLoopPoint(-1),
+m_endLoopPoint(-1),
+m_endPoint(-1)
 {
     alGenSources(1, &m_source);
 }
@@ -24,7 +31,9 @@ sw::AudioSource::~AudioSource() noexcept
 
 sw::AudioSource &sw::AudioSource::setAudio(std::string audio)
 {
-    alSourcei(m_source, AL_BUFFER, sw::OpenResources::m_naudio[audio]->getBuffer());
+    auto audioFile = sw::OpenResources::m_naudio[audio];
+    alSourcei(m_source, AL_BUFFER, audioFile->getBuffer());
+    m_endPoint = audioFile->getDuration();
     return (*this);
 }
 
@@ -43,6 +52,7 @@ sw::AudioSource &sw::AudioSource::pause()
 sw::AudioSource &sw::AudioSource::stop()
 {
     alSourceStop(m_source);
+    setStartLoopPoint(m_startPoint);
     return (*this);
 }
 
@@ -55,5 +65,36 @@ sw::AudioSource &sw::AudioSource::setVolume(float volume)
 sw::AudioSource &sw::AudioSource::setPitch(float pitch)
 {
     alSourcef(m_source, AL_PITCH, pitch);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setLoop(bool loop)
+{
+    m_loop = loop;
+    alSourcei(m_source, AL_LOOPING, m_loop ? AL_TRUE : AL_FALSE);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setStartPoint(float second)
+{
+    alSourcef(m_source, AL_SEC_OFFSET, second);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setStartLoopPoint(float second)
+{
+    m_startLoopPoint = second;
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setEndPoint(float second)
+{
+    m_endPoint = second;
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setEndLoopPoint(float second)
+{
+    m_endLoopPoint = second;
     return (*this);
 }
