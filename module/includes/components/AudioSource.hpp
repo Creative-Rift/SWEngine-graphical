@@ -30,12 +30,20 @@ namespace sw
             float m_startLoopPoint;
             float m_endPoint;
             float m_endLoopPoint;
+            bool m_randomized;
+            int m_maxOccurence;
+            std::vector<std::string> m_audios;
+            std::string m_last;
+            int m_lastOccurence;
+
+            void defineBuffer(std::string name);
+            std::string randomHandler();
 
         public:
             explicit AudioSource(sw::GameObject& entity);
             ~AudioSource() override;
 
-            AudioSource& setAudio(std::string audio);
+            AudioSource& addAudio(std::string audio);
             AudioSource& play();
             AudioSource& pause();
             AudioSource& stop();
@@ -46,6 +54,8 @@ namespace sw
             AudioSource& setStartLoopPoint(float second);
             AudioSource& setEndPoint(float second);
             AudioSource& setEndLoopPoint(float second);
+            AudioSource& setRandomized(bool random);
+            AudioSource& setMaxOccurence(int occurence);
 
             friend AudioSourceManager;
     };
