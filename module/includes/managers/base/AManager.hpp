@@ -149,7 +149,7 @@ namespace sw
             /// @brief Return the statut of the @b Manager.
             ///
             /// @return True if the @b Manager is load. False if not.
-            bool isLoad() const override;
+            [[nodiscard]] bool isLoad() const override;
 
             /// @brief Function called to initialize the @b Manager.
             void load() override;
@@ -264,6 +264,9 @@ namespace sw
             typename std::unordered_map<std::string, std::shared_ptr<Cpt>>::iterator end();
 
             [[nodiscard]] virtual YAML::Node save() const override;
+            /// @brief Function called on the update of the @b Manager.
+            virtual void onLoad(YAML::Node& node) override { sw::Speech::Warning("[ " + m_name + "] Nothing to load!"); };
+            //[[nodiscard]] virtual YAML::Node load() const override;
 
     }; // class AManager
 

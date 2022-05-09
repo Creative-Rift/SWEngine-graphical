@@ -161,6 +161,7 @@ namespace sw
             Transform& transform();
 
             [[nodiscard]] YAML::Node save() const override;
+            void load(YAML::Node& node);
     };
 
 }

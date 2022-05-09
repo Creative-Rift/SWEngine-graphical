@@ -155,6 +155,8 @@ namespace sw
             ///
 
             [[nodiscard]] virtual YAML::Node save() const = 0;
+            /// @brief Function called on the update of the @b Manager.
+            virtual void onLoad(YAML::Node& node) = 0;
 
     }; // class IManager
 

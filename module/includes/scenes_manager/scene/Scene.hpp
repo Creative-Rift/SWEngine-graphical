@@ -35,6 +35,7 @@ namespace sw
 {
 
     class GameObject;
+    class SceneManager;
 
     class SW_GRAPH_MODULE_EXPORT Scene
     {
@@ -50,6 +51,8 @@ namespace sw
             /// @brief When an @b GameObject is delete, its name is first place in
             /// this set, in order to not pose any problem during the update.
             std::unordered_set<std::string> m_entitiesToDelete;
+
+            std::string m_configFile;
 
             class ManagerMap :
                     private std::unordered_map<std::string, std::shared_ptr<_IManager>>
@@ -108,6 +111,8 @@ namespace sw
             /// @brief This function delete the requested @b Managers at the end
             /// of the update.
             void deleteRequestedManagers();
+
+            void loadConfigFile();
 
         public:
             Scene() = delete;
@@ -246,6 +251,7 @@ namespace sw
 
             friend void LoadResourcesFile(const std::string& path);
             friend void AddResourcesOnScene(jsnp::Token& it);
+            friend SceneManager;
     };
 
     #include "Scene.inl"

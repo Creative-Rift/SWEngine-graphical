@@ -38,6 +38,12 @@ void sw::SceneManager::createScene(std::string name)
     m_scenes.try_emplace(name, name);
 }
 
+void sw::SceneManager::createScene(std::string name, std::string configFile)
+{
+    auto& scene = m_scenes.try_emplace(name, name).first->second;
+    scene.m_configFile = configFile;
+}
+
 void sw::SceneManager::loadScene(std::string sceneName)
 {
     if (m_nameActiveScene.empty()) {

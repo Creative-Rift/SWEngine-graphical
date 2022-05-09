@@ -17,5 +17,6 @@
 #include "SpriteManager.hpp"
 #include "TextManager.hpp"
 #include "TransformManager.hpp"
+#include "ScriptManager.hpp"
 
 #endif //SHIPWRECK_ENGINE_MANAGERS_HPP

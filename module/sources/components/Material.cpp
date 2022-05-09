@@ -10,7 +10,8 @@
 
 sw::Material::Material() :
 texture(sw::OpenResources::m_ntext["MissingTexture"]),
-shader()
+shader(),
+m_name{"MissingTexture"}
 {}
 
 sw::Material::Material(std::shared_ptr<sw::Texture>& texture) :
@@ -20,7 +21,8 @@ shader()
 
 sw::Material::Material(std::string textureName) :
 texture(sw::OpenResources::m_ntext[textureName]),
-shader()
+shader(),
+m_name{textureName}
 {}
 
 sw::Material::Material(std::shared_ptr<sw::Texture>& texture, Shader& shader) :
@@ -37,5 +39,14 @@ sw::Material &sw::Material::setShader(sw::Shader shader)
 sw::Material &sw::Material::setTexture(std::string textureName)
 {
     texture = sw::OpenResources::m_ntext[textureName];
+    m_name = textureName;
     return (*this);
+}
+
+YAML::Node sw::Material::save() const
+{
+    YAML::Node node;
+
+    node["textureName"] = m_name;
+    return node;
 }

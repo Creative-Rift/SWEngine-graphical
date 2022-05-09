@@ -12,6 +12,7 @@
 #include "resources/OpenResources.hpp"
 #include "utils/Shader.hpp"
 
+#include "yaml-cpp/yaml.h"
 #include "OpenGLModule_Config.hpp"
 
 namespace sw
@@ -19,9 +20,11 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT Material
     {
         public:
+            std::string m_name;
             std::shared_ptr<sw::Texture> texture;
             Shader shader;
 
+            YAML::Node save() const;
             Material();
             explicit Material(std::shared_ptr<sw::Texture>& texture);
             explicit Material(std::string textureName);

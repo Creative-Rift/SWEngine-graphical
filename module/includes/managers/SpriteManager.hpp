@@ -46,6 +46,8 @@ namespace sw
             /// stored according their data
             void onUpdate() override;
 
+            void onLoad(YAML::Node& node) override;
+
     }; // class SpriteManager
 
 } // namespace sw

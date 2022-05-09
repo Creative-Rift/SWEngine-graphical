@@ -36,6 +36,7 @@ namespace sw
 
             void checkForNewScene();
             void createScene(std::string name);
+            void createScene(std::string name, std::string config_file);
             void loadScene(std::string SceneName);
             Scene& getScene(int index);
             Scene& getScene(std::string sceneName);

@@ -33,6 +33,7 @@ sw::Material &sw::Sprite::getMaterial() noexcept
 
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
+    m_material.setTexture(name);
     m_material.texture = sw::OpenResources::m_ntext[name];
     m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
     return (*this);
@@ -96,6 +97,7 @@ YAML::Node sw::Sprite::save() const
     node["color"].push_back(m_color.g);
     node["color"].push_back(m_color.b);
     node["color"].push_back(m_color.a);
+    node["material"] = m_material.save();
 
     return (node);
 }

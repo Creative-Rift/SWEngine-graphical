@@ -94,6 +94,17 @@ YAML::Node sw::GameObject::save() const
     node["name"] = name();
     node["active"] = m_isActive;
     node["transform"] = m_transform->save();
+    if (m_parent.hasValue())
+        node["parent"] = m_parent.value().name();
 
     return (node);
+}
+
+void sw::GameObject::load(YAML::Node &node)
+{
+    auto transform = node["transform"];
+    m_isActive = node["active"].as<bool>();
+    m_transform->setPosition(transform["position"][0].as<float>(), transform["position"][1].as<float>(), transform["position"][2].as<float>());
+    m_transform->setScale(transform["scale"][0].as<float>(), transform["scale"][1].as<float>(), transform["scale"][2].as<float>());
+    m_transform->setRotation(transform["angle"].as<float>(), transform["rotation_axis"][0].as<float>(), transform["rotation_axis"][1].as<float>(), transform["rotation_axis"][2].as<float>());
 }

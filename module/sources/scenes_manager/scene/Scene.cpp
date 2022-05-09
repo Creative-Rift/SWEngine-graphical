@@ -11,6 +11,7 @@
  * Description:
  */
 
+#include "managers/Managers.hpp"
 #include "scenes_manager/scene/Scene.hpp"
 #include "SceneLoadEvent.hpp"
 #include "OpenGLModule.hpp"
@@ -25,7 +26,8 @@ eventManager{},
 resources{},
 m_managers{},
 m_entities{},
-m_managersLayers{}
+m_managersLayers{},
+m_configFile{"None"}
 {
     m_managersLayers.needSort = true;
     eventManager.create("Start");
@@ -43,7 +45,20 @@ void sw::Scene::load()
     resources.loadResources();
     sw::SceneLoadEvent newScene(*this);
     sw::EventInfo info(newScene);
-    sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
+
+    createManager<sw::AnimatorManager>("AnimatorManager");
+    createManager<sw::AudioSourceManager>("AudioManager");
+    createManager<sw::BoxColliderManager>("BoxColliderManager");
+    createManager<sw::CameraManager>("CameraManager");
+    createManager<sw::RigidBody2DManager>("RigidBody2DManager");
+    createManager<sw::ScriptManager>("ScriptManager");
+    createManager<sw::SpriteManager>("SpriteManager");
+    createManager<sw::TextManager>("TextManager");
+
+    if (m_configFile == "None")
+        sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
+    else
+        loadConfigFile();
     m_managersLayers.sort();
     for (auto& [_, managerName] : m_managersLayers)
         m_managers[managerName]->load();
@@ -109,4 +124,20 @@ void sw::Scene::save() const
 
     std::ofstream file("save/" + name + ".fish");
     file << node;
+}
+
+void sw::Scene::loadConfigFile()
+{
+    YAML::Node file = YAML::LoadFile(m_configFile);
+
+    for (auto gameObject : file["entities"]) {
+        sw::GameObject newGameObject = createGameObject(gameObject["name"].as<std::string>());
+        newGameObject.load(gameObject);
+    }
+    for (auto [_, manager] : m_managers) {
+        for (auto managers : file["manager"]) {
+            if (managers["name"].as<std::string>() == manager->name())
+                manager->onLoad(managers);
+        }
+    }
 }
