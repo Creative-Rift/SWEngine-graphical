@@ -18,6 +18,8 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT CameraManager : public sw::AManager<Camera>
     {
         public:
+            [[nodiscard]] YAML::Node save() const override;
+            void onLoad(YAML::Node& node) override;
             using sw::AManager<Camera>::AManager;
             ~CameraManager() override = default;
 

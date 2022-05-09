@@ -16,6 +16,9 @@
 
 namespace sw
 {
+
+    class CameraManager;
+
     class SW_GRAPH_MODULE_EXPORT Camera : public sw::Component
     {
         public:
@@ -36,6 +39,8 @@ namespace sw
             [[nodiscard]] const glm::mat4& getProjection();
             [[nodiscard]] const glm::mat4 getView() const;
 
+            YAML::Node save() const;
+
         private:
             Projection m_type;
             float m_fov;
@@ -45,6 +50,7 @@ namespace sw
 
             glm::mat4 m_view;
 
+            friend CameraManager;
     }; // class Camera
 } // namespace sw
 

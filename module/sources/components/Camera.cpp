@@ -80,3 +80,16 @@ const glm::mat4 sw::Camera::getView() const
 
     return (matrix);
 }
+
+YAML::Node sw::Camera::save() const
+{
+    YAML::Node node;
+
+    node["entity_name"] = name();
+    node["fov"] = m_fov;
+    node["size"] = m_size;
+    node["clipNear"] = m_clippingNear;
+    node["clipFar"] = m_clippingFar;
+    node["type"] = m_type == ORTHOGRAPHIC ? 1 : 0;
+    return (node);
+}
