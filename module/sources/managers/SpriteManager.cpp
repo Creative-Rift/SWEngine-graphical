@@ -14,10 +14,9 @@
 #include "components/Camera.hpp"
 #include "GameObject.hpp"
 
-void sw::SpriteManager::onLoad(YAML::Node& node)
-{
-    for (auto component : node["components"]) {
-        sw::Sprite& sprite = createComponent(component["entity_name"].as<std::string>());
+void sw::SpriteManager::onLoad(YAML::Node& node) {
+    for (auto component: node["components"]) {
+        sw::Sprite &sprite = createComponent(component["entity_name"].as<std::string>());
         sprite.m_invertedX = component["invertX"].as<bool>();
         sprite.m_invertedY = component["invertY"].as<bool>();
         sprite.m_rect.top = component["rect"][0].as<float>();
@@ -30,6 +29,8 @@ void sw::SpriteManager::onLoad(YAML::Node& node)
         sprite.m_color.a = component["color"][3].as<float>();
         sprite.m_material.setTexture(component["material"]["textureName"].as<std::string>());
     }
+    for (auto layer: node["layer"])
+        setLayer(layer["name"].as<std::string>(), layer["index"].as<int>());
 }
 
 void sw::SpriteManager::onUpdate()
@@ -101,7 +102,7 @@ YAML::Node sw::SpriteManager::save() const
     node["active"] = m_isActive;
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());
-    for (auto &[name, layer]: m_componentsLayers) {
+    for (auto &[layer, name]: m_componentsLayers) {
         YAML::Node ye;
         ye["name"] = name;
         ye["index"] = layer;

@@ -18,6 +18,8 @@ void sw::CameraManager::onLoad(YAML::Node& node)
         camera.m_clippingFar = component["clipFar"].as<float>();
         camera.m_type = component["type"].as<int>() == 1 ? Camera::ORTHOGRAPHIC : Camera::PERSPECTIVE;
     }
+    for (auto layer: node["layer"])
+        setLayer(layer["name"].as<std::string>(), layer["index"].as<int>());
 }
 
 YAML::Node sw::CameraManager::save() const
@@ -29,7 +31,7 @@ YAML::Node sw::CameraManager::save() const
     node["active"] = m_isActive;
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());
-    for (auto &[name, layer]: m_componentsLayers) {
+    for (auto &[layer, name]: m_componentsLayers) {
         YAML::Node ye;
         ye["name"] = name;
         ye["index"] = layer;
