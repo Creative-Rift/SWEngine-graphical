@@ -26,8 +26,8 @@ YAML::Node sw::CameraManager::save() const
 {
     YAML::Node node;
 
-    node["valid"] = true;
     node["name"] = name();
+    node["valid"] = true;
     node["active"] = m_isActive;
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());

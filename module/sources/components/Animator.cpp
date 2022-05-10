@@ -19,9 +19,17 @@ m_isPlaying(false),
 m_loop(false),
 m_framePerSecond(0.2),
 m_spr(gameObject.getComponent<sw::Sprite>("SpriteManager")),
-m_type(ANIM_SPRITE)
+m_type(ANIM_SPRITE),
+m_playOnStart(true)
 {
     m_displayRect = {0, 0, static_cast<float>(m_spr.texture()->getWidth()), static_cast<float>(m_spr.texture()->getHeight())};
+    gameObject.scene().eventManager["Start"].subscribe(this, &Animator::playOnStart);
+}
+
+void sw::Animator::playOnStart()
+{
+    if (m_playOnStart)
+        play();
 }
 
 bool sw::Animator::isPlaying() const
@@ -79,6 +87,12 @@ sw::Animator& sw::Animator::setFPS(float fps)
     return (*this);
 }
 
+sw::Animator& sw::Animator::setPlayOnStart(bool value)
+{
+    m_playOnStart = value;
+    return (*this);
+}
+
 const bool &sw::Animator::isLoop() const
 {
     return (m_loop);
@@ -110,11 +124,28 @@ sw::Animator::AnimType &sw::Animator::getAnimType()
     return (m_type);
 }
 
+const bool &sw::Animator::getPlayOnStart()
+{
+    return (m_playOnStart);
+}
+
 YAML::Node sw::Animator::save() const
 {
     YAML::Node node;
 
     node["entity_name"] = name();
+    node["rect"].push_back(m_rect.x);
+    node["rect"].push_back(m_rect.y);
+    node["displayRect"].push_back(m_displayRect.top);
+    node["displayRect"].push_back(m_displayRect.left);
+    node["displayRect"].push_back(m_displayRect.width);
+    node["displayRect"].push_back(m_displayRect.height);
+    node["endFrame"] = m_endFrame;
+    node["loopDelay"] = m_loopDelay;
+    node["loop"] = m_loop;
+    node["playOnStart"] = m_playOnStart;
+    node["fps"] = m_framePerSecond;
+    node["type"] = m_type == ANIM_LINE ? 1 : 0;
 
     return (node);
 }

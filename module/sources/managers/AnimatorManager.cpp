@@ -66,8 +66,35 @@ YAML::Node sw::AnimatorManager::save() const
 
     node["name"] = name();
     node["valid"] = true;
+    node["active"] = m_isActive;
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());
-
+    for (auto &[layer, name]: m_componentsLayers) {
+        YAML::Node ye;
+        ye["name"] = name;
+        ye["index"] = layer;
+        node["layer"].push_back(ye);
+    }
     return (node);
+}
+
+void sw::AnimatorManager::onLoad(YAML::Node& node)
+{
+    for (auto component : node["components"]) {
+        sw::Animator& animator = createComponent(component["entity_name"].as<std::string>());
+        animator.m_rect.x = component["rect"][0].as<unsigned>();
+        animator.m_rect.y = component["rect"][1].as<unsigned>();
+        animator.m_displayRect.top = component["displayRect"][0].as<float>();
+        animator.m_displayRect.left = component["displayRect"][1].as<float>();
+        animator.m_displayRect.width = component["displayRect"][2].as<float>();
+        animator.m_displayRect.height = component["displayRect"][3].as<float>();
+        animator.m_endFrame = component["endFrame"].as<int>();
+        animator.m_loopDelay = component["loopDelay"].as<float>();
+        animator.m_loop = component["loop"].as<bool>();
+        animator.m_playOnStart = component["playOnStart"].as<bool>();
+        animator.m_framePerSecond = component["fps"].as<float>();
+        animator.m_type = component["type"].as<int>() == 1 ? Animator::ANIM_LINE : Animator::ANIM_SPRITE;
+    }
+    for (auto layer: node["layer"])
+        setLayer(layer["name"].as<std::string>(), layer["index"].as<int>());
 }

@@ -42,6 +42,7 @@ namespace sw
             /// \brief This function is called one time per frame and update all component \n
             /// stored according their data
             void onUpdate() override;
+            void onLoad(YAML::Node& node) override;
     }; // class AnimatorManager
 } // namespace sw
 

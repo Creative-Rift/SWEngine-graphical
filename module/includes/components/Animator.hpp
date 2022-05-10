@@ -44,12 +44,14 @@ namespace sw
             float m_loopDelay;
             bool m_isPlaying;
             bool m_loop;
+            bool m_playOnStart;
             float m_framePerSecond;
             AnimType m_type;
 
             Sprite& m_spr;
 
             [[nodiscard]] YAML::Node save() const;
+            void playOnStart();
         public:
             ////////////////////////////////////////////////////////////////////////////
             /// \brief All default constructor are deleted because a component must
@@ -135,6 +137,14 @@ namespace sw
             Animator& setAnimType(AnimType type);
 
             ////////////////////////////////////////////////////////////////////////////
+            /// \brief Define if the Animation will play on start
+            ///
+            /// \param value boolean
+            /// \return reference to your sprite
+            ////////////////////////////////////////////////////////////////////////////
+            Animator& setPlayOnStart(bool value);
+
+            ////////////////////////////////////////////////////////////////////////////
             /// \brief Get id the animation is set to loop
             ///
             /// \return bool
@@ -168,6 +178,13 @@ namespace sw
             /// \return AnimType
             ////////////////////////////////////////////////////////////////////////////
             [[nodiscard]]AnimType& getAnimType();
+
+            ////////////////////////////////////////////////////////////////////////////
+            /// \brief Get if the animation will play on start
+            ///
+            /// \return bool
+            ////////////////////////////////////////////////////////////////////////////
+            [[nodiscard]]const bool& getPlayOnStart();
 
             friend AnimatorManager;
 
