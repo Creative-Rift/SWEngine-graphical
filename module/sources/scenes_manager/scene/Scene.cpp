@@ -63,7 +63,7 @@ void sw::Scene::load()
     for (auto& [_, managerName] : m_managersLayers)
         m_managers[managerName]->load();
     m_isLoad = true;
-
+    eventManager.drop("Start");
     sw::Speech::Info(sw::Log::info350_Success(FUNCTION, name));
 }
 

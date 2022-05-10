@@ -21,7 +21,9 @@ namespace sw
             using sw::AManager<AudioSource>::AManager;
             ~AudioSourceManager() override = default;
 
+            YAML::Node save() const;
             void onUpdate() override {};
+            void onLoad(YAML::Node& node) override;
     }; // class AudioSourceManager
 
 } // namespace sw
