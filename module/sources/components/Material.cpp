@@ -48,5 +48,12 @@ YAML::Node sw::Material::save() const
     YAML::Node node;
 
     node["textureName"] = m_name;
+    node["shader"] = shader.save();
     return node;
+}
+
+void sw::Material::load(YAML::Node node)
+{
+    setTexture(node["textureName"].as<std::string>());
+    shader.load(node["shader"]);
 }

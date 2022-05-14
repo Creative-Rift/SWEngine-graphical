@@ -93,10 +93,7 @@ YAML::Node sw::Sprite::save() const
     node["rect"].push_back(m_rect.left);
     node["rect"].push_back(m_rect.width);
     node["rect"].push_back(m_rect.height);
-    node["color"].push_back(m_color.r);
-    node["color"].push_back(m_color.g);
-    node["color"].push_back(m_color.b);
-    node["color"].push_back(m_color.a);
+    node["color"] = m_color.save();
     node["material"] = m_material.save();
 
     return (node);

@@ -4,6 +4,7 @@
 sw::Text::Text(sw::GameObject& gameObject) :
 sw::Component(gameObject),
 m_text(std::string("Hello world")),
+m_fontName("DefaultFont"),
 m_size(48),
 m_font(sw::OpenResources::m_nfont["DefaultFont"]),
 m_color(),
@@ -33,7 +34,7 @@ sw::Text &sw::Text::setPosition(float xpos, float ypos)
     return (*this);
 }
 
-sw::Text &sw::Text::setFont(std::string& name)
+sw::Text &sw::Text::setFont(std::string name)
 {
     m_font = sw::OpenResources::m_nfont[name];
     return (*this);
@@ -80,4 +81,20 @@ sw::Text &sw::Text::setNumberChar(unsigned int nbr)
 {
     m_nbrDisplayedChar = nbr;
     return (*this);
-}*/
+}
+*/
+YAML::Node sw::Text::save() const
+{
+    YAML::Node node;
+
+    node["entity_name"] = name();
+    node["text"] = m_text;
+    node["shader"] = m_shader.save();
+    node["color"] = m_color.save();
+    node["posx"] = m_pos.first;
+    node["posy"] = m_pos.second;
+    node["scale"] = scale;
+    node["font"] = m_fontName;
+
+    return (node);
+}

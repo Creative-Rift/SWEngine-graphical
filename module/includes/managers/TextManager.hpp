@@ -22,6 +22,8 @@ namespace sw
             ~TextManager() override = default;
 
             void onUpdate() override;
+            [[nodiscard]] YAML::Node save() const override;
+            void onLoad(YAML::Node& node) override;
     }; // class FONTManager
 } // namespace FONTManager
 

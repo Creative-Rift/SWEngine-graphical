@@ -25,6 +25,7 @@ namespace sw
             Shader shader;
 
             YAML::Node save() const;
+            void load(YAML::Node node);
             Material();
             explicit Material(std::shared_ptr<sw::Texture>& texture);
             explicit Material(std::string textureName);

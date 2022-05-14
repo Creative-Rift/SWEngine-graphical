@@ -23,11 +23,8 @@ void sw::SpriteManager::onLoad(YAML::Node& node) {
         sprite.m_rect.left = component["rect"][1].as<float>();
         sprite.m_rect.width = component["rect"][2].as<float>();
         sprite.m_rect.height = component["rect"][3].as<float>();
-        sprite.m_color.r = component["color"][0].as<float>();
-        sprite.m_color.g = component["color"][1].as<float>();
-        sprite.m_color.b = component["color"][2].as<float>();
-        sprite.m_color.a = component["color"][3].as<float>();
-        sprite.m_material.setTexture(component["material"]["textureName"].as<std::string>());
+        sprite.m_color.load(component["color"]);
+        sprite.m_material.load(component["material"]);
     }
     for (auto layer: node["layer"])
         setLayer(layer["name"].as<std::string>(), layer["index"].as<int>());
@@ -100,6 +97,7 @@ YAML::Node sw::SpriteManager::save() const
     node["name"] = name();
     node["valid"] = true;
     node["active"] = m_isActive;
+    std::cout << m_components.size();
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());
     for (auto &[layer, name]: m_componentsLayers) {

@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include "OpenGLModule_Config.hpp"
+#include "yaml-cpp/yaml.h"
 
 namespace sw
 {
@@ -39,6 +40,9 @@ namespace sw
             ///
             ////////////////////////////////////////////////////////////
             constexpr Color(float red, float green, float blue, float alpha = 255);
+
+            YAML::Node save() const;
+            void load(YAML::Node node);
 
     }; // class Color
 

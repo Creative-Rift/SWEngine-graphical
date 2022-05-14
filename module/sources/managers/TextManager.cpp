@@ -103,3 +103,36 @@ void sw::TextManager::onUpdate()
     glDisable(GL_CULL_FACE);
     glDisable(GL_BLEND);
 }
+
+YAML::Node sw::TextManager::save() const
+{
+    YAML::Node node;
+
+    node["name"] = name();
+    node["valid"] = true;
+    node["active"] = m_isActive;
+    for (auto &[_, component]: m_components)
+        node["components"].push_back(component->save());
+    for (auto &[layer, name]: m_componentsLayers) {
+        YAML::Node ye;
+        ye["name"] = name;
+        ye["index"] = layer;
+        node["layer"].push_back(ye);
+    }
+    return (node);
+}
+
+void sw::TextManager::onLoad(YAML::Node& node) {
+    for (auto component: node["components"]) {
+        sw::Text &text = createComponent(component["entity_name"].as<std::string>());
+        text.m_text = component["text"].as<std::string>();
+        text.m_shader.load(component["shader"]);
+        text.m_color.load(component["color"]);
+        text.m_pos.first = component["posx"].as<float>();
+        text.m_pos.second = component["posy"].as<float>();
+        text.scale = component["scale"].as<float>();
+        text.setFont(component["font"].as<std::string>());
+    }
+    for (auto layer: node["layer"])
+        setLayer(layer["name"].as<std::string>(), layer["index"].as<int>());
+}

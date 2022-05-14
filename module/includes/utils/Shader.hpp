@@ -11,6 +11,7 @@
 
 #include "dependencies/glm/glm.hpp"
 #include "dependencies/glm/gtc/type_ptr.hpp"
+#include "yaml-cpp/yaml.h"
 
 #include "OpenGLModule_Config.hpp"
 #include "ShaderSource.hpp"
@@ -23,11 +24,15 @@ namespace sw
             unsigned int m_id;
             ShaderSource m_fragment;
             ShaderSource m_vertex;
+            std::string m_fragmentPath;
+            std::string m_vertexPath;
             int m_success;
             char m_info[512];
 
             int getUniLocation(std::string& name) const;
         public:
+            YAML::Node save() const;
+            void load(YAML::Node node);
             Shader();
             Shader(std::string fragment, std::string vertex);
             ~Shader();

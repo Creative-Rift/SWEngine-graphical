@@ -2,6 +2,7 @@
 #define SWENGINE_OPENGLMODULE_TEXT_TXT_HPP
 
 #include "base/Component.hpp"
+#include "yaml-cpp/yaml.h"
 
 #include "utils/Color.hpp"
 #include "resources/Font.hpp"
@@ -14,10 +15,14 @@
 
 namespace sw
 {
+
+    class TextManager;
+
     class SW_GRAPH_MODULE_EXPORT Text : public sw::Component
     {
         private:
             std::string m_text;
+            std::string m_fontName;
             unsigned int m_size;
             std::shared_ptr<sw::Font> m_font;
             sw::Color m_color;
@@ -27,6 +32,7 @@ namespace sw
             //float m_lineSpacing;
             //unsigned int m_nbrDisplayedChar;
 
+            YAML::Node save() const;
         public:
         /*
             enum Style {
@@ -46,7 +52,7 @@ namespace sw
 
             Text& setText(std::string& text);
             //Text& setFontSize(unsigned int size);
-            Text& setFont(std::string& name);
+            Text& setFont(std::string name);
             Text& setColor(sw::Color color);
             Text &setPosition(float xpos, float ypos);
 
@@ -57,6 +63,8 @@ namespace sw
             [[nodiscard]] const std::pair<float, float>& getPos() const noexcept;
             [[nodiscard]] const float& getScale() const noexcept;
             //Text& setNumberChar(unsigned int nbr);
+
+            friend TextManager;
 
     }; // class Text
 

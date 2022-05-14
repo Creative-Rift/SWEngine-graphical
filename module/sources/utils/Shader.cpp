@@ -18,6 +18,8 @@ sw::Shader::Shader() :
 m_id(glCreateProgram()),
 m_fragment("resources/shaders/fragment_shader.glsl", ShaderSource::FRAGMENT),
 m_vertex("resources/shaders/vertex_shader.glsl", ShaderSource::VERTEX),
+m_fragmentPath("resources/shaders/fragment_shader.glsl"),
+m_vertexPath("resources/shaders/vertex_shader.glsl"),
 m_success(),
 m_info()
 {
@@ -33,8 +35,10 @@ m_info()
 
 sw::Shader::Shader(std::string fragment, std::string vertex) :
 m_id(glCreateProgram()),
-m_fragment(std::move(fragment), ShaderSource::FRAGMENT),
-m_vertex(std::move(vertex), ShaderSource::VERTEX),
+m_fragmentPath(fragment),
+m_vertexPath(vertex),
+m_fragment(fragment, ShaderSource::FRAGMENT),
+m_vertex(vertex, ShaderSource::VERTEX),
 m_success(),
 m_info()
 {
@@ -46,6 +50,21 @@ m_info()
         glGetProgramInfoLog(m_id, 512, nullptr, m_info);
         std::cerr << "ERROR: shader linking: " << m_info << std::endl;
     }
+}
+
+YAML::Node sw::Shader::save() const
+{
+    YAML::Node node;
+
+    node["fragment"] = m_fragmentPath;
+    node["vertex"] = m_vertexPath;
+    return node;
+}
+
+void sw::Shader::load(YAML::Node node)
+{
+    setShaderSource(node["fragment"].as<std::string>(), sw::ShaderSource::FRAGMENT);
+    setShaderSource(node["vertex"].as<std::string>(), sw::ShaderSource::VERTEX);
 }
 
 sw::Shader::~Shader()
@@ -69,11 +88,13 @@ sw::Shader &sw::Shader::setShaderSource(std::string source, sw::ShaderSource::Sh
         glDetachShader(m_id, m_fragment.getId());
         m_fragment = sw::ShaderSource(source, type);
         glAttachShader(m_id, m_fragment.getId());
+        m_fragmentPath = source;
     }
     else {
         glDetachShader(m_id, m_vertex.getId());
         m_vertex = sw::ShaderSource(source, type);
         glAttachShader(m_id, m_vertex.getId());
+        m_vertexPath = source;
     }
     glLinkProgram(m_id);
     glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);

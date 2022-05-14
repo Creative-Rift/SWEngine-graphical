@@ -30,6 +30,7 @@ m_managersLayers{},
 m_configFile{"None"}
 {
     m_managersLayers.needSort = true;
+    eventManager.create("Awake");
     eventManager.create("Start");
     eventManager.create("Update");
     eventManager.create("Unload");
@@ -55,16 +56,19 @@ void sw::Scene::load()
     createManager<sw::SpriteManager>("SpriteManager");
     createManager<sw::TextManager>("TextManager");
 
-    if (m_configFile == "None")
-        sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
-    else
+    if (m_configFile != "None")
         loadConfigFile();
+    sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
+
     m_managersLayers.sort();
     for (auto& [_, managerName] : m_managersLayers)
         m_managers[managerName]->load();
     m_isLoad = true;
     eventManager.drop("Start");
     sw::Speech::Info(sw::Log::info350_Success(FUNCTION, name));
+    eventManager.drop("Awake");
+    save();
+
 }
 
 void sw::Scene::update()
