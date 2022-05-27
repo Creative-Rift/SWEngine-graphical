@@ -12,6 +12,7 @@
 #include "resources/OpenResources.hpp"
 #include "utils/Speech.hpp"
 #include "exception/Error.hpp"
+#include "managers/Managers.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -108,26 +109,31 @@ void sw::OpenGLModule::load()
 
 void sw::OpenGLModule::update()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    for (auto& [_, camera] : m_sceneManager.getActiveScene().m_cameraManager.value().m_components) {
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
-    m_sceneManager.getActiveScene().update();
-    for (int i = 0; i < sw::Keyboard::LAST; ++i)
-        previous_key_flags[i] = current_key_flags[i];
-    for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
-        previous_mouse_flags[i] = current_mouse_flags[i];
-    event_buffer.clear();
-    m_chrono.tour();
+        m_sceneManager.getActiveScene().update();
+        for (int i = 0; i < sw::Keyboard::LAST; ++i)
+            previous_key_flags[i] = current_key_flags[i];
+        for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
+            previous_mouse_flags[i] = current_mouse_flags[i];
+        event_buffer.clear();
+        m_chrono.tour();
 
-    glfwSwapBuffers(m_window);
-    glfwPollEvents();
-    if (m_frameRate != 0.0) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000)));
-        m_chronoWindow.stop();
-        m_chronoWindow.start();
+        if (camera->isDefaultRender())
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glfwSwapBuffers(m_window);
+        glfwPollEvents();
+        if (m_frameRate != 0.0) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000)));
+            m_chronoWindow.stop();
+            m_chronoWindow.start();
+        }
+        sceneManager().checkForNewScene();
+        sw::Speech::flush();
     }
-     sceneManager().checkForNewScene();
-    sw::Speech::flush();
+
 }
 
 sw::SceneManager& sw::OpenGLModule::sceneManager()

@@ -15,6 +15,8 @@
 
 namespace sw
 {
+    class OpenGLModule;
+
     class SW_GRAPH_MODULE_EXPORT CameraManager : public sw::AManager<Camera>
     {
         public:
@@ -24,6 +26,8 @@ namespace sw
             ~CameraManager() override = default;
 
             void onUpdate() override {};
+
+            friend OpenGLModule;
     }; // class TransformManager
 
 } // namespace sw

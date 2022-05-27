@@ -11,13 +11,16 @@
 
 #include "base/Component.hpp"
 #include "dependencies/glm/glm.hpp"
+#include "utils/Reference.hpp"
 
 #include "OpenGLModule_Config.hpp"
+#include "utils/RenderTexture.hpp"
 
 namespace sw
 {
 
     class CameraManager;
+    class OpenGLModule;
 
     class SW_GRAPH_MODULE_EXPORT Camera : public sw::Component
     {
@@ -35,22 +38,27 @@ namespace sw
             Camera& setClipping(float near, float far);
             Camera& setClippingNear(float near);
             Camera& setClippingFar(float far);
+            Camera& createRenderTexture(std::string name);
 
             [[nodiscard]] const glm::mat4& getProjection();
-            [[nodiscard]] const glm::mat4 getView() const;
+            [[nodiscard]] glm::mat4 getView() const;
+            [[nodiscard]] bool isDefaultRender() const;
 
-            YAML::Node save() const;
+            [[nodiscard]] YAML::Node save() const;
 
         private:
+            Reference<RenderTexture> m_renderTexture;
             Projection m_type;
             float m_fov;
             float m_size;
             float m_clippingNear;
             float m_clippingFar;
+            bool m_defaultRenderTexture;
 
             glm::mat4 m_view;
 
             friend CameraManager;
+            friend OpenGLModule;
     }; // class Camera
 } // namespace sw
 

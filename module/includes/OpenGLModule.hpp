@@ -19,7 +19,9 @@
 #include "utils/Inputs.hpp"
 #include "scenes_manager/SceneManager.hpp"
 #include "utils/Chrono.hpp"
+#include "utils/Reference.hpp"
 #include "event/EventManager.hpp"
+#include "utils/RenderTexture.hpp"
 
 #include <memory>
 #include <array>
@@ -50,7 +52,7 @@ namespace sw
             static void setUpCallBack();
             static void loadResourcesFile(const std::string &path);
             static void displayAudioDevice();
-        
+
         public:
             static sw::Chrono m_chrono;
             static SceneManager m_sceneManager;

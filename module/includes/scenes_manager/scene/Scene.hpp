@@ -24,6 +24,7 @@
 
 #include "exception/Error.hpp"
 #include "utils/Speech.hpp"
+#include "utils/Reference.hpp"
 #include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule_Config.hpp"
@@ -36,6 +37,8 @@ namespace sw
 
     class GameObject;
     class SceneManager;
+    class CameraManager;
+    class OpenGLModule;
 
     class SW_GRAPH_MODULE_EXPORT Scene
     {
@@ -51,6 +54,9 @@ namespace sw
             /// @brief When an @b GameObject is delete, its name is first place in
             /// this set, in order to not pose any problem during the update.
             std::unordered_set<std::string> m_entitiesToDelete;
+
+            Reference<CameraManager> m_cameraManager;
+
 
             std::string m_configFile;
 
@@ -252,6 +258,7 @@ namespace sw
             friend void LoadResourcesFile(const std::string& path);
             friend void AddResourcesOnScene(jsnp::Token& it);
             friend SceneManager;
+            friend OpenGLModule;
     };
 
     #include "Scene.inl"

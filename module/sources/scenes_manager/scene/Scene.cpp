@@ -50,7 +50,7 @@ void sw::Scene::load()
     createManager<sw::AnimatorManager>("AnimatorManager");
     createManager<sw::AudioSourceManager>("AudioManager");
     createManager<sw::BoxColliderManager>("BoxColliderManager");
-    createManager<sw::CameraManager>("CameraManager");
+    m_cameraManager = createManager<sw::CameraManager>("CameraManager");
     createManager<sw::RigidBody2DManager>("RigidBody2DManager");
     createManager<sw::ScriptManager>("ScriptManager");
     createManager<sw::SpriteManager>("SpriteManager");

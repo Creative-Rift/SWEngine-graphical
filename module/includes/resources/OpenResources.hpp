@@ -66,7 +66,7 @@ namespace sw
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
             // List des resources
         public:
-            static class TexturesMap : private std::map<std::string, std::shared_ptr<Texture>>
+            static class TexturesMap : public std::map<std::string, std::shared_ptr<Texture>>
             {
                 public:
                     using std::map<std::string, std::shared_ptr<Texture>>::operator[];

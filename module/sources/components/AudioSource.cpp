@@ -21,7 +21,6 @@ m_playOnStart(true)
 {
     alGenSources(1, &m_source);
     gameObject.scene().eventManager["Start"].subscribe(this, &AudioSource::playOnStart);
-    std::cout << "YO " << gameObject.scene().name;
 }
 
 void sw::AudioSource::playOnStart()
