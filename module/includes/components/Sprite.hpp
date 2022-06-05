@@ -12,7 +12,6 @@
 #include "base/Component.hpp"
 #include "utils/Rect.hpp"
 
-#define YAML_CPP_API
 #include "yaml-cpp/yaml.h"
 #include "yaml-cpp/node/detail/node.h"
 

@@ -20,7 +20,6 @@
 #define __SHIPWRECK_CORE_IMANAGER_HPP__
 
 #include <string>
-#define YAML_CPP_API
 #include "yaml-cpp/yaml.h"
 
 #include "concepts.hpp"

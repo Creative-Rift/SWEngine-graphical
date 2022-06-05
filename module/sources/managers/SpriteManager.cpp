@@ -97,7 +97,6 @@ YAML::Node sw::SpriteManager::save() const
     node["name"] = name();
     node["valid"] = true;
     node["active"] = m_isActive;
-    std::cout << m_components.size();
     for (auto &[_, component]: m_components)
         node["components"].push_back(component->save());
     for (auto &[layer, name]: m_componentsLayers) {

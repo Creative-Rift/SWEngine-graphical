@@ -93,7 +93,7 @@ bool sw::Camera::isDefaultRender() const
 
 sw::Camera &sw::Camera::createRenderTexture(std::string name)
 {
-    auto render = sw::RenderTexture(name);
+    auto render = sw::RenderTexture(name, false);
     m_renderTexture = render;
     m_defaultRenderTexture = false;
     return *this;

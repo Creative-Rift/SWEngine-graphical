@@ -12,7 +12,6 @@
 #include "dependencies/glm/glm.hpp"
 
 #include "base/Component.hpp"
-#define YAML_CPP_API
 #include "yaml-cpp/yaml.h"
 
 #include "../OpenGLModule_Config.hpp"

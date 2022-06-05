@@ -21,10 +21,10 @@ namespace sw
             GLuint m_frameBufferId;
             Texture m_texture;
 
-            void CreateRenderTexture();
+            void CreateRenderTexture(bool defaultRender);
         public:
-            RenderTexture();
-            explicit RenderTexture(std::string name);
+            explicit RenderTexture(bool defaultRender = true);
+            explicit RenderTexture(std::string name, bool defaultRender = true);
     }; // class RenderTexture
 } // namespace sw
 

@@ -24,7 +24,9 @@
 #include <memory>
 #include <exception>
 
-sw::Texture::Texture(std::string path)
+sw::Texture::Texture(std::string path) :
+wdt(1920),
+hgt(1080)
 {
     try{
     glGenTextures(1, &id);
@@ -63,7 +65,7 @@ sw::Texture::Texture(std::string path)
         }
         glGenerateMipmap(GL_TEXTURE_2D);
     } else
-        std::cout << "Failed to load texture" << std::endl;
+        sw::Speech::Warning("Failed to load texture");
     stbi_image_free(data);
     } catch (std::exception &e)
     {

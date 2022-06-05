@@ -46,6 +46,7 @@ void sw::Scene::load()
     resources.loadResources();
     sw::SceneLoadEvent newScene(*this);
     sw::EventInfo info(newScene);
+    sw::Speech::flush();
 
     createManager<sw::AnimatorManager>("AnimatorManager");
     createManager<sw::AudioSourceManager>("AudioManager");
@@ -55,19 +56,23 @@ void sw::Scene::load()
     createManager<sw::ScriptManager>("ScriptManager");
     createManager<sw::SpriteManager>("SpriteManager");
     createManager<sw::TextManager>("TextManager");
+    sw::Speech::flush();
 
     if (m_configFile != "None")
         loadConfigFile();
     sw::OpenGLModule::m_eventManager.drop("SceneLoad", info);
+    sw::Speech::flush();
 
     m_managersLayers.sort();
     for (auto& [_, managerName] : m_managersLayers)
         m_managers[managerName]->load();
+    sw::Speech::flush();
     m_isLoad = true;
     eventManager.drop("Start");
     sw::Speech::Info(sw::Log::info350_Success(FUNCTION, name));
     eventManager.drop("Awake");
     save();
+    sw::Speech::flush();
 
 }
 
