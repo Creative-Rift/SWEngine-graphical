@@ -20,7 +20,7 @@ namespace sw
 {
 
     class CameraManager;
-    class OpenGLModule;
+    class Scene;
 
     class SW_GRAPH_MODULE_EXPORT Camera : public sw::Component
     {
@@ -58,7 +58,7 @@ namespace sw
             glm::mat4 m_view;
 
             friend CameraManager;
-            friend OpenGLModule;
+            friend Scene;
     }; // class Camera
 } // namespace sw
 

@@ -153,6 +153,10 @@ namespace sw
             /// @brief Function called to update the @b Scene.
             void update();
 
+            void updatePhysics();
+            void updateLogic();
+            void updateGraphics();
+
             /// @brief Function called to terminate the @b Scene.
             void unload();
 

@@ -25,6 +25,7 @@ namespace sw
         public:
             explicit RenderTexture(bool defaultRender = true);
             explicit RenderTexture(std::string name, bool defaultRender = true);
+            void use();
     }; // class RenderTexture
 } // namespace sw
 

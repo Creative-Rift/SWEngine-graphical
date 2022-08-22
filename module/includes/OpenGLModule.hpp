@@ -71,6 +71,7 @@ namespace sw
             static bool isOk();
             static SceneManager& sceneManager();
             static EventManager& eventManager();
+            static void CheckOpenOperation();
             [[nodiscard]] std::string type() const;
 
             std::shared_ptr<sw::AResources> createResourceInstance();

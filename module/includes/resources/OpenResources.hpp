@@ -31,8 +31,7 @@ namespace sw
     {
         public:
 
-        Texture(): wdt(0), hgt(0), nbc(0), id(0)
-        {};
+        Texture();
 
         Texture(std::string path);
 

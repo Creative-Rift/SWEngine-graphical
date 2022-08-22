@@ -86,17 +86,57 @@ void sw::Scene::update()
 
     if (m_managersLayers.needSort)
         m_managersLayers.sort();
-    for (auto& [_, managerName] : m_managersLayers) {
-        try {
-            m_managers[managerName]->update();
+    updatePhysics();
+    updateLogic();
+
+    for (auto& [_, cameraName] : m_cameraManager.value().m_componentsLayers) {
+        sw::Camera& camera = *m_cameraManager.value().m_components[cameraName];
+        if (camera.isDefaultRender())
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        else
+        {
+            std::cout << "Camera Updated: " << cameraName << std::endl;
+            camera.m_renderTexture.value().use();
         }
-        catch (sw::Error& error) {
-            sw::Speech::Error(error.getMessage(), error.getCode());
-        }
+        updateGraphics();
     }
 
     deleteRequestedEntities();
     deleteRequestedManagers();
+}
+
+void sw::Scene::updatePhysics()
+{
+    try {
+        m_managers["BoxColliderManager"]->update();
+        m_managers["RigidBody2DManager"]->update();
+    }
+    catch (sw::Error& error) {
+        sw::Speech::Error(error.getMessage(), error.getCode());
+    }
+}
+
+void sw::Scene::updateLogic()
+{
+    try {
+        m_managers["AnimatorManager"]->update();
+        m_managers["ScriptManager"]->update();
+    }
+    catch (sw::Error& error) {
+        sw::Speech::Error(error.getMessage(), error.getCode());
+    }
+}
+
+void sw::Scene::updateGraphics()
+{
+    try {
+        m_managers["AudioManager"]->update();
+        m_managers["SpriteManager"]->update();
+        m_managers["TextManager"]->update();
+    }
+    catch (sw::Error& error) {
+        sw::Speech::Error(error.getMessage(), error.getCode());
+    }
 }
 
 void sw::Scene::unload()

@@ -24,6 +24,24 @@
 #include <memory>
 #include <exception>
 
+sw::Texture::Texture() :
+wdt(1920),
+hgt(1080)
+{
+    try {
+        glGenTextures(1, &id);
+        glBindTexture(GL_TEXTURE_2D, id);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1920, 1080, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    }
+    catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
 sw::Texture::Texture(std::string path) :
 wdt(1920),
 hgt(1080)
@@ -64,9 +82,11 @@ hgt(1080)
             break;
         }
         glGenerateMipmap(GL_TEXTURE_2D);
-    } else
-        sw::Speech::Warning("Failed to load texture");
-    stbi_image_free(data);
+        stbi_image_free(data);
+    } else {
+        sw::Speech::Warning("Failed to load texture: " + path);
+        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+    }
     } catch (std::exception &e)
     {
         std::cout << e.what() << std::endl;

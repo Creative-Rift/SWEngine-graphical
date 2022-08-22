@@ -9,6 +9,8 @@
 #include "Transform.hpp"
 #include "dependencies/glm/gtc/matrix_transform.hpp"
 #include "GameObject.hpp"
+#include "CameraManager.hpp"
+#include "OpenGLModule.hpp"
 
 #include "Camera.hpp"
 
@@ -94,6 +96,8 @@ bool sw::Camera::isDefaultRender() const
 sw::Camera &sw::Camera::createRenderTexture(std::string name)
 {
     auto render = sw::RenderTexture(name, false);
+
+    sw::OpenGLModule::sceneManager().getActiveScene().getManager<sw::CameraManager>("CameraManager").setLayer(m_gameObject.name(), -1);
     m_renderTexture = render;
     m_defaultRenderTexture = false;
     return *this;
