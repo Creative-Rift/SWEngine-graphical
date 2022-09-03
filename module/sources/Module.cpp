@@ -73,6 +73,7 @@ void sw::OpenGLModule::load()
     loadResourcesFile("resources/textures.json");
     m_chrono.start();
     m_isLoad = true;
+    sw::Window::Maximize();
     sw::Speech::flush();
 }
 

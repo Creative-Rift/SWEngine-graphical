@@ -9,19 +9,35 @@
 #ifndef SHIPWRECK_ENGINE_WINDOW_HPP
 #define SHIPWRECK_ENGINE_WINDOW_HPP
 
+#include "dependencies/glad/glad.h"
+#include "GLFW/glfw3.h"
+
 #include "OpenGLModule_Config.hpp"
 #include "exception/Error.hpp"
 #include "utils/Vector2.hpp"
 
 namespace sw
 {
+    enum WindowFlags {
+        FULLSCREEN_MODE = 0x00000002,
+        RESIZABLE       = 0x00000004,
+        UNDECORATED     = 0x00000008,
+        HIDDEN          = 0x00000010,
+        MINIMIZED       = 0x00000020,
+        MAXIMIZED       = 0x00000040,
+        UNFOCUSED       = 0x00000080,
+        TRANSPARENT     = 0x00000100,
+    };
+
     class SW_GRAPH_MODULE_EXPORT Window
     {
     private:
+        static bool m_ready;
         static GLFWwindow *m_window;
         static bool m_fullScreen;
         static Vector2i m_size;
         static std::string m_title;
+        static unsigned int m_flags;
 
         static void resizeCallBack(GLFWwindow* window, int width, int height);
         static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
@@ -44,11 +60,16 @@ namespace sw
         static void Minimize();
         static void Restore();
         static void SetTitle(std::string title);
-
+        static void SetFlag(WindowFlags flags);
+        static void ClearFlag(WindowFlags flags);
         static bool IsOpen();
+
         static bool IsFullScreen();
+        static bool IsReady();
         static Vector2i GetSize();
+
         static std::string GetTitle();
+        static bool HasFlag(WindowFlags flags);
     };
 
     ////////////////////////////////////////////////////////////

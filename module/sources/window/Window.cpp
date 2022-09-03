@@ -6,9 +6,6 @@
 ** Description: [CHANGE]
 */
 
-#include "dependencies/glad/glad.h"
-#include "GLFW/glfw3.h"
-
 #include "Window.hpp"
 #include "Monitors.hpp"
 #include "utils/Inputs.hpp"
@@ -22,10 +19,12 @@ SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char current_mouse_flags[sw::MouseBtn::Button_last];
 SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
 
+SW_GRAPH_MODULE_EXPORT bool sw::Window::m_ready(false);
 SW_GRAPH_MODULE_EXPORT GLFWwindow* sw::Window::m_window(nullptr);
 SW_GRAPH_MODULE_EXPORT bool sw::Window::m_fullScreen(false);
 SW_GRAPH_MODULE_EXPORT sw::Vector2i sw::Window::m_size({1920, 1080});
 SW_GRAPH_MODULE_EXPORT std::string sw::Window::m_title("ShipWreck Engine");
+SW_GRAPH_MODULE_EXPORT unsigned int sw::Window::m_flags(0);
 
 sw::Window::Window()
 = default;
@@ -44,7 +43,6 @@ GLFWwindow *sw::Window::CreateWindow()
         throw sw::Error("Unable to find a Monitor", "");
 
     glfwDefaultWindowHints();
-    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
     // Add more flags
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -59,6 +57,7 @@ GLFWwindow *sw::Window::CreateWindow()
     }
     glfwMakeContextCurrent(m_window);
     setUpCallBack();
+    m_ready = true;
     return (m_window);
 }
 
@@ -90,13 +89,16 @@ void sw::Window::ToggleFullScreen()
         if (!monitors)
         {
             m_fullScreen = false;
+            m_flags &= ~sw::WindowFlags::FULLSCREEN_MODE;
             throw sw::Error("No monitor found!", "");
         } else {
             m_fullScreen = true;
+            m_flags |= sw::WindowFlags::FULLSCREEN_MODE;
             glfwSetWindowMonitor(m_window, monitor, 0, 0, m_size.x, m_size.y, GLFW_DONT_CARE);
         }
     } else {
         m_fullScreen = false;
+        m_flags &= ~sw::WindowFlags::FULLSCREEN_MODE;
         // TODO: put the last position
         glfwSetWindowMonitor(m_window, nullptr, 0, 0, m_size.x, m_size.y, GLFW_DONT_CARE);
     }
@@ -107,12 +109,14 @@ void sw::Window::Maximize()
     if (glfwGetWindowAttrib(m_window, GLFW_RESIZABLE) == GLFW_TRUE)
     {
         glfwMaximizeWindow(m_window);
+        m_flags |= sw::WindowFlags::MAXIMIZED;
     }
 }
 
 void sw::Window::Minimize()
 {
     glfwIconifyWindow(m_window);
+    m_flags |= sw::WindowFlags::MINIMIZED;
 }
 
 void sw::Window::Restore()
@@ -127,6 +131,11 @@ void sw::Window::SetTitle(std::string title)
 {
     m_title = title;
     glfwSetWindowTitle(m_window, title.c_str());
+}
+
+bool sw::Window::HasFlag(sw::WindowFlags flags)
+{
+    return (m_flags & flags);
 }
 
 sw::Vector2i sw::Window::GetSize()
@@ -147,6 +156,11 @@ bool sw::Window::IsFullScreen()
 bool sw::Window::IsOpen()
 {
     return (!glfwWindowShouldClose(m_window));
+}
+
+bool sw::Window::IsReady()
+{
+    return (m_ready);
 }
 
 void sw::Window::setUpCallBack()
