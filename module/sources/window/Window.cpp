@@ -138,6 +138,17 @@ void sw::Window::SetMinSize(sw::Vector2i size)
     SetMinSize(size.x, size.y);
 }
 
+void sw::Window::SetMaxSize(int with, int height)
+{
+    m_maxSize.x = with;
+    m_maxSize.y = height
+}
+
+void sw::Window::SetMaxSize(sw::Vector2i size)
+{
+    SetMaxSize(size.x, size.y);
+}
+
 void sw::Window::SetSize(int with, int height)
 {
     glfwSetWindowSize(m_window, with, height);

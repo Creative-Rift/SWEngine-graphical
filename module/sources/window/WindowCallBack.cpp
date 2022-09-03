@@ -72,9 +72,9 @@ void sw::Window::scroll_callback(GLFWwindow*, double x, double y)
 
 void sw::Window::resizeCallBack(GLFWwindow *window, int width, int height)
 {
-    if (width > 1920 || height > 1080)
+    if (width > m_maxSize.x || height > m_maxSize.y)
     {
-        SetSize(1920, 1080);
+        SetSize((width > m_maxSize.x) ? m_maxSize.x : width, (height > m_maxSize.y) ? m_maxSize.y : height);
         return;
     }
     glViewport(0, 0, width, height);

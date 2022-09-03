@@ -36,6 +36,7 @@ namespace sw
         static GLFWwindow *m_window;
         static bool m_fullScreen;
         static Vector2i m_size;
+        static Vector2i m_maxSize;
         static Vector2i m_position;
         static std::string m_title;
         static unsigned int m_flags;
@@ -67,6 +68,8 @@ namespace sw
         static void SetWindowPos(sw::Vector2i pos);
         static void SetMinSize(int with, int height);
         static void SetMinSize(sw::Vector2i size);
+        static void SetMaxSize(int with, int height);
+        static void SetMaxSize(sw::Vector2i size);
         static void SetSize(sw::Vector2i size);
         static void SetSize(int with, int height);
 
