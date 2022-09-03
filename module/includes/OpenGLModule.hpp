@@ -21,7 +21,6 @@
 #include "utils/Chrono.hpp"
 #include "utils/Reference.hpp"
 #include "event/EventManager.hpp"
-#include "utils/RenderTexture.hpp"
 
 #include <memory>
 #include <array>

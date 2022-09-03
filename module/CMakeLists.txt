@@ -23,6 +23,7 @@ set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/scene/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/utils/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/window/
         )
 ## INCLUDE FOLDERS
 set( INC_FOLDERS
@@ -41,9 +42,12 @@ set( INC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/scene/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/window/
         )
 
 message(${PREFIX_MESSAGE} "Build type set to: " ${CMAKE_BUILD_TYPE})
+message(${PREFIX_MESSAGE} "Current cmake location: " ${CMAKE_CURRENT_SOURCE_DIR})
+message(${PREFIX_MESSAGE} "Project location: " ${CMAKE_SOURCE_DIR})
 
 
 if (WIN32)

@@ -164,8 +164,8 @@ namespace sw
             void load(YAML::Node& node);
     };
 
-}
-
 #include "GameObject.inl"
+
+}
 
 #endif //SHIPWRECK_ENGINE_GAMEOBJECT_HPP

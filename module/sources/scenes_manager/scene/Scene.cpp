@@ -91,13 +91,7 @@ void sw::Scene::update()
 
     for (auto& [_, cameraName] : m_cameraManager.value().m_componentsLayers) {
         sw::Camera& camera = *m_cameraManager.value().m_components[cameraName];
-        if (camera.isDefaultRender())
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        else
-        {
-            std::cout << "Camera Updated: " << cameraName << std::endl;
-            camera.m_renderTexture.value().use();
-        }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         updateGraphics();
     }
 

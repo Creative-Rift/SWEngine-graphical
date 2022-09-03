@@ -1,5 +1,5 @@
 #version 460 core
-layout(location = 0) out vec3 FragColor;
+out vec4 FragColor;
 
 in vec4 ourColor;
 in vec2 TexCoord;

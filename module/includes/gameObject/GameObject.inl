@@ -26,8 +26,8 @@ inline void sw::GameObject::setActive(bool value)
     m_isActive = value;
 }
 
-template<sw::ConcreteComponent Cpt, typename... Args>
-inline Cpt& sw::GameObject::createComponent(const std::string& managerName, Args... values)
+template<ConcreteComponent Cpt, typename... Args>
+inline Cpt& GameObject::createComponent(const std::string& managerName, Args... values)
 {
     sw::AManager<Cpt>& manager = m_scene.getManager<sw::AManager<Cpt>>(managerName);
 
@@ -41,8 +41,8 @@ inline bool sw::GameObject::hasComponent(const std::string& managerName) const
     return (m_scene.getManager(managerName).hasComponent(m_name));
 }
 
-template <sw::ConcreteComponent Cpt>
-inline Cpt& sw::GameObject::getComponent(const std::string& managerName)
+template <ConcreteComponent Cpt>
+inline Cpt& GameObject::getComponent(const std::string& managerName)
 try
 {
     return (m_scene.getManager<sw::AManager<Cpt>>(managerName)[m_name]);
