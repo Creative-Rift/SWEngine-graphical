@@ -9,15 +9,16 @@
 #include "Window.hpp"
 #include "Monitors.hpp"
 #include "utils/Inputs.hpp"
-#include "Buffer.hpp"
 
 SW_GRAPH_MODULE_EXPORT bool sw::Window::m_ready(false);
 SW_GRAPH_MODULE_EXPORT GLFWwindow* sw::Window::m_window(nullptr);
 SW_GRAPH_MODULE_EXPORT bool sw::Window::m_fullScreen(false);
 SW_GRAPH_MODULE_EXPORT sw::Vector2i sw::Window::m_size({1920, 1080});
+SW_GRAPH_MODULE_EXPORT sw::Vector2i sw::Window::m_maxSize({1920, 1080});
 SW_GRAPH_MODULE_EXPORT sw::Vector2i sw::Window::m_position({0, 0});
 SW_GRAPH_MODULE_EXPORT std::string sw::Window::m_title("ShipWreck Engine");
 SW_GRAPH_MODULE_EXPORT unsigned int sw::Window::m_flags(0);
+SW_GRAPH_MODULE_EXPORT bool sw::Window::m_cursorHidden(true);
 
 sw::Window::Window()
 = default;
@@ -141,7 +142,7 @@ void sw::Window::SetMinSize(sw::Vector2i size)
 void sw::Window::SetMaxSize(int with, int height)
 {
     m_maxSize.x = with;
-    m_maxSize.y = height
+    m_maxSize.y = height;
 }
 
 void sw::Window::SetMaxSize(sw::Vector2i size)
@@ -157,6 +158,12 @@ void sw::Window::SetSize(int with, int height)
 void sw::Window::SetSize(sw::Vector2i size)
 {
     SetMinSize(size.x, size.y);
+}
+
+void sw::Window::SetVisibleCursor(bool visible)
+{
+    m_cursorHidden = visible;
+    glfwSetInputMode(m_window, GLFW_CURSOR, (visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_HIDDEN));
 }
 
 bool sw::Window::HasFlag(sw::WindowFlags flags)
@@ -192,4 +199,9 @@ bool sw::Window::IsOpen()
 bool sw::Window::IsReady()
 {
     return (m_ready);
+}
+
+bool sw::Window::IsCursorVisible()
+{
+    return (m_cursorHidden);
 }

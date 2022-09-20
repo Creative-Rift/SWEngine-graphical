@@ -40,6 +40,7 @@ namespace sw
         static Vector2i m_position;
         static std::string m_title;
         static unsigned int m_flags;
+        static bool m_cursorHidden;
 
         static void resizeCallBack(GLFWwindow* window, int width, int height);
         static void input_callback(GLFWwindow* window, int key, int scancode, int action, [[maybe_unused]] int mods);
@@ -72,10 +73,12 @@ namespace sw
         static void SetMaxSize(sw::Vector2i size);
         static void SetSize(sw::Vector2i size);
         static void SetSize(int with, int height);
+        static void SetVisibleCursor(bool visible);
 
         static bool IsFullScreen();
         static bool IsReady();
         static bool IsOpen();
+        static bool IsCursorVisible();
 
         static Vector2i GetSize();
         static std::string GetTitle();
