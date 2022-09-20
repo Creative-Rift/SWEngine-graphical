@@ -166,6 +166,22 @@ void sw::Window::SetVisibleCursor(bool visible)
     glfwSetInputMode(m_window, GLFW_CURSOR, (visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_HIDDEN));
 }
 
+void sw::Window::SetMonitor(int index)
+{
+    int count = 0;
+    GLFWmonitor **monitors = glfwGetMonitors(&count);
+
+    if (count > index)
+        throw std::out_of_range("Monitor not found");
+    const GLFWvidmode *mode = glfwGetVideoMode(monitors[index]);
+    glfwSetWindowMonitor(m_window, monitors[index], 0, 0, mode->width, mode->height, mode->refreshRate);
+}
+
+void sw::Window::SetClipboardText(std::string text)
+{
+    glfwSetClipboardString(m_window, text.c_str());
+}
+
 bool sw::Window::HasFlag(sw::WindowFlags flags)
 {
     return (m_flags & flags);
@@ -184,6 +200,11 @@ std::string sw::Window::GetTitle()
 sw::Vector2i sw::Window::GetPosition()
 {
     return (m_position);
+}
+
+std::string sw::Window::GetClipBoardText()
+{
+    return (std::string(glfwGetClipboardString(m_window)));
 }
 
 bool sw::Window::IsFullScreen()
