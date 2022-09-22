@@ -14,19 +14,20 @@
 sw::AudioSource::AudioSource(sw::GameObject &gameObject) :
 sw::Component(gameObject),
 m_source(-1),
-m_audioFile(),
-m_volume(),
-m_pitch(),
-m_playOnStart(true)
+m_loop(false),
+m_currentSample(0.0f),
+m_startPoint(0.0f),
+m_startLoopPoint(-1),
+m_endLoopPoint(-1),
+m_endPoint(-1),
+m_randomized(false),
+m_maxOccurence(-1),
+m_audios(),
+m_last(),
+m_lastOccurence(0)
 {
     alGenSources(1, &m_source);
     gameObject.scene().eventManager["Start"].subscribe(this, &AudioSource::playOnStart);
-}
-
-void sw::AudioSource::playOnStart()
-{
-    if (m_playOnStart)
-        play();
 }
 
 sw::AudioSource::~AudioSource() noexcept
@@ -35,21 +36,50 @@ sw::AudioSource::~AudioSource() noexcept
     alDeleteSources(1, &m_source);
 }
 
-sw::AudioSource &sw::AudioSource::setAudio(std::string audio)
+void sw::AudioSource::defineBuffer(std::string name)
 {
-    alSourcei(m_source, AL_BUFFER, sw::OpenResources::m_naudio[audio]->getBuffer());
-    m_audioFile = audio;
-    alGetSourcef(m_source, AL_GAIN, &m_volume);
-    alGetSourcef(m_source, AL_PITCH, &m_pitch);
+    auto buffer = sw::OpenResources::m_naudio[name];
+    alSourcei(m_source, AL_BUFFER, buffer->getBuffer());
+    m_endPoint = buffer->getDuration();
+}
+
+std::string sw::AudioSource::randomHandler()
+{
+    int index;
+    std::string audioName;
+
+    if (m_audios.size() < 2)
+        return m_audios[0];
+    do {
+        index = std::rand() % (m_audios.size() - 1);
+        audioName = m_audios[index];
+    } while (m_last == audioName && m_lastOccurence == m_maxOccurence);
+    if (m_last == audioName)
+        m_lastOccurence++;
+    else {
+        m_lastOccurence = 1;
+        m_last = audioName;
+    }
+    return audioName;
+}
+
+sw::AudioSource &sw::AudioSource::addAudio(std::string audio)
+{
+    m_audios.emplace_back(audio);
+    if (m_audios.empty())
+        defineBuffer(m_audios[0]);
     return (*this);
 }
 
 sw::AudioSource &sw::AudioSource::play()
 {
-    if (m_source == -1) {
-        sw::Speech::Warning("No sound defined cannot play");
-        return (*this);
-    }
+    int value;
+
+    alGetSourcei(m_source, AL_SOURCE_STATE, &value);
+    if (value == AL_PLAYING)
+        return *this;
+    if (m_randomized)
+        defineBuffer(randomHandler());
     alSourcePlay(m_source);
     return (*this);
 }
@@ -63,6 +93,7 @@ sw::AudioSource &sw::AudioSource::pause()
 sw::AudioSource &sw::AudioSource::stop()
 {
     alSourceStop(m_source);
+    setStartLoopPoint(m_startPoint);
     return (*this);
 }
 
@@ -77,6 +108,51 @@ sw::AudioSource &sw::AudioSource::setPitch(float pitch)
 {
     m_pitch = pitch;
     alSourcef(m_source, AL_PITCH, pitch);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setLoop(bool loop)
+{
+    m_loop = loop;
+    alSourcei(m_source, AL_LOOPING, m_loop ? AL_TRUE : AL_FALSE);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setStartPoint(float second)
+{
+    alSourcef(m_source, AL_SEC_OFFSET, second);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setStartLoopPoint(float second)
+{
+    m_startLoopPoint = second;
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setEndPoint(float second)
+{
+    m_endPoint = second;
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setEndLoopPoint(float second)
+{
+    m_endLoopPoint = second;
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setRandomized(bool random)
+{
+    m_randomized = random;
+    if (!m_randomized)
+        defineBuffer(m_audios[0]);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::setMaxOccurence(int occurence)
+{
+    m_maxOccurence = occurence;
     return (*this);
 }
 

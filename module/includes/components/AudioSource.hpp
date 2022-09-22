@@ -19,44 +19,44 @@
 
 namespace sw
 {
-
     class AudioSourceManager;
 
     class SW_GRAPH_MODULE_EXPORT AudioSource : public sw::Component
     {
         private:
             ALuint m_source;
-            std::string m_audioFile;
-            float m_volume;
-            float m_pitch;
-            bool m_playOnStart;
-            YAML::Node save() const;
+            bool m_loop;
+            float m_currentSample;
+            float m_startPoint;
+            float m_startLoopPoint;
+            float m_endPoint;
+            float m_endLoopPoint;
+            bool m_randomized;
+            int m_maxOccurence;
+            std::vector<std::string> m_audios;
+            std::string m_last;
+            int m_lastOccurence;
 
-            void playOnStart();
+            void defineBuffer(std::string name);
+            std::string randomHandler();
+
         public:
             explicit AudioSource(sw::GameObject& entity);
             ~AudioSource() override;
 
-            AudioSource& setAudio(std::string audio);
+            AudioSource& addAudio(std::string audio);
             AudioSource& play();
             AudioSource& pause();
             AudioSource& stop();
             AudioSource& setVolume(float volume);
             AudioSource& setPitch(float pitch);
-            ////////////////////////////////////////////////////////////////////////////
-            /// \brief Define if the Audio will play on start
-            ///
-            /// \param value boolean
-            /// \return reference to your Audio
-            ////////////////////////////////////////////////////////////////////////////
-            AudioSource& setPlayOnStart(bool value);
-
-            ////////////////////////////////////////////////////////////////////////////
-            /// \brief Get if the animation will play on start
-            ///
-            /// \return bool
-            ////////////////////////////////////////////////////////////////////////////
-            [[nodiscard]]const bool& getPlayOnStart();
+            AudioSource& setLoop(bool loop);
+            AudioSource& setStartPoint(float second);
+            AudioSource& setStartLoopPoint(float second);
+            AudioSource& setEndPoint(float second);
+            AudioSource& setEndLoopPoint(float second);
+            AudioSource& setRandomized(bool random);
+            AudioSource& setMaxOccurence(int occurence);
 
             friend AudioSourceManager;
     };

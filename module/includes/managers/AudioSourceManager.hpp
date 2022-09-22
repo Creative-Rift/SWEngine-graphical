@@ -24,6 +24,7 @@ namespace sw
             YAML::Node save() const;
             void onUpdate() override {};
             void onLoad(YAML::Node& node) override;
+            void onUpdate() override;
     }; // class AudioSourceManager
 
 } // namespace sw
