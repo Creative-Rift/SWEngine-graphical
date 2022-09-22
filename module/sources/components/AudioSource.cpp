@@ -24,7 +24,10 @@ m_randomized(false),
 m_maxOccurence(-1),
 m_audios(),
 m_last(),
-m_lastOccurence(0)
+m_lastOccurence(0),
+m_volume(),
+m_pitch(),
+m_playOnStart(true)
 {
     alGenSources(1, &m_source);
     gameObject.scene().eventManager["Start"].subscribe(this, &AudioSource::playOnStart);
@@ -34,6 +37,12 @@ sw::AudioSource::~AudioSource() noexcept
 {
     alSourcei(m_source, AL_BUFFER, 0);
     alDeleteSources(1, &m_source);
+}
+
+void sw::AudioSource::playOnStart()
+{
+    if (m_playOnStart)
+        play();
 }
 
 void sw::AudioSource::defineBuffer(std::string name)
@@ -150,9 +159,9 @@ sw::AudioSource &sw::AudioSource::setRandomized(bool random)
     return (*this);
 }
 
-sw::AudioSource &sw::AudioSource::setMaxOccurence(int occurence)
+sw::AudioSource &sw::AudioSource::setMaxOccurrence(int occurrence)
 {
-    m_maxOccurence = occurence;
+    m_maxOccurence = occurrence;
     return (*this);
 }
 
@@ -161,7 +170,6 @@ YAML::Node sw::AudioSource::save() const
     YAML::Node node;
 
     node["entity_name"] = name();
-    node["audioFile"] = m_audioFile;
     node["volume"] = m_volume;
     node["pitch"] = m_pitch;
     node["playOnStart"] = m_playOnStart;
@@ -169,7 +177,7 @@ YAML::Node sw::AudioSource::save() const
     return (node);
 }
 
-const bool &sw::AudioSource::getPlayOnStart()
+const bool &sw::AudioSource::isPlayOnStart() const
 {
     return (m_playOnStart);
 }

@@ -12,7 +12,7 @@ void sw::AudioSourceManager::onLoad(YAML::Node& node)
 {
     for (auto component : node["components"]) {
         sw::AudioSource& audio = createComponent(component["entity_name"].as<std::string>());
-        audio.setAudio(component["audioFile"].as<std::string>());
+        //audio.setAudio(component["audioFile"].as<std::string>());
         audio.setVolume(component["volume"].as<float>());
         audio.setPitch(component["pitch"].as<float>());
         audio.m_playOnStart = component["playOnStart"].as<bool>();
