@@ -9,6 +9,8 @@
 #include "Buffer.hpp"
 #include "Inputs.hpp"
 
+#include <iostream>
+
 //sw::Input_buffer event_buffer;
 
 SW_GRAPH_MODULE_EXPORT char current_key_flags[sw::Keyboard::LAST];
@@ -32,6 +34,10 @@ GLFWwindow *sw::Window::UpdateWindow()
     
     previous_mouse_position = current_mouse_position;
     previous_mouse_scroll = current_mouse_scroll;
+    
+    std::cout << "mouse x: " << previous_mouse_position.x << ", mouse y: " previous_mouse_position.y << std::endl;
+    std::cout << "mouse scroll x axis: " << previous_mouse_scroll.x << ", mouse scroll y axis: " previous_mouse_scroll.y << std::endl;
+    
     //event_buffer.clear();
     glfwSwapBuffers(m_window);
     return (m_window);
