@@ -9,7 +9,7 @@
 #include "Buffer.hpp"
 #include "Inputs.hpp"
 
-sw::Input_buffer event_buffer;
+//sw::Input_buffer event_buffer;
 
 SW_GRAPH_MODULE_EXPORT char current_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
@@ -17,13 +17,22 @@ SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char current_mouse_flags[sw::MouseBtn::Button_last];
 SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
 
+SW_GRAPH_MODULE_EXPORT sw::Vector2f current_mouse_position;
+SW_GRAPH_MODULE_EXPORT sw::Vector2f previous_mouse_position;
+
+SW_GRAPH_MODULE_EXPORT sw::Vector2f current_mouse_scroll;
+SW_GRAPH_MODULE_EXPORT sw::Vector2f previous_mouse_scroll;
+
 GLFWwindow *sw::Window::UpdateWindow()
 {
     for (int i = 0; i < sw::Keyboard::LAST; ++i)
         previous_key_flags[i] = current_key_flags[i];
     for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
         previous_mouse_flags[i] = current_mouse_flags[i];
-    event_buffer.clear();
+    
+    previous_mouse_position = current_mouse_position;
+    previous_mouse_scroll = current_mouse_scroll;
+    //event_buffer.clear();
     glfwSwapBuffers(m_window);
     return (m_window);
 }
@@ -54,20 +63,27 @@ void sw::Window::mouse_button_callback(GLFWwindow*, int button, int action, int)
 
 void sw::Window::position_callback(GLFWwindow*, double xpos, double ypos)
 {
+    /*
     std::pair<int,int> kys{};
     std::pair<double,double> ipt{xpos,ypos};
     sw::Type tpe = sw::Position;
 
     event_buffer.push(tpe, kys, ipt);
+    */
+
+   current_mouse_position = {xpos, ypos};
 }
 
 void sw::Window::scroll_callback(GLFWwindow*, double x, double y)
 {
+    /*
     std::pair<int,int> kys{};
     std::pair<double,double> ipt{x,y};
     sw::Type tpe = sw::Scroll;
 
     event_buffer.push(tpe, kys, ipt);
+    */
+   current_mouse_scroll = {x, y};
 }
 
 void sw::Window::resizeCallBack(GLFWwindow *window, int width, int height)
@@ -134,20 +150,23 @@ bool sw::isMouseButtonUp(const int &btn)
     return !sw::isMouseButtonDown(btn);
 }
 
+//DEPRECATED DO NOT USE
 bool sw::mouseMoved()
 {
+    /*
     const auto &tmp = event_buffer.get();
 
     for (size_t i = 0; i < event_buffer.getIdx(); ++i)
     {
         if (tmp[i].m_t == sw::Position)
             return true;
-    }
+    }*/
     return false;
 }
 
-bool sw::mouseScrolled(const std::pair<double, double> &evt)
+sw::Vector2f sw::getMouseScroll(void)
 {
+    /*
     const auto& tmp = event_buffer.get();
 
     for (size_t i = 0; i < event_buffer.getIdx(); ++i)
@@ -155,5 +174,20 @@ bool sw::mouseScrolled(const std::pair<double, double> &evt)
         if (tmp[i].m_t == sw::Scroll && tmp[i].m_os == evt)
             return true;
     }
-    return false;
+    */
+    return current_mouse_scroll;
+}
+
+sw::Vector2f sw::getMousePosition(void)
+{
+    /*
+    const auto& tmp = event_buffer.get();
+
+    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
+    {
+        if (tmp[i].m_t == sw::Scroll && tmp[i].m_os == evt)
+            return true;
+    }
+    */
+    return current_mouse_position;
 }

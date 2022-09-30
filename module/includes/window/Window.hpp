@@ -179,15 +179,26 @@ namespace sw
     SW_GRAPH_MODULE_EXPORT bool isMouseButtonUp(const int &btn);
 
     ////////////////////////////////////////////////////////////
-    /// @brief Return true if given scroll direction is correct
+    /// @brief Return current x and y position of mouse cursor
     ///
-    /// @param std::pair<double,double>&
+    /// @param none
     ///
-    /// @return bool
+    /// @return Vector2f
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    SW_GRAPH_MODULE_EXPORT bool mouseScrolled(const std::pair<double,double>&);
+    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMousePosition(void);
+
+    ////////////////////////////////////////////////////////////
+    /// @brief Return current scroll of x and y axis
+    ///
+    /// @param none
+    ///
+    /// @return Vector2f
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMouseScroll(void);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if mouse moved
