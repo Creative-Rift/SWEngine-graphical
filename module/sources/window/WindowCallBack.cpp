@@ -6,12 +6,7 @@
 */
 
 #include "Window.hpp"
-#include "Buffer.hpp"
 #include "Inputs.hpp"
-
-#include <iostream>
-
-//sw::Input_buffer event_buffer;
 
 SW_GRAPH_MODULE_EXPORT char current_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
@@ -35,10 +30,6 @@ GLFWwindow *sw::Window::UpdateWindow()
     previous_mouse_position = current_mouse_position;
     previous_mouse_scroll = current_mouse_scroll;
     
-    std::cout << "mouse x: " << previous_mouse_position.x << ", mouse y: " previous_mouse_position.y << std::endl;
-    std::cout << "mouse scroll x axis: " << previous_mouse_scroll.x << ", mouse scroll y axis: " previous_mouse_scroll.y << std::endl;
-    
-    //event_buffer.clear();
     glfwSwapBuffers(m_window);
     return (m_window);
 }
@@ -69,27 +60,12 @@ void sw::Window::mouse_button_callback(GLFWwindow*, int button, int action, int)
 
 void sw::Window::position_callback(GLFWwindow*, double xpos, double ypos)
 {
-    /*
-    std::pair<int,int> kys{};
-    std::pair<double,double> ipt{xpos,ypos};
-    sw::Type tpe = sw::Position;
-
-    event_buffer.push(tpe, kys, ipt);
-    */
-
-   current_mouse_position = {xpos, ypos};
+   current_mouse_position = {static_cast<float>(xpos), static_cast<float>(ypos)};
 }
 
 void sw::Window::scroll_callback(GLFWwindow*, double x, double y)
 {
-    /*
-    std::pair<int,int> kys{};
-    std::pair<double,double> ipt{x,y};
-    sw::Type tpe = sw::Scroll;
-
-    event_buffer.push(tpe, kys, ipt);
-    */
-   current_mouse_scroll = {x, y};
+   current_mouse_scroll = {static_cast<float>(x), static_cast<float>(y)};
 }
 
 void sw::Window::resizeCallBack(GLFWwindow *window, int width, int height)
@@ -156,44 +132,12 @@ bool sw::isMouseButtonUp(const int &btn)
     return !sw::isMouseButtonDown(btn);
 }
 
-//DEPRECATED DO NOT USE
-bool sw::mouseMoved()
+sw::Vector2f sw::getMouseScroll()
 {
-    /*
-    const auto &tmp = event_buffer.get();
-
-    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
-    {
-        if (tmp[i].m_t == sw::Position)
-            return true;
-    }*/
-    return false;
-}
-
-sw::Vector2f sw::getMouseScroll(void)
-{
-    /*
-    const auto& tmp = event_buffer.get();
-
-    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
-    {
-        if (tmp[i].m_t == sw::Scroll && tmp[i].m_os == evt)
-            return true;
-    }
-    */
     return current_mouse_scroll;
 }
 
-sw::Vector2f sw::getMousePosition(void)
+sw::Vector2f sw::getMousePosition()
 {
-    /*
-    const auto& tmp = event_buffer.get();
-
-    for (size_t i = 0; i < event_buffer.getIdx(); ++i)
-    {
-        if (tmp[i].m_t == sw::Scroll && tmp[i].m_os == evt)
-            return true;
-    }
-    */
     return current_mouse_position;
 }

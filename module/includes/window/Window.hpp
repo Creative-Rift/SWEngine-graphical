@@ -187,7 +187,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMousePosition(void);
+    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMousePosition();
 
     ////////////////////////////////////////////////////////////
     /// @brief Return current scroll of x and y axis
@@ -198,18 +198,7 @@ namespace sw
     ///
     /// @throw none
     ////////////////////////////////////////////////////////////
-    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMouseScroll(void);
-
-    ////////////////////////////////////////////////////////////
-    /// @brief Return True if mouse moved
-    ///
-    /// @param void
-    ///
-    /// @return bool
-    ///
-    /// @throw none
-    ////////////////////////////////////////////////////////////
-    SW_GRAPH_MODULE_EXPORT bool mouseMoved();
+    SW_GRAPH_MODULE_EXPORT sw::Vector2f getMouseScroll();
 }
 
 #endif //SHIPWRECK_ENGINE_WINDOW_HPP
