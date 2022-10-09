@@ -84,7 +84,6 @@ hgt(1080)
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(data);
     } else {
-        std::cerr << "Pb bro" << std::endl;
         sw::Speech::Warning("Failed to load texture: " + path);
         glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
     }
@@ -95,10 +94,9 @@ hgt(1080)
 }
 
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
-
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
-
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::ModelMap sw::OpenResources::m_nmodel;
 
 sw::Ftlib fontlb;
 
@@ -112,6 +110,7 @@ void sw::OpenResources::loadResources()
         loadTextures();
         loadFonts();
         loadAudio();
+        loadModels();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
@@ -145,10 +144,18 @@ void sw::OpenResources::loadAudio()
         sw::Speech::Warning("No Audio was loaded.", "3720");
 }
 
+void sw::OpenResources::loadModels()
+{
+    for (auto &[name, path] : m_nmd)
+        m_nmodel.emplace(name, std::make_shared<Model>(path));
+    if (m_naudio.empty())
+        sw::Speech::Warning("No model was loaded.", "3720");
+}
+
+
 void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {
-    if (type == "Texture")
-    {
+    if (type == "Texture") {
         if (m_ntx.find(name) == m_ntx.end())
             m_ntx.emplace(name, path);
     } else if (type == "Font") {
@@ -157,6 +164,9 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
     } else if (type == "Audio") {
         if (m_nau.find(name) == m_nau.end())
             m_nau.emplace(name, path);
+    } else if (type == "Model") {
+        if (m_nmd.find(name) == m_nmd.end())
+            m_nmd.emplace(name, path);
     }
 
 }
@@ -164,8 +174,19 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
 void sw::OpenResources::unloadResources()
 {
     for(auto &[_, ptr] : m_ntext)
-    {
         ptr.reset();
-    }
+    for(auto &[_, ptr] : m_naudio)
+        ptr.reset();
+    for(auto &[_, ptr] : m_nfont)
+        ptr.reset();
+    for(auto &[_, ptr] : m_nmodel)
+        ptr.reset();
     m_ntext.clear();
+    m_ntx.clear();
+    m_naudio.clear();
+    m_nau.clear();
+    m_nfont.clear();
+    m_nft.clear();
+    m_nmodel.clear();
+    m_nmd.clear();
 }

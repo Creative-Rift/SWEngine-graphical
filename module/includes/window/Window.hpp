@@ -74,6 +74,7 @@ namespace sw
         static void SetSize(sw::Vector2i size);
         static void SetSize(int with, int height);
         static void SetVisibleCursor(bool visible);
+        static void SetEnableCursor(bool enable);
         static void SetMonitor(int index);
         static void SetClipboardText(std::string text);
 

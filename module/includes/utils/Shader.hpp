@@ -46,7 +46,6 @@ namespace sw
             void setUniFloat(std::string varName, float& value) const;
             void setUniMat4(std::string varName, const glm::mat4& matrix) const;
             void setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const;
-            // TODO Add more setUniform
     }; // class Shader
 } // namespace sw
 

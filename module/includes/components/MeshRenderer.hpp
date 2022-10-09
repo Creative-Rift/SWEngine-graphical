@@ -17,7 +17,7 @@ namespace sw
     public:
         std::shared_ptr<Model> model;
 
-        MeshRenderer(sw::GameObject& gameobject, std::shared_ptr<Model> model);
+        MeshRenderer(sw::GameObject& gameobject, std::string name);
 
     private:
 

@@ -5,9 +5,7 @@
 
 #include "MeshRenderer.hpp"
 
-#include <utility>
-
-sw::MeshRenderer::MeshRenderer(sw::GameObject &gameobject, std::shared_ptr<Model> model) :
+sw::MeshRenderer::MeshRenderer(sw::GameObject &gameobject, std::string name) : //TODO Set model as resource
 sw::Component(gameobject),
-model(std::move(model))
+model(sw::OpenResources::m_nmodel[name])
 {}

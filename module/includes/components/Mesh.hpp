@@ -9,12 +9,12 @@
 #include <vector>
 
 #include "utils/Vertex.hpp"
-#include "Material.hpp"
 #include "utils/Shader.hpp"
-#include "Components.hpp"
 
 namespace sw
 {
+    class Texture;
+
     class SW_GRAPH_MODULE_EXPORT Mesh{
     public:
         // In Vertex Array
@@ -26,7 +26,6 @@ namespace sw
         //End
         ~Mesh();
 
-        //std::vector<Material> m_material;
         std::vector<std::shared_ptr<Texture>> m_texture;
 
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> materials);

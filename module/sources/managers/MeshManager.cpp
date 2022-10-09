@@ -26,13 +26,13 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     meshRenderer.model->shader.useShader();
     meshRenderer.model->shader.setUniMat4("projection", camera.getProjection());
     meshRenderer.model->shader.setUniMat4("view", camera.getView());
-    meshRenderer.model->shader.setUniMat4("model", glm::mat4(1.0f));
+    meshRenderer.model->shader.setUniMat4("model", transform.getGlobalMatrix());
     for(auto & meshes : meshRenderer.model->meshes)
-        drawMesh(*meshRenderer.model, meshes, transform);
+        drawMesh(*meshRenderer.model, meshes);
     glUseProgram(0);
 }
 
-void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mesh> &mesh, sw::Transform &transform) //TODO remove transform
+void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mesh> &mesh)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
@@ -45,7 +45,6 @@ void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mes
             number = std::to_string(diffuseNr++);
         else
             continue;
-
 
         int y = (int)i;
         model.shader.setUniInt(name + number, y);

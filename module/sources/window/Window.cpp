@@ -50,7 +50,6 @@ GLFWwindow *sw::Window::CreateWindow()
         throw sw::Error("Failed to create window", "");
     }
     glfwMakeContextCurrent(m_window);
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     setUpCallBack();
     m_ready = true;
     return (m_window);
@@ -165,6 +164,11 @@ void sw::Window::SetVisibleCursor(bool visible)
 {
     m_cursorHidden = visible;
     glfwSetInputMode(m_window, GLFW_CURSOR, (visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_HIDDEN));
+}
+
+void sw::Window::SetEnableCursor(bool visible)
+{
+    glfwSetInputMode(m_window, GLFW_CURSOR, (visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED));
 }
 
 void sw::Window::SetMonitor(int index)

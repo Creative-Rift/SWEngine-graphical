@@ -22,8 +22,7 @@ void sw::Model::loadModel(std::string path)
     Assimp::Importer import;
     const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-    {
+    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
         return;
     }
@@ -34,8 +33,7 @@ void sw::Model::loadModel(std::string path)
 
 void sw::Model::processNode(aiNode *node, const aiScene *scene)
 {
-    for(unsigned int i = 0; i < node->mNumMeshes; i++)
-    {
+    for(unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene));
     }
@@ -49,24 +47,20 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
     std::vector<unsigned int> indices;
     std::vector<std::shared_ptr<sw::Texture>> textures;
 
-    for (unsigned int i = 0; i < mesh->mNumVertices; i++)
-    {
+    for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         sw::Vertex vertex;
-        glm::vec3 vec;
         // positions
         vertex.position.x = mesh->mVertices[i].x;
         vertex.position.y = mesh->mVertices[i].y;
         vertex.position.z = mesh->mVertices[i].z;
         // normals
-        if (mesh->HasNormals())
-        {
+        if (mesh->HasNormals()) {
             vertex.normal.x = mesh->mNormals[i].x;
             vertex.normal.y = mesh->mNormals[i].y;
             vertex.normal.z = mesh->mNormals[i].z;
         }
         // texture coordinates
-        if(mesh->mTextureCoords[0])
-        {
+        if(mesh->mTextureCoords[0]) {
             vertex.textureCoord.x = mesh->mTextureCoords[0][i].x;
             vertex.textureCoord.y = mesh->mTextureCoords[0][i].y;
             //vertex.tangent.x = mesh->mTangents[i].x;
@@ -82,8 +76,7 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
         vertices.push_back(vertex);
     }
     // process indices
-    for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-    {
+    for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
         for(unsigned int j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
@@ -103,7 +96,6 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
     //std::vector<std::shared_ptr<sw::Texture>> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     //textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    // return a mesh object created from the extracted mesh data
     return std::make_shared<sw::Mesh>(vertices, indices, textures);
 }
 

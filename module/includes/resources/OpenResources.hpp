@@ -18,6 +18,7 @@
 #include "OpenGLModule_Config.hpp"
 #include "resources/Font.hpp"
 #include "resources/Audio.hpp"
+#include "resources/Model.hpp"
 
 #include <queue>
 #include <memory>
@@ -57,10 +58,12 @@ namespace sw
             std::map<std::string, std::string> m_ntx{};
             std::map<std::string, std::string> m_nft{};
             std::map<std::string, std::string> m_nau{};
+            std::map<std::string, std::string> m_nmd{};
 
             void loadTextures();
             void loadFonts();
             void loadAudio();
+            void loadModels();
             //std::priority_queue<std::unique_ptr<Font>> m_ft{}; font -> dev 2 final
             //std::priority_queue<std::unique_ptr<void>> m_sh; shaders -> dev 2/3
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
@@ -86,6 +89,14 @@ namespace sw
                     using std::map<std::string, std::shared_ptr<Audio>>::operator[];
                     friend OpenResources;
             } m_naudio;
+
+            static class ModelMap : public std::map<std::string, std::shared_ptr<Model>>
+            {
+                public:
+                    using std::map<std::string, std::shared_ptr<Model>>::operator[];
+                    friend OpenResources;
+            } m_nmodel;
+
             OpenResources() = default;
             ~OpenResources();
             void loadResources() override;
