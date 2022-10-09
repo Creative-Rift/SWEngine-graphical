@@ -56,6 +56,7 @@ void sw::Scene::load()
     createManager<sw::ScriptManager>("ScriptManager");
     createManager<sw::SpriteManager>("SpriteManager");
     createManager<sw::TextManager>("TextManager");
+    createManager<sw::MeshRendererManager>("MeshRendererManager");
     sw::Speech::flush();
 
     if (m_configFile != "None")
@@ -115,6 +116,7 @@ void sw::Scene::updateLogic()
     try {
         m_managers["AnimatorManager"]->update();
         m_managers["ScriptManager"]->update();
+        m_managers["AudioManager"]->update();
     }
     catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
@@ -124,7 +126,7 @@ void sw::Scene::updateLogic()
 void sw::Scene::updateGraphics()
 {
     try {
-        m_managers["AudioManager"]->update();
+        m_managers["MeshRendererManager"]->update();
         m_managers["SpriteManager"]->update();
         m_managers["TextManager"]->update();
     }

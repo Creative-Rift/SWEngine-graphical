@@ -42,7 +42,8 @@ namespace sw
         const int getWidth() const { return wdt;};
         const int getHeight() const { return hgt;};
         const int getChannels() const { return nbc;};
-        private:
+        std::string type;
+    private:
             int wdt;
             int hgt;
             int nbc;

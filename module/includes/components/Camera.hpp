@@ -37,9 +37,15 @@ namespace sw
             Camera& setClipping(float near, float far);
             Camera& setClippingNear(float near);
             Camera& setClippingFar(float far);
+            Camera& setPitch(float newPitch);
+            Camera& setYaw(float newYaw);
 
             [[nodiscard]] const glm::mat4& getProjection();
-            [[nodiscard]] glm::mat4 getView() const;
+            [[nodiscard]] glm::mat4 getView();
+            [[nodiscard]] float getPitch() const;
+            [[nodiscard]] float getYaw() const;
+            [[nodiscard]] glm::vec3 getFront() const;
+            [[nodiscard]] glm::vec3 getRight() const;
 
             [[nodiscard]] YAML::Node save() const;
 
@@ -49,8 +55,15 @@ namespace sw
             float m_size;
             float m_clippingNear;
             float m_clippingFar;
+            float m_pitch;
+            float m_yaw;
 
             glm::mat4 m_view;
+            glm::vec3 m_front;
+            glm::vec3 m_up;
+            glm::vec3 m_right;
+
+            void updateVectors();
 
             friend CameraManager;
             friend Scene;

@@ -100,7 +100,7 @@ sw::Shader &sw::Shader::setShaderSource(std::string source, sw::ShaderSource::Sh
     glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
     if (!m_success) {
         glGetProgramInfoLog(m_id, 512, nullptr, m_info);
-        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
+        std::cerr << "ERROR: shader linking [" << source << "]: " << m_info << std::endl;
     }
     return (*this);
 }

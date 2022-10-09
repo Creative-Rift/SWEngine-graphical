@@ -17,6 +17,7 @@ set( SHARED_LIB_NAME
         Jsnp${DEBUG_SUFFIX}
         freetype
         sndfile
+        assimp-vc143-mtd
         OpenAL32
         )
 
@@ -26,6 +27,7 @@ set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/assimp-vc143-mtd.dll
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.dll
         )
 ## IMPORTED SHARED LIBRARY .lib file
@@ -34,6 +36,7 @@ set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.lib
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.lib
+        ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/assimp-vc143-mtd.lib
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.lib
         )
 

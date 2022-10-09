@@ -18,5 +18,6 @@
 #include "TextManager.hpp"
 #include "TransformManager.hpp"
 #include "ScriptManager.hpp"
+#include "MeshManager.hpp"
 
 #endif //SHIPWRECK_ENGINE_MANAGERS_HPP

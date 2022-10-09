@@ -84,6 +84,7 @@ hgt(1080)
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(data);
     } else {
+        std::cerr << "Pb bro" << std::endl;
         sw::Speech::Warning("Failed to load texture: " + path);
         glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
     }

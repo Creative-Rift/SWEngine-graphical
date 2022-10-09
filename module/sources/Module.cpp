@@ -70,6 +70,7 @@ void sw::OpenGLModule::load()
     sw::Speech::flush();
 
     glViewport(0, 0, 1920, 1080);
+    glEnable(GL_DEPTH_TEST);
     loadResourcesFile("resources/textures.json");
     m_chrono.start();
     m_isLoad = true;
@@ -80,7 +81,7 @@ void sw::OpenGLModule::load()
 void sw::OpenGLModule::update()
 {
     glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     m_sceneManager.getActiveScene().update();
 
@@ -105,6 +106,11 @@ sw::SceneManager& sw::OpenGLModule::sceneManager()
 sw::EventManager& sw::OpenGLModule::eventManager()
 {
     return (m_eventManager);
+}
+
+sw::Chrono &sw::OpenGLModule::chrono()
+{
+    return (m_chrono);
 }
 
 void sw::OpenGLModule::unload()

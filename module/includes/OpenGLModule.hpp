@@ -60,6 +60,7 @@ namespace sw
             static bool isRunning();
             static SceneManager& sceneManager();
             static EventManager& eventManager();
+            static Chrono& chrono();
             static void CheckOpenOperation();
             [[nodiscard]] std::string type() const;
 

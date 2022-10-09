@@ -9,6 +9,7 @@
 #ifndef SWENGINE_OPENGLMODULE_VERTEX_HPP
 #define SWENGINE_OPENGLMODULE_VERTEX_HPP
 
+#include <iostream>
 #include "Vector3.hpp"
 #include "Color.hpp"
 #include "OpenGLModule_Config.hpp"
@@ -18,12 +19,16 @@ namespace sw
 {
     class SW_GRAPH_MODULE_EXPORT Vertex
     {
-        public:
-            Vector3f position;
-            Color color;
-            Vector2f textureCoord;
+    public:
+        Vector3f position;
+        Color color;
+        Vector2f textureCoord;
+        Vector3f normal;
+        Vector3f bitangent;
+        Vector3f tangent;
 
             Vertex();
+            ~Vertex();
             explicit Vertex(Vector3f& position);
             Vertex(Vector3f& position, Vector2f& textureCoord);
             Vertex(Vector3f& position, Color& color);

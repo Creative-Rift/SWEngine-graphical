@@ -50,6 +50,7 @@ GLFWwindow *sw::Window::CreateWindow()
         throw sw::Error("Failed to create window", "");
     }
     glfwMakeContextCurrent(m_window);
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     setUpCallBack();
     m_ready = true;
     return (m_window);
