@@ -148,7 +148,7 @@ void sw::OpenResources::loadModels()
 {
     for (auto &[name, path] : m_nmd)
         m_nmodel.emplace(name, std::make_shared<Model>(path));
-    if (m_naudio.empty())
+    if (m_nmodel.empty())
         sw::Speech::Warning("No model was loaded.", "3720");
 }
 
