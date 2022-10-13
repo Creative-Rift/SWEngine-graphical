@@ -15,6 +15,7 @@
 #include "scenes_manager/scene/Scene.hpp"
 #include "SceneLoadEvent.hpp"
 #include "OpenGLModule.hpp"
+#include "Window.hpp"
 #include "yaml-cpp/yaml.h"
 
 sw::Scene::Scene(const std::string &sceneName) :
@@ -36,7 +37,7 @@ m_configFile{"None"}
     eventManager.create("Unload");
 }
 
-void sw::Scene::load()
+void sw::Scene::load(bool async)
 {
     if (m_isLoad) {
         sw::Speech::Warning(sw::Log::warning350(FUNCTION, name));
@@ -44,6 +45,9 @@ void sw::Scene::load()
     }
     sw::Speech::Info(sw::Log::info350(FUNCTION, name));
     resources.loadResources();
+    if (!async)
+        resources.compileResources();
+
     sw::SceneLoadEvent newScene(*this);
     sw::EventInfo info(newScene);
     sw::Speech::flush();
@@ -72,19 +76,19 @@ void sw::Scene::load()
     eventManager.drop("Start");
     sw::Speech::Info(sw::Log::info350_Success(FUNCTION, name));
     eventManager.drop("Awake");
-    save();
+    //save();
     sw::Speech::flush();
 
 }
 
 void sw::Scene::update()
 {
-    eventManager.drop("Update");
     if (!m_isLoad) {
         sw::Speech::Warning(sw::Log::warning360(FUNCTION, name));
         return;
     }
 
+    eventManager.drop("Update");
     if (m_managersLayers.needSort)
         m_managersLayers.sort();
     updatePhysics();

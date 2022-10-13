@@ -113,7 +113,7 @@ namespace sw
             /// \brief Get the shader associated
             ///
             /// \return A reference to the Shader
-            [[nodiscard]] const Shader& getShader() const noexcept;
+            [[nodiscard]] const std::shared_ptr<Shader> getShader() const noexcept;
 
             /// \brief Get the shader associated
             ///

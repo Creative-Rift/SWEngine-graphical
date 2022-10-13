@@ -21,15 +21,15 @@ namespace sw
         public:
             std::string m_name;
             std::shared_ptr<Texture> texture;
-            Shader shader;
+            std::shared_ptr<Shader> shader;
 
             YAML::Node save() const;
             void load(YAML::Node node);
             Material();
             explicit Material(std::shared_ptr<Texture>& texture);
             explicit Material(std::string textureName);
-            Material(std::shared_ptr<Texture>& texture, Shader& shader);
-            Material& setShader(Shader shader);
+            Material(std::shared_ptr<Texture>& texture, std::shared_ptr<Shader> shader);
+            Material& setShader(std::shared_ptr<Shader> shader);
             Material& setTexture(std::string textureName);
     }; // class Material
 } // namespace sw

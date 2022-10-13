@@ -23,10 +23,10 @@ void sw::MeshRendererManager::onUpdate()
 void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Transform &transform)
 {
     sw::ConcreteComponent auto& camera = m_scene.getGameObject("MainCamera").getComponent<sw::Camera>("CameraManager");
-    meshRenderer.model->shader.useShader();
-    meshRenderer.model->shader.setUniMat4("projection", camera.getProjection());
-    meshRenderer.model->shader.setUniMat4("view", camera.getView());
-    meshRenderer.model->shader.setUniMat4("model", transform.getGlobalMatrix());
+    meshRenderer.model->shader->useShader();
+    meshRenderer.model->shader->setUniMat4("projection", camera.getProjection());
+    meshRenderer.model->shader->setUniMat4("view", camera.getView());
+    meshRenderer.model->shader->setUniMat4("model", transform.getGlobalMatrix());
     for(auto & meshes : meshRenderer.model->meshes)
         drawMesh(*meshRenderer.model, meshes);
     glUseProgram(0);
@@ -47,7 +47,7 @@ void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mes
             continue;
 
         int y = (int)i;
-        model.shader.setUniInt(name + number, y);
+        model.shader->setUniInt(name + number, y);
         glBindTexture(GL_TEXTURE_2D, mesh->m_texture[i]->getId());
     }
     // draw mesh

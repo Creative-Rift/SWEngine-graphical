@@ -29,10 +29,10 @@ namespace sw
         std::vector<std::shared_ptr<Texture>> m_texture;
 
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> materials);
+        void setupMesh();
 
     private:
 
-        void setupMesh();
 
     };
 }

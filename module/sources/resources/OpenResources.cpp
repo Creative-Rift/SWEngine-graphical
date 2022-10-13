@@ -20,7 +20,6 @@
 #include "exception/Error.hpp"
 
 #include <iostream>
-#include <filesystem>
 #include <memory>
 #include <exception>
 
@@ -93,11 +92,6 @@ hgt(1080)
     }
 }
 
-SW_GRAPH_MODULE_EXPORT sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
-SW_GRAPH_MODULE_EXPORT sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
-SW_GRAPH_MODULE_EXPORT sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
-SW_GRAPH_MODULE_EXPORT sw::OpenResources::ModelMap sw::OpenResources::m_nmodel;
-
 sw::Ftlib fontlb;
 
 sw::OpenResources::~OpenResources()
@@ -111,10 +105,56 @@ void sw::OpenResources::loadResources()
         loadFonts();
         loadAudio();
         loadModels();
+        loadShader();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
     }
+}
+
+void sw::OpenResources::loadOneResources()
+{
+    sw::Speech::Info("Loading all resources...", "1227");
+    try {
+        //Texture
+        if (m_ntext.size() != m_ntx.size()) {
+            std::cout << m_ntx.size() << " Texture to load" << std::endl;
+            auto texture = m_ntx.begin();
+            for (int i = 0; i < index; i++)
+                texture++;
+            if (texture != m_ntx.end()) {
+                std::cout << "Loading... " << texture->first << std::endl;
+                m_ntext.emplace(texture->first, std::make_shared<Texture>(texture->second));
+                index = (index + 1 >= m_nmd.size()) ? 0 : index + 1;
+                return;
+            }
+        }
+        //model
+        std::cout << m_nmd.size() << " Model to load " << index << std::endl;
+        if (m_nmodel.size() != m_nmd.size()) {
+            auto model = m_nmd.begin();
+            for (int i = 0; i < index; i++)
+                model++;
+            if (model != m_nmd.end()) {
+                std::cout << "Loading... " << model->first << std::endl;
+                m_nmodel.emplace(model->first, std::make_shared<Model>(model->second));
+                index = (index + 1 >= m_nmd.size()) ? 0 : index + 1;
+                return;
+            }
+        }
+        loaded = true;
+        sw::Speech::Info("Resources loaded successfully!", "2227");
+    } catch (sw::Error& error) {
+        sw::Speech::Error(error.getMessage(), error.getCode());
+    }
+}
+
+void sw::OpenResources::compileResources()
+{
+    for (auto& [_, model] : m_nmodel)
+        model->compileModel();
+    for (auto& [_, shader] : m_nshader)
+        shader->createShader();
 }
 
 void sw::OpenResources::loadFonts()
@@ -144,14 +184,13 @@ void sw::OpenResources::loadAudio()
         sw::Speech::Warning("No Audio was loaded.", "3720");
 }
 
-void sw::OpenResources::loadModels()
+void sw::OpenResources::loadShader()
 {
-    for (auto &[name, path] : m_nmd)
-        m_nmodel.emplace(name, std::make_shared<Model>(path));
-    if (m_nmodel.empty())
-        sw::Speech::Warning("No model was loaded.", "3720");
+    for (auto &[name, path] : m_nsh)
+        m_nshader.emplace(name, std::make_shared<Shader>(path + ".fs.glsl", path + ".vs.glsl"));
+    if (m_nshader.empty())
+        sw::Speech::Warning("No Shaders was loaded.", "3720");
 }
-
 
 void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {
@@ -167,8 +206,19 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
     } else if (type == "Model") {
         if (m_nmd.find(name) == m_nmd.end())
             m_nmd.emplace(name, path);
+    } else if (type == "Shader") {
+        if (m_nsh.find(name) == m_nsh.end())
+            m_nsh.emplace(name, path);
     }
 
+}
+
+void sw::OpenResources::loadModels()
+{
+    for (auto &[name, path] : m_nmd)
+        m_nmodel.emplace(name, std::make_shared<Model>(path));
+    if (m_nmodel.empty())
+        sw::Speech::Warning("No model was loaded.", "3720");
 }
 
 void sw::OpenResources::unloadResources()

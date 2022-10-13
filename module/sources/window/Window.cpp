@@ -187,6 +187,11 @@ void sw::Window::SetClipboardText(std::string text)
     glfwSetClipboardString(m_window, text.c_str());
 }
 
+void sw::Window::SetContext(GLFWwindow *context)
+{
+    glfwMakeContextCurrent(context);
+}
+
 bool sw::Window::HasFlag(sw::WindowFlags flags)
 {
     return (m_flags & flags);

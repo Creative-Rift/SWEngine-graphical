@@ -5,10 +5,10 @@
 
 #include <memory>
 #include "Model.hpp"
-#include "OpenResources.hpp"
+#include "OpenGLModule.hpp"
 
 sw::Model::Model(std::string path) :
-shader("./resources/shaders/model_fs.glsl", "./resources/shaders/model_vs.glsl"),
+shader(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nshader["model"]),
 meshes()
 {
     loadModel(path);
@@ -22,10 +22,8 @@ void sw::Model::loadModel(std::string path)
     Assimp::Importer import;
     const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
-        return;
-    }
+    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        throw sw::Error("ERROR::ASSIMP::" + std::string(import.GetErrorString()), "");
     directory = path.substr(0, path.find_last_of('/'));
 
     processNode(scene->mRootNode, scene);
@@ -107,11 +105,17 @@ std::vector<std::shared_ptr<sw::Texture>> sw::Model::loadMaterialTextures(aiMate
         aiString str;
         mat->GetTexture(type, i, &str);
         std::string fullPath = std::string("./resources/model/") + str.C_Str();
-        if (!sw::OpenResources::m_ntext.contains(fullPath))
-            sw::OpenResources::m_ntext.emplace(fullPath, std::make_shared<sw::Texture>(fullPath));
-        auto ye = sw::OpenResources::m_ntext[fullPath];
+        if (!sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext.contains(fullPath))
+            sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext.emplace(fullPath, std::make_shared<sw::Texture>(fullPath));
+        auto ye = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[fullPath];
         ye->type = typeName;
         textures.push_back(ye);
     }
     return textures;
+}
+
+void sw::Model::compileModel()
+{
+    for (auto& mesh : meshes)
+        mesh->setupMesh();
 }

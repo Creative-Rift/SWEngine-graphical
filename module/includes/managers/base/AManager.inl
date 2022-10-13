@@ -121,7 +121,8 @@ try
         sw::Speech::Warning(sw::Log::warning470(FUNCTION, m_name));
         return;
     }
-
+    m_components.clear();
+    m_componentsLayers.clear();
     m_isLoad = false;
 }
 catch (sw::Error& error)

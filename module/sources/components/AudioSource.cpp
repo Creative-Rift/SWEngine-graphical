@@ -8,6 +8,8 @@
 
 #include "AudioSource.hpp"
 #include "OpenResources.hpp"
+#include "OpenGLModule.hpp"
+#include "scenes_manager/SceneManager.hpp"
 #include "Speech.hpp"
 #include "GameObject.hpp"
 
@@ -47,7 +49,7 @@ void sw::AudioSource::playOnStart()
 
 void sw::AudioSource::defineBuffer(std::string name)
 {
-    auto buffer = sw::OpenResources::m_naudio[name];
+    auto buffer = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_naudio[name];
     alSourcei(m_source, AL_BUFFER, buffer->getBuffer());
     m_endPoint = buffer->getDuration();
 }

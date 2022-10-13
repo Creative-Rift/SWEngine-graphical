@@ -83,13 +83,14 @@ void sw::OpenGLModule::update()
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    m_sceneManager.getActiveScene().update();
+    m_sceneManager.getActiveScene()->update();
 
     m_chrono.tour();
     sw::Window::UpdateWindow();
     glfwPollEvents();
 
     sw::Speech::flush();
+
     if (m_frameRate != 0.0) {
         std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000)));
         m_chronoWindow.stop();
@@ -161,8 +162,13 @@ static void addResourcesOnReqScene(jsnp::Token& token)
     for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
         auto yolo = value.value<std::string>();
 
-        sw::Scene& currentScene = sw::OpenGLModule::m_sceneManager.getScene(yolo);
-        currentScene.resources.addNeededResource(key, path, type);
+        if (yolo == "*") {
+            for (auto& [_, scene] : sw::OpenGLModule::sceneManager().getScenes())
+                scene->resources.addNeededResource(key, path, type);
+        } else {
+            std::shared_ptr<sw::Scene> currentScene = sw::OpenGLModule::m_sceneManager.getScene(yolo);
+            currentScene->resources.addNeededResource(key, path, type);
+        }
     }
 }
 

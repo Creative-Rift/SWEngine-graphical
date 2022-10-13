@@ -31,6 +31,8 @@ namespace sw
 
             int getUniLocation(std::string& name) const;
         public:
+            void createShader();
+
             YAML::Node save() const;
             void load(YAML::Node node);
             Shader();
@@ -46,6 +48,8 @@ namespace sw
             void setUniFloat(std::string varName, float& value) const;
             void setUniMat4(std::string varName, const glm::mat4& matrix) const;
             void setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const;
+
+            void update();
     }; // class Shader
 } // namespace sw
 

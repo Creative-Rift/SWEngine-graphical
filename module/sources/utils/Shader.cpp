@@ -15,42 +15,24 @@
 #include "utils/Shader.hpp"
 
 sw::Shader::Shader() :
-m_id(glCreateProgram()),
+m_id(0),
 m_fragment("resources/shaders/fragment_shader.glsl", ShaderSource::FRAGMENT),
 m_vertex("resources/shaders/vertex_shader.glsl", ShaderSource::VERTEX),
 m_fragmentPath("resources/shaders/fragment_shader.glsl"),
 m_vertexPath("resources/shaders/vertex_shader.glsl"),
 m_success(),
 m_info()
-{
-    glAttachShader(m_id, m_fragment.getId());
-    glAttachShader(m_id, m_vertex.getId());
-    glLinkProgram(m_id);
-    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
-    if (!m_success) {
-        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
-        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
-    }
-}
+{}
 
 sw::Shader::Shader(std::string fragment, std::string vertex) :
-m_id(glCreateProgram()),
+m_id(0),
 m_fragmentPath(fragment),
 m_vertexPath(vertex),
 m_fragment(fragment, ShaderSource::FRAGMENT),
 m_vertex(vertex, ShaderSource::VERTEX),
 m_success(),
 m_info()
-{
-    glAttachShader(m_id, m_fragment.getId());
-    glAttachShader(m_id, m_vertex.getId());
-    glLinkProgram(m_id);
-    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
-    if (!m_success) {
-        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
-        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
-    }
-}
+{}
 
 YAML::Node sw::Shader::save() const
 {
@@ -137,4 +119,31 @@ void sw::Shader::setUniMat4(std::string varName, const glm::mat4 &matrix) const
 void sw::Shader::setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const
 {
     glUniform3f(getUniLocation(varName), v1, v2, v3);
+}
+
+void sw::Shader::createShader()
+{
+    m_id = glCreateProgram();
+    m_fragment.compile();
+    m_vertex.compile();
+    glAttachShader(m_id, m_fragment.getId());
+    glAttachShader(m_id, m_vertex.getId());
+    glLinkProgram(m_id);
+    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
+    if (!m_success) {
+        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
+        throw sw::Error("ERROR: shader linking: " + std::string(m_info), "");
+    }
+}
+
+void sw::Shader::update()
+{
+    glAttachShader(m_id, m_fragment.getId());
+    glAttachShader(m_id, m_vertex.getId());
+    glLinkProgram(m_id);
+    glGetProgramiv(m_id, GL_LINK_STATUS, &m_success);
+    if (!m_success) {
+        glGetProgramInfoLog(m_id, 512, nullptr, m_info);
+        std::cerr << "ERROR: shader linking: " << m_info << std::endl;
+    }
 }

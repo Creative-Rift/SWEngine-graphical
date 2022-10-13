@@ -11,9 +11,7 @@ sw::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, 
 m_vertices(std::move(vertices)),
 m_indices(std::move(indices)),
 m_texture(std::move(materials))
-{
-    setupMesh();
-}
+{}
 
 sw::Mesh::~Mesh() noexcept
 = default;

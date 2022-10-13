@@ -8,6 +8,7 @@
 
 
 #include "components/Sprite.hpp"
+#include "OpenGLModule.hpp"
 
 sw::Sprite::Sprite(sw::GameObject& gameObject) :
 sw::Component(gameObject),
@@ -21,7 +22,7 @@ m_invertedY(false)
     m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
 }
 
-const sw::Shader &sw::Sprite::getShader() const noexcept
+const std::shared_ptr<sw::Shader> sw::Sprite::getShader() const noexcept
 {
     return (m_material.shader);
 }
@@ -34,7 +35,7 @@ sw::Material &sw::Sprite::getMaterial() noexcept
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
     m_material.setTexture(name);
-    m_material.texture = sw::OpenResources::m_ntext[name];
+    m_material.texture = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[name];
     m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
     return (*this);
 }

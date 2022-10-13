@@ -19,6 +19,7 @@
 
 #include "OpenGLModule_Config.hpp"
 #include "scene/Scene.hpp"
+#include "utils/async/AsyncScene.hpp"
 
 namespace sw
 {
@@ -27,20 +28,26 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT SceneManager
     {
         private:
-            std::map<std::string, Scene> m_scenes;
+            bool m_async;
+            std::map<std::string, std::shared_ptr<Scene>> m_scenes;
             std::string m_nameActiveScene;
             std::string m_nameNextActiveScene;
 
         public:
+            std::shared_ptr<Scene> m_currentLoadingScene;
+
             SceneManager() noexcept;
 
             void checkForNewScene();
             void createScene(std::string name);
             void createScene(std::string name, std::string config_file);
-            void loadScene(std::string SceneName);
-            Scene& getScene(int index);
-            Scene& getScene(std::string sceneName);
-            Scene getActiveScene();
+            void loadScene(std::string sceneName);
+            [[nodiscard]]std::shared_ptr<AsyncScene> loadSceneAsync(std::string sceneName);
+            void swapSceneFromAsync(AsyncScene& operation, std::string sceneName);
+            std::shared_ptr<Scene> getScene(int index);
+            std::shared_ptr<Scene> getScene(std::string sceneName);
+            std::shared_ptr<Scene> getActiveScene();
+            std::map<std::string, std::shared_ptr<sw::Scene>>& getScenes();
     };
 }
 

@@ -8,7 +8,6 @@
 
 #include <fstream>
 #include <sstream>
-#include <iostream>
 
 #include "utils/Speech.hpp"
 
@@ -18,9 +17,10 @@
 
 sw::ShaderSource::ShaderSource(std::string shaderFile, ShaderType type) :
 m_shaderContent{},
-m_id{},
+m_id{0},
 m_success{},
-m_info{}
+m_info{},
+m_type{type}
 {
     std::fstream file(shaderFile);
     std::stringstream ss;
@@ -30,20 +30,20 @@ m_info{}
     ss << file.rdbuf();
     m_shaderContent = ss.rdbuf()->str();
     file.close();
-    m_id = glCreateShader(type);
-    compile();
 }
 
 void sw::ShaderSource::compile()
 {
     char *str = m_shaderContent.data();
 
+    if (m_id == 0)
+        m_id = glCreateShader(m_type);
     glShaderSource(m_id, 1, &str, nullptr);
     glCompileShader(m_id);
     glGetShaderiv(m_id, GL_COMPILE_STATUS, &m_success);
     if (!m_success) {
         glGetShaderInfoLog(m_id, 512, nullptr, m_info);
-        std::cerr << "Error Shader couldn't compile: " << m_info << std::endl;
+        throw sw::Error("Error Shader couldn't compile: " + std::string(m_info), "");
     }
 }
 

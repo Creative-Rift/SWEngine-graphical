@@ -41,10 +41,10 @@ void sw::SpriteManager::onUpdate()
         sw::ConcreteComponent auto& transform = object->gameObject().transform();
         glBindTexture(GL_TEXTURE_2D, object->texture()->getId());
         defineRect(*object);
-        object->getShader().useShader();
-        object->getShader().setUniMat4("projection", camera.getProjection());
-        object->getShader().setUniMat4("view", camera.getView());
-        object->getShader().setUniMat4("model", transform.getGlobalMatrix());
+        object->getShader()->useShader();
+        object->getShader()->setUniMat4("projection", camera.getProjection());
+        object->getShader()->setUniMat4("view", camera.getView());
+        object->getShader()->setUniMat4("model", transform.getGlobalMatrix());
         updateInvert(*object);
         object->m_vertexArray.update();
         glBindVertexArray(object->m_vertexArray.getVAO());

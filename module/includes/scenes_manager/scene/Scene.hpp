@@ -57,7 +57,6 @@ namespace sw
 
             Reference<CameraManager> m_cameraManager;
 
-
             std::string m_configFile;
 
             class ManagerMap :
@@ -148,7 +147,7 @@ namespace sw
             [[nodiscard]] bool isLoad() const;
 
             /// @brief Function called to initialize the @b Scene.
-            void load();
+            void load(bool async = false);
 
             /// @brief Function called to update the @b Scene.
             void update();

@@ -59,47 +59,63 @@ namespace sw
             std::map<std::string, std::string> m_nft{};
             std::map<std::string, std::string> m_nau{};
             std::map<std::string, std::string> m_nmd{};
+            std::map<std::string, std::string> m_nsh{};
+
+            int index;
 
             void loadTextures();
             void loadFonts();
             void loadAudio();
             void loadModels();
+            void loadShader();
             //std::priority_queue<std::unique_ptr<Font>> m_ft{}; font -> dev 2 final
             //std::priority_queue<std::unique_ptr<void>> m_sh; shaders -> dev 2/3
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
             // List des resources
         public:
-            static class TexturesMap : public std::map<std::string, std::shared_ptr<Texture>>
+            bool loaded;
+
+            void compileResources();
+
+            class TexturesMap : public std::map<std::string, std::shared_ptr<Texture>>
             {
                 public:
                     using std::map<std::string, std::shared_ptr<Texture>>::operator[];
                     friend OpenResources;
             } m_ntext;
 
-            static class FontsMap : public std::map<std::string, std::shared_ptr<Font>>
+            class FontsMap : public std::map<std::string, std::shared_ptr<Font>>
             {
                 public:
                     using std::map<std::string, std::shared_ptr<Font>>::operator[];
                     friend OpenResources;
             } m_nfont;
 
-            static class AudioMap : public std::map<std::string, std::shared_ptr<Audio>>
+            class AudioMap : public std::map<std::string, std::shared_ptr<Audio>>
             {
                 public:
                     using std::map<std::string, std::shared_ptr<Audio>>::operator[];
                     friend OpenResources;
             } m_naudio;
 
-            static class ModelMap : public std::map<std::string, std::shared_ptr<Model>>
+            class ModelMap : public std::map<std::string, std::shared_ptr<Model>>
             {
                 public:
                     using std::map<std::string, std::shared_ptr<Model>>::operator[];
                     friend OpenResources;
             } m_nmodel;
 
-            OpenResources() = default;
+            class ShaderMap : public std::map<std::string, std::shared_ptr<Shader>>
+            {
+            public:
+                using std::map<std::string, std::shared_ptr<Shader>>::operator[];
+                friend OpenResources;
+            } m_nshader;
+
+            OpenResources() : index(0), loaded(false) {};
             ~OpenResources();
             void loadResources() override;
+            void loadOneResources();
             void unloadResources() override;
             void addNeededResource(const std::string& name, const std::string& path, const std::string& type) override;
     }; // class Resources

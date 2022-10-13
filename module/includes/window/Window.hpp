@@ -77,6 +77,7 @@ namespace sw
         static void SetEnableCursor(bool enable);
         static void SetMonitor(int index);
         static void SetClipboardText(std::string text);
+        static void SetContext(GLFWwindow *context); // TODO Remove
 
         static bool IsFullScreen();
         static bool IsReady();

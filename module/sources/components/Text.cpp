@@ -1,12 +1,12 @@
 #include "components/Text.hpp"
-#include "resources/OpenResources.hpp"
+#include "OpenGLModule.hpp"
 
 sw::Text::Text(sw::GameObject& gameObject) :
 sw::Component(gameObject),
 m_text(std::string("Hello world")),
 m_fontName("DefaultFont"),
 m_size(48),
-m_font(sw::OpenResources::m_nfont["DefaultFont"]),
+m_font(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nfont["DefaultFont"]),
 m_color(),
 m_shader("resources/shaders/fragment_font.glsl", "resources/shaders/vertex_font.glsl"),
 m_pos(),
@@ -36,7 +36,7 @@ sw::Text &sw::Text::setPosition(float xpos, float ypos)
 
 sw::Text &sw::Text::setFont(std::string name)
 {
-    m_font = sw::OpenResources::m_nfont[name];
+    m_font = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nfont[name];
     return (*this);
 }
 

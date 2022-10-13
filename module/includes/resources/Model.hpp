@@ -29,7 +29,8 @@ namespace sw
         ~Model();
 
         std::vector<std::shared_ptr<Mesh>> meshes;
-        Shader shader;
+        std::shared_ptr<Shader> shader;
+        void compileModel();
     private:
         std::string directory;
 

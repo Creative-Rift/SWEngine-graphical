@@ -23,6 +23,7 @@ set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/scenes_manager/scene/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/utils/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/utils/async/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/window/
         )
 ## INCLUDE FOLDERS
@@ -42,6 +43,7 @@ set( INC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/scenes_manager/scene/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/utils/async/
         ${CMAKE_CURRENT_SOURCE_DIR}/includes/window/
         )
 

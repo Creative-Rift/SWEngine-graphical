@@ -18,11 +18,6 @@ namespace sw
 {
     class SW_GRAPH_MODULE_EXPORT ShaderSource
     {
-        private:
-            std::string m_shaderContent;
-            unsigned int m_id;
-            int m_success;
-            char m_info[512];
         public:
             enum ShaderType {
                 VERTEX = GL_VERTEX_SHADER,
@@ -33,6 +28,12 @@ namespace sw
             void compile();
             [[nodiscard]] const std::string& getShader() const noexcept;
             [[nodiscard]] const unsigned int& getId() const noexcept;
+        private:
+            std::string m_shaderContent;
+            unsigned int m_id;
+            int m_success;
+            char m_info[512];
+            ShaderType m_type;
     }; // class ShaderSource
 } // namespace sw
 
