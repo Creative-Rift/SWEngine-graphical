@@ -6,9 +6,6 @@
 ** Description: [CHANGE]
 */
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "dependencies/resources/stb_image.h"
-
 #include "ft2build.h"
 #include FT_FREETYPE_H"freetype/freetype/freetype.h"
 
@@ -22,75 +19,8 @@
 #include <iostream>
 #include <memory>
 #include <exception>
-
-sw::Texture::Texture() :
-wdt(1920),
-hgt(1080)
-{
-    try {
-        glGenTextures(1, &id);
-        glBindTexture(GL_TEXTURE_2D, id);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1920, 1080, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    }
-    catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-}
-
-sw::Texture::Texture(std::string path) :
-wdt(1920),
-hgt(1080)
-{
-    try{
-    glGenTextures(1, &id);
-    glBindTexture(GL_TEXTURE_2D, id);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
-
-    if (data)
-    {
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-        switch(nbc)
-        {
-            case 1:{
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, wdt, hgt, 0, GL_RED, GL_UNSIGNED_BYTE, data);
-                GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
-                glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
-                }break;
-            case 2:{
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RG, wdt, hgt, 0, GL_RG, GL_UNSIGNED_BYTE, data);
-                GLint swizzleMask[] = { GL_RED, GL_RED, GL_RED, GL_GREEN };
-                glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
-                }break;
-            case 3:{
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, wdt, hgt, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-                }break;
-            case 4:{
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wdt, hgt, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-                }break;
-            default:
-            break;
-        }
-        glGenerateMipmap(GL_TEXTURE_2D);
-        stbi_image_free(data);
-    } else {
-        sw::Speech::Warning("Failed to load texture: " + path);
-        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-    }
-    } catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-}
+#include <algorithm>
+#include <functional>
 
 sw::Ftlib fontlb;
 
@@ -171,6 +101,8 @@ void sw::OpenResources::loadTextures()
     for (auto &[name, path] : m_ntx) {
         m_ntext.emplace(name, std::make_shared<Texture>(path));
     }
+    for ( auto &[_, text] : m_ntext)
+        text->upload();
     if (m_ntext.empty())
         sw::Speech::Warning("No Texture was loaded.", "3720");
 }

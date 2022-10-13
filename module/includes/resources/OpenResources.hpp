@@ -19,6 +19,7 @@
 #include "resources/Font.hpp"
 #include "resources/Audio.hpp"
 #include "resources/Model.hpp"
+#include "resources/Texture.hpp"
 
 #include <queue>
 #include <memory>
@@ -28,30 +29,6 @@
 
 namespace sw
 {
-    class SW_GRAPH_MODULE_EXPORT Texture
-    {
-        public:
-
-        Texture();
-
-        Texture(std::string path);
-
-        ~Texture()
-        {}
-
-        const unsigned int getId() const { return id; };
-        const int getWidth() const { return wdt;};
-        const int getHeight() const { return hgt;};
-        const int getChannels() const { return nbc;};
-        std::string type;
-    private:
-            int wdt;
-            int hgt;
-            int nbc;
-            unsigned int id;
-            int dsc = 0;
-    };
-
     class SW_GRAPH_MODULE_EXPORT OpenResources : public sw::AResources
     {
         private:
