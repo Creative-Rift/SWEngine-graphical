@@ -13,7 +13,7 @@
  */
 
 template <typename T>
-inline sw::Rect<T>::Rect()
+inline Rect<T>::Rect()
     :   left(0),
         top(0),
         width(0),
@@ -21,7 +21,7 @@ inline sw::Rect<T>::Rect()
 {}
 
 template <typename T>
-inline sw::Rect<T>::Rect(T setLeft, T setTop, T setWidth, T setHeight)
+inline Rect<T>::Rect(T setLeft, T setTop, T setWidth, T setHeight)
     :   left(setLeft),
         top(setTop),
         width(setWidth),
@@ -29,7 +29,7 @@ inline sw::Rect<T>::Rect(T setLeft, T setTop, T setWidth, T setHeight)
 {}
 
 template <typename T>
-inline sw::Rect<T>::Rect(const sw::Vector2<T>& position, const sw::Vector2<T>& size)
+inline Rect<T>::Rect(const Vector2<T>& position, const Vector2<T>& size)
     :   left(position.x),
         top(position.y),
         width(size.x),
@@ -37,7 +37,7 @@ inline sw::Rect<T>::Rect(const sw::Vector2<T>& position, const sw::Vector2<T>& s
 {}
 
 template <typename T>
-inline bool sw::Rect<T>::contains(T x, T y) const
+inline bool Rect<T>::contains(T x, T y) const
 {
     if (x > left
     &&  y > top
@@ -48,7 +48,7 @@ inline bool sw::Rect<T>::contains(T x, T y) const
 }
 
 template <typename T>
-inline bool sw::Rect<T>::contains(const sw::Vector2<T>& point) const
+inline bool Rect<T>::contains(const Vector2<T>& point) const
 {
     if (point.x > left
     &&  point.y > top
@@ -59,7 +59,7 @@ inline bool sw::Rect<T>::contains(const sw::Vector2<T>& point) const
 }
 
 template <typename T>
-inline bool sw::Rect<T>::intersects(const sw::Rect<T>& rectangle) const
+inline bool Rect<T>::intersects(const Rect<T>& rectangle) const
 {
     if (rectangle.left + rectangle.width  < left
     ||  rectangle.top  + rectangle.height < top
@@ -70,37 +70,37 @@ inline bool sw::Rect<T>::intersects(const sw::Rect<T>& rectangle) const
 }
 
 template <typename T>
-inline sw::Rect<T> operator+(const sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T> operator+(const Rect<T>& left, const Rect<T> right)
 {
-    return (sw::Rect<T>{left.left, left.top, left.width + right.width, left.height + right.height});
+    return (Rect<T>{left.left, left.top, left.width + right.width, left.height + right.height});
 }
 
 template <typename T>
-inline sw::Rect<T> operator-(const sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T> operator-(const Rect<T>& left, const Rect<T> right)
 {
-    return (sw::Rect<T>{left.left, left.top, left.width - right.width, left.height - right.height});
+    return (Rect<T>{left.left, left.top, left.width - right.width, left.height - right.height});
 }
 
 template <typename T>
-inline sw::Rect<T> operator*(const sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T> operator*(const Rect<T>& left, const Rect<T> right)
 {
-    return (sw::Rect<T>{left.left, left.top, left.width * right.width, left.height * right.height});
+    return (Rect<T>{left.left, left.top, left.width * right.width, left.height * right.height});
 }
 
 template <typename T>
-inline sw::Rect<T> operator/(const sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T> operator/(const Rect<T>& left, const Rect<T> right)
 {
-    return (sw::Rect<T>{left.left, left.top, left.width / right.width, left.height / right.height});
+    return (Rect<T>{left.left, left.top, left.width / right.width, left.height / right.height});
 }
 
 template <typename T>
-inline sw::Rect<T> operator%(const sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T> operator%(const Rect<T>& left, const Rect<T> right)
 {
-    return (sw::Rect<T>{left.left, left.top, left.width % right.width, left.height % right.height});
+    return (Rect<T>{left.left, left.top, left.width % right.width, left.height % right.height});
 }
 
 template <typename T>
-inline sw::Rect<T>& operator+=(sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T>& operator+=(Rect<T>& left, const Rect<T> right)
 {
     left.width += right.width;
     left.height += right.height;
@@ -108,7 +108,7 @@ inline sw::Rect<T>& operator+=(sw::Rect<T>& left, const sw::Rect<T> right)
 }
 
 template <typename T>
-inline sw::Rect<T>& operator-=(sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T>& operator-=(Rect<T>& left, const Rect<T> right)
 {
     left.width -= right.width;
     left.height -= right.height;
@@ -116,7 +116,7 @@ inline sw::Rect<T>& operator-=(sw::Rect<T>& left, const sw::Rect<T> right)
 }
 
 template <typename T>
-inline sw::Rect<T>& operator*=(sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T>& operator*=(Rect<T>& left, const Rect<T> right)
 {
     left.width *= right.width;
     left.height *= right.height;
@@ -124,7 +124,7 @@ inline sw::Rect<T>& operator*=(sw::Rect<T>& left, const sw::Rect<T> right)
 }
 
 template <typename T>
-inline sw::Rect<T>& operator/=(sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T>& operator/=(Rect<T>& left, const Rect<T> right)
 {
     left.width /= right.width;
     left.height /= right.height;
@@ -132,7 +132,7 @@ inline sw::Rect<T>& operator/=(sw::Rect<T>& left, const sw::Rect<T> right)
 }
 
 template <typename T>
-inline sw::Rect<T>& operator%=(sw::Rect<T>& left, const sw::Rect<T> right)
+inline Rect<T>& operator%=(Rect<T>& left, const Rect<T> right)
 {
     left.width %= right.width;
     left.height %= right.height;
@@ -140,7 +140,7 @@ inline sw::Rect<T>& operator%=(sw::Rect<T>& left, const sw::Rect<T> right)
 }
 
 template <typename T>
-inline bool operator!=(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator!=(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.left   != right.left
     ||  left.top    != right.top
@@ -151,7 +151,7 @@ inline bool operator!=(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-inline bool operator==(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator==(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.left   == right.left
     &&  left.top    == right.top
@@ -162,7 +162,7 @@ inline bool operator==(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-inline bool operator<(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator<(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.width * left.height < right.width * right.height)
         return (true);
@@ -170,7 +170,7 @@ inline bool operator<(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-inline bool operator>(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator>(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.width * left.height > right.width * right.height)
         return (true);
@@ -178,7 +178,7 @@ inline bool operator>(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-inline bool operator<=(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator<=(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.width * left.height <= right.width * right.height)
         return (true);
@@ -186,7 +186,7 @@ inline bool operator<=(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-inline bool operator>=(const sw::Rect<T>& left, const sw::Rect<T>& right)
+inline bool operator>=(const Rect<T>& left, const Rect<T>& right)
 {
     if (left.width * left.height >= right.width * right.height)
         return (true);
@@ -194,7 +194,7 @@ inline bool operator>=(const sw::Rect<T>& left, const sw::Rect<T>& right)
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const sw::Rect<T>& rect)
+std::ostream& operator<<(std::ostream& os, const Rect<T>& rect)
 {
     os  << "Rectangle<" << typeid(rect.left).name() << "> : [ left:" << rect.left << " , top:" << rect.top << " , width" << rect.width << " , height:" << rect.height << " ]\n";
     return (os);
