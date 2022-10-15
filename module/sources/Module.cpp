@@ -131,7 +131,7 @@ bool sw::OpenGLModule::isLoad() const
 
 bool sw::OpenGLModule::isRunning()
 {
-    return (sw::Window::IsOpen());
+    return (m_sceneManager.m_nameNextActiveScene.empty() && sw::Window::IsOpen());
 }
 
 std::shared_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()

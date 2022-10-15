@@ -6,7 +6,10 @@
 #include "AsyncOperation.hpp"
 
 sw::AsyncOperation::~AsyncOperation()
-= default;
+{
+    if (m_thread)
+        m_thread->join();
+}
 
 bool sw::AsyncOperation::isDone()
 {
