@@ -179,36 +179,70 @@ void sw::OpenResources::loadModels()
 
 void sw::OpenResources::unloadResources()
 {
+    if (sw::OpenGLModule::m_sceneManager.m_nameNextActiveScene.empty()) {
+        for(auto &[name, ptr] : m_ntext)
+            ptr.reset();
+        for(auto &[name, ptr] : m_naudio)
+            ptr.reset();
+        for(auto &[name, ptr] : m_nfont)
+            ptr.reset();
+        for(auto &[name, ptr] : m_nmodel)
+            ptr.reset();
+        for(auto &[name, ptr] : m_nshader)
+            ptr.reset();
+        m_ntext.clear();
+        m_naudio.clear();
+        m_nfont.clear();
+        m_nmodel.clear();
+        m_nshader.clear();
+        return;
+    }
     auto newScene = sw::OpenGLModule::m_sceneManager.getScene(sw::OpenGLModule::m_sceneManager.m_nameNextActiveScene);
+    std::vector<std::string> element;
 
     for(auto &[name, ptr] : m_ntext) {
         if (newScene->resources.m_ntx.contains(name))
             continue;
         ptr.reset();
-        m_nshader.erase(name);
+        element.emplace_back(name);
     }
+    for (auto& name : element)
+        m_ntext.erase(name);
+    element.clear();
     for(auto &[name, ptr] : m_naudio) {
         if (newScene->resources.m_nau.contains(name))
             continue;
         ptr.reset();
-        m_nshader.erase(name);
+        element.emplace_back(name);
     }
+    for (auto& name : element)
+        m_naudio.erase(name);
+    element.clear();
     for(auto &[name, ptr] : m_nfont) {
         if (newScene->resources.m_nft.contains(name))
             continue;
         ptr.reset();
-        m_nshader.erase(name);
+        element.emplace_back(name);
     }
+    for (auto& name : element)
+        m_nfont.erase(name);
+    element.clear();
     for(auto &[name, ptr] : m_nmodel) {
         if (newScene->resources.m_nmd.contains(name))
             continue;
         ptr.reset();
-        m_nshader.erase(name);
+        element.emplace_back(name);
     }
+    for (auto& name : element)
+        m_nmodel.erase(name);
+    element.clear();
     for(auto &[name, ptr] : m_nshader) {
         if (newScene->resources.m_nsh.contains(name))
             continue;
         ptr.reset();
-        m_nshader.erase(name);
+        element.emplace_back(name);
     }
+    for (auto& name : element)
+        m_nshader.erase(name);
+    element.clear();
 }

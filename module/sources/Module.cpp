@@ -116,6 +116,7 @@ sw::Chrono &sw::OpenGLModule::chrono()
 
 void sw::OpenGLModule::unload()
 {
+    m_sceneManager.getActiveScene()->unload();
     glfwTerminate();
     alcMakeContextCurrent(nullptr);
     alcDestroyContext(m_audioContext);
