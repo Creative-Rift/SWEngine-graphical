@@ -10,19 +10,19 @@
 #include "OpenGLModule.hpp"
 
 sw::Material::Material() :
-texture(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext["MissingTexture"]),
-shader(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nshader["default"]),
+texture(sw::OpenResources::m_ntext["MissingTexture"]),
+shader(sw::OpenResources::m_nshader["default"]),
 m_name{"MissingTexture"}
 {}
 
 sw::Material::Material(std::shared_ptr<sw::Texture>& texture) :
 texture(texture),
-shader(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nshader["default"])
+shader(sw::OpenResources::m_nshader["default"])
 {}
 
 sw::Material::Material(std::string textureName) :
-texture(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[textureName]),
-shader(),
+texture(sw::OpenResources::m_ntext[textureName]),
+shader(sw::OpenResources::m_nshader["default"]),
 m_name{textureName}
 {}
 

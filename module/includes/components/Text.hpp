@@ -24,9 +24,9 @@ namespace sw
             std::string m_text;
             std::string m_fontName;
             unsigned int m_size;
-            std::shared_ptr<sw::Font> m_font;
+            std::shared_ptr<Font> m_font;
             sw::Color m_color;
-            sw::Shader m_shader;
+            std::shared_ptr<Shader> m_shader;
             std::pair<float, float> m_pos;
             float scale;
             //float m_lineSpacing;
@@ -56,7 +56,7 @@ namespace sw
             Text& setColor(sw::Color color);
             Text &setPosition(float xpos, float ypos);
 
-            [[nodiscard]] const Shader& getShader() const noexcept;
+            [[nodiscard]] const std::shared_ptr<Shader> getShader() const noexcept;
             [[nodiscard]] const Color& getColor() const noexcept;
             [[nodiscard]] const std::string& getText() const noexcept;
             [[nodiscard]] const std::shared_ptr<sw::Font>& getFont() const noexcept;

@@ -8,8 +8,9 @@
 #include "OpenGLModule.hpp"
 
 sw::Model::Model(std::string path) :
-shader(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nshader["model"]),
-meshes()
+shader(sw::OpenResources::m_nshader["model"]),
+meshes(),
+m_loaded(false)
 {
     loadModel(path);
 }
@@ -104,10 +105,7 @@ std::vector<std::shared_ptr<sw::Texture>> sw::Model::loadMaterialTextures(aiMate
     {
         aiString str;
         mat->GetTexture(type, i, &str);
-        std::string fullPath = std::string("./resources/model/") + str.C_Str();
-        if (!sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext.contains(fullPath))
-            sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext.emplace(fullPath, std::make_shared<sw::Texture>(fullPath));
-        auto ye = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[fullPath];
+        auto ye = sw::OpenResources::m_ntext[str.C_Str()];
         ye->type = typeName;
         textures.push_back(ye);
     }
@@ -118,4 +116,9 @@ void sw::Model::compileModel()
 {
     for (auto& mesh : meshes)
         mesh->setupMesh();
+}
+
+const bool sw::Model::isLoaded() const noexcept
+{
+    return (m_loaded);
 }

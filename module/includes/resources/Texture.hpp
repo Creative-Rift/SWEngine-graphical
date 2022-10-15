@@ -33,6 +33,7 @@ namespace sw
         const int getChannels() const { return nbc;};
         const unsigned char* getImage() const { return m_img; };
         void upload();
+        bool isLoaded() const;
         //void resize();
         std::string type;
     private:
@@ -42,5 +43,6 @@ namespace sw
             unsigned int id;
             int dsc = 0;
             unsigned char *m_img;
+            bool m_loaded;
     };
 } // namespace sw

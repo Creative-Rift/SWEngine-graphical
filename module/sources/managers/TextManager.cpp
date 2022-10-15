@@ -48,11 +48,11 @@ void sw::TextManager::onUpdate()
 
         auto &shader = object->getShader();
         glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(1920), 0.0f, static_cast<float>(1080));
-        shader.useShader();
-        shader.setUniMat4("projection", projection);
+        shader->useShader();
+        shader->setUniMat4("projection", projection);
 
         auto &tmp_color = object->getColor();
-        object->getShader().setUniFloat3("textColor", tmp_color.r, tmp_color.g, tmp_color.b);
+        object->getShader()->setUniFloat3("textColor", tmp_color.r, tmp_color.g, tmp_color.b);
         glActiveTexture(GL_TEXTURE0);
 
         auto &text = object->getText();
@@ -126,7 +126,7 @@ void sw::TextManager::onLoad(YAML::Node& node) {
     for (auto component: node["components"]) {
         sw::Text &text = createComponent(component["entity_name"].as<std::string>());
         text.m_text = component["text"].as<std::string>();
-        text.m_shader.load(component["shader"]);
+        //text.m_shader.load(component["shader"]);
         text.m_color.load(component["color"]);
         text.m_pos.first = component["posx"].as<float>();
         text.m_pos.second = component["posy"].as<float>();

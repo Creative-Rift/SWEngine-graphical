@@ -13,7 +13,8 @@
 
 sw::Texture::Texture() :
 wdt(1920),
-hgt(1080)
+hgt(1080),
+m_loaded(false)
 {
     try {
         glGenTextures(1, &id);
@@ -27,6 +28,21 @@ hgt(1080)
     }
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;
+    }
+}
+
+sw::Texture::Texture(std::string path) :
+        wdt(1920),
+        hgt(1080),
+        m_loaded(false)
+{
+    stbi_set_flip_vertically_on_load(true);
+    m_img = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
+
+    if (!m_img)
+    {
+        sw::Speech::Warning("Failed to load texture: " + path);
+        throw sw::Error("Failed to load texture: " + path);
     }
 }
 
@@ -70,18 +86,10 @@ void sw::Texture::upload()
         glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
         throw sw::Error("Failed to upload texture", "");
     }
+    m_loaded = true;
 }
 
-sw::Texture::Texture(std::string path) :
-wdt(1920),
-hgt(1080)
+bool sw::Texture::isLoaded() const
 {
-    stbi_set_flip_vertically_on_load(true);
-    m_img = stbi_load(path.c_str(), &wdt, &hgt, &nbc, dsc);
-
-    if (!m_img)
-    {
-        sw::Speech::Warning("Failed to load texture: " + path);
-        throw sw::Error("Failed to load texture: " + path);
-    }
+    return (m_loaded);
 }

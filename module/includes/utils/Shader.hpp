@@ -28,6 +28,7 @@ namespace sw
             std::string m_vertexPath;
             int m_success;
             char m_info[512];
+            bool m_loaded;
 
             int getUniLocation(std::string& name) const;
         public:
@@ -42,6 +43,7 @@ namespace sw
             Shader &setShaderSource(std::string source, ShaderSource::ShaderType type);
 
             [[nodiscard]] const unsigned int& getId() const noexcept;
+            [[nodiscard]] const bool isLoaded() const noexcept;
             void useShader() const;
             void setUniBool(std::string varName, bool& value) const;
             void setUniInt(std::string varName, int& value) const;

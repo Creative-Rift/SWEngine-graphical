@@ -6,9 +6,9 @@ sw::Component(gameObject),
 m_text(std::string("Hello world")),
 m_fontName("DefaultFont"),
 m_size(48),
-m_font(sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nfont["DefaultFont"]),
+m_font(sw::OpenResources::m_nfont["DefaultFont"]),
 m_color(),
-m_shader("resources/shaders/fragment_font.glsl", "resources/shaders/vertex_font.glsl"),
+m_shader(sw::OpenResources::m_nshader["font"]),
 m_pos(),
 scale(1)
 {}
@@ -36,7 +36,7 @@ sw::Text &sw::Text::setPosition(float xpos, float ypos)
 
 sw::Text &sw::Text::setFont(std::string name)
 {
-    m_font = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_nfont[name];
+    m_font = sw::OpenResources::m_nfont[name];
     return (*this);
 }
 
@@ -46,7 +46,7 @@ sw::Text &sw::Text::setColor(sw::Color color)
     return (*this);
 }
 
-const sw::Shader &sw::Text::getShader() const noexcept
+const std::shared_ptr<sw::Shader> sw::Text::getShader() const noexcept
 {
     return (m_shader);
 }
@@ -87,14 +87,14 @@ YAML::Node sw::Text::save() const
 {
     YAML::Node node;
 
-    node["entity_name"] = name();
-    node["text"] = m_text;
-    node["shader"] = m_shader.save();
-    node["color"] = m_color.save();
-    node["posx"] = m_pos.first;
-    node["posy"] = m_pos.second;
-    node["scale"] = scale;
-    node["font"] = m_fontName;
+    //node["entity_name"] = name();
+    //node["text"] = m_text;
+    //node["shader"] = m_shader.save();
+    //node["color"] = m_color.save();
+    //node["posx"] = m_pos.first;
+    //node["posy"] = m_pos.second;
+    //node["scale"] = scale;
+    //node["font"] = m_fontName;
 
     return (node);
 }

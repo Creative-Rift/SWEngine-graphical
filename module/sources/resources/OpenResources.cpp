@@ -15,12 +15,19 @@
 #include "dependencies/glad/glad.h"
 #include "utils/Speech.hpp"
 #include "exception/Error.hpp"
+#include "OpenGLModule.hpp"
 
 #include <iostream>
 #include <memory>
 #include <exception>
 #include <algorithm>
 #include <functional>
+
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::ModelMap sw::OpenResources::m_nmodel;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::ShaderMap sw::OpenResources::m_nshader;
 
 sw::Ftlib fontlb;
 
@@ -32,10 +39,10 @@ void sw::OpenResources::loadResources()
     sw::Speech::Info("Loading all resources...", "1227");
     try {
         loadTextures();
+        loadShader();
         loadFonts();
         loadAudio();
         loadModels();
-        loadShader();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
@@ -81,15 +88,22 @@ void sw::OpenResources::loadOneResources()
 
 void sw::OpenResources::compileResources()
 {
-    for (auto& [_, model] : m_nmodel)
-        model->compileModel();
+    for ( auto &[name, text] : m_ntext)
+        if (!text->isLoaded())
+            text->upload();
     for (auto& [_, shader] : m_nshader)
-        shader->createShader();
+        if (!shader->isLoaded())
+            shader->createShader();
+    for (auto& [_, model] : m_nmodel)
+        if (!model->isLoaded())
+            model->compileModel();
 }
 
 void sw::OpenResources::loadFonts()
 {
     for (auto &[name, path] : m_nft) {
+        if (m_nfont.contains(name))
+            continue;
         m_nfont.emplace(name, std::make_shared<Font>(path));
     }
     if (m_nfont.empty())
@@ -99,10 +113,10 @@ void sw::OpenResources::loadFonts()
 void sw::OpenResources::loadTextures()
 {
     for (auto &[name, path] : m_ntx) {
+        if (m_ntext.contains(name))
+            continue;
         m_ntext.emplace(name, std::make_shared<Texture>(path));
     }
-    for ( auto &[_, text] : m_ntext)
-        text->upload();
     if (m_ntext.empty())
         sw::Speech::Warning("No Texture was loaded.", "3720");
 }
@@ -110,6 +124,8 @@ void sw::OpenResources::loadTextures()
 void sw::OpenResources::loadAudio()
 {
     for (auto &[name, path] : m_nau) {
+        if (m_naudio.contains(name))
+            continue;
         m_naudio.emplace(name, std::make_shared<Audio>(path));
     }
     if (m_naudio.empty())
@@ -118,8 +134,14 @@ void sw::OpenResources::loadAudio()
 
 void sw::OpenResources::loadShader()
 {
-    for (auto &[name, path] : m_nsh)
-        m_nshader.emplace(name, std::make_shared<Shader>(path + ".fs.glsl", path + ".vs.glsl"));
+    for (auto &[name, path] : m_nsh) {
+        if (m_nshader.contains(name))
+            continue;
+        std::string fragment = std::string(path);
+        std::string vertex = std::string(path.replace(path.size() - 7, 1, "v"));
+        m_nshader.emplace(name, std::make_shared<Shader>(fragment, vertex));
+        path.replace(path.size() - 7, 1, "f");
+    }
     if (m_nshader.empty())
         sw::Speech::Warning("No Shaders was loaded.", "3720");
 }
@@ -142,33 +164,51 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
         if (m_nsh.find(name) == m_nsh.end())
             m_nsh.emplace(name, path);
     }
-
 }
 
 void sw::OpenResources::loadModels()
 {
-    for (auto &[name, path] : m_nmd)
+    for (auto &[name, path] : m_nmd) {
+        if (m_nmodel.contains(name))
+            continue;
         m_nmodel.emplace(name, std::make_shared<Model>(path));
+    }
     if (m_nmodel.empty())
         sw::Speech::Warning("No model was loaded.", "3720");
 }
 
 void sw::OpenResources::unloadResources()
 {
-    for(auto &[_, ptr] : m_ntext)
+    auto newScene = sw::OpenGLModule::m_sceneManager.getScene(sw::OpenGLModule::m_sceneManager.m_nameNextActiveScene);
+
+    for(auto &[name, ptr] : m_ntext) {
+        if (newScene->resources.m_ntx.contains(name))
+            continue;
         ptr.reset();
-    for(auto &[_, ptr] : m_naudio)
+        m_nshader.erase(name);
+    }
+    for(auto &[name, ptr] : m_naudio) {
+        if (newScene->resources.m_nau.contains(name))
+            continue;
         ptr.reset();
-    for(auto &[_, ptr] : m_nfont)
+        m_nshader.erase(name);
+    }
+    for(auto &[name, ptr] : m_nfont) {
+        if (newScene->resources.m_nft.contains(name))
+            continue;
         ptr.reset();
-    for(auto &[_, ptr] : m_nmodel)
+        m_nshader.erase(name);
+    }
+    for(auto &[name, ptr] : m_nmodel) {
+        if (newScene->resources.m_nmd.contains(name))
+            continue;
         ptr.reset();
-    m_ntext.clear();
-    m_ntx.clear();
-    m_naudio.clear();
-    m_nau.clear();
-    m_nfont.clear();
-    m_nft.clear();
-    m_nmodel.clear();
-    m_nmd.clear();
+        m_nshader.erase(name);
+    }
+    for(auto &[name, ptr] : m_nshader) {
+        if (newScene->resources.m_nsh.contains(name))
+            continue;
+        ptr.reset();
+        m_nshader.erase(name);
+    }
 }

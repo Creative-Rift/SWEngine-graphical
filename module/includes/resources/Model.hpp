@@ -31,8 +31,10 @@ namespace sw
         std::vector<std::shared_ptr<Mesh>> meshes;
         std::shared_ptr<Shader> shader;
         void compileModel();
+        [[nodiscard]] const bool isLoaded() const noexcept;
     private:
         std::string directory;
+        bool m_loaded;
 
         void processNode(aiNode *node, const aiScene *scene);
         void loadModel(std::string path);

@@ -31,9 +31,9 @@ namespace sw
             bool m_async;
             std::map<std::string, std::shared_ptr<Scene>> m_scenes;
             std::string m_nameActiveScene;
-            std::string m_nameNextActiveScene;
 
         public:
+            std::string m_nameNextActiveScene;
             std::shared_ptr<Scene> m_currentLoadingScene;
 
             SceneManager() noexcept;

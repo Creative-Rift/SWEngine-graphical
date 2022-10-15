@@ -16,12 +16,13 @@
 
 sw::Shader::Shader() :
 m_id(0),
-m_fragment("resources/shaders/fragment_shader.glsl", ShaderSource::FRAGMENT),
-m_vertex("resources/shaders/vertex_shader.glsl", ShaderSource::VERTEX),
-m_fragmentPath("resources/shaders/fragment_shader.glsl"),
-m_vertexPath("resources/shaders/vertex_shader.glsl"),
+m_fragment("resources/shaders/default.fs.glsl", ShaderSource::FRAGMENT),
+m_vertex("resources/shaders/default.vs.glsl", ShaderSource::VERTEX),
+m_fragmentPath("resources/shaders/default.fs.glsl"),
+m_vertexPath("resources/shaders/default.vs.glsl"),
 m_success(),
-m_info()
+m_info(),
+m_loaded(false)
 {}
 
 sw::Shader::Shader(std::string fragment, std::string vertex) :
@@ -31,7 +32,8 @@ m_vertexPath(vertex),
 m_fragment(fragment, ShaderSource::FRAGMENT),
 m_vertex(vertex, ShaderSource::VERTEX),
 m_success(),
-m_info()
+m_info(),
+m_loaded(false)
 {}
 
 YAML::Node sw::Shader::save() const
@@ -57,6 +59,11 @@ sw::Shader::~Shader()
 const unsigned int &sw::Shader::getId() const noexcept
 {
     return (m_id);
+}
+
+const bool sw::Shader::isLoaded() const noexcept
+{
+    return (m_loaded);
 }
 
 void sw::Shader::useShader() const
