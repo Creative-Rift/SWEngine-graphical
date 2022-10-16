@@ -32,7 +32,7 @@ namespace sw
         const int getHeight() const { return hgt;};
         const int getChannels() const { return nbc;};
         const unsigned char* getImage() const { return m_img; };
-        void upload();
+        void upload(bool);
         //void resize();
         std::string type;
     private:

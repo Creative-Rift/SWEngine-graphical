@@ -30,7 +30,7 @@ hgt(1080)
     }
 }
 
-void sw::Texture::upload()
+void sw::Texture::upload(bool resizable)
 {
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
@@ -63,7 +63,7 @@ void sw::Texture::upload()
             default:
             break;
         }
-        stbi_image_free(m_img);
+        if (!resizable) stbi_image_free(m_img);
         glGenerateMipmap(GL_TEXTURE_2D);   
     } else {
         sw::Speech::Warning("Failed to upload texture");

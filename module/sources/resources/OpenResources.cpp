@@ -62,7 +62,7 @@ void sw::OpenResources::loadTextures()
         m_ntext.emplace(name, std::make_shared<Texture>(path));
     }
     for ( auto &[_, text] : m_ntext)
-        text->upload();
+        text->upload(false);
     if (m_ntext.empty())
         sw::Speech::Warning("No Texture was loaded.", "3720");
 }
