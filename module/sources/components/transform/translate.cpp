@@ -7,6 +7,7 @@
 */
 
 #include "components/Transform.hpp"
+#include "GameObject.hpp"
 
 void sw::Transform::setPosition(const sw::Vector3f& position)
 {
@@ -23,8 +24,8 @@ void sw::Transform::move(const sw::Vector3f& position)
     if (position.x != 0 || position.y != 0 || position.z != 0) {
         m_position += position;
         m_globalPosition += position;
-        //for (auto& [_, entity] : m_gameObject.m_childrenMap)
-        //    entity.get().getComponent<sw::Transform>("TransformManager").move(position);
+        for (auto& [_, entity] : m_gameObject.m_childrenMap)
+            entity.get().getComponent<sw::Transform>("TransformManager").move(position);
         needUpdate(true);
     }
 }

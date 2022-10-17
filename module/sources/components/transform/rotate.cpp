@@ -7,6 +7,7 @@
 */
 
 #include "components/Transform.hpp"
+#include "GameObject.hpp"
 
 void sw::Transform::setRotation(float angle, float rotationX, float rotationY, float rotationZ)
 {
@@ -19,8 +20,8 @@ void sw::Transform::setRotation(float angle, float rotationX, float rotationY, f
         m_globalRotationAxis.y = rotationY;
         m_globalRotationAxis.z = rotationZ;
 
-        //for (auto& [_, entity] : m_gameObject.m_childrenMap)
-        //    entity.get().getComponent<sw::Transform>("TransformManager").setRotation(rotationX, rotationY, rotationZ);
+        for (auto& [_, entity] : m_gameObject.m_childrenMap)
+            entity.get().getComponent<sw::Transform>("TransformManager").setRotation(rotationX, rotationY, rotationZ);
         needUpdate(true);
     }}
 
@@ -34,8 +35,8 @@ void sw::Transform::rotate(float angle, float rotationX, float rotationY, float 
         m_globalRotationAxis.x += rotationX;
         m_globalRotationAxis.y += rotationY;
         m_globalRotationAxis.z += rotationZ;
-        //for (auto& [_, entity] : m_gameObject.m_childrenMap)
-        //    entity.get().getComponent<sw::Transform>("TransformManager").rotate(rotationX, rotationY, rotationZ);
+        for (auto& [_, entity] : m_gameObject.m_childrenMap)
+            entity.get().getComponent<sw::Transform>("TransformManager").rotate(rotationX, rotationY, rotationZ);
         needUpdate(true);
     }
 }

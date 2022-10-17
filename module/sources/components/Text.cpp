@@ -8,7 +8,7 @@ m_fontName("DefaultFont"),
 m_size(48),
 m_font(sw::OpenResources::m_nfont["DefaultFont"]),
 m_color(),
-m_shader(sw::OpenResources::m_nshader["font"]),
+m_shader(sw::OpenResources::m_nshader["text"]),
 m_pos(),
 scale(1)
 {}

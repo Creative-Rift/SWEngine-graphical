@@ -143,6 +143,7 @@ inline void sw::AManager<Cpt>::setLayer(const std::string& entityName, int value
             layer = value;
             break;
         }
+    m_componentsLayers.sort();
     m_componentsLayers.needSort = true;
 }
 

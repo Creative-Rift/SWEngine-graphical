@@ -37,6 +37,9 @@ void sw::GameObject::addChild(const std::string& entityName)
 {
     auto& entity = m_scene.getGameObject(entityName);
 
+    entity.transform().setPosition(transform().getPosition());
+    entity.transform().setRotation(transform().getAngle(), transform().getRotationAxis().x, transform().getRotationAxis().y, transform().getRotationAxis().z);
+    entity.transform().setScale(transform().getScale());
     entity.m_parent = *this;
     m_childrenMap.insert({entity.m_name, entity});
 }
