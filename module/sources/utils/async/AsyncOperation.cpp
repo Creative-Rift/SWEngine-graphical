@@ -7,7 +7,7 @@
 
 sw::AsyncOperation::~AsyncOperation()
 {
-    if (m_thread)
+    if (m_thread && m_thread->joinable())
         m_thread->join();
 }
 

@@ -47,7 +47,7 @@ void sw::TextManager::onUpdate()
         //sw::ConcreteComponent auto& transform = object->entity().getComponent<sw::Transform>("TransformManager");
 
         auto &shader = object->getShader();
-        glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(1920), 0.0f, static_cast<float>(1080));
+        glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f, -1.0f, 100.0f);
         shader->useShader();
         shader->setUniMat4("projection", projection);
 
