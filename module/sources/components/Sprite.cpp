@@ -35,7 +35,6 @@ sw::Material &sw::Sprite::getMaterial() noexcept
 sw::Sprite &sw::Sprite::setTexture(std::string& name)
 {
     m_material.setTexture(name);
-    m_material.texture = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[name];
     m_rect = {0.0f, 0.0f, (float)m_material.texture->getWidth(), (float)m_material.texture->getHeight()};
     return (*this);
 }

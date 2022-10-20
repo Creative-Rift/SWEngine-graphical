@@ -246,3 +246,89 @@ void sw::OpenResources::unloadResources()
         m_nshader.erase(name);
     element.clear();
 }
+
+std::shared_ptr<sw::Texture> sw::OpenResources::TexturesMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " texture not found", "");
+        return (find("MissingTexture")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Texture> sw::OpenResources::TexturesMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " texture not found", "");
+        return (find("MissingTexture")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Font> sw::OpenResources::FontsMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " font not found", "");
+        return (find("DefaultFont")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Font> sw::OpenResources::FontsMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " font not found", "");
+        return (find("DefaultFont")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Audio> sw::OpenResources::AudioMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " audio not found", "");
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Audio> sw::OpenResources::AudioMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " audio not found", "");
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Model> sw::OpenResources::ModelMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " model not found", "");
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Model> sw::OpenResources::ModelMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " model not found", "");
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Shader> sw::OpenResources::ShaderMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " shader not found", "");
+        return (find("default")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Shader> sw::OpenResources::ShaderMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        sw::Speech::Warning(name + " shader not found", "");
+        return (find("default")->second);
+    }
+    return (find(name)->second);
+}

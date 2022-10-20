@@ -39,7 +39,7 @@ sw::Material &sw::Material::setShader(std::shared_ptr<sw::Shader> shader)
 
 sw::Material &sw::Material::setTexture(std::string textureName)
 {
-    texture = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_ntext[textureName];
+    texture = sw::OpenResources::m_ntext[textureName];
     m_name = textureName;
     return (*this);
 }

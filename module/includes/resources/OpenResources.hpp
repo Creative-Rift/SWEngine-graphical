@@ -57,36 +57,41 @@ namespace sw
             static class TexturesMap : public std::map<std::string, std::shared_ptr<Texture>>
             {
                 public:
-                    using std::map<std::string, std::shared_ptr<Texture>>::operator[];
+                    std::shared_ptr<Texture> operator[](std::string name);
+                    std::shared_ptr<Texture> operator[](std::string name) const;
                     friend OpenResources;
             } m_ntext;
 
             static class FontsMap : public std::map<std::string, std::shared_ptr<Font>>
             {
                 public:
-                    using std::map<std::string, std::shared_ptr<Font>>::operator[];
+                    std::shared_ptr<Font> operator[](std::string name);
+                    std::shared_ptr<Font> operator[](std::string name) const;
                     friend OpenResources;
             } m_nfont;
 
             static class AudioMap : public std::map<std::string, std::shared_ptr<Audio>>
             {
                 public:
-                    using std::map<std::string, std::shared_ptr<Audio>>::operator[];
+                    std::shared_ptr<Audio> operator[](std::string name);
+                    std::shared_ptr<Audio> operator[](std::string name) const;
                     friend OpenResources;
             } m_naudio;
 
             static class ModelMap : public std::map<std::string, std::shared_ptr<Model>>
             {
                 public:
-                    using std::map<std::string, std::shared_ptr<Model>>::operator[];
+                    std::shared_ptr<Model> operator[](std::string name);
+                    std::shared_ptr<Model> operator[](std::string name) const;
                     friend OpenResources;
             } m_nmodel;
 
             static class ShaderMap : public std::map<std::string, std::shared_ptr<Shader>>
             {
-            public:
-                using std::map<std::string, std::shared_ptr<Shader>>::operator[];
-                friend OpenResources;
+                public:
+                    std::shared_ptr<Shader> operator[](std::string name);
+                    std::shared_ptr<Shader> operator[](std::string name) const;
+                    friend OpenResources;
             } m_nshader;
 
             OpenResources() : index(0), loaded(false) {};
