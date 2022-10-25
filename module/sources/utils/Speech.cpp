@@ -269,7 +269,7 @@ void sw::Speech::flush(std::ostream& os)
 
     for (auto& [time, mess] : m_logList) {
         if (!isWhiteList(mess) && isBlackList(mess)) {
-            std::remove(m_logList.begin(), m_logList.end(), std::pair<std::string, std::string>(time, mess));
+            m_logList.erase(std::remove(m_logList.begin(), m_logList.end(), std::pair<std::string, std::string>(time, mess)), m_logList.end());
             continue;
         }
         os << time << mess;
