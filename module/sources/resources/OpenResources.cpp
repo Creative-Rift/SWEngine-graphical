@@ -251,7 +251,10 @@ std::shared_ptr<sw::Texture> sw::OpenResources::TexturesMap::operator[](std::str
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " texture not found", "");
-        return (find("MissingTexture")->second);
+        auto it = find("MissingTexture");
+        if (it != end())
+            return (find("MissingTexture")->second);
+        throw sw::Error("No default texture available" , "");
     }
     return (find(name)->second);
 }
@@ -260,7 +263,10 @@ std::shared_ptr<sw::Texture> sw::OpenResources::TexturesMap::operator[](std::str
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " texture not found", "");
-        return (find("MissingTexture")->second);
+        auto it = find("MissingTexture");
+        if (it != end())
+            return (find("MissingTexture")->second);
+        throw sw::Error("No default texture available" , "");
     }
     return (find(name)->second);
 }
@@ -269,7 +275,10 @@ std::shared_ptr<sw::Font> sw::OpenResources::FontsMap::operator[](std::string na
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " font not found", "");
-        return (find("DefaultFont")->second);
+        auto it = find("DefaultFont");
+        if (it != end())
+            return (find("DefaultFont")->second);
+        throw sw::Error("No default font available" , "");
     }
     return (find(name)->second);
 }
@@ -278,7 +287,10 @@ std::shared_ptr<sw::Font> sw::OpenResources::FontsMap::operator[](std::string na
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " font not found", "");
-        return (find("DefaultFont")->second);
+        auto it = find("DefaultFont");
+        if (it != end())
+            return (find("DefaultFont")->second);
+        throw sw::Error("No default font available" , "");
     }
     return (find(name)->second);
 }
@@ -319,7 +331,10 @@ std::shared_ptr<sw::Shader> sw::OpenResources::ShaderMap::operator[](std::string
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " shader not found", "");
-        return (find("default")->second);
+        auto it = find("default");
+        if (it != end())
+            return (find("default")->second);
+        throw sw::Error("No default shader available" , "");
     }
     return (find(name)->second);
 }
@@ -328,7 +343,10 @@ std::shared_ptr<sw::Shader> sw::OpenResources::ShaderMap::operator[](std::string
 {
     if (!contains(name)) {
         sw::Speech::Warning(name + " shader not found", "");
-        return (find("default")->second);
+        auto it = find("default");
+        if (it != end())
+            return (find("default")->second);
+        throw sw::Error("No default shader available" , "");
     }
     return (find(name)->second);
 }
