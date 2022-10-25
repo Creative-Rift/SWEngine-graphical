@@ -27,6 +27,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <mutex>
 
 #include "Chrono.hpp"
 #include "../Log.hpp"
@@ -69,7 +70,7 @@ namespace sw
             static bool isWhiteList(std::string code);
 
             static std::map<std::string, std::map<std::string, std::vector<std::string>>> m_listSpeech;
-
+            static std::mutex m_mutex;
         public:
             /*////////////////////////////////////////////////////////////////*/
             /// @brief Define whether the logs will be in color or not.

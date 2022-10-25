@@ -103,3 +103,10 @@ catch (std::out_of_range&)
 {
     throw sw::Error(sw::Log::errorA1B(FUNCTION, "sw::Engine::activeSceneName()", eventName));
 }
+
+void sw::EventManager::clearEvents()
+{
+    for (auto& [name, event] : m_eventList) {
+        event->clearListener();
+    }
+}

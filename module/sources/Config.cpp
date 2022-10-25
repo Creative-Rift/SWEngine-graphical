@@ -33,3 +33,8 @@ void sw::Config::UpdateConfigFile()
 
     out << m_config;
 }
+
+YAML::Node &sw::Config::GetConfig()
+{
+    return (m_config);
+}

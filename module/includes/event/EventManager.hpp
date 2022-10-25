@@ -153,6 +153,8 @@ namespace sw
             void drop(const std::string& eventName, EventInfo& info, std::set<std::string> target);
             ///
 
+            void clearEvents();
+
     }; // class EventManager
 
     #include "EventManager.inl"

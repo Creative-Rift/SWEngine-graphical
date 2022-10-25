@@ -19,6 +19,7 @@ SW_GRAPH_MODULE_EXPORT std::vector<std::pair<std::string, std::string>> sw::Spee
 SW_GRAPH_MODULE_EXPORT std::vector<std::pair<std::string, std::string>> sw::Speech::m_lastLogList;
 
 SW_GRAPH_MODULE_EXPORT std::map<std::string, std::map<std::string, std::vector<std::string>>> sw::Speech::m_listSpeech;
+SW_GRAPH_MODULE_EXPORT std::mutex sw::Speech::m_mutex;
 
 SW_GRAPH_MODULE_EXPORT bool sw::Speech::colorized   = false;
 SW_GRAPH_MODULE_EXPORT bool sw::Speech::displayed   = true;

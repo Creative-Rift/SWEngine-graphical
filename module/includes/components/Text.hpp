@@ -50,7 +50,7 @@ namespace sw
             Text& operator=(Text&&) = delete;
             explicit Text(sw::GameObject& gameObject);
 
-            Text& setText(std::string& text);
+            Text& setText(std::string text);
             //Text& setFontSize(unsigned int size);
             Text& setFont(std::string name);
             Text& setColor(sw::Color color);

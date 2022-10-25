@@ -13,7 +13,7 @@ m_pos(),
 scale(1)
 {}
 
-sw::Text &sw::Text::setText(std::string &text)
+sw::Text &sw::Text::setText(std::string text)
 {
     m_text = text;
     return (*this);

@@ -9,12 +9,12 @@
 #ifndef SHIPWRECK_CONFIG_HPP
 #define SHIPWRECK_CONFIG_HPP
 
-
 #include "yaml-cpp/yaml.h"
+#include "OpenGLModule_Config.hpp"
 
 namespace sw
 {
-    class Config
+    class SW_GRAPH_MODULE_EXPORT Config
     {
         public:
             static std::string m_configFile;
@@ -22,6 +22,7 @@ namespace sw
             static void SetupConfig();
             static void ReloadConfig();
             static void UpdateConfigFile();
+            static YAML::Node& GetConfig();
     };
 }
 

@@ -127,6 +127,8 @@ namespace sw
             void drop(EventInfo& info, std::set<std::string> targets);
             ///
 
+            void clearListener();
+
     }; // class Event
 
     #include "Event.inl"

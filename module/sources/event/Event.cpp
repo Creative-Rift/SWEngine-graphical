@@ -54,3 +54,8 @@ void sw::Event::drop(sw::EventInfo& info, std::set<std::string> targets)
         if (targets.contains(listerner->linkedElement()))
             listerner->catchEvent(info);
 }
+
+void sw::Event::clearListener()
+{
+    m_listenerList.clear();
+}

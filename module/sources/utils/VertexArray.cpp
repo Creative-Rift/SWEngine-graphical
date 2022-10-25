@@ -13,7 +13,7 @@
 sw::VertexArray::VertexArray() :
 m_vbo{0},
 m_vao{0},
-m_ebo{},
+m_ebo{0},
 m_array{},
 m_indices{0, 1, 3, 1, 2, 3}
 {
@@ -29,11 +29,6 @@ m_indices{0, 1, 3, 1, 2, 3}
     m_array.emplace_back(sw::Vertex{b, c2});
     m_array.emplace_back(sw::Vertex{c, c3});
     m_array.emplace_back(sw::Vertex{d, c4});
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glGenBuffers(1, &m_ebo);
-
-    update();
 }
 
 sw::VertexArray::~VertexArray()
@@ -44,6 +39,12 @@ sw::VertexArray::~VertexArray()
 
 void sw::VertexArray::update()
 {
+    if (m_vao == 0) {
+        glGenVertexArrays(1, &m_vao);
+        glGenBuffers(1, &m_vbo);
+        glGenBuffers(1, &m_ebo);
+    }
+
     glBindVertexArray(m_vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

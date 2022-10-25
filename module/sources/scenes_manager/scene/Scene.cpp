@@ -155,6 +155,7 @@ void sw::Scene::unload()
     m_entities.clear();
     m_managersLayers.clear();
     m_entitiesToDelete.clear();
+    eventManager.clearEvents();
     m_isLoad = false;
 
     sw::Speech::Info(sw::Log::info370_Success(FUNCTION, name));

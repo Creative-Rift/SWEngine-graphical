@@ -59,6 +59,7 @@ namespace sw
         static GLFWwindow *UpdateWindow();
 
         static void ToggleFullScreen();
+        static void CloseWindow();
         static void Maximize();
         static void Minimize();
         static void Restore();

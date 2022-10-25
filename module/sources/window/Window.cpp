@@ -87,6 +87,11 @@ void sw::Window::ToggleFullScreen()
     }
 }
 
+void sw::Window::CloseWindow()
+{
+    glfwSetWindowShouldClose(m_window, true);
+}
+
 void sw::Window::Maximize()
 {
     if (glfwGetWindowAttrib(m_window, GLFW_RESIZABLE) == GLFW_TRUE)
