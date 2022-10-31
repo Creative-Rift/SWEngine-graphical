@@ -15,7 +15,6 @@
 #include "openal/alc.h"
 
 #include "OpenGLModule_Config.hpp"
-#include "utils/Buffer.hpp"
 #include "utils/Inputs.hpp"
 #include "scenes_manager/SceneManager.hpp"
 #include "utils/Chrono.hpp"

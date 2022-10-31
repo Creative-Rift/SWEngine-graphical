@@ -15,6 +15,7 @@
 #include "OpenGLModule_Config.hpp"
 #include "exception/Error.hpp"
 #include "utils/Vector2.hpp"
+#include "utils/Inputs.hpp"
 
 namespace sw
 {
@@ -104,6 +105,17 @@ namespace sw
     SW_GRAPH_MODULE_EXPORT bool isKeyPressed(const int&);//TODO template mouse/keyboard
 
     ////////////////////////////////////////////////////////////
+    /// @brief Return the currently pressed key
+    ///
+    /// @param none
+    ///
+    /// @return sw::Keyboard enum
+    ///
+    /// @throw none
+    ////////////////////////////////////////////////////////////
+    SW_GRAPH_MODULE_EXPORT sw::Keyboard GetKeyPressed();
+
+    ////////////////////////////////////////////////////////////
     /// @brief Return True if give key was released
     ///
     /// @param key Selected key from sw::Keyboard enum
@@ -124,7 +136,6 @@ namespace sw
     /// @throw none
     ////////////////////////////////////////////////////////////
     SW_GRAPH_MODULE_EXPORT bool isKeyDown(const int&);//same
-    //bool isKeyUp(sw::Type&, const int&);
 
     ////////////////////////////////////////////////////////////
     /// @brief Return True if given key is not being pressed

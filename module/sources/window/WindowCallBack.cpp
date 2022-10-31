@@ -78,6 +78,14 @@ void sw::Window::resizeCallBack(GLFWwindow *window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+sw::Keyboard sw::GetKeyPressed()
+{
+    for (int i = 0; i < sw::Keyboard::LAST; ++i)
+        if (current_key_flags[i])
+            return (sw::Keyboard)current_key_flags[i];
+    return sw::Keyboard::UNKNOWN;
+}
+
 bool sw::isKeyPressed(const int& kys)
 {
     if ((previous_key_flags[kys] == 0) && (current_key_flags[kys] == 1))

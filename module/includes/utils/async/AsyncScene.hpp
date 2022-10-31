@@ -11,6 +11,8 @@
 #include "GLFW/glfw3.h"
 #include "AsyncOperation.hpp"
 
+#include <string>
+
 namespace sw
 {
     class Scene;
