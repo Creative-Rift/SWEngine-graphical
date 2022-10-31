@@ -33,7 +33,7 @@ void sw::SpriteManager::onLoad(YAML::Node& node) {
 void sw::SpriteManager::onUpdate()
 {
     sw::ConcreteComponent auto& camera = m_scene.getGameObject("MainCamera").getComponent<sw::Camera>("CameraManager");
-
+    camera.setProjection(sw::Camera::ORTHOGRAPHIC);
     for (auto& [_, name] : m_componentsLayers) {
         auto& object = m_components[name];
         if (!object->isActive() || !object->gameObject().isActive())
@@ -51,6 +51,7 @@ void sw::SpriteManager::onUpdate()
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
     }
+    camera.setProjection(sw::Camera::PERSPECTIVE);
 }
 
 void sw::SpriteManager::updateInvert(sw::Sprite& sprite)
