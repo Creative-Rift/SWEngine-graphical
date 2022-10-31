@@ -81,8 +81,8 @@ void sw::Window::resizeCallBack(GLFWwindow *window, int width, int height)
 sw::Keyboard sw::GetKeyPressed()
 {
     for (int i = 0; i < sw::Keyboard::LAST; ++i)
-        if (current_key_flags[i])
-            return (sw::Keyboard)current_key_flags[i];
+        if (i >= 32 && i <= 126 && (!previous_key_flags[i]) && (current_key_flags[i]))
+            return (sw::Keyboard)i;
     return sw::Keyboard::UNKNOWN;
 }
 
