@@ -7,6 +7,8 @@
 */
 
 #include "AudioSource.hpp"
+
+#include <utility>
 #include "OpenResources.hpp"
 #include "OpenGLModule.hpp"
 #include "scenes_manager/SceneManager.hpp"
@@ -49,7 +51,7 @@ void sw::AudioSource::playOnStart()
 
 void sw::AudioSource::defineBuffer(std::string name)
 {
-    auto buffer = sw::OpenGLModule::sceneManager().getActiveScene()->resources.m_naudio[name];
+    auto buffer = sw::OpenResources::m_naudio[std::move(name)];
     alSourcei(m_source, AL_BUFFER, buffer->getBuffer());
     m_endPoint = buffer->getDuration();
 }
@@ -77,18 +79,31 @@ std::string sw::AudioSource::randomHandler()
 sw::AudioSource &sw::AudioSource::addAudio(std::string audio)
 {
     m_audios.emplace_back(audio);
-    if (m_audios.empty())
+    if (m_audios.size() == 1)
         defineBuffer(m_audios[0]);
     return (*this);
 }
 
 sw::AudioSource &sw::AudioSource::play()
 {
-    int value;
+    if (m_randomized)
+        defineBuffer(randomHandler());
+    alSourcePlay(m_source);
+    return (*this);
+}
 
-    alGetSourcei(m_source, AL_SOURCE_STATE, &value);
-    if (value == AL_PLAYING)
-        return *this;
+sw::AudioSource &sw::AudioSource::play(int index)
+{
+    defineBuffer(m_audios[index]);
+    if (m_randomized)
+        defineBuffer(randomHandler());
+    alSourcePlay(m_source);
+    return (*this);
+}
+
+sw::AudioSource &sw::AudioSource::play(std::string name)
+{
+    defineBuffer(std::move(name));
     if (m_randomized)
         defineBuffer(randomHandler());
     alSourcePlay(m_source);
@@ -182,6 +197,13 @@ YAML::Node sw::AudioSource::save() const
 const bool &sw::AudioSource::isPlayOnStart() const
 {
     return (m_playOnStart);
+}
+
+const bool sw::AudioSource::isPlaying() const
+{
+    int value = -1;
+    alGetSourcei(m_source, AL_SOURCE_STATE, &value);
+    return (value == AL_PLAYING);
 }
 
 sw::AudioSource& sw::AudioSource::setPlayOnStart(bool value)

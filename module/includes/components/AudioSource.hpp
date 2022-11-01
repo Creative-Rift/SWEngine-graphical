@@ -51,6 +51,8 @@ namespace sw
 
         AudioSource& addAudio(std::string audio);
         AudioSource& play();
+        AudioSource& play(int index);
+        AudioSource& play(std::string name);
         AudioSource& pause();
         AudioSource& stop();
         AudioSource& setVolume(float volume);
@@ -65,6 +67,7 @@ namespace sw
         AudioSource& setPlayOnStart(bool value);
 
         [[nodiscard]]const bool& isPlayOnStart() const;
+        [[nodiscard]]const bool isPlaying() const;
 
         friend AudioSourceManager;
     };

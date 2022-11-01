@@ -40,7 +40,7 @@ m_duration(0)
     alGenBuffers(1, &m_buffer);
     alBufferData(m_buffer, m_format, &m_samples[0], m_numberSamples * sizeof(ALushort), m_rate);
     if (alGetError() != AL_NO_ERROR)
-        std::cerr << "Audio not loaded" << std::endl;
+        std::cerr << "Audio not loaded [" << path << "]" << std::endl;
 }
 
 sw::Audio::~Audio() noexcept
