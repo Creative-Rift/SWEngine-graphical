@@ -27,9 +27,11 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     meshRenderer.model->shader->setUniMat4("projection", camera.getProjection());
     meshRenderer.model->shader->setUniMat4("view", camera.getView());
     meshRenderer.model->shader->setUniMat4("model", transform.getGlobalMatrix());
-    auto transforms = meshRenderer.animator->getFinalBoneMatrices();
-    for (int i = 0; i < transforms.size(); ++i)
-        meshRenderer.model->shader->setUniMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+    if (meshRenderer.animator) {
+        auto transforms = meshRenderer.animator->getFinalBoneMatrices();
+        for (int i = 0; i < transforms.size(); ++i)
+            meshRenderer.model->shader->setUniMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+    }
     for(auto & meshes : meshRenderer.model->meshes)
         drawMesh(*meshRenderer.model, meshes);
     glUseProgram(0);
