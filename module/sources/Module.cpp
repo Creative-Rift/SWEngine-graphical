@@ -72,7 +72,6 @@ void sw::OpenGLModule::load()
     glViewport(0, 0, 1920, 1080);
     glEnable(GL_DEPTH_TEST);
     loadResourcesFile("resources/textures.json");
-    m_chrono.start();
     m_isLoad = true;
     sw::Window::Maximize();
     sw::Speech::flush();
@@ -80,12 +79,13 @@ void sw::OpenGLModule::load()
 
 void sw::OpenGLModule::update()
 {
+    if (!m_chrono.isRunning())
+        m_chrono.start();
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     m_sceneManager.getActiveScene()->update();
 
-    m_chrono.tour();
     sw::Window::UpdateWindow();
     glfwPollEvents();
 
@@ -97,6 +97,7 @@ void sw::OpenGLModule::update()
         m_chronoWindow.start();
     }
     sceneManager().checkForNewScene();
+    m_chrono.tour();
 }
 
 sw::SceneManager& sw::OpenGLModule::sceneManager()

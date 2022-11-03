@@ -88,7 +88,6 @@ void sw::Scene::update()
         return;
     }
 
-    eventManager.drop("Update");
     if (m_managersLayers.needSort)
         m_managersLayers.sort();
     updatePhysics();
@@ -119,7 +118,8 @@ void sw::Scene::updateLogic()
 {
     try {
         m_managers["AnimatorManager"]->update();
-        m_managers["ScriptManager"]->update();
+        eventManager.drop("Update");
+        //m_managers["ScriptManager"]->update();
         m_managers["AudioManager"]->update();
     }
     catch (sw::Error& error) {
