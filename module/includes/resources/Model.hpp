@@ -14,6 +14,7 @@
 
 #include "utils/Shader.hpp"
 #include "components/Mesh.hpp"
+#include "BoneInfo.hpp"
 
 namespace sw
 {
@@ -31,15 +32,20 @@ namespace sw
         std::vector<std::shared_ptr<Mesh>> meshes;
         std::shared_ptr<Shader> shader;
         void compileModel();
-        [[nodiscard]] const bool isLoaded() const noexcept;
+        [[nodiscard]] bool isLoaded() const noexcept;
+        [[nodiscard]] std::map<std::string, BoneInfo>& getBones();
+        [[nodiscard]] int& getBonesNumber();
     private:
-        std::string directory;
+        std::map<std::string, BoneInfo> m_bones;
+        int m_boneCounter;
+        std::string m_directory;
         bool m_loaded;
 
         void processNode(aiNode *node, const aiScene *scene);
         void loadModel(std::string path);
         std::shared_ptr<Mesh> processMesh(aiMesh *mesh, const aiScene *scene);
         std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+        void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene);
     };
 }
 

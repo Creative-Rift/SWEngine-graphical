@@ -7,12 +7,78 @@
 #include "Model.hpp"
 #include "OpenGLModule.hpp"
 
+glm::mat4 ConvertMatrixToGLMFormatu(const aiMatrix4x4& from)
+{
+    glm::mat4 to;
+    //the a,b,c,d in assimp is the row ; the 1,2,3,4 is the column
+    to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
+    to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
+    to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
+    to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
+    return to;
+}
+
 sw::Model::Model(std::string path) :
-shader(sw::OpenResources::m_nshader["model"]),
 meshes(),
+shader(sw::OpenResources::m_nshader["model"]),
+m_bones(),
+m_boneCounter(0),
+m_directory(),
 m_loaded(false)
 {
     loadModel(path);
+}
+
+void SetVertexBoneDataToDefault(sw::Vertex& vertex)
+{
+    for (int i = 0; i < MAX_BONE_INFLUENCE; i++) {
+        vertex.m_bonesId[i] = -1;
+        vertex.m_weight[i] = 0.0f;
+    }
+}
+
+void SetVertexBoneData(sw::Vertex& vertex, int boneID, float weight)
+{
+    for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+        if (vertex.m_bonesId[i] < 0) {
+            vertex.m_weight[i] = weight;
+            vertex.m_bonesId[i] = boneID;
+            break;
+        }
+    }
+}
+
+void sw::Model::ExtractBoneWeightForVertices(std::vector<sw::Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
+{
+    for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+    {
+        int boneID = -1;
+        std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+        if (m_bones.find(boneName) == m_bones.end())
+        {
+            sw::BoneInfo newBoneInfo;
+            newBoneInfo.m_id = m_boneCounter;
+            newBoneInfo.m_offset = ConvertMatrixToGLMFormatu(mesh->mBones[boneIndex]->mOffsetMatrix);
+            m_bones[boneName] = newBoneInfo;
+            boneID = m_boneCounter;
+            m_boneCounter++;
+        }
+        else
+        {
+            boneID = m_bones[boneName].m_id;
+        }
+        assert(boneID != -1);
+        auto weights = mesh->mBones[boneIndex]->mWeights;
+        int numWeights = mesh->mBones[boneIndex]->mNumWeights;
+
+        for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
+        {
+            int vertexId = weights[weightIndex].mVertexId;
+            float weight = weights[weightIndex].mWeight;
+            assert(vertexId <= vertices.size());
+            SetVertexBoneData(vertices[vertexId], boneID, weight);
+        }
+    }
 }
 
 sw::Model::~Model() noexcept
@@ -25,7 +91,7 @@ void sw::Model::loadModel(std::string path)
 
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         throw sw::Error("ERROR::ASSIMP::" + std::string(import.GetErrorString()), "");
-    directory = path.substr(0, path.find_last_of('/'));
+    m_directory = path.substr(0, path.find_last_of('/'));
 
     processNode(scene->mRootNode, scene);
 }
@@ -48,6 +114,9 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         sw::Vertex vertex;
+
+        SetVertexBoneDataToDefault(vertex);
+
         // positions
         vertex.position.x = mesh->mVertices[i].x;
         vertex.position.y = mesh->mVertices[i].y;
@@ -62,12 +131,14 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
         if(mesh->mTextureCoords[0]) {
             vertex.textureCoord.x = mesh->mTextureCoords[0][i].x;
             vertex.textureCoord.y = mesh->mTextureCoords[0][i].y;
-            //vertex.tangent.x = mesh->mTangents[i].x;
-            //vertex.tangent.y = mesh->mTangents[i].y;
-            //vertex.tangent.z = mesh->mTangents[i].z;
-            //vertex.bitangent.y = mesh->mBitangents[i].y;
-            //vertex.bitangent.x = mesh->mBitangents[i].x;
-            //vertex.bitangent.z = mesh->mBitangents[i].z;
+            if (mesh->HasTangentsAndBitangents()) {
+                vertex.tangent.x = mesh->mTangents[i].x;
+                vertex.tangent.y = mesh->mTangents[i].y;
+                vertex.tangent.z = mesh->mTangents[i].z;
+                vertex.bitangent.y = mesh->mBitangents[i].y;
+                vertex.bitangent.x = mesh->mBitangents[i].x;
+                vertex.bitangent.z = mesh->mBitangents[i].z;
+            }
         }
         else
             vertex.textureCoord = sw::Vector2f (0.0f, 0.0f);
@@ -95,6 +166,8 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
     //std::vector<std::shared_ptr<sw::Texture>> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     //textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
+    ExtractBoneWeightForVertices(vertices, mesh, scene);
+
     return std::make_shared<sw::Mesh>(vertices, indices, textures);
 }
 
@@ -118,7 +191,17 @@ void sw::Model::compileModel()
         mesh->setupMesh();
 }
 
-const bool sw::Model::isLoaded() const noexcept
+bool sw::Model::isLoaded() const noexcept
 {
     return (m_loaded);
+}
+
+std::map<std::string, sw::BoneInfo> &sw::Model::getBones()
+{
+    return (m_bones);
+}
+
+int& sw::Model::getBonesNumber()
+{
+    return (m_boneCounter);
 }

@@ -48,6 +48,12 @@ void sw::Mesh::setupMesh()
     // vertex tangent
     glEnableVertexAttribArray(5);
     glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tangent));
+    //bone ids
+    glEnableVertexAttribArray(6);
+    glVertexAttribIPointer(6, 4, GL_INT, sizeof(Vertex), (void*) offsetof(Vertex, m_bonesId));
+    //bone weight
+    glEnableVertexAttribArray(7);
+    glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_weight));
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

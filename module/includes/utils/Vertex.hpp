@@ -15,17 +15,22 @@
 #include "OpenGLModule_Config.hpp"
 #include "../utils/Vector2.hpp"
 
+#define MAX_BONE_INFLUENCE 4
+
 namespace sw
 {
     class SW_GRAPH_MODULE_EXPORT Vertex
     {
-    public:
-        Vector3f position;
-        Color color;
-        Vector2f textureCoord;
-        Vector3f normal;
-        Vector3f bitangent;
-        Vector3f tangent;
+        public:
+            Vector3f position;
+            Color color;
+            Vector2f textureCoord;
+            Vector3f normal;
+            Vector3f bitangent;
+            Vector3f tangent;
+
+            int m_bonesId[MAX_BONE_INFLUENCE];
+            float m_weight[MAX_BONE_INFLUENCE];
 
             Vertex();
             ~Vertex();
