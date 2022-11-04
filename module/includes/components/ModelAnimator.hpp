@@ -28,11 +28,17 @@ namespace sw
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
         [[nodiscard]]std::vector<glm::mat4> getFinalBoneMatrices();
         [[nodiscard]]Animation& getAnimation();
+
+        void play();
+        void pause();
+        void stop();
+        void restart();
     private:
         std::vector<glm::mat4> m_finalBoneMatrices;
         std::shared_ptr<Animation> m_currentAnimation;
         double m_currentTime;
         float m_deltaTime;
+        bool m_play;
 
         friend ModelAnimatorManager;
     };

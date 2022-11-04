@@ -15,13 +15,15 @@ sw::Component(gameObject),
 m_finalBoneMatrices(),
 m_currentAnimation(nullptr),
 m_currentTime(0),
-m_deltaTime(0)
+m_deltaTime(0),
+m_play(true)
 {
     m_currentTime = 0.0;
     m_currentAnimation = sw::OpenResources::m_nanimation[std::move(animationName)];
     m_finalBoneMatrices.reserve(100);
     for (int i = 0; i < 100; i++)
         m_finalBoneMatrices.emplace_back(1.0f);
+    updateAnimation(0.1);
 }
 
 void sw::ModelAnimator::updateAnimation(float dt)
@@ -74,4 +76,27 @@ std::vector<glm::mat4> sw::ModelAnimator::getFinalBoneMatrices()
 sw::Animation &sw::ModelAnimator::getAnimation()
 {
     return (*m_currentAnimation);
+}
+
+void sw::ModelAnimator::play()
+{
+    m_play = true;
+}
+
+void sw::ModelAnimator::pause()
+{
+    m_play = false;
+}
+
+void sw::ModelAnimator::stop()
+{
+    m_play = false;
+    m_currentTime = 0;
+    m_deltaTime = 0;
+}
+
+void sw::ModelAnimator::restart()
+{
+    stop();
+    play();
 }
