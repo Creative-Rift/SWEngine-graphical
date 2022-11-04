@@ -19,5 +19,6 @@
 #include "TransformManager.hpp"
 #include "ScriptManager.hpp"
 #include "MeshManager.hpp"
+#include "ModelAnimatorManager.hpp"
 
 #endif //SHIPWRECK_ENGINE_MANAGERS_HPP

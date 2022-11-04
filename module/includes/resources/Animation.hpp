@@ -10,8 +10,9 @@
 #include <vector>
 #include <map>
 
-#include "dependencies/glm/glm.hpp"
+#include "assimp/Importer.hpp"
 #include "assimp/scene.h"
+#include "dependencies/glm/glm.hpp"
 
 #include "OpenGLModule_Config.hpp"
 
@@ -35,25 +36,30 @@ namespace sw
     {
     public:
         Animation() = delete;
-
-        Animation(const std::string& animationPath, std::string modelName);
-
+        explicit Animation(std::string& animationPath);
         ~Animation();
 
-        Bone* findBone(const std::string& name);
-        float getTicksPerSecond();
-        float getDuration();
-        const AssimpNodeData& getRootNode();
-        std::map<std::string, BoneInfo>& getBoneIDMap();
+        [[nodiscard]] Bone* findBone(const std::string& name);
+        [[nodiscard]] double getTicksPerSecond() const;
+        [[nodiscard]] double getDuration() const;
+        [[nodiscard]] const AssimpNodeData& getRootNode();
+        [[nodiscard]] std::map<std::string, BoneInfo>& getBoneIDMap();
+        [[nodiscard]] std::shared_ptr<Model> getModel();
+        sw::Animation& attachModel(std::string modelName);
+        sw::Animation& defineAnimation(int index);
 
     private:
         void readMissingBones(const aiAnimation* animation, Model& model);
-        void readHeirarchyData(AssimpNodeData& dest, const aiNode* src);
-        float m_duration;
-        int m_ticksPerSecond;
+        void readHierarchyData(AssimpNodeData& dest, const aiNode* src);
+        double m_duration;
+        double m_ticksPerSecond;
         std::vector<Bone> m_bones;
         AssimpNodeData m_rootNode;
         std::map<std::string, BoneInfo> m_boneInfoMap;
+        const aiScene* m_scene;
+        std::shared_ptr<Model> m_model;
+        Assimp::Importer m_importer;
+
     };
 } // namespace sw
 

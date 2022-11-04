@@ -13,6 +13,8 @@
 #include "AudioSource.hpp"
 #include "BoxCollider.hpp"
 #include "Camera.hpp"
+#include "MeshRenderer.hpp"
+#include "ModelAnimator.hpp"
 #include "RigidBody2D.hpp"
 #include "Sprite.hpp"
 #include "Text.hpp"

@@ -12,15 +12,12 @@
 #include "resources/Font.hpp"
 
 #include "resources/OpenResources.hpp"
-#include "dependencies/glad/glad.h"
 #include "utils/Speech.hpp"
 #include "exception/Error.hpp"
 #include "OpenGLModule.hpp"
 
 #include <iostream>
 #include <memory>
-#include <exception>
-#include <algorithm>
 #include <functional>
 
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::TexturesMap sw::OpenResources::m_ntext;
@@ -28,6 +25,7 @@ SW_GRAPH_MODULE_EXPORT sw::OpenResources::FontsMap sw::OpenResources::m_nfont;
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::AudioMap sw::OpenResources::m_naudio;
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::ModelMap sw::OpenResources::m_nmodel;
 SW_GRAPH_MODULE_EXPORT sw::OpenResources::ShaderMap sw::OpenResources::m_nshader;
+SW_GRAPH_MODULE_EXPORT sw::OpenResources::AnimationMap sw::OpenResources::m_nanimation;
 
 sw::Ftlib fontlb;
 
@@ -43,6 +41,7 @@ void sw::OpenResources::loadResources()
         loadFonts();
         loadAudio();
         loadModels();
+        loadAnimation();
         sw::Speech::Info("Resources loaded successfully!", "2227");
     } catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());
@@ -146,6 +145,17 @@ void sw::OpenResources::loadShader()
         sw::Speech::Warning("No Shaders was loaded.", "3720");
 }
 
+void sw::OpenResources::loadAnimation()
+{
+    for (auto &[name, path] : m_nanim) {
+        if (m_nanimation.contains(name))
+            continue;
+        m_nanimation.emplace(name, std::make_shared<sw::Animation>(path));
+    }
+    if (m_nanimation.empty())
+        sw::Speech::Warning("No Animation loaded.", "3720");
+}
+
 void sw::OpenResources::addNeededResource(const std::string& name, const std::string& path, const std::string& type)
 {
     if (type == "Texture") {
@@ -163,6 +173,9 @@ void sw::OpenResources::addNeededResource(const std::string& name, const std::st
     } else if (type == "Shader") {
         if (m_nsh.find(name) == m_nsh.end())
             m_nsh.emplace(name, path);
+    } else if (type == "Animation") {
+        if (m_nanim.find(name) == m_nanim.end())
+            m_nanim.emplace(name, path);
     }
 }
 
@@ -329,6 +342,22 @@ std::shared_ptr<sw::Shader> sw::OpenResources::ShaderMap::operator[](std::string
     if (!contains(name)) {
         sw::Speech::Warning(name + " shader not found", "");
         return (find("default")->second);
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Animation> sw::OpenResources::AnimationMap::operator[](std::string name)
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " model not found", "");
+    }
+    return (find(name)->second);
+}
+
+std::shared_ptr<sw::Animation> sw::OpenResources::AnimationMap::operator[](std::string name) const
+{
+    if (!contains(name)) {
+        throw sw::Error(name + " model not found", "");
     }
     return (find(name)->second);
 }

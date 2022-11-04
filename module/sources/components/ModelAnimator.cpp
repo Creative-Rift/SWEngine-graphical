@@ -1,31 +1,30 @@
 /*
 ** ShipWreck Engine , 2022
-** MAnimator.cpp
+** ModelAnimator.cpp
 */
 
 #include "glm/glm.hpp"
-#include <cmath>
+#include <utility>
 
-#include "MAnimator.hpp"
+#include "ModelAnimator.hpp"
 #include "Animation.hpp"
 #include "Bone.hpp"
 
-sw::MAnimator::MAnimator(sw::Animation *animation) :
+sw::ModelAnimator::ModelAnimator(GameObject& gameObject, std::string animationName) :
+sw::Component(gameObject),
 m_finalBoneMatrices(),
 m_currentAnimation(nullptr),
 m_currentTime(0),
 m_deltaTime(0)
 {
     m_currentTime = 0.0;
-    m_currentAnimation = animation;
-
+    m_currentAnimation = sw::OpenResources::m_nanimation[std::move(animationName)];
     m_finalBoneMatrices.reserve(100);
-
     for (int i = 0; i < 100; i++)
         m_finalBoneMatrices.emplace_back(1.0f);
 }
 
-void sw::MAnimator::updateAnimation(float dt)
+void sw::ModelAnimator::updateAnimation(float dt)
 {
     m_deltaTime = dt;
     if (m_currentAnimation) {
@@ -35,13 +34,13 @@ void sw::MAnimator::updateAnimation(float dt)
     }
 }
 
-void sw::MAnimator::playAnimation(sw::Animation *pAnimation)
+void sw::ModelAnimator::playAnimation(std::string animationName)
 {
-    m_currentAnimation = pAnimation;
+    m_currentAnimation = sw::OpenResources::m_nanimation[std::move(animationName)];
     m_currentTime = 0.0f;
 }
 
-void sw::MAnimator::calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform)
+void sw::ModelAnimator::calculateBoneTransform(const AssimpNodeData *node, glm::mat4 parentTransform)
 {
     std::string nodeName = node->name;
     glm::mat4 nodeTransform = node->transformation;
@@ -67,7 +66,12 @@ void sw::MAnimator::calculateBoneTransform(const AssimpNodeData *node, glm::mat4
         calculateBoneTransform(&node->children[i], globalTransformation);
 }
 
-std::vector<glm::mat4> sw::MAnimator::getFinalBoneMatrices()
+std::vector<glm::mat4> sw::ModelAnimator::getFinalBoneMatrices()
 {
     return (m_finalBoneMatrices);
+}
+
+sw::Animation &sw::ModelAnimator::getAnimation()
+{
+    return (*m_currentAnimation);
 }

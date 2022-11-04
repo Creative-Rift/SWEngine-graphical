@@ -20,6 +20,7 @@
 #include "resources/Audio.hpp"
 #include "resources/Model.hpp"
 #include "resources/Texture.hpp"
+#include "resources/Animation.hpp"
 
 #include <queue>
 #include <memory>
@@ -37,6 +38,7 @@ namespace sw
             std::map<std::string, std::string> m_nau{};
             std::map<std::string, std::string> m_nmd{};
             std::map<std::string, std::string> m_nsh{};
+            std::map<std::string, std::string> m_nanim{};
 
             int index;
 
@@ -45,6 +47,7 @@ namespace sw
             void loadAudio();
             void loadModels();
             void loadShader();
+            void loadAnimation();
             //std::priority_queue<std::unique_ptr<Font>> m_ft{}; font -> dev 2 final
             //std::priority_queue<std::unique_ptr<void>> m_sh; shaders -> dev 2/3
             //std::priority_queue<std::unique_ptr<void>> m_mt; materials -> dev 3
@@ -93,6 +96,14 @@ namespace sw
                     std::shared_ptr<Shader> operator[](std::string name) const;
                     friend OpenResources;
             } m_nshader;
+
+            static class AnimationMap : public std::map<std::string, std::shared_ptr<Animation>>
+            {
+            public:
+                std::shared_ptr<Animation> operator[](std::string name);
+                std::shared_ptr<Animation> operator[](std::string name) const;
+                friend OpenResources;
+            } m_nanimation;
 
             OpenResources() : index(0), loaded(false) {};
             ~OpenResources();
