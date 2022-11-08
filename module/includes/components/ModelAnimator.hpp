@@ -26,6 +26,7 @@ namespace sw
         void updateAnimation(float dt);
         void playAnimation(std::string animationName);
         void calculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform);
+        void attachModel(std::string modelName);
         [[nodiscard]]std::vector<glm::mat4> getFinalBoneMatrices();
         [[nodiscard]]Animation& getAnimation();
 
@@ -39,6 +40,7 @@ namespace sw
         double m_currentTime;
         float m_deltaTime;
         bool m_play;
+        std::string m_modelName;
 
         friend ModelAnimatorManager;
     };

@@ -39,6 +39,7 @@ void sw::ModelAnimator::updateAnimation(float dt)
 void sw::ModelAnimator::playAnimation(std::string animationName)
 {
     m_currentAnimation = sw::OpenResources::m_nanimation[std::move(animationName)];
+    m_currentAnimation->attachModel(m_modelName);
     m_currentTime = 0.0f;
 }
 
@@ -66,6 +67,12 @@ void sw::ModelAnimator::calculateBoneTransform(const AssimpNodeData *node, glm::
 
     for (int i = 0; i < node->childrenCount; i++)
         calculateBoneTransform(&node->children[i], globalTransformation);
+}
+
+void sw::ModelAnimator::attachModel(std::string modelName)
+{
+    m_modelName = modelName;
+    m_currentAnimation->attachModel(m_modelName);
 }
 
 std::vector<glm::mat4> sw::ModelAnimator::getFinalBoneMatrices()
