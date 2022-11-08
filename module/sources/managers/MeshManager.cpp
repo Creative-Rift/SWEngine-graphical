@@ -28,6 +28,15 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     meshRenderer.model->shader->setUniMat4("view", camera.getView());
     meshRenderer.model->shader->setUniMat4("model", transform.getGlobalMatrix());
 
+    //light
+    meshRenderer.model->shader->setUniFloat3("light.direction", -0.2f, -1.0f, -0.3f);
+    meshRenderer.model->shader->setUniFloat3("viewPos", transform.getGlobalPosition());
+
+    meshRenderer.model->shader->setUniFloat3("light.ambient", 0.2f, 0.2f, 0.2f);
+    meshRenderer.model->shader->setUniFloat3("light.diffuse", 0.5f, 0.5f, 0.5f);
+    meshRenderer.model->shader->setUniFloat3("light.specular", 1.0f, 1.0f, 1.0f);
+    meshRenderer.model->shader->setUniFloat("material.shininess", 32.0f);;
+
     for(auto & meshes : meshRenderer.model->meshes)
         drawMesh(*meshRenderer.model, meshes);
     glUseProgram(0);
@@ -48,7 +57,7 @@ void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mes
             continue;
 
         int y = (int)i;
-        model.shader->setUniInt(name + number, y);
+        model.shader->setUniInt("material.diffuse", y);
         glBindTexture(GL_TEXTURE_2D, mesh->m_texture[i]->getId());
     }
     // draw mesh

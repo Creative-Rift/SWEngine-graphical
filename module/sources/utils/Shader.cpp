@@ -113,7 +113,7 @@ void sw::Shader::setUniInt(std::string varName, int &value) const
     glUniform1i(getUniLocation(varName), value);
 }
 
-void sw::Shader::setUniFloat(std::string varName, float &value) const
+void sw::Shader::setUniFloat(std::string varName, float value) const
 {
     glUniform1f(getUniLocation(varName), value);
 }
@@ -126,6 +126,11 @@ void sw::Shader::setUniMat4(std::string varName, const glm::mat4 &matrix) const
 void sw::Shader::setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const
 {
     glUniform3f(getUniLocation(varName), v1, v2, v3);
+}
+
+void sw::Shader::setUniFloat3(std::string varName, const sw::Vector3f vector) const
+{
+    glUniform3f(getUniLocation(varName), vector.x, vector.y, vector.z);
 }
 
 void sw::Shader::createShader()
