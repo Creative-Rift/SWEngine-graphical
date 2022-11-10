@@ -47,7 +47,7 @@ namespace sw
             [[nodiscard]] const bool isLoaded() const noexcept;
             void useShader() const;
             void setUniBool(std::string varName, bool& value) const;
-            void setUniInt(std::string varName, int& value) const;
+            void setUniInt(std::string varName, int value) const;
             void setUniFloat(std::string varName, float value) const;
             void setUniMat4(std::string varName, const glm::mat4& matrix) const;
             void setUniFloat3(std::string varName, const float &v1, const float &v2, const float &v3) const;

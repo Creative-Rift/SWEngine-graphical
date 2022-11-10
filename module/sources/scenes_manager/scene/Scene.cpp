@@ -62,6 +62,7 @@ void sw::Scene::load(bool async)
     createManager<sw::TextManager>("TextManager");
     createManager<sw::MeshRendererManager>("MeshRendererManager");
     createManager<sw::ModelAnimatorManager>("ModelAnimatorManager");
+    createManager<sw::LightManager>("LightManager");
     sw::Speech::flush();
 
     if (m_configFile != "None")

@@ -108,7 +108,7 @@ void sw::Shader::setUniBool(std::string varName, bool &value) const
     glUniform1i(getUniLocation(varName), value);
 }
 
-void sw::Shader::setUniInt(std::string varName, int &value) const
+void sw::Shader::setUniInt(std::string varName, int value) const
 {
     glUniform1i(getUniLocation(varName), value);
 }

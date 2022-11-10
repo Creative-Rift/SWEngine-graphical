@@ -10,8 +10,8 @@ layout (location = 6) in ivec4 boneIds;
 layout (location = 7) in vec4 weights;
 
 out vec3 FragPos;
-out vec2 TexCoords;
 out vec3 Normal;
+out vec2 TexCoords;
 
 const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;

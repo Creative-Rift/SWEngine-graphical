@@ -28,14 +28,23 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     meshRenderer.model->shader->setUniMat4("view", camera.getView());
     meshRenderer.model->shader->setUniMat4("model", transform.getGlobalMatrix());
 
+    for (int i = 0; i < MAX_LIGHT; i++)
+        meshRenderer.model->shader->setUniInt("lights[" + std::to_string(i) + "].type", -1);
     //light
-    meshRenderer.model->shader->setUniFloat3("light.direction", -0.2f, -1.0f, -0.3f);
+    int index = 0;
+    for (auto& light : meshRenderer.m_lights) {
+        meshRenderer.model->shader->setUniInt("lights[" + std::to_string(index) + "].type", light.value().getType());
+        meshRenderer.model->shader->setUniFloat3("lights[" + std::to_string(index) + "].position", light.value().getType() == sw::Light::DIRECTIONAL ? light.value().m_pos : light.value().gameObject().transform().getGlobalPosition());
+        meshRenderer.model->shader->setUniFloat3("lights[" + std::to_string(index) + "].ambient", light.value().m_ambient);
+        meshRenderer.model->shader->setUniFloat3("lights[" + std::to_string(index) + "].diffuse", light.value().m_diffuse);
+        meshRenderer.model->shader->setUniFloat3("lights[" + std::to_string(index) + "].specular", light.value().m_specular);
+        meshRenderer.model->shader->setUniFloat("lights[" + std::to_string(index) + "].constant", light.value().m_constant);
+        meshRenderer.model->shader->setUniFloat("lights[" + std::to_string(index) + "].linear", light.value().m_linear);
+        meshRenderer.model->shader->setUniFloat("lights[" + std::to_string(index) + "].quadratic", light.value().m_quadratic);
+        meshRenderer.model->shader->setUniFloat("material.shininess", light.value().m_shininess);
+        index++;
+    }
     meshRenderer.model->shader->setUniFloat3("viewPos", transform.getGlobalPosition());
-
-    meshRenderer.model->shader->setUniFloat3("light.ambient", 0.2f, 0.2f, 0.2f);
-    meshRenderer.model->shader->setUniFloat3("light.diffuse", 0.5f, 0.5f, 0.5f);
-    meshRenderer.model->shader->setUniFloat3("light.specular", 1.0f, 1.0f, 1.0f);
-    meshRenderer.model->shader->setUniFloat("material.shininess", 32.0f);;
 
     for(auto & meshes : meshRenderer.model->meshes)
         drawMesh(*meshRenderer.model, meshes);
@@ -56,8 +65,7 @@ void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mes
         else
             continue;
 
-        int y = (int)i;
-        model.shader->setUniInt("material.diffuse", y);
+        model.shader->setUniInt("material.diffuse", (int)i);
         glBindTexture(GL_TEXTURE_2D, mesh->m_texture[i]->getId());
     }
     // draw mesh
