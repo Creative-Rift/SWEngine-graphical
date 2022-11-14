@@ -51,9 +51,12 @@ void sw::AudioSource::playOnStart()
 
 void sw::AudioSource::defineBuffer(std::string name)
 {
-    auto buffer = sw::OpenResources::m_naudio[std::move(name)];
+    auto buffer = sw::OpenResources::m_naudio[name];
     alSourcei(m_source, AL_BUFFER, buffer->getBuffer());
     m_endPoint = buffer->getDuration();
+    ALenum error = alGetError();
+    if ( error != AL_NO_ERROR)
+        std::cerr << error << std::endl;
 }
 
 std::string sw::AudioSource::randomHandler()
@@ -86,6 +89,7 @@ sw::AudioSource &sw::AudioSource::addAudio(std::string audio)
 
 sw::AudioSource &sw::AudioSource::play()
 {
+    stop();
     if (m_randomized)
         defineBuffer(randomHandler());
     alSourcePlay(m_source);
@@ -94,6 +98,7 @@ sw::AudioSource &sw::AudioSource::play()
 
 sw::AudioSource &sw::AudioSource::play(int index)
 {
+    stop();
     defineBuffer(m_audios[index]);
     if (m_randomized)
         defineBuffer(randomHandler());
@@ -103,6 +108,7 @@ sw::AudioSource &sw::AudioSource::play(int index)
 
 sw::AudioSource &sw::AudioSource::play(std::string name)
 {
+    stop();
     defineBuffer(std::move(name));
     if (m_randomized)
         defineBuffer(randomHandler());

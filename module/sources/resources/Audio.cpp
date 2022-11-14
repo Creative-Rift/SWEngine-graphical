@@ -19,7 +19,8 @@ m_rate(0),
 m_samples(),
 m_format(AL_NONE),
 m_buffer(0),
-m_duration(0)
+m_duration(0),
+m_filepath(path)
 {
     m_file = sf_open(path.c_str(), SFM_READ, &m_fileInfo);
     if (!m_file)

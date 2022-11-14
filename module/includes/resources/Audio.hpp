@@ -30,6 +30,7 @@ namespace sw
             ALenum m_format;
             ALuint m_buffer;
             double m_duration;
+            std::string m_filepath;
 
         public:
             explicit Audio(std::string path);
