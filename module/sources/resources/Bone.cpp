@@ -85,8 +85,7 @@ int sw::Bone::getPositionIndex(float animationTime)
         if (animationTime < m_pos[index + 1].m_timeStamp)
             return index;
     }
-    assert(0);
-    throw sw::Error("", "");
+    return 0;
 }
 
 int sw::Bone::getRotationIndex(float animationTime)

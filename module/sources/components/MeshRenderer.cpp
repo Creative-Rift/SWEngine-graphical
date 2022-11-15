@@ -10,7 +10,7 @@
 
 sw::MeshRenderer::MeshRenderer(sw::GameObject &gameObject, std::string name) :
 sw::Component(gameObject),
-model(gameObject.scene().resources.m_nmodel[std::move(name)])
+model(sw::OpenResources::m_nmodel[std::move(name)])
 {}
 
 sw::MeshRenderer &sw::MeshRenderer::attachLight(std::string lightName)
