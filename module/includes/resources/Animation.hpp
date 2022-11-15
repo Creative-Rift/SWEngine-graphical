@@ -59,6 +59,7 @@ namespace sw
         const aiScene* m_scene;
         std::shared_ptr<Model> m_model;
         Assimp::Importer m_importer;
+        std::string m_path;
 
     };
 } // namespace sw

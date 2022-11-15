@@ -13,13 +13,16 @@
 #include "resources/Model.hpp"
 #include "Components.hpp"
 #include "Light.hpp"
+#include "utils/Reference.hpp"
 
 namespace sw
 {
     class MeshRendererManager;
+    class ModelAnimator;
     class SW_GRAPH_MODULE_EXPORT MeshRenderer : public Component{
     public:
         std::shared_ptr<Model> model;
+        sw::Reference<ModelAnimator> m_animator;
 
         MeshRenderer(sw::GameObject& gameObject, std::string name);
 

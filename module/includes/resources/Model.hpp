@@ -22,14 +22,10 @@ namespace sw
     {
     public:
         Model() = delete;
-        Model(Model const&) = delete;
-        Model(Model&&) = delete;
-        Model& operator=(Model const&) = delete;
-        Model& operator=(Model&&) = delete;
         explicit Model(std::string path);
         ~Model();
 
-        std::vector<std::shared_ptr<Mesh>> meshes;
+        std::vector<Mesh> meshes;
         std::shared_ptr<Shader> shader;
         void compileModel();
         [[nodiscard]] bool isLoaded() const noexcept;
@@ -43,7 +39,7 @@ namespace sw
 
         void processNode(aiNode *node, const aiScene *scene);
         void loadModel(std::string path);
-        std::shared_ptr<Mesh> processMesh(aiMesh *mesh, const aiScene *scene);
+        Mesh processMesh(aiMesh *mesh, const aiScene *scene);
         std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
         void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene);
     };

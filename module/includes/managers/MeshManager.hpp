@@ -23,7 +23,7 @@ namespace sw
 
     private:
         void drawModel(sw::MeshRenderer& meshRenderer, sw::Transform &transform);
-        void drawMesh(sw::Model &model, std::shared_ptr<sw::Mesh> &mesh);
+        void drawMesh(sw::Model &model, sw::Mesh &mesh);
     }; // class RigidBody2DManager
 } // namespace sw
 

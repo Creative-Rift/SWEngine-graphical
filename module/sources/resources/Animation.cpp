@@ -18,8 +18,9 @@ m_bones(),
 m_rootNode(),
 m_boneInfoMap(),
 m_scene(),
-m_model(),
-m_importer()
+m_model(nullptr),
+m_importer(),
+m_path(animationPath)
 {
     m_scene = m_importer.ReadFile(animationPath, aiProcess_Triangulate);
     assert(m_scene && m_scene->mRootNode);

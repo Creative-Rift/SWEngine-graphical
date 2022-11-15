@@ -46,31 +46,39 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     }
     meshRenderer.model->shader->setUniFloat3("viewPos", transform.getGlobalPosition());
 
+    if (meshRenderer.m_animator.hasValue()) {
+        meshRenderer.m_animator.value().updateAnimation(meshRenderer.m_animator.value().m_play ? sw::OpenGLModule::chrono().getElapsedTime() : 0);
+        auto transforms = meshRenderer.m_animator.value().getFinalBoneMatrices();
+        meshRenderer.model->shader->useShader();
+        for (int i = 0; i < transforms.size(); ++i)
+            meshRenderer.model->shader->setUniMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+    }
+
     for(auto & meshes : meshRenderer.model->meshes)
         drawMesh(*meshRenderer.model, meshes);
     glUseProgram(0);
 }
 
-void sw::MeshRendererManager::drawMesh(sw::Model &model, std::shared_ptr<sw::Mesh> &mesh)
+void sw::MeshRendererManager::drawMesh(sw::Model &model, sw::Mesh &mesh)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
-    for(unsigned int i = 0; i < mesh->m_texture.size(); i++)
+    for(unsigned int i = 0; i < mesh.m_texture.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
         std::string number;
-        std::string name = mesh->m_texture[i]->type;
+        std::string name = mesh.m_texture[i]->type;
         if(name == "texture_diffuse")
             number = std::to_string(diffuseNr++);
         else
             continue;
 
         model.shader->setUniInt("material.diffuse", (int)i);
-        glBindTexture(GL_TEXTURE_2D, mesh->m_texture[i]->getId());
+        glBindTexture(GL_TEXTURE_2D, mesh.m_texture[i]->getId());
     }
     // draw mesh
-    glBindVertexArray(mesh->VAO);
-    glDrawElements(GL_TRIANGLES, mesh->m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(mesh.VAO);
+    glDrawElements(GL_TRIANGLES, mesh.m_indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 
     glActiveTexture(GL_TEXTURE0);

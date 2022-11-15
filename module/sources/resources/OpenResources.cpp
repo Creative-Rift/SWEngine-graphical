@@ -202,7 +202,8 @@ void sw::OpenResources::unloadResources()
         for(auto &[name, ptr] : m_nmodel)
             ptr.reset();
         for(auto &[name, ptr] : m_nshader)
-            ptr.reset();
+            if (ptr.get())
+                ptr.reset();
         m_ntext.clear();
         m_naudio.clear();
         m_nfont.clear();
@@ -250,7 +251,7 @@ void sw::OpenResources::unloadResources()
         m_nmodel.erase(name);
     element.clear();
     for(auto &[name, ptr] : m_nshader) {
-        if (newScene->resources.m_nsh.contains(name))
+        if (newScene->resources.m_nsh.contains(name) || !ptr.get())
             continue;
         ptr.reset();
         element.emplace_back(name);

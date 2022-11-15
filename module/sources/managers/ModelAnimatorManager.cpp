@@ -10,14 +10,4 @@
 #include "managers/ModelAnimatorManager.hpp"
 
 void sw::ModelAnimatorManager::onUpdate()
-{
-    for (auto& [_, obj] : m_components) {
-        if (!obj->isActive() || !obj->gameObject().isActive())
-            continue;
-        obj->updateAnimation(obj->m_play ? sw::OpenGLModule::chrono().getElapsedTime() : 0);
-        auto transforms = obj->getFinalBoneMatrices();
-        obj->m_currentAnimation->getModel()->shader->useShader();
-        for (int i = 0; i < transforms.size(); ++i)
-            obj->m_currentAnimation->getModel()->shader->setUniMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-    }
-}
+{}

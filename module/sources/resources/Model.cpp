@@ -106,7 +106,7 @@ void sw::Model::processNode(aiNode *node, const aiScene *scene)
         processNode(node->mChildren[i], scene);
 }
 
-std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *scene)
+sw::Mesh sw::Model::processMesh(aiMesh *mesh, const aiScene *scene)
 {
     std::vector<sw::Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -168,7 +168,7 @@ std::shared_ptr<sw::Mesh> sw::Model::processMesh(aiMesh *mesh, const aiScene *sc
 
     ExtractBoneWeightForVertices(vertices, mesh, scene);
 
-    return std::make_shared<sw::Mesh>(vertices, indices, textures);
+    return {vertices, indices, textures};
 }
 
 std::vector<std::shared_ptr<sw::Texture>> sw::Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
@@ -188,7 +188,7 @@ std::vector<std::shared_ptr<sw::Texture>> sw::Model::loadMaterialTextures(aiMate
 void sw::Model::compileModel()
 {
     for (auto& mesh : meshes)
-        mesh->setupMesh();
+        mesh.setupMesh();
 }
 
 bool sw::Model::isLoaded() const noexcept

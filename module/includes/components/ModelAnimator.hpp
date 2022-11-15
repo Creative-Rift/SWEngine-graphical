@@ -34,12 +34,13 @@ namespace sw
         void pause();
         void stop();
         void restart();
+        bool m_play;
+
     private:
         std::vector<glm::mat4> m_finalBoneMatrices;
         std::shared_ptr<Animation> m_currentAnimation;
         double m_currentTime;
         float m_deltaTime;
-        bool m_play;
         std::string m_modelName;
 
         friend ModelAnimatorManager;

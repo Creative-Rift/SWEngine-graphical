@@ -37,9 +37,16 @@ namespace sw
 
             YAML::Node save() const;
             void load(YAML::Node node);
+
+            Shader( Shader const& ) = delete;
+            Shader( Shader&& ) = delete;
+
             Shader();
             Shader(std::string fragment, std::string vertex);
             ~Shader();
+
+            Shader& operator=(const Shader& other) = delete;
+            Shader& operator=( Shader&& ) = delete;
 
             Shader &setShaderSource(std::string source, ShaderSource::ShaderType type);
 
