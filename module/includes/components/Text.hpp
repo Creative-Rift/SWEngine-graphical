@@ -28,7 +28,7 @@ namespace sw
             sw::Color m_color;
             std::shared_ptr<Shader> m_shader;
             std::pair<float, float> m_pos;
-            float scale;
+            float m_scale;
             //float m_lineSpacing;
             //unsigned int m_nbrDisplayedChar;
 
@@ -55,6 +55,7 @@ namespace sw
             Text& setFont(std::string name);
             Text& setColor(sw::Color color);
             Text &setPosition(float xpos, float ypos);
+            Text &setSize(float scale);
 
             [[nodiscard]] const std::shared_ptr<Shader> getShader() const noexcept;
             [[nodiscard]] const Color& getColor() const noexcept;
