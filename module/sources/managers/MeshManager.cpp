@@ -47,7 +47,7 @@ void sw::MeshRendererManager::drawModel(sw::MeshRenderer& meshRenderer, sw::Tran
     meshRenderer.model->shader->setUniFloat3("viewPos", transform.getGlobalPosition());
 
     if (meshRenderer.m_animator.hasValue()) {
-        meshRenderer.m_animator.value().updateAnimation(meshRenderer.m_animator.value().m_play ? sw::OpenGLModule::chrono().getElapsedTime() : 0);
+        meshRenderer.m_animator.value().updateAnimation(meshRenderer.m_animator.value().m_play ? sw::OpenGLModule::deltaTime() : 0);
         auto transforms = meshRenderer.m_animator.value().getFinalBoneMatrices();
         meshRenderer.model->shader->useShader();
         for (int i = 0; i < transforms.size(); ++i)

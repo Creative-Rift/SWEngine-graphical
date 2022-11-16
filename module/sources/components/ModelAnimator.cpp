@@ -38,6 +38,9 @@ void sw::ModelAnimator::updateAnimation(float dt)
 
 void sw::ModelAnimator::playAnimation(std::string animationName)
 {
+    if (m_animName == animationName)
+        return;
+    m_animName = animationName;
     m_currentAnimation = sw::OpenResources::m_nanimation[std::move(animationName)];
     m_currentAnimation->attachModel(m_modelName);
     m_currentTime = 0.0f;

@@ -45,6 +45,7 @@ namespace sw
             static sw::Chrono m_chrono;
             static SceneManager m_sceneManager;
             static EventManager m_eventManager;
+            static double m_deltaTime;
             explicit OpenGLModule();
             ~OpenGLModule() = default;
 
@@ -60,6 +61,7 @@ namespace sw
             static SceneManager& sceneManager();
             static EventManager& eventManager();
             static Chrono& chrono();
+            static double deltaTime();
             static void CheckOpenOperation();
             [[nodiscard]] std::string type() const;
 

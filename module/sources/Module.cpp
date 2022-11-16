@@ -8,6 +8,7 @@
 
 #include "JSNP/jsnp.hpp"
 
+#include "config/Config.hpp"
 #include "OpenGLModule.hpp"
 #include "resources/OpenResources.hpp"
 #include "utils/Speech.hpp"
@@ -17,8 +18,6 @@
 
 #include <iostream>
 #include <algorithm>
-#include <ranges>
-#include <execution>
 #include <thread>
 
 SW_GRAPH_MODULE_EXPORT sw::SceneManager sw::OpenGLModule::m_sceneManager = {};
@@ -30,6 +29,7 @@ SW_GRAPH_MODULE_EXPORT double sw::OpenGLModule::m_frameRate(1.0/60.0);
 SW_GRAPH_MODULE_EXPORT ALCdevice* sw::OpenGLModule::m_audioDevice(nullptr);
 SW_GRAPH_MODULE_EXPORT ALCcontext* sw::OpenGLModule::m_audioContext(nullptr);
 SW_GRAPH_MODULE_EXPORT std::vector<std::string> sw::OpenGLModule::m_devices;
+SW_GRAPH_MODULE_EXPORT double sw::OpenGLModule::m_deltaTime = 0.0;
 
 sw::OpenGLModule::OpenGLModule()
 = default;
@@ -53,6 +53,7 @@ void sw::OpenGLModule::load()
 {
     sw::Speech::flush();
 
+    sw::Config::SetupConfig();
     sw::Window::CreateWindow();
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -97,6 +98,7 @@ void sw::OpenGLModule::update()
         m_chronoWindow.start();
     }
     sceneManager().checkForNewScene();
+    m_deltaTime = m_chrono.getElapsedTime();
     m_chrono.tour();
 }
 
@@ -113,6 +115,11 @@ sw::EventManager& sw::OpenGLModule::eventManager()
 sw::Chrono &sw::OpenGLModule::chrono()
 {
     return (m_chrono);
+}
+
+double sw::OpenGLModule::deltaTime()
+{
+    return (m_deltaTime);
 }
 
 void sw::OpenGLModule::unload()

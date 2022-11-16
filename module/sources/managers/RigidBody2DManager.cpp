@@ -17,7 +17,7 @@
 void sw::RigidBody2DManager::onUpdate()
 {
     auto gravity = 9.81f;
-    auto currentTime = (float)sw::OpenGLModule::m_chrono.getElapsedTime();
+    auto currentTime = (float)sw::OpenGLModule::deltaTime();
 
     for (auto& [_, obj] : m_components) {
         if (!obj->isActive() || !obj->gameObject().isActive())

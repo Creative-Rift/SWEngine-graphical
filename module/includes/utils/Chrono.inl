@@ -37,7 +37,7 @@ inline void sw::Chrono::stop()
 
 inline void sw::Chrono::tour()
 {
-    m_tour = m_end;
+    m_tour = std::chrono::steady_clock::now();
 }
 
 inline double sw::Chrono::getElapsedTime() const

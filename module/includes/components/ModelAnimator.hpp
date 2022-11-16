@@ -42,6 +42,7 @@ namespace sw
         double m_currentTime;
         float m_deltaTime;
         std::string m_modelName;
+        std::string m_animName;
 
         friend ModelAnimatorManager;
     };
