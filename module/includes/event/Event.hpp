@@ -39,7 +39,7 @@ namespace sw
             /*////////////////////////////////////////////////////////////////*/
             /// @brief The list of Component's Listener.
             //
-            std::forward_list<std::shared_ptr<_IEventListener>> m_listenerList;
+            std::unordered_map<std::string, std::shared_ptr<_IEventListener>> m_listenerList;
             ///
 
         public:
@@ -66,7 +66,7 @@ namespace sw
             /// the @b Event occured. This function take nothing as argument.
             //
             template <class Cpt>
-            void subscribe(Cpt* cpt, void (Cpt::*call)());
+            void subscribe(std::string name, Cpt* cpt, void (Cpt::*call)());
             ///
 
             /*////////////////////////////////////////////////////////////////*/
@@ -80,8 +80,10 @@ namespace sw
             /// @b Event occured. This function must take an @b EventInfo as parameter.
             //
             template <class Cpt>
-            void subscribe(Cpt* cpt, void (Cpt::*call)(EventInfo&));
+            void subscribe(std::string name, Cpt* cpt, void (Cpt::*call)(EventInfo&));
             ///
+
+            void unsubscribe(std::string name);
 
             /*////////////////////////////////////////////////////////////////*/
             /// @brief When the Event occured, call this function to drop a

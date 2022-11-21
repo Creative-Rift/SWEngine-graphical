@@ -13,11 +13,19 @@
 
 #include "scene/Scene.hpp"
 #include "GameObject.hpp"
+#include "event/EventGODestroy.hpp"
 
 void sw::Scene::deleteRequestedEntities()
 {
-    for (auto& entityName : m_entitiesToDelete)
+    sw::GODestroyEvent event{"Ne"};
+    sw::EventInfo info {event};
+    std::string eventName = "GODestroy";
+    for (auto& entityName : m_entitiesToDelete) {
+        event.m_obj = entityName;
+        eventManager.drop(eventName, info);
         m_entities.erase(entityName);
+    }
+    m_entitiesToDelete.clear();
 }
 
 sw::GameObject& sw::Scene::createGameObject(const std::string& entityName)

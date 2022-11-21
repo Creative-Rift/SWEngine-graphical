@@ -20,7 +20,7 @@ m_mass(1),
 m_collideY(sw::CollisionEvent::V_NONE),
 m_collideX(sw::CollisionEvent::H_NONE)
 {
-    m_gameObject.scene().eventManager["Collision"].subscribe(this, &RigidBody2D::onCollision);
+    m_gameObject.scene().eventManager["Collision"].subscribe(m_gameObject.name(), this, &RigidBody2D::onCollision);
 }
 
 sw::RigidBody2D &sw::RigidBody2D::setMass(float mass)

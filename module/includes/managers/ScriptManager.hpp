@@ -30,7 +30,6 @@ namespace sw
             using AManager<Component>::AManager;
             virtual ~ScriptManager() override = default;
 
-            virtual void update() override {};
             void onUpdate() override {};
 
     }; // class ScriptManager

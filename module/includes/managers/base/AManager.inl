@@ -23,6 +23,7 @@ inline sw::AManager<Cpt>::AManager(const std::string& managerName, sw::Scene& sc
         m_componentsLayers{}
 {
     m_componentsLayers.needSort = true;
+    m_scene.eventManager["GODestroy"].subscribe(m_name, this, &AManager<Cpt>::onGameObjectDestroy);
 }
 
 template<ConcreteComponent Cpt>
@@ -296,4 +297,19 @@ inline YAML::Node sw::AManager<Cpt>::save() const
     node["name"] = name();
     node["valid"] = false;
     return (node);
+}
+
+template<ConcreteComponent Cpt>
+inline void sw::AManager<Cpt>::onGameObjectDestroy(sw::EventInfo& info)
+{
+    sw::ConcreteEventInfo auto& eInfo = info.getInfo<sw::GODestroyEvent>();
+
+    if (m_components.contains(eInfo.m_obj)) {
+        m_components.erase(eInfo.m_obj);
+        for (auto& [layer, name] : m_componentsLayers)
+            if (name == eInfo.m_obj) {
+                m_componentsLayers.remove(std::pair<int, std::string>(layer, name));
+                break;
+            }
+    }
 }

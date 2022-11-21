@@ -32,6 +32,7 @@
 #include "components/base/IComponent.hpp"
 #include "exception/Error.hpp"
 #include "utils/Speech.hpp"
+#include "event/EventGODestroy.hpp"
 #include "Log.hpp"
 
 namespace sw
@@ -267,6 +268,8 @@ namespace sw
             /// @brief Function called on the update of the @b Manager.
             virtual void onLoad(YAML::Node& node) override { sw::Speech::Warning("[ " + m_name + "] Nothing to load!"); };
             //[[nodiscard]] virtual YAML::Node load() const override;
+
+            virtual void onGameObjectDestroy(sw::EventInfo& info);
 
     }; // class AManager
 

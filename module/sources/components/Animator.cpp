@@ -23,7 +23,7 @@ m_type(ANIM_SPRITE),
 m_playOnStart(true)
 {
     m_displayRect = {0, 0, static_cast<float>(m_spr.texture()->getWidth()), static_cast<float>(m_spr.texture()->getHeight())};
-    gameObject.scene().eventManager["Start"].subscribe(this, &Animator::playOnStart);
+    gameObject.scene().eventManager["Start"].subscribe(m_gameObject.name(), this, &Animator::playOnStart);
 }
 
 void sw::Animator::playOnStart()

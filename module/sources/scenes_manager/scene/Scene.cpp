@@ -35,6 +35,7 @@ m_configFile{"None"}
     eventManager.create("Start");
     eventManager.create("Update");
     eventManager.create("Unload");
+    eventManager.create("GODestroy");
 }
 
 void sw::Scene::load(bool async)
@@ -121,6 +122,7 @@ void sw::Scene::updateLogic()
     try {
         m_managers["AnimatorManager"]->update();
         m_managers["ModelAnimatorManager"]->update();
+        m_managers["ScriptManager"]->update();
         eventManager.drop("Update");
         m_managers["AudioManager"]->update();
     }
