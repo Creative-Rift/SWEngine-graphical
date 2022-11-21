@@ -93,7 +93,9 @@ void sw::OpenGLModule::update()
     sw::Speech::flush();
 
     if (m_frameRate != 0.0) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000)));
+        auto sleep = std::chrono::milliseconds(static_cast<int>((m_frameRate - m_chronoWindow.getTotalTime()) * 1000));
+        if (sleep.count() > 0)
+            std::this_thread::sleep_for(sleep);
         m_chronoWindow.stop();
         m_chronoWindow.start();
     }
