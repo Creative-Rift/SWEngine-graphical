@@ -25,7 +25,7 @@ void sw::Transform::scale(const sw::Vector3f& scale)
         m_scale *= scale;
         m_globalScale *= scale;
         for (auto& [_, entity] : m_gameObject.m_childrenMap)
-            entity.get().getComponent<sw::Transform>("TransformManager").scale(scale);
+            entity.get().transform().scale(scale);
         needUpdate(true);
     }
 }

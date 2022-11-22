@@ -39,7 +39,8 @@ namespace sw
             /*////////////////////////////////////////////////////////////////*/
             /// @brief The list of Component's Listener.
             //
-            std::unordered_map<std::string, std::shared_ptr<_IEventListener>> m_listenerList;
+            std::forward_list<std::shared_ptr<_IEventListener>> m_listenerList;
+            std::forward_list<std::string> m_listenerListName;
             ///
 
         public:

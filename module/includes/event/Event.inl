@@ -19,11 +19,13 @@ inline sw::Event::Event()
 template <class Cpt>
 inline void sw::Event::subscribe(std::string name, Cpt* cpt, void (Cpt::*call)())
 {
-    m_listenerList.emplace(name, std::make_shared<EventListener<Cpt>>(*cpt, call));
+    m_listenerList.emplace_front(std::make_shared<EventListener<Cpt>>(*cpt, call));
+    m_listenerListName.emplace_front(name);
 }
 
 template <class Cpt>
 inline void sw::Event::subscribe(std::string name, Cpt* cpt, void (Cpt::*call)(EventInfo&))
 {
-    m_listenerList.emplace(name, std::make_shared<EventListener<Cpt>>(*cpt, call));
+    m_listenerList.emplace_front(std::make_shared<EventListener<Cpt>>(*cpt, call));
+    m_listenerListName.emplace_front(name);
 }

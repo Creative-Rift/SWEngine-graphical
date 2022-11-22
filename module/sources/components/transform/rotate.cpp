@@ -21,7 +21,7 @@ void sw::Transform::setRotation(float angle, float rotationX, float rotationY, f
         m_globalRotationAxis.z = rotationZ;
 
         for (auto& [_, entity] : m_gameObject.m_childrenMap)
-            entity.get().getComponent<sw::Transform>("TransformManager").setRotation(rotationX, rotationY, rotationZ);
+            entity.get().transform().setRotation(rotationX, rotationY, rotationZ);
         needUpdate(true);
     }}
 
