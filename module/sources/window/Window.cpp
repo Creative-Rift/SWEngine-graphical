@@ -9,6 +9,7 @@
 #include "Window.hpp"
 #include "Monitors.hpp"
 #include "utils/Inputs.hpp"
+#include "utils/tree/aabb.hpp"
 
 SW_GRAPH_MODULE_EXPORT bool sw::Window::m_ready(false);
 SW_GRAPH_MODULE_EXPORT GLFWwindow* sw::Window::m_window(nullptr);

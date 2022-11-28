@@ -56,8 +56,10 @@ const sw::Vector2f &sw::RigidBody2D::getVelocity() const
     return (m_velocity);
 }
 
-void sw::RigidBody2D::onCollision(sw::EventInfo& info)
+void sw::RigidBody2D::onCollision(sw::EventInfo&)
 {
+    m_velocity = {0.0f, 0.0f};
+    /*
     sw::ConcreteEventInfo auto& eInfo = info.getInfo<sw::CollisionEvent>();
 
     if (m_gameObject.scene().getGameObject(eInfo.m_target).getComponent<sw::BoxCollider>("BoxColliderManager").isTrigger())
@@ -71,4 +73,5 @@ void sw::RigidBody2D::onCollision(sw::EventInfo& info)
         if (transform.getPosition().y + m_gameObject.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y > m_gameObject.scene().getGameObject(eInfo.m_target).transform().getPosition().y)
             transform.move(0, (m_gameObject.scene().getGameObject(eInfo.m_target).transform().getPosition().y - m_gameObject.transform().getPosition().y - m_gameObject.getComponent<sw::BoxCollider>("BoxColliderManager").getSize().y));
     }
+    */
 }

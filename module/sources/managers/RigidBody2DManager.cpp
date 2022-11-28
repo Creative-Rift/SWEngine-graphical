@@ -38,6 +38,13 @@ void sw::RigidBody2DManager::onUpdate()
             vel.y = 0;
         obj->setVelocity(vel);
         transform.move(vel.x * currentTime, vel.y * currentTime);
+        
+        if (obj->gameObject().id >= 0)
+        {
+            auto &tmp = transform.getPosition();
+            m_scene.m_tree.relocate(obj->gameObject().id, {tmp.x, tmp.y});
+        }
+        
         obj->m_collideY = sw::CollisionEvent::V_NONE;
         obj->m_collideX = sw::CollisionEvent::H_NONE;
         obj->m_lastTime = currentTime;

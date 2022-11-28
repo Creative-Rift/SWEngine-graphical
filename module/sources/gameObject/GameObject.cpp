@@ -20,7 +20,8 @@ sw::GameObject::GameObject(const std::string& GameObjectName, sw::Scene& sceneRe
             m_scene(sceneRef),
             m_transform(std::make_shared<Transform>(*this)),
             m_parent(),
-            m_childrenMap()
+            m_childrenMap(),
+            id(-1)
 {}
 
 sw::GameObject::GameObject(const std::string& gameObjectName, sw::Scene& sceneRef, bool isActive)
@@ -29,7 +30,8 @@ sw::GameObject::GameObject(const std::string& gameObjectName, sw::Scene& sceneRe
             m_scene(sceneRef),
             m_transform(std::make_shared<Transform>(*this)),
             m_parent(),
-            m_childrenMap()
+            m_childrenMap(),
+            id(-1)
 
 {}
 
