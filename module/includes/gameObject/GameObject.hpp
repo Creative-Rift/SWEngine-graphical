@@ -160,6 +160,9 @@ namespace sw
 
             Transform& transform();
 
+            //AABB tree key
+            int id;
+
             [[nodiscard]] YAML::Node save() const override;
             void load(YAML::Node& node);
     };

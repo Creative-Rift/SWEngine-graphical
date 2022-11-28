@@ -12,14 +12,17 @@
 #include "event/EventCollision.hpp"
 #include "GameObject.hpp"
 
+#include <iostream>
+#include <vector>
 void sw::BoxColliderManager::onUpdate()
 {
     bool sendEvent = false;
 
     for (auto&[_, obj]: m_components) {
-        sw::CollisionEvent info(obj->gameObject().name(), "target->entity().name()");
         if (!obj->isActive() || !obj->gameObject().isActive() || obj->isStatic())
             continue;
+        sw::CollisionEvent info(obj->gameObject().name(), "target->entity().name()");
+        /*
         for (auto&[name, target]: m_static) {
             if (!target->isActive() || !target->gameObject().isActive())
                 continue;
@@ -64,6 +67,34 @@ void sw::BoxColliderManager::onUpdate()
             } catch (sw::Error &e) {
 
             }
+        }*/
+
+        auto &pos = m_scene.m_tree.get_aabb(obj->gameObject().id);
+
+        std::cout << "BoxColliderManager positions: " << pos.min() << " " << pos.max() << std::endl;
+        std::cout << "BoxColliderManager size: " << pos.size() << std::endl;
+        /*       
+        sw::Vector2f vel = {obj->getVelocity().x, obj->getVelocity().w};
+
+        vel.x = obj->getVelocity().x * 100;
+        vel.y += gravity / obj->getMass() * currentTime * 100;
+        */
+        std::vector<int> candidates{};
+
+        Vector2f min{pos.min().x /* + vel.x*/, pos.min().y/* + vel.y*/};
+        Vector2f max{pos.max().x /* + vel.x*/, pos.max().y/* + vel.y*/};
+        
+        //m_scene.m_tree.query(min, max, std::back_inserter(candidates));
+        m_scene.m_tree.query(obj->gameObject().id, std::back_inserter(candidates));
+
+        if (!candidates.empty())
+            sendEvent = true;
+        std::cout << "BoxColliderManager first candidate: " << candidates[0] << std::endl;
+        std::cout << "BoxColliderManager sendEvent: " << std::boolalpha << sendEvent << std::endl;
+        if (sendEvent) {
+            sendEvent = false;
+            sw::EventInfo ye(info);
+            m_scene.eventManager.drop("Collision", ye);
         }
     }
 }

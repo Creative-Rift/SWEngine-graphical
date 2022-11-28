@@ -31,6 +31,7 @@
 #include "resources/OpenResources.hpp"
 
 #include "gameObject/IGameObject.hpp"
+#include "utils/tree/aabb.hpp"
 
 namespace sw
 {
@@ -257,6 +258,10 @@ namespace sw
             [[nodiscard]] int getOrder(const std::string managerName) const;
 
             void save() const;
+
+            //AABB tree containing id of entity and their hitboxes
+            tree::tree<int, float> m_tree;
+            std::unordered_map<int, Reference<Component>> m_lut;
 
             friend void LoadResourcesFile(const std::string& path);
             friend void AddResourcesOnScene(jsnp::Token& it);
