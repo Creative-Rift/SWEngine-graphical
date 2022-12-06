@@ -34,13 +34,14 @@ m_pitch(),
 m_playOnStart(true)
 {
     alGenSources(1, &m_source);
-    gameObject.scene().eventManager["Start"].subscribe(m_gameObject.name(), this, &AudioSource::playOnStart);
+    //gameObject.scene().eventManager["Start"].subscribe(m_gameObject.name(), this, &AudioSource::playOnStart);
 }
 
 sw::AudioSource::~AudioSource() noexcept
 {
     alSourcei(m_source, AL_BUFFER, 0);
     alDeleteSources(1, &m_source);
+    //m_gameObject.scene().eventManager["Start"].unsubscribe(m_gameObject.name());
 }
 
 void sw::AudioSource::playOnStart()

@@ -28,7 +28,8 @@ resources{},
 m_managers{},
 m_entities{},
 m_managersLayers{},
-m_configFile{"None"}
+m_configFile{"None"},
+m_gameObjectId(0)
 {
     m_managersLayers.needSort = true;
     eventManager.create("Awake");
@@ -64,6 +65,7 @@ void sw::Scene::load(bool async)
     createManager<sw::MeshRendererManager>("MeshRendererManager");
     createManager<sw::ModelAnimatorManager>("ModelAnimatorManager");
     createManager<sw::LightManager>("LightManager");
+    createManager<sw::PrimitiveManager>("PrimitiveManager");
     sw::Speech::flush();
 
     if (m_configFile != "None")
@@ -137,6 +139,7 @@ void sw::Scene::updateGraphics()
         m_managers["MeshRendererManager"]->update();
         m_managers["SpriteManager"]->update();
         m_managers["TextManager"]->update();
+        m_managers["PrimitiveManager"]->update();
     }
     catch (sw::Error& error) {
         sw::Speech::Error(error.getMessage(), error.getCode());

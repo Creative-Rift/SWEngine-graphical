@@ -45,6 +45,7 @@ void sw::SpriteManager::onUpdate()
         object->getShader()->setUniMat4("projection", camera.getProjection());
         object->getShader()->setUniMat4("view", camera.getView());
         object->getShader()->setUniMat4("model", transform.getGlobalMatrix());
+        object->getShader()->setUniInt("hasTexture", 1);
         updateInvert(*object);
         object->m_vertexArray.update();
         glBindVertexArray(object->m_vertexArray.getVAO());

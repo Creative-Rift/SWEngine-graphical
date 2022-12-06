@@ -59,6 +59,7 @@ namespace sw
             Reference<CameraManager> m_cameraManager;
 
             std::string m_configFile;
+            int m_gameObjectId;
 
             class ManagerMap :
                     private std::unordered_map<std::string, std::shared_ptr<_IManager>>

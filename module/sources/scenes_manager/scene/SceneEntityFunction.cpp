@@ -32,7 +32,9 @@ sw::GameObject& sw::Scene::createGameObject(const std::string& entityName)
 {
     if (hasGameObject(entityName))
         sw::Speech::Warning(sw::Log::warning325(FUNCTION, name, entityName));
-    return (dynamic_cast<sw::GameObject&>(*m_entities.try_emplace(entityName, std::make_shared<sw::GameObject>(entityName, *this)).first->second));
+    auto& newGO = dynamic_cast<sw::GameObject&>(*m_entities.try_emplace(entityName, std::make_shared<sw::GameObject>(entityName, *this)).first->second);
+    newGO.id = m_gameObjectId++;
+    return (newGO);
 }
 
 sw::GameObject& sw::Scene::getGameObject(const std::string& entityName)

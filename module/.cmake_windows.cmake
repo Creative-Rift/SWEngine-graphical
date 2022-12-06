@@ -21,8 +21,6 @@ set( SHARED_LIB_NAME
         OpenAL32
         )
 
-set( CMAKE_CXX_FLAGS_DEBUG /MP)
-
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
@@ -84,9 +82,9 @@ target_include_directories(${EXEC} PUBLIC ${INC_FOLDERS})
 
 ## ADD PARAMETER
 ## <=====================================>
-if (UNIX)
-    target_compile_options(${EXEC} PRIVATE -g3)
-endif (UNIX)
+if(MSVC)
+    target_compile_options(${EXEC} PRIVATE "/MP")
+endif()
 ## <=====================================>
 
 

@@ -19,5 +19,6 @@
 #include "Sprite.hpp"
 #include "Text.hpp"
 #include "Transform.hpp"
+#include "Primitive.hpp"
 
 #endif //SHIPWRECK_ENGINE_COMPONENTS_HPP

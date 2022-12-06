@@ -95,7 +95,6 @@ int sw::Bone::getRotationIndex(float animationTime)
         if (animationTime < m_rot[index + 1].m_timeStamp)
             return index;
     }
-    assert(0);
     throw sw::Error("", "");
 }
 
@@ -106,7 +105,6 @@ int sw::Bone::getScaleIndex(float animationTime)
         if (animationTime < m_scale[index + 1].m_timeStamp)
             return index;
     }
-    assert(0);
     throw sw::Error("", "");
 }
 
