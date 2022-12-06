@@ -162,8 +162,12 @@ void sw::Scene::unload()
     m_entities.clear();
     m_managersLayers.clear();
     m_entitiesToDelete.clear();
+    m_managersToDelete.clear();
     eventManager.clearEvents();
+    m_gameObjectId = 0;
     m_isLoad = false;
+    m_tree.clear();
+    m_lut.clear();
 
     sw::Speech::Info(sw::Log::info370_Success(FUNCTION, name));
 }
