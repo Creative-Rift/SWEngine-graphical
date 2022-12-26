@@ -6,7 +6,7 @@
 ** Description: [CHANGE]
 */
 
-#include "SW/Engine.hpp"
+#include "OpenGLModule.hpp"
 
 #include "OpenGLModule.hpp"
 
@@ -15,13 +15,13 @@
 
 void TransformTest::SetUp()
 {
-    sw::Engine::createModule<sw::OpenGLModule>();
-    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
-    sw::Engine::initialize();
-    sw::Engine::activeScene().load();
+    //sw::Engine::createModule<sw::OpenGLModule>();
+    //sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    //sw::Engine::initialize();
+    //sw::Engine::activeScene().load();
 }
 
 void TransformTest::TearDown()
 {
-    sw::Engine::terminate();
+    //sw::Engine::terminate();
 }

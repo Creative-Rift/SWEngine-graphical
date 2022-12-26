@@ -6,22 +6,24 @@
 ** Description: [CHANGE]
 */
 
-#include "SW/Engine.hpp"
+#include "OpenGLModule.hpp"
 
 #include "OpenGLModule.hpp"
 
 #include "scenes/Main.hpp"
 #include "fixture/SpriteFixture.hpp"
 
+//TODO Fix comment
+
 void SpriteFixture::SetUp()
 {
-    sw::Engine::createModule<sw::OpenGLModule>();
-    sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
-    sw::Engine::initialize();
-    sw::Engine::activeScene().load();
+    //sw::Engine::createModule<sw::OpenGLModule>();
+    //sw::ConcreteScene auto& mainScene = sw::Engine::createScene<Main>("Main");
+    //sw::Engine::initialize();
+    //sw::Engine::activeScene().load();
 }
 
 void SpriteFixture::TearDown()
 {
-    sw::Engine::terminate();
+    //sw::Engine::terminate();
 }

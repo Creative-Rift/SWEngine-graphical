@@ -6,15 +6,16 @@
 ** Description: [CHANGE]
 */
 
-#include "SW/Engine.hpp"
+#include "OpenGLModule.hpp"
 
 #include "components/Transform.hpp"
+#include "GameObject.hpp"
 
 #include "fixture/TransformTest.hpp"
 
 TEST_F(TransformTest, move_value)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.move(1, 1, 1);
@@ -26,7 +27,7 @@ TEST_F(TransformTest, move_value)
 
 TEST_F(TransformTest, move_vector)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.move({10, 8, 789});
@@ -34,12 +35,11 @@ TEST_F(TransformTest, move_vector)
     ASSERT_EQ(transform.getPosition().x, 10);
     ASSERT_EQ(transform.getPosition().y, 8);
     ASSERT_EQ(transform.getPosition().z, 789);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, setPosition_value)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.setPosition(10, 8, 7);
@@ -47,12 +47,11 @@ TEST_F(TransformTest, setPosition_value)
     ASSERT_EQ(transform.getPosition().x, 10);
     ASSERT_EQ(transform.getPosition().y, 8);
     ASSERT_EQ(transform.getPosition().z, 7);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, setPosition_vector)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.setPosition({10, 8, 7});
@@ -60,12 +59,11 @@ TEST_F(TransformTest, setPosition_vector)
     ASSERT_EQ(transform.getPosition().x, 10);
     ASSERT_EQ(transform.getPosition().y, 8);
     ASSERT_EQ(transform.getPosition().z, 7);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, scale_value)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.scale(2, 2, 2);
@@ -74,12 +72,11 @@ TEST_F(TransformTest, scale_value)
     ASSERT_EQ(transform.getScale().x, 4);
     ASSERT_EQ(transform.getScale().y, 4);
     ASSERT_EQ(transform.getScale().z, 4);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, scale_vector)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.scale({2, 2, 2});
@@ -88,12 +85,11 @@ TEST_F(TransformTest, scale_vector)
     ASSERT_EQ(transform.getScale().x, 40);
     ASSERT_EQ(transform.getScale().y, 40);
     ASSERT_EQ(transform.getScale().z, 40);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, setScale_value)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.setScale(2, 2, 2);
@@ -102,12 +98,11 @@ TEST_F(TransformTest, setScale_value)
     ASSERT_EQ(transform.getScale().x, 20);
     ASSERT_EQ(transform.getScale().y, 20);
     ASSERT_EQ(transform.getScale().z, 20);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, setScale_vector)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
 
     transform.setScale({2, 2, 2});
@@ -116,12 +111,11 @@ TEST_F(TransformTest, setScale_vector)
     ASSERT_EQ(transform.getScale().x, 80);
     ASSERT_EQ(transform.getScale().y, 80);
     ASSERT_EQ(transform.getScale().z, 80);
-    sw::Engine::terminate();
 }
 
 TEST_F(TransformTest, scale_translate_rotate)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
     glm::mat4 result;
     glm::mat4 excepted{{2, 0, 0, 0},
@@ -142,5 +136,4 @@ TEST_F(TransformTest, scale_translate_rotate)
     for (int line = 0; line < glm::mat4::length(); line++)
         for (int col = 0; col < result[line].length(); col++)
             ASSERT_EQ(result[line][col], excepted[line][col]);
-    sw::Engine::terminate();
 }

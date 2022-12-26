@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include "SW/Utils.hpp"
+#include "utils/Vector2.hpp"
 
 TEST (Vector2, contructor_default)
 {

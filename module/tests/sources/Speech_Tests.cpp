@@ -9,7 +9,7 @@
 #include <thread>
 #include <gtest/gtest.h>
 
-#include "SW/utils/Speech.hpp"
+#include "utils/Speech.hpp"
 
 TEST (Speech, error_color)
 {
@@ -23,7 +23,7 @@ TEST (Speech, error_color)
     EXPECT_NE(str.find("Error: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_NE(str.find("\e[91m"), std::string::npos);
+    EXPECT_NE(str.find("[91m"), std::string::npos);
 }
 
 TEST (Speech, error_no_color)
@@ -38,7 +38,7 @@ TEST (Speech, error_no_color)
     EXPECT_NE(str.find("Error: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[91m"), std::string::npos);
+    EXPECT_EQ(str.find("[91m"), std::string::npos);
 }
 
 TEST (Speech, error_no_display)
@@ -52,7 +52,7 @@ TEST (Speech, error_no_display)
     EXPECT_EQ(str.find("Error: "), std::string::npos);
     EXPECT_EQ(str.find("Message"), std::string::npos);
     EXPECT_EQ(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[91m"), std::string::npos);
+    EXPECT_EQ(str.find("[91m"), std::string::npos);
 }
 
 TEST (Speech, warning_color)
@@ -67,7 +67,7 @@ TEST (Speech, warning_color)
     EXPECT_NE(str.find("Warning: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_NE(str.find("\e[93m"), std::string::npos);
+    EXPECT_NE(str.find("[93m"), std::string::npos);
 }
 
 TEST (Speech, warning_no_color)
@@ -82,7 +82,7 @@ TEST (Speech, warning_no_color)
     EXPECT_NE(str.find("Warning: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[93m"), std::string::npos);
+    EXPECT_EQ(str.find("[93m"), std::string::npos);
 }
 
 TEST (Speech, warning_no_display)
@@ -96,7 +96,7 @@ TEST (Speech, warning_no_display)
     EXPECT_EQ(str.find("Warning: "), std::string::npos);
     EXPECT_EQ(str.find("Message"), std::string::npos);
     EXPECT_EQ(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[93m"), std::string::npos);
+    EXPECT_EQ(str.find("[93m"), std::string::npos);
 }
 
 TEST (Speech, debug_color)
@@ -111,7 +111,7 @@ TEST (Speech, debug_color)
     EXPECT_NE(str.find("Debug: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_NE(str.find("\e[36m"), std::string::npos);
+    EXPECT_NE(str.find("[36m"), std::string::npos);
 }
 
 TEST (Speech, debug_no_color)
@@ -126,7 +126,7 @@ TEST (Speech, debug_no_color)
     EXPECT_NE(str.find("Debug: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[36m"), std::string::npos);
+    EXPECT_EQ(str.find("[36m"), std::string::npos);
 }
 
 TEST (Speech, debug_no_display)
@@ -140,7 +140,7 @@ TEST (Speech, debug_no_display)
     EXPECT_EQ(str.find("Debug: "), std::string::npos);
     EXPECT_EQ(str.find("Message"), std::string::npos);
     EXPECT_EQ(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[36m"), std::string::npos);
+    EXPECT_EQ(str.find("[36m"), std::string::npos);
 }
 
 TEST (Speech, info_color)
@@ -155,7 +155,7 @@ TEST (Speech, info_color)
     EXPECT_NE(str.find("Info: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_NE(str.find("\e[32m"), std::string::npos);
+    EXPECT_NE(str.find("[32m"), std::string::npos);
 }
 
 TEST (Speech, info_no_color)
@@ -170,7 +170,7 @@ TEST (Speech, info_no_color)
     EXPECT_NE(str.find("Info: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[32m"), std::string::npos);
+    EXPECT_EQ(str.find("[32m"), std::string::npos);
 }
 
 TEST (Speech, info_no_display)
@@ -185,7 +185,7 @@ TEST (Speech, info_no_display)
     EXPECT_EQ(str.find("Info: "), std::string::npos);
     EXPECT_EQ(str.find("Message"), std::string::npos);
     EXPECT_EQ(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[32m"), std::string::npos);
+    EXPECT_EQ(str.find("[32m"), std::string::npos);
 }
 
 TEST (Speech, no_display)
@@ -199,7 +199,7 @@ TEST (Speech, no_display)
     EXPECT_EQ(str.find("Info: "), std::string::npos);
     EXPECT_EQ(str.find("Message"), std::string::npos);
     EXPECT_EQ(str.find("Code"), std::string::npos);
-    EXPECT_EQ(str.find("\e[32m"), std::string::npos);
+    EXPECT_EQ(str.find("[32m"), std::string::npos);
 }
 
 TEST (Speech, is_same)
@@ -223,5 +223,5 @@ TEST (Speech, is_same)
     EXPECT_NE(str.find("Error: "), std::string::npos);
     EXPECT_NE(str.find("Message"), std::string::npos);
     EXPECT_NE(str.find("Code"), std::string::npos);
-    EXPECT_NE(str.find("\e[91m"), std::string::npos);
+    EXPECT_NE(str.find("[91m"), std::string::npos);
 }

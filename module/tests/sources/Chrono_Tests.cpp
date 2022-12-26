@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <thread>
 
-#include "SW/Utils.hpp"
+#include "utils/Chrono.hpp"
 
 TEST (Chrono, constructor)
 {

@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include "SW/Utils.hpp"
+#include "utils/Reference.hpp"
 
 TEST (Reference, constructor_default)
 {

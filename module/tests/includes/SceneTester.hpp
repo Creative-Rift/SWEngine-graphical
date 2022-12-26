@@ -9,10 +9,9 @@
 #ifndef __UNITESTS_SCENETESTER_HPP__
 #define __UNITESTS_SCENETESTER_HPP__
 
-#include "testHeader.hpp"
+#include "BaseEngineTest.hpp"
 
-class CptManagerThrow
-        :   public sw::AManager<sw::Component>
+class CptManagerThrow : public sw::AManager<sw::Component>
 {
     public:
         using sw::AManager<sw::Component>::AManager;
@@ -22,38 +21,38 @@ class CptManagerThrow
         {
             throw (sw::Error("TestCptManagerThrow", "Code"));
         }
-        std::string type() const override { return ("CptManagerThrow"); }
 };
 
 class TestThrowScene
-        :   public sw::AScene
 {
     public:
-        using sw::AScene::AScene;
         ~TestThrowScene() = default;
         bool m_init = false;
         bool m_update = false;
         bool m_term = false;
         bool m_manager = false;
 
-        void onLoad() override
+        void onLoad(sw::EventInfo& info)
         {
+            auto& scene = info.getInfo<sw::SceneLoadEvent>().scene;
+
+            if (scene.name != "Engine")
+                return;
+
             if (m_init) throw (sw::Error("TestThrowScene", "Code"));
-            if (m_manager) createManager<CptManagerThrow>("CptManagerThrow");
+            if (m_manager) scene.createManager<CptManagerThrow>("CptManagerThrow");
         }
-        void onUpdate() override
+        void onUpdate() // TODO subscribe to the Update of the game
         {
             if (m_update) throw (sw::Error("TestThrowScene", "Code"));
         }
-        void onUnload() override
+        void onUnload() // TODO check if we have event to catch for unload
         {
             if (m_term) throw (sw::Error("TestThrowScene", "Code"));
         }
-        std::string type() const override { return ("TestThrowScene"); }
 };
 
-class SceneTester
-    :   public ComponentTester
+class SceneTester : public BaseEngineTest
 {
 
 };

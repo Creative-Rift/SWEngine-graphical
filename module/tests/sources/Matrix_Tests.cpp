@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include "SW/Utils.hpp"
+#include "utils/matrix.hpp"
 
 TEST (Matrix, constructor_default)
 {

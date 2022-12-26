@@ -8,7 +8,7 @@
 
 #include <filesystem>
 
-#include "SW/Engine.hpp"
+#include "OpenGLModule.hpp"
 #include "components/Sprite.hpp"
 #include "components/Animator.hpp"
 #include "components/Transform.hpp"
@@ -17,16 +17,14 @@
 
 TEST_F(AnimatorFixture, init)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 }
 
 TEST_F(AnimatorFixture, displayRect)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 
@@ -37,8 +35,7 @@ TEST_F(AnimatorFixture, displayRect)
 
 TEST_F(AnimatorFixture, loop)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 
@@ -49,8 +46,7 @@ TEST_F(AnimatorFixture, loop)
 
 TEST_F(AnimatorFixture, animation_speed)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 
@@ -60,8 +56,7 @@ TEST_F(AnimatorFixture, animation_speed)
 
 TEST_F(AnimatorFixture, animation_type)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 
@@ -73,14 +68,13 @@ TEST_F(AnimatorFixture, animation_type)
 
 TEST_F(AnimatorFixture, animation_play)
 {
-    auto& entity = sw::Engine::getScene("Main").createEntity("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
     sw::ConcreteComponent auto& sprite = entity.createComponent<sw::Sprite>("SpriteManager");
     sw::ConcreteComponent auto& animator = entity.createComponent<sw::Animator>("AnimatorManager");
 
     ASSERT_EQ(animator.isPlaying(), false);
-    animator.setPlaying(true);
+    animator.play();
     ASSERT_EQ(animator.isPlaying(), true);
-    animator.setPlaying(false);
+    animator.pause();
     ASSERT_EQ(animator.isPlaying(), false);
 }

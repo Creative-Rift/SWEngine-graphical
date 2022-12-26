@@ -9,16 +9,12 @@
 #ifndef SWENGINE_OPENGLMODULE_TEST_MAIN_HPP
 #define SWENGINE_OPENGLMODULE_TEST_MAIN_HPP
 
-#include "SW/Scene.hpp"
-
-class Main : public sw::AScene{
+class Main
+{
     public:
-        using sw::AScene::AScene;
-
-        void onLoad() override;
-        void onUpdate() override;
-        void onUnload() override;
-        std::string type() const override { return ("Main"); }
+        void onLoad();
+        void onUpdate();
+        void onUnload();
 
 };
 

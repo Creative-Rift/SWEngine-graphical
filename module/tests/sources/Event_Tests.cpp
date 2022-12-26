@@ -6,7 +6,6 @@
 */
 
 #include "EventTester.hpp"
-#include "SW/Event.hpp"
 
 TEST_F (EventTester, test)
 {

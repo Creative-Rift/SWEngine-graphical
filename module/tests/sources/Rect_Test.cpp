@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include "SW/Utils.hpp"
+#include "utils/Rect.hpp"
 
 TEST (Rect, constructor_default)
 {
