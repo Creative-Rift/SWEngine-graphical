@@ -4,7 +4,7 @@
  * Software Engine Project
  *
  * Author:
- * Guillaume S. and Maxime P.
+ * Guillaume S.
  * File name:
  * AManager.hpp
  *
@@ -39,8 +39,7 @@ namespace sw
 {
 
     template <ConcreteComponent Cpt>
-    class AManager :
-        public _IManager
+    class AManager : public _IManager
     {
 
         private:

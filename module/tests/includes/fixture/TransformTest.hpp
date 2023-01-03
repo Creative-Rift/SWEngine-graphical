@@ -10,12 +10,11 @@
 #define SWENGINE_OPENGLMODULE_TEST_TRANSFORMTEST_HPP
 
 #include "gtest/gtest.h"
+#include "BaseEngineTest.hpp"
 
-class TransformTest : public ::testing::Test
+class TransformTest : public BaseEngineTest
 {
-    protected:
-        void SetUp() override;
-        void TearDown() override;
+
 };
 
 #endif //SWENGINE_OPENGLMODULE_TEST_TRANSFORMTEST_HPP

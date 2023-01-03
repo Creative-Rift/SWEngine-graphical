@@ -178,8 +178,8 @@ TEST_F (CptManagerTester, cout)
 
     testing::internal::CaptureStdout();
     manager.createComponent("oui");
-    //std::cout << manager; // TODO check if the test is usefully
-    EXPECT_STREQ(testing::internal::GetCapturedStdout().c_str(), "Manager 'CptManager'\n\tType : 'TestCptManager'\n\tIs Load : true\n\tIs Active : true\n\nComponents count : 1\n");
+    std::cout << manager;
+    EXPECT_STREQ(testing::internal::GetCapturedStdout().c_str(), "Manager 'CptManager'\n\tType : 'class TestCptManager'\n\tIs Load : true\n\tIs Active : true\n\nComponents count : 1\n");
 }
 
 TEST_F (CptManagerTester, begin)

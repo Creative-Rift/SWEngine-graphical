@@ -35,7 +35,8 @@ class EngineTester : public BaseEngineTest
         virtual void TearDown() override
         {
             sw::Speech::displayed = true;
-            baseTearDown();
+            if (sw::OpenGLModule::isLoad())
+                baseTearDown();
         }
 };
 

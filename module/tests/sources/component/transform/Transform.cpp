@@ -15,8 +15,7 @@
 
 TEST_F(TransformTest, move_value)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.move(1, 1, 1);
 
@@ -27,8 +26,7 @@ TEST_F(TransformTest, move_value)
 
 TEST_F(TransformTest, move_vector)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.move({10, 8, 789});
 
@@ -39,8 +37,7 @@ TEST_F(TransformTest, move_vector)
 
 TEST_F(TransformTest, setPosition_value)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.setPosition(10, 8, 7);
 
@@ -51,8 +48,7 @@ TEST_F(TransformTest, setPosition_value)
 
 TEST_F(TransformTest, setPosition_vector)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.setPosition({10, 8, 7});
 
@@ -63,8 +59,7 @@ TEST_F(TransformTest, setPosition_vector)
 
 TEST_F(TransformTest, scale_value)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.scale(2, 2, 2);
     transform.scale(2, 2, 2);
@@ -76,8 +71,7 @@ TEST_F(TransformTest, scale_value)
 
 TEST_F(TransformTest, scale_vector)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.scale({2, 2, 2});
     transform.scale({20, 20, 20});
@@ -89,8 +83,7 @@ TEST_F(TransformTest, scale_vector)
 
 TEST_F(TransformTest, setScale_value)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.setScale(2, 2, 2);
     transform.setScale(20, 20, 20);
@@ -102,8 +95,7 @@ TEST_F(TransformTest, setScale_value)
 
 TEST_F(TransformTest, setScale_vector)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
 
     transform.setScale({2, 2, 2});
     transform.setScale({80, 80, 80});
@@ -115,8 +107,7 @@ TEST_F(TransformTest, setScale_vector)
 
 TEST_F(TransformTest, scale_translate_rotate)
 {
-    auto& entity = sw::OpenGLModule::sceneManager().getScene("Main")->createGameObject("test");
-    sw::ConcreteComponent auto& transform = entity.createComponent<sw::Transform>("TransformManager");
+    sw::ConcreteComponent auto& transform = m_gameObject.value().transform();
     glm::mat4 result;
     glm::mat4 excepted{{2, 0, 0, 0},
                        {0, 9, 0, 0},

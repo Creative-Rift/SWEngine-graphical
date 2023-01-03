@@ -190,5 +190,5 @@ TEST (Vector2, display)
 
     testing::internal::CaptureStdout();
     std::cout << vector2;
-    EXPECT_STREQ(testing::internal::GetCapturedStdout().c_str(), "Vector<i> : [ x:1 , y:1 ]\n");
+    EXPECT_STREQ(testing::internal::GetCapturedStdout().c_str(), "Vector<int> : [ x:1 , y:1 ]\n");
 }

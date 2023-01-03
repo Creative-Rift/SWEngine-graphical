@@ -16,6 +16,7 @@
 #include "event/EventInfo.hpp"
 #include "OpenGLModule.hpp"
 #include "Window.hpp"
+#include "Speech.hpp"
 
 sw::SceneManager::SceneManager() noexcept :
 m_scenes(),
@@ -38,17 +39,28 @@ void sw::SceneManager::checkForNewScene()
 
 void sw::SceneManager::createScene(std::string name)
 {
-    m_scenes.try_emplace(name, std::make_shared<sw::Scene>(name));
+    if (m_scenes.contains(name))
+        sw::Speech::Warning("Scene: " + name + " already exist!");
+    else
+        m_scenes.try_emplace(name, std::make_shared<sw::Scene>(name));
 }
 
 void sw::SceneManager::createScene(std::string name, std::string configFile)
 {
+    if (m_scenes.contains(name)) {
+        sw::Speech::Warning("Scene: " + name + " already exist!");
+        return;
+    }
     auto& scene = m_scenes.try_emplace(name, std::make_shared<sw::Scene>(name)).first->second;
     scene->m_configFile = configFile;
 }
 
 void sw::SceneManager::loadScene(std::string sceneName)
 {
+    if (!m_scenes.contains(sceneName)) {
+        sw::Speech::Warning("Scene " + sceneName + " doesn't exist!");
+        return;
+    }
     if (m_nameActiveScene.empty()) {
         m_nameActiveScene = sceneName;
         m_scenes.at(sceneName)->load();
@@ -96,4 +108,15 @@ std::shared_ptr<sw::Scene> sw::SceneManager::getScene(int index)
 std::shared_ptr<sw::Scene> sw::SceneManager::getScene(std::string sceneName)
 {
     return (m_scenes.at(sceneName));
+}
+
+void sw::SceneManager::unloadAllScene()
+{
+    for (auto& [name, scene] : m_scenes) {
+        if (scene->isLoad())
+            scene->unload();
+    }
+    m_scenes.clear();
+    m_nameActiveScene.clear();
+    m_nameNextActiveScene.clear();
 }

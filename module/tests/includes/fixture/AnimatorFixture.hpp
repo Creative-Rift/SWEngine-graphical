@@ -10,12 +10,10 @@
 #define SWENGINE_OPENGLMODULE_TEST_ANIMATORFIXTURE_HPP
 
 #include "gtest/gtest.h"
+#include "BaseEngineTest.hpp"
 
-class AnimatorFixture : public ::testing::Test
+class AnimatorFixture : public BaseEngineTest
 {
-    protected:
-        void SetUp() override;
-        void TearDown() override;
 };
 
 #endif //SWENGINE_OPENGLMODULE_TEST_ANIMATORFIXTURE_HPP

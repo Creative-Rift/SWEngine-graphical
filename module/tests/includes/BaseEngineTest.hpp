@@ -57,9 +57,10 @@ class BaseEngineTest : public testing::Test
     protected:
         sw::Reference<sw::GameObject> m_gameObject;
         sw::Reference<sw::Scene> m_scene;
-        TestScene *m_testScene = new TestScene;
+        TestScene *m_testScene;
 
         void baseSetUp() {
+            m_testScene = new TestScene;
             // Create Scene
             sw::OpenGLModule::sceneManager().createScene("TestScene");
             sw::OpenGLModule::eventManager().create("SceneLoad");
@@ -68,18 +69,23 @@ class BaseEngineTest : public testing::Test
             sw::OpenGLModule::load();
             sw::OpenGLModule::sceneManager().loadScene("TestScene");
             m_scene.emplace(*sw::OpenGLModule::sceneManager().getScene("TestScene"));
+            m_gameObject.emplace(m_scene.value().createGameObject("GameObjectTest"));
+            sw::Speech::flush();
         }
 
         void baseTearDown()
         {
             sw::OpenGLModule::unload();
+            sw::Speech::flush();
             delete m_testScene;
         }
 
-        void SetUp() override {
+        virtual void SetUp() override {
+            std::cout << "SetUp" << std::endl;
             baseSetUp();
         }
-        void TearDown() override {
+        virtual void TearDown() override {
+            std::cout << "TearDown" << std::endl;
             baseTearDown();
         }
 };

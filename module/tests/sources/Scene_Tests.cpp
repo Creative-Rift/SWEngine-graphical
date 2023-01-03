@@ -10,7 +10,7 @@
 // TODO Fix all comment
 TEST_F (SceneTester, hasGameObject)
 {
-    EXPECT_TRUE(sw::OpenGLModule::sceneManager().getActiveScene()->hasGameObject("Entity"));
+    EXPECT_TRUE(sw::OpenGLModule::sceneManager().getActiveScene()->hasGameObject("GameObjectTest"));
     EXPECT_FALSE(sw::OpenGLModule::sceneManager().getActiveScene()->hasGameObject("Enti"));
 }
 
