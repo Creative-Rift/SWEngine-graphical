@@ -30,7 +30,6 @@ jobs:
       - name: Config tests
         run: |
           cd module/tests
-          mkdir ${{env.BUILD_TYPE}}
           xcopy.exe ..\..\libraries\${{env.BUILD_TYPE}}\*.dll .\${{env.BUILD_TYPE}}\
           xcopy.exe ..\..\libraries\config.yaml .\${{env.BUILD_TYPE}}\
           mkdir build
