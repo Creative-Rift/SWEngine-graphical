@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_TYPE: DEBUG
+  BUILD_TYPE: Debug
   LIBRARIES_VERSION: 1
 
 jobs:
@@ -23,10 +23,9 @@ jobs:
 
       - name: Download libraries
         run: |
-          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=LIBRARIES_VERSION&p=installer"
+          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v={{env.LIBRARIES_VERSION}}&p=installer"
           ./libraries.exe > out.txt
-          xcopy.exe /E /I .\libraries\${{env.BUILD_TYPE}}\ .\libraries\
-          
+          xcopy.exe /E /I .\libraries\${{env.LIBRARIES_VERSION}}\ .\libraries\
           
       - name: Config tests
         run: |
@@ -40,5 +39,5 @@ jobs:
 
       - name: Run tests
         run: |
-          cd ${{github.workspace}}/module/tests/Debug
+          cd ${{github.workspace}}/module/tests/${{env.BUILD_TYPE}}
           ./SWEngine-testsd.exe
