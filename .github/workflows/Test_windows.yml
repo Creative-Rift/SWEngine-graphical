@@ -1,4 +1,4 @@
-name: Module Test CI
+name: Engine tests Windows
 on:
   push:
     branches:
@@ -9,11 +9,10 @@ on:
       - master
       - develop
   workflow_dispatch:
-  release:
-    types: [published]
 
 env:
   BUILD_TYPE: DEBUG
+  LIBRARIES_VERSION: 1
 
 jobs:
   Test_windows:
@@ -22,12 +21,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure Environement
+      - name: Download libraries
         run: |
-          ./check_for_update.sh -i
+          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=LIBRARIES_VERSION&p=installer"
+          ./libraries.exe > out.txt
+          xcopy.exe /E /I .\libraries\${{env.BUILD_TYPE}}\ .\libraries\
+          
+          
+      - name: Config tests
+        run: |
+          cd module/tests
           mkdir build
           cd build
-          cmake -B ${{github.workspace}}/build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake -B ${{github.workspace}}/module/tests/build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
 
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -- -j 9
+      - name: Build tests
+        run: cmake --build ${{github.workspace}}/module/tests/build --config ${{env.BUILD_TYPE}}
+
+      - name: Run tests
+        run: |
+          cd ${{github.workspace}}/module/tests/Debug
+          ./SWEngine-testsd.exe
