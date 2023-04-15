@@ -23,7 +23,7 @@ jobs:
 
       - name: Download libraries
         run: |
-          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v={{env.LIBRARIES_VERSION}}&p=installer"
+          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=${{env.LIBRARIES_VERSION}}&p=installer"
           ./libraries.exe > out.txt
           xcopy.exe /E /I .\libraries\${{env.LIBRARIES_VERSION}}\ .\libraries\
           
