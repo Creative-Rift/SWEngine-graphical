@@ -46,3 +46,10 @@ jobs:
         run: |
           cd ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
           .\SWEngine-testsd.exe
+
+      - name: Create artefact
+        continue-on-error: true
+        uses: actions/upload-artifact@v2
+        with:
+          name: test.exe
+          path: ${{github.workspace}}\module\tests\Debug\SWEngine-testsd.exe
