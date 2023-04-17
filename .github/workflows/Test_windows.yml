@@ -24,24 +24,25 @@ jobs:
       - name: Download libraries
         run: |
           Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=${{env.LIBRARIES_VERSION}}&p=installer"
-          ./libraries.exe > out.txt
+          .\libraries.exe > out.txt
           xcopy.exe /E /I .\libraries\${{env.LIBRARIES_VERSION}}\ .\libraries\
           
       - name: Config tests
         run: |
-          cd module/tests
+          cd module\tests
           xcopy.exe ..\..\libraries\${{env.BUILD_TYPE}}\*.dll .\${{env.BUILD_TYPE}}\
           xcopy.exe ..\..\libraries\config.yaml .\${{env.BUILD_TYPE}}\
           mkdir build
           cd build
-          cmake -B ${{github.workspace}}/module/tests/build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
+          cmake -B ${{github.workspace}}\module\tests\build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
+          ls ${{github.workspace}}\module\tests\Debug
 
       - name: Build tests
         run: |
-          cd ${{github.workspace}}/module/tests/build
-          cmake --build ${{github.workspace}}/module/tests/build --config ${{env.BUILD_TYPE}}
+          cd ${{github.workspace}}\module\tests\build
+          cmake --build ${{github.workspace}}\module\tests\build --config ${{env.BUILD_TYPE}}
 
       - name: Run tests
         run: |
-          cd ${{github.workspace}}/module/tests/${{env.BUILD_TYPE}}
-          ./SWEngine-testsd.exe
+          cd ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
+          .\SWEngine-testsd.exe
