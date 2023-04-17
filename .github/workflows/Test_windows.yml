@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_TYPE: Debug
+  BUILD_TYPE: Release
   LIBRARIES_VERSION: 1
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
           mkdir build
           cd build
           cmake -B ${{github.workspace}}\module\tests\build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
-          ls ${{github.workspace}}\module\tests\Debug
+          ls ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
 
       - name: Build tests
         continue-on-error: true
@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: SWEngine-testsd.exe
-          path: ${{github.workspace}}\module\tests\Debug\SWEngine-testsd.exe
+          path: ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}\SWEngine-testsd.exe
 
       - name: Run tests
         run: |
