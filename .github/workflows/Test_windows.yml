@@ -43,15 +43,8 @@ jobs:
           cd ${{github.workspace}}\module\tests\build
           cmake --build ${{github.workspace}}\module\tests\build --config ${{env.BUILD_TYPE}}
 
-      - name: Create artefact
-        continue-on-error: true
-        uses: actions/upload-artifact@v2
-        with:
-          name: SWEngine-testsd.exe
-          path: ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}\SWEngine-testsd.exe
-
       - name: Run tests
         run: |
           cd ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
           ls
-          .\SWEngine-testsd.exe
+          .\SWEngine-tests.exe
