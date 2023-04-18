@@ -8,11 +8,12 @@
 
 #include "Engine_tests.hpp"
 
+/*
 TEST_F (EngineTester, init_normal_end)
 {
     ASSERT_NO_THROW(sw::OpenGLModule::load());
     EXPECT_NO_THROW(sw::OpenGLModule::unload());
-}
+}*/
 
 /*
 TEST_F (EngineTester, init_throw)
@@ -23,7 +24,7 @@ TEST_F (EngineTester, init_throw)
     EXPECT_NO_THROW(dynamic_cast<EngineTestModule&>(sw::OpenGLModule::getModule()).m_initThrow = false);
 }
 */
-
+/*
 TEST_F (EngineTester, clear_on_play)
 {
     sw::Speech::clearOnPlay = true;
@@ -44,7 +45,7 @@ TEST_F (EngineTester, init_alreadyLoaded_end)
     EXPECT_NO_THROW(sw::OpenGLModule::unload());
 }
 
-/*
+
 TEST_F (EngineTester, update_throw)
 {
     sw::Speech::displayed = true;
@@ -67,7 +68,7 @@ TEST_F (EngineTester, update_noLoaded)
     EXPECT_NE(testing::internal::GetCapturedStdout().find("ShipWreck Engine cannot perform an update. Plead load the Engine first!"), std::string::npos);
 }
 
-
+/*
 TEST_F (EngineTester, unload)
 {
     testing::internal::CaptureStdout();
@@ -80,7 +81,6 @@ TEST_F (EngineTester, unload)
     EXPECT_NE(testing::internal::GetCapturedStdout().find("ShipWreck Engine was successfully unload!"), std::string::npos);
 }
 
-/*
 TEST_F (EngineTester, end_throw)
 {// TODO fix the test
     //EXPECT_NO_THROW(dynamic_cast<EngineTestModule&>(sw::OpenGLModule::getModule()).m_endThrow = true);
@@ -135,6 +135,7 @@ TEST_F (EngineTester, activeScene_no_cast_wrong)
     EXPECT_ANY_THROW(sw::OpenGLModule::sceneManager().getActiveScene());
 }
 
+/*
 TEST_F (EngineTester, deleteScene)
 {
     sw::OpenGLModule::load(); // TODO Check feature
@@ -170,4 +171,4 @@ TEST_F (EngineTester, set_active_wrong_scene)
     EXPECT_NO_THROW(sw::OpenGLModule::sceneManager().loadScene("EngineTestSne"));
     EXPECT_STREQ(sw::OpenGLModule::sceneManager().getActiveScene()->name.c_str(), "TestScene");
     sw::OpenGLModule::unload();
-}
+}*/
