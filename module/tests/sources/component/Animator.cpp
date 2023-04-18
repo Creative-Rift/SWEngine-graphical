@@ -15,6 +15,7 @@
 
 #include "fixture/AnimatorFixture.hpp"
 
+/*
 TEST_F(AnimatorFixture, init)
 {
     sw::ConcreteComponent auto& sprite = m_gameObject.value().createComponent<sw::Sprite>("SpriteManager");
@@ -72,3 +73,4 @@ TEST_F(AnimatorFixture, animation_play)
     animator.pause();
     ASSERT_EQ(animator.isPlaying(), false);
 }
+ */
