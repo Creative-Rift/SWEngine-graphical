@@ -66,7 +66,7 @@ class BaseEngineTest : public testing::Test
             sw::OpenGLModule::eventManager().create("SceneLoad");
             sw::OpenGLModule::eventManager()["SceneLoad"].subscribe("TestScene", m_testScene, &TestScene::onLoad);
 
-            sw::OpenGLModule::load();
+            //sw::OpenGLModule::load();
             sw::OpenGLModule::sceneManager().loadScene("TestScene");
             m_scene.emplace(*sw::OpenGLModule::sceneManager().getScene("TestScene"));
             m_gameObject.emplace(m_scene.value().createGameObject("GameObjectTest"));
