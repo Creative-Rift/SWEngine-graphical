@@ -38,7 +38,6 @@ jobs:
           ls ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
 
       - name: Build tests
-        continue-on-error: true
         run: |
           cd ${{github.workspace}}\module\tests\build
           cmake --build ${{github.workspace}}\module\tests\build --config ${{env.BUILD_TYPE}}
