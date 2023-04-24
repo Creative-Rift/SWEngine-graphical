@@ -282,7 +282,7 @@ template <ConcreteComponent Cpt>
 inline std::ostream& operator<<(std::ostream& os, const sw::AManager<Cpt>& manager)
 {
     os  << "Manager '" << manager.name() << "'\n"
-        << "\tType : '" << manager.type() << "'\n"
+        << "\tType : '" << typeid(manager).name() << "'\n"
         << "\tIs Load : " << std::boolalpha << manager.isLoad() << "\n"
         << "\tIs Active : " << std::boolalpha << manager.isActive() << "\n"
         << "\nComponents count : " << manager.componentsCount() << "\n";

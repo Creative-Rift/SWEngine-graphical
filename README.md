@@ -3,12 +3,13 @@
         style="height: 200px">
 </p>
 
-# SWEngine-OpenGLModule ⚓
+# ShipWreck Engine OpenGLModule ⚓
 
 ## Description
 
-This module built with OpenGL and GLFW provide several components to build your graphical project.
-OpenGLModule support Linux and Windows platform. Check our [documentation](https://docs.creative-rift.com/) for more information.
+ShipWreck Engine is based on [OpenGL](https://www.opengl.org/) 4.6 and [GLFW](https://www.glfw.org/). \
+The goal is to provide several tools that allow to create easily games, animation, render, ... \
+Check our [documentation](https://docs.creative-rift.com/) for more information.
 
 ## Compilation
 
@@ -17,10 +18,10 @@ To build the project simply use these commands:
 ```bash
 mkdir build ; cd build
 cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=[Debug/Release] ..
-cmake --build . --target Incaribus --config [Debug/Release]
+cmake --build . --target SWEngine-OpenGLModule --config [Debug/Release]
 ```
 
-The output program will be in `SWEngine-graphical/out/[Debug/Release]/SWEngine-OpenGLModule.dll`
+The output program will be in `out/[Debug/Release]/SWEngine-OpenGLModule.dll`
 
 ## Documentation
 
@@ -28,10 +29,9 @@ You can visit our [documentation](https://docs.creative-rift.com/graphical-modul
 
 ## Example
 
-We have one example with this Module check out [Icaribus](https://github.com/Creative-Rift/Incaribus)
+We have one example with this Module check out [Incaribus](https://github.com/Creative-Rift/Incaribus)
 
 ## Author
 
 Made on our ship with :heart: \
-[Guillaume Soisson](https://github.com/Alvarwow69) \
-[Guillaume Debard](https://github.com/SheItoon)
+[Guillaume Soisson](https://github.com/Alvarwow69)

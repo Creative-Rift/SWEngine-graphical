@@ -47,8 +47,11 @@ GLFWwindow *sw::Window::CreateWindow()
     m_window = glfwCreateWindow(m_size.x, m_size.y, m_title.c_str(), nullptr, nullptr);
 
     if (!m_window) {
+        const char *desc = nullptr;
+        int code = glfwGetError(&desc);
         glfwTerminate();
-        throw sw::Error("Failed to create window", "");
+        std::string message("Failed to create window[" + std::to_string(code) + "]: " + desc);
+        throw sw::Error(message, "");
     }
     glfwMakeContextCurrent(m_window);
     setUpCallBack();

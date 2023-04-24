@@ -6,15 +6,15 @@
 #ifndef SHIPWRECK_ENGINE_TEST
 #define SHIPWRECK_ENGINE_TEST
 
-#include "SW/Component.hpp"
+#include "Component.hpp"
 
 class ScriptTest : public sw::Component
 {
-public:
-    explicit ScriptTest(sw::Entity& entity);
-    ~ScriptTest() override = default;
-    void start();
-    void update();
+    public:
+        explicit ScriptTest(sw::GameObject& entity);
+        ~ScriptTest() override = default;
+        void start();
+        void update();
 };
 
 

@@ -1,5 +1,5 @@
 /*
-** Society: Rift...
+** Society: Creative Rift
 ** SHIPWRECK ENGINE, 2021
 ** Author: Guillaume S.
 ** File name: CptManager.hpp
@@ -9,10 +9,9 @@
 #ifndef __UNITESTS_CPTMANAGER_HPP__
 #define __UNITESTS_CPTMANAGER_HPP__
 
-#include "testHeader.hpp"
+#include "BaseEngineTest.hpp"
 
-class TestCptManagerThrow
-        :   public sw::AManager<sw::Component>
+class TestCptManagerThrow : public sw::AManager<sw::Component>
 {
     public:
         using sw::AManager<sw::Component>::AManager;
@@ -24,11 +23,9 @@ class TestCptManagerThrow
             if (m_update)
                 throw (sw::Error("onUpdate", "Code"));
         }
-        std::string type() const override { return ("TestCptManagerThrow"); }
 };
 
-class CptManagerTester
-    :   public ComponentTester
+class CptManagerTester : public BaseEngineTest
 {
 
 };

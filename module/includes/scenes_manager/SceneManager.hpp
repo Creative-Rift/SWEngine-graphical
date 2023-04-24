@@ -44,6 +44,7 @@ namespace sw
             void loadScene(std::string sceneName);
             [[nodiscard]]std::shared_ptr<AsyncScene> loadSceneAsync(std::string sceneName);
             void swapSceneFromAsync(AsyncScene& operation, std::string sceneName);
+            void unloadAllScene();
             std::shared_ptr<Scene> getScene(int index);
             std::shared_ptr<Scene> getScene(std::string sceneName);
             std::shared_ptr<Scene> getActiveScene();

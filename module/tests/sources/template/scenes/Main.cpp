@@ -14,9 +14,9 @@
 
 void Main::onLoad()
 {
-    createManager<sw::TransformManager>("TransformManager");
-    createManager<sw::SpriteManager>("SpriteManager");
-    createManager<sw::AnimatorManager>("AnimatorManager");
+    //createManager<sw::TransformManager>("TransformManager");
+    //createManager<sw::SpriteManager>("SpriteManager");
+    //createManager<sw::AnimatorManager>("AnimatorManager");
 }
 
 void Main::onUpdate()
