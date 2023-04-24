@@ -1,0 +1,16 @@
+{
+  "MissingTexture": {
+    "Path": "resources/textures/missing_texture.png",
+    "Scene": [
+      "*"
+    ],
+    "Type": "Texture"
+  },
+  "default": {
+    "Path": "resources/shaders/default.fs.glsl",
+    "Scene": [
+      "*"
+    ],
+    "Type": "Shader"
+  }
+}

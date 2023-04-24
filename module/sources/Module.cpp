@@ -51,6 +51,10 @@ void sw::OpenGLModule::displayAudioDevice()
 
 void sw::OpenGLModule::load()
 {
+    if (m_isLoad) {
+        sw::Speech::Warning("ShipWreck Engine is already loaded!");
+        return;
+    }
     sw::Speech::flush();
 
     sw::Config::SetupConfig();
@@ -80,6 +84,10 @@ void sw::OpenGLModule::load()
 
 void sw::OpenGLModule::update()
 {
+    if (!m_isLoad) {
+        sw::Speech::Warning("ShipWreck Engine cannot perform an update. Plead load the Engine first!");
+        return;
+    }
     if (!m_chrono.isRunning())
         m_chrono.start();
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -126,15 +134,19 @@ double sw::OpenGLModule::deltaTime()
 
 void sw::OpenGLModule::unload()
 {
-    m_sceneManager.getActiveScene()->unload();
+    m_sceneManager.unloadAllScene();
+    m_chronoWindow.stop();
+    m_devices.clear();
+    m_eventManager.clearEvents();
     glfwTerminate();
     alcMakeContextCurrent(nullptr);
     alcDestroyContext(m_audioContext);
     alcCloseDevice(m_audioDevice);
     m_isLoad = false;
+    sw::Speech::Debug("ShipWreck Engine was successfully unload!");
 }
 
-bool sw::OpenGLModule::isLoad() const
+bool sw::OpenGLModule::isLoad()
 {
     return (m_isLoad);
 }

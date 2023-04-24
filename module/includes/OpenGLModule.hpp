@@ -52,7 +52,7 @@ namespace sw
             /// @brief Return the statut of the @b Module.
             ///
             /// @return True if the @b Module is load. False if not.
-            [[nodiscard]] bool isLoad() const;
+            [[nodiscard]] static bool isLoad();
 
             static void load();
             static void update();

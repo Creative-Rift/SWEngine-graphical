@@ -1,7 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#include "SW/Errors.hpp"
+#include "exception/Error.hpp"
+#include "exception/NotImplemented.hpp"
 
 TEST (Error, getInfo) {
     sw::Error err("This is a message", "This is a code");
