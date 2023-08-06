@@ -10,7 +10,6 @@
 #ifndef SHIPWRECK_ENGINE_BUTTON_HPP
 #define SHIPWRECK_ENGINE_BUTTON_HPP
 
-#include <winsock.h>
 #include "components/base/Component.hpp"
 #include "components/Sprite.hpp"
 #include "components/Text.hpp"
@@ -33,12 +32,14 @@ namespace sw {
             sw::Vector3f m_position;
             sw::Vector3f m_txtPosition;
             void (*m_callback)(Button *);
-            bool m_hover;
+            AudioSource &getAudio();
+            Text &getText();
 
         protected:
             sw::Reference<sw::Sprite> m_sprite;
             sw::Reference<sw::Text> m_text;
             sw::Reference<sw::AudioSource> m_audio;
+            bool m_hover;
             void start();
             void update();
 

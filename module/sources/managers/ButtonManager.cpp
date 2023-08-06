@@ -43,8 +43,7 @@ void sw::ButtonManager::onUpdate()
                     obj->m_audio.value().play(3);
                     obj->m_callback(obj.get());
                 }
-        }
-        else {
+        } else {
             obj->m_sprite.value().setColor(sw::Color{100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f});
             obj->m_hover = false;
         }

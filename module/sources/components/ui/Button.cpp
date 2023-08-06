@@ -35,3 +35,13 @@ void sw::Button::update()
     sw::Vector2f mousePos = sw::getMousePosition();
 
 }
+
+sw::AudioSource &sw::Button::getAudio()
+{
+    return m_audio.value();
+}
+
+sw::Text &sw::Button::getText()
+{
+    return m_text.value();
+}

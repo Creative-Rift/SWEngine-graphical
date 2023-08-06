@@ -22,5 +22,6 @@
 #include "ModelAnimatorManager.hpp"
 #include "LightManager.hpp"
 #include "PrimitiveManager.hpp"
+#include "ButtonManager.hpp"
 
 #endif //SHIPWRECK_ENGINE_MANAGERS_HPP
