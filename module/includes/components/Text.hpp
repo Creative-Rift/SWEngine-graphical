@@ -21,7 +21,7 @@ namespace sw
     class SW_GRAPH_MODULE_EXPORT Text : public sw::Component
     {
         private:
-            std::string m_text;
+            std::wstring m_text;
             std::string m_fontName;
             unsigned int m_size;
             std::shared_ptr<Font> m_font;
@@ -50,7 +50,7 @@ namespace sw
             Text& operator=(Text&&) = delete;
             explicit Text(sw::GameObject& gameObject);
 
-            Text& setText(std::string text);
+            Text& setText(std::wstring text);
             //Text& setFontSize(unsigned int size);
             Text& setFont(std::string name);
             Text& setColor(sw::Color color);
@@ -59,7 +59,7 @@ namespace sw
 
             [[nodiscard]] const std::shared_ptr<Shader> getShader() const noexcept;
             [[nodiscard]] const Color& getColor() const noexcept;
-            [[nodiscard]] const std::string& getText() const noexcept;
+            [[nodiscard]] const std::wstring& getText() const noexcept;
             [[nodiscard]] const std::shared_ptr<sw::Font>& getFont() const noexcept;
             [[nodiscard]] const std::pair<float, float>& getPos() const noexcept;
             [[nodiscard]] const float& getScale() const noexcept;

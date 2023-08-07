@@ -9,7 +9,7 @@
 #include "gameObject/GameObject.hpp"
 #include "components/ui/TextInput.hpp"
 
-sw::TextInput::TextInput(sw::GameObject &gameObject, std::string defaultValue) :
+sw::TextInput::TextInput(sw::GameObject &gameObject, std::wstring defaultValue) :
 Component(gameObject),
 m_text(),
 m_selected(false),
@@ -30,7 +30,7 @@ bool sw::TextInput::isSelected() const
     return m_selected;
 }
 
-const std::string &sw::TextInput::getValue() const
+const std::wstring &sw::TextInput::getValue() const
 {
     return m_value;
 }

@@ -48,7 +48,7 @@ namespace sw
         static void mouse_button_callback(GLFWwindow* window, int button, int action,[[maybe_unused]] int mods);
         static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
         static void position_callback(GLFWwindow* window, double xpos, double ypos);
-
+        static void text_input_callback(GLFWwindow*, unsigned int codepoint);
         static void setUpCallBack();
 
     public:
@@ -213,6 +213,8 @@ namespace sw
     /// @throw none
     ////////////////////////////////////////////////////////////
     SW_GRAPH_MODULE_EXPORT sw::Vector2f getMouseScroll();
+
+    SW_GRAPH_MODULE_EXPORT unsigned int GetTextChar();
 }
 
 #endif //SHIPWRECK_ENGINE_WINDOW_HPP

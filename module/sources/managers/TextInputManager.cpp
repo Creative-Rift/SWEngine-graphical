@@ -9,6 +9,7 @@
 #include "Window.hpp"
 
 #include "TextInputManager.hpp"
+#include <cwctype>
 
 YAML::Node sw::TextInputManager::save() const
 {
@@ -48,10 +49,9 @@ void sw::TextInputManager::onUpdate()
 
 void sw::TextInputManager::keyBoardHandler(std::shared_ptr<sw::TextInput> obj)
 {
-    sw::Keyboard key = sw::GetKeyPressed();
-    int shift = sw::isKeyDown(sw::LSHIFT) || sw::isKeyDown(sw::RSHIFT) ? 0 : 32;
-    if (key != sw::UNKNOWN)
-        obj->m_value.push_back((char)key + (std::isalpha(key) ? shift : 0));
+    unsigned int key = sw::GetTextChar();
+    if (std::iswprint(key))
+        obj->m_value.push_back(key);
     if (sw::isKeyPressed(sw::BACKSPACE) && obj->m_value.length() > 0)
         obj->m_value.pop_back();
     obj->m_text.value().setText(obj->m_value);
