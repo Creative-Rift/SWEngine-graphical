@@ -32,8 +32,10 @@ void sw::ButtonManager::onUpdate()
         auto width = obj->m_sprite.value().getMaterial().texture->getWidth();
         auto height = obj->m_sprite.value().getMaterial().texture->getHeight();
 
-        if (mousePos.x >= pos.x && mousePos.x < pos.x + width * obj->gameObject().transform().getScale().x
-            && mousePos.y >= pos.y && mousePos.y < pos.y + height * obj->gameObject().transform().getScale().y) {
+        if (mousePos.x >= pos.x + obj->m_deadZone.left &&
+            mousePos.x < pos.x + width * obj->gameObject().transform().getScale().x + obj->m_deadZone.width &&
+            mousePos.y >= pos.y + obj->m_deadZone.top &&
+            mousePos.y < pos.y + height * obj->gameObject().transform().getScale().y + obj->m_deadZone.height) {
             obj->m_sprite.value().setColor(sw::Color{1.0f, 1.0f, 1.0f});
             if (!obj->m_hover)
                 obj->m_audio.value().play(std::rand() % 3);

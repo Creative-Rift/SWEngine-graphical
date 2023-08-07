@@ -31,6 +31,7 @@ namespace sw {
             sw::Vector2f m_scale;
             sw::Vector3f m_position;
             sw::Vector3f m_txtPosition;
+            sw::FloatRect m_deadZone;
             void (*m_callback)(Button *);
             AudioSource &getAudio();
             Text &getText();
