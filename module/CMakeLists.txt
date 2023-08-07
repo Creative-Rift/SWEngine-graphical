@@ -23,6 +23,7 @@ set( SRC_FOLDERS
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/base/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/transform/
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/components/ui/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/event/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/exception/
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/gameObject/
