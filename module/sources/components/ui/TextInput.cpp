@@ -14,7 +14,8 @@ Component(gameObject),
 m_text(),
 m_selected(false),
 m_value(defaultValue),
-m_textPos(0, 0)
+m_textPos(0, 0),
+m_hitBox({0, 0, 200 ,50})
 {
     gameObject.scene().eventManager["Start"].subscribe(m_gameObject.name(), this,  &sw::TextInput::start);
 }
@@ -33,4 +34,14 @@ bool sw::TextInput::isSelected() const
 const std::wstring &sw::TextInput::getValue() const
 {
     return m_value;
+}
+
+const sw::FloatRect &sw::TextInput::getHitBox() const
+{
+    return m_hitBox;
+}
+
+void sw::TextInput::setHitBox(const sw::FloatRect &mHitBox)
+{
+    m_hitBox = mHitBox;
 }

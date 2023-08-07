@@ -27,10 +27,10 @@ void sw::TextInputManager::onUpdate()
 
     for (auto &[_, obj]: m_components) {
         obj->m_text.value().setColor(sw::WhiteColor);
-        if (mousePos.x >= obj->m_textPos.x &&
-            mousePos.x < obj->m_textPos.x + 200 &&
-            sw::Window::GetSize().y - mousePos.y >= obj->m_textPos.y &&
-            sw::Window::GetSize().y - mousePos.y < obj->m_textPos.y + 50 &&
+        if (mousePos.x >= obj->m_textPos.x - obj->m_hitBox.left &&
+            mousePos.x < obj->m_textPos.x + obj->m_hitBox.width &&
+            sw::Window::GetSize().y - mousePos.y >= obj->m_textPos.y - obj->m_hitBox.top &&
+            sw::Window::GetSize().y - mousePos.y < obj->m_textPos.y + obj->m_hitBox.height &&
             !obj->m_selected)
         {
             obj->m_text.value().setColor(sw::RedColor);

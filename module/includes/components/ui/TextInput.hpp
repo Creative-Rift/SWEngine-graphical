@@ -14,6 +14,7 @@
 #include "utils/Reference.hpp"
 #include "../Text.hpp"
 #include "utils/Vector2.hpp"
+#include "utils/Rect.hpp"
 
 namespace sw
 {
@@ -24,6 +25,7 @@ namespace sw
         protected:
             bool m_selected;
             std::wstring m_value;
+            FloatRect m_hitBox;
 
         public:
             Vector2f m_textPos;
@@ -33,6 +35,8 @@ namespace sw
             void start();
             [[nodiscard]] bool isSelected() const;
             [[nodiscard]] const std::wstring &getValue() const;
+            const FloatRect &getHitBox() const;
+            void setHitBox(const FloatRect &mHitBox);
 
             friend TextInputManager;
 
