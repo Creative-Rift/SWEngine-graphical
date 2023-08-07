@@ -42,7 +42,6 @@ namespace sw {
             sw::Reference<sw::AudioSource> m_audio;
             bool m_hover;
             void start();
-            void update();
 
             friend ButtonManager;
     }; // class Button

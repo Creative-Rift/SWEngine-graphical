@@ -23,5 +23,6 @@
 #include "LightManager.hpp"
 #include "PrimitiveManager.hpp"
 #include "ButtonManager.hpp"
+#include "TextInputManager.hpp"
 
 #endif //SHIPWRECK_ENGINE_MANAGERS_HPP
