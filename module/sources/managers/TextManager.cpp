@@ -59,7 +59,7 @@ void sw::TextManager::onUpdate()
         auto &charmap = object->getFont()->getCharacters();
         auto &txtpos = object->getPos();
         auto &scale = object->getScale();
-        std::string::const_iterator c;
+        std::wstring::const_iterator c;
         float x = txtpos.first;
         float y = txtpos.second;
         for (c = text.begin(); c != text.end(); c++) 
@@ -125,7 +125,7 @@ YAML::Node sw::TextManager::save() const
 void sw::TextManager::onLoad(YAML::Node& node) {
     for (auto component: node["components"]) {
         sw::Text &text = createComponent(component["entity_name"].as<std::string>());
-        text.m_text = component["text"].as<std::string>();
+        //text.m_text = component["text"].as<std::wstring>();
         //text.m_shader.load(component["shader"]);
         text.m_color.load(component["color"]);
         text.m_pos.first = component["posx"].as<float>();

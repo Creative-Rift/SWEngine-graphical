@@ -27,7 +27,7 @@ namespace sw {
         public:
             explicit Button(sw::GameObject &gameObject);
             std::string m_textureName;
-            std::string m_buttonTitle;
+            std::wstring m_buttonTitle;
             sw::Vector2f m_scale;
             sw::Vector3f m_position;
             sw::Vector3f m_txtPosition;
@@ -42,7 +42,6 @@ namespace sw {
             sw::Reference<sw::AudioSource> m_audio;
             bool m_hover;
             void start();
-            void update();
 
             friend ButtonManager;
     }; // class Button
