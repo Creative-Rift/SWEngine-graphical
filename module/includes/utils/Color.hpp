@@ -48,15 +48,15 @@ namespace sw
 
     #include "Color.inl"
 
-    constexpr SW_GRAPH_MODULE_EXPORT Color BlackColor(0, 0, 0);             // Black predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color WhiteColor(255, 255, 255);       // White predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color RedColor(255, 0, 0);             // Red predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color GreenColor(0, 255, 0);           // Green predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color BlueColor(0, 0, 255);            // Blue predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color YellowColor(255, 255, 0);        // Yellow predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color MagentaColor(255, 0, 255);       // Magenta predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color CyanColor(0, 255, 255);          // Cyan predefined color
-    constexpr SW_GRAPH_MODULE_EXPORT Color TransparentColor(0, 0, 0, 0);    // Transparent (black) predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color BlackColor;         // Black predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color WhiteColor;         // White predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color RedColor;           // Red predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color GreenColor;         // Green predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color BlueColor;          // Blue predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color YellowColor;        // Yellow predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color MagentaColor;       // Magenta predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color CyanColor;          // Cyan predefined color
+    extern SW_GRAPH_MODULE_EXPORT Color TransparentColor;   // Transparent (black) predefined color
 
 
 
