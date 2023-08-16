@@ -3,7 +3,7 @@
 
 sw::Text::Text(sw::GameObject& gameObject) :
 sw::Component(gameObject),
-m_text(std::string("Hello world")),
+m_text(std::wstring(L"Hello world")),
 m_fontName("DefaultFont"),
 m_size(48),
 m_font(sw::OpenResources::m_nfont["DefaultFont"]),
@@ -13,7 +13,7 @@ m_pos(),
 m_scale(1)
 {}
 
-sw::Text &sw::Text::setText(std::string text)
+sw::Text &sw::Text::setText(std::wstring text)
 {
     m_text = text;
     return (*this);
@@ -62,7 +62,7 @@ const sw::Color &sw::Text::getColor() const noexcept
     return (m_color);
 }
 
-const std::string &sw::Text::getText() const noexcept
+const std::wstring &sw::Text::getText() const noexcept
 {
     return (m_text);
 }

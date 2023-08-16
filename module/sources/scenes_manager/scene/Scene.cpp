@@ -66,6 +66,9 @@ void sw::Scene::load(bool async)
     createManager<sw::ModelAnimatorManager>("ModelAnimatorManager");
     createManager<sw::LightManager>("LightManager");
     createManager<sw::PrimitiveManager>("PrimitiveManager");
+    createManager<sw::ButtonManager>("ButtonManager");
+    createManager<sw::TextInputManager>("TextInputManager");
+    createManager<sw::CheckBoxManager>("CheckBoxManager");
     sw::Speech::flush();
 
     if (m_configFile != "None")
@@ -125,6 +128,9 @@ void sw::Scene::updateLogic()
         m_managers["AnimatorManager"]->update();
         m_managers["ModelAnimatorManager"]->update();
         m_managers["ScriptManager"]->update();
+        m_managers["ButtonManager"]->update();
+        m_managers["TextInputManager"]->update();
+        m_managers["CheckBoxManager"]->update();
         eventManager.drop("Update");
         m_managers["AudioManager"]->update();
     }

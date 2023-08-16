@@ -11,6 +11,8 @@
 SW_GRAPH_MODULE_EXPORT char current_key_flags[sw::Keyboard::LAST];
 SW_GRAPH_MODULE_EXPORT char previous_key_flags[sw::Keyboard::LAST];
 
+SW_GRAPH_MODULE_EXPORT unsigned int text_char;
+
 SW_GRAPH_MODULE_EXPORT char current_mouse_flags[sw::MouseBtn::Button_last];
 SW_GRAPH_MODULE_EXPORT char previous_mouse_flags[sw::MouseBtn::Button_last];
 
@@ -26,6 +28,7 @@ GLFWwindow *sw::Window::UpdateWindow()
         previous_key_flags[i] = current_key_flags[i];
     for (int i = 0; i < sw::MouseBtn::Button_last; ++i)
         previous_mouse_flags[i] = current_mouse_flags[i];
+    text_char = 0;
     
     previous_mouse_position = current_mouse_position;
     previous_mouse_scroll = current_mouse_scroll;
@@ -38,6 +41,7 @@ void sw::Window::setUpCallBack()
 {
     glfwSetFramebufferSizeCallback(m_window, resizeCallBack);
     glfwSetKeyCallback(m_window, input_callback);
+    glfwSetCharCallback(m_window, text_input_callback);
     glfwSetMouseButtonCallback(m_window, mouse_button_callback);
     glfwSetScrollCallback(m_window, scroll_callback);
     glfwSetCursorPosCallback(m_window, position_callback);
@@ -51,6 +55,11 @@ void sw::Window::input_callback(GLFWwindow*, int key, int, int action, int)
         current_key_flags[key] = 0;
     else
         current_key_flags[key] = 1;
+}
+
+void sw::Window::text_input_callback(GLFWwindow*, unsigned int codepoint)
+{
+    text_char = codepoint;
 }
 
 void sw::Window::mouse_button_callback(GLFWwindow*, int button, int action, int)
@@ -148,4 +157,9 @@ sw::Vector2f sw::getMouseScroll()
 sw::Vector2f sw::getMousePosition()
 {
     return current_mouse_position;
+}
+
+unsigned int sw::GetTextChar()
+{
+    return text_char;
 }
