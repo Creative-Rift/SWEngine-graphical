@@ -25,7 +25,6 @@
 #include "exception/Error.hpp"
 #include "utils/Speech.hpp"
 #include "utils/Reference.hpp"
-#include "JSNP/jsnp.hpp"
 
 #include "OpenGLModule_Config.hpp"
 #include "resources/OpenResources.hpp"
@@ -264,8 +263,6 @@ namespace sw
             tree::tree<int, float> m_tree;
             std::unordered_map<int, Reference<Component>> m_lut;
 
-            friend void LoadResourcesFile(const std::string& path);
-            friend void AddResourcesOnScene(jsnp::Token& it);
             friend SceneManager;
             friend OpenGLModule;
     };

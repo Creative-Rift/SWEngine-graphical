@@ -6,12 +6,12 @@
 ** Description: [CHANGE]
 */
 
-#include "JSNP/jsnp.hpp"
+#include "boost/json.hpp"
 
 #include "config/Config.hpp"
 #include "OpenGLModule.hpp"
-#include "resources/OpenResources.hpp"
 #include "utils/Speech.hpp"
+#include "utils/File.hpp"
 #include "exception/Error.hpp"
 #include "managers/Managers.hpp"
 #include "Window.hpp"
@@ -19,6 +19,7 @@
 #include <iostream>
 #include <algorithm>
 #include <thread>
+#include <filesystem>
 
 SW_GRAPH_MODULE_EXPORT sw::SceneManager sw::OpenGLModule::m_sceneManager = {};
 SW_GRAPH_MODULE_EXPORT sw::EventManager sw::OpenGLModule::m_eventManager = {};
@@ -156,11 +157,6 @@ bool sw::OpenGLModule::isRunning()
     return (m_sceneManager.m_nameNextActiveScene.empty() && sw::Window::IsOpen());
 }
 
-std::shared_ptr<sw::AResources> sw::OpenGLModule::createResourceInstance()
-{
-    return (std::make_shared<sw::OpenResources>());
-}
-
 std::string sw::OpenGLModule::type() const
 {
     return (std::string{"OpenGLModule"});
@@ -171,46 +167,41 @@ void sw::OpenGLModule::setFrameRateLimit(unsigned int frameRate)
     m_frameRate = 1.0 / static_cast<double>(frameRate);
 }
 
-static void addResourcesOnReqScene(jsnp::Token& token)
+static void addResourcesOnReqScene(const std::string& name, boost::json::object& object)
 {
-    auto& key = token.first;
-    auto& obj = token.second.value<jsnp::Object>();
-    auto& path = obj["Path"].second.value<std::string>();
-    auto& type = obj["Type"].second.value<std::string>();
+    auto path = std::string(object["Path"].as_string());
+    auto type = std::string(object["Type"].as_string());
 
-    if (!std::ifstream(path))
+    if (!std::filesystem::is_regular_file(path))
         sw::Speech::Warning("sw::AddResourcesOnScene - Tag Path <" + path + "> is incorrect!", "3710");
 
 
-    for (auto value : obj["Scene"].second.value<jsnp::Array>()) {
-        auto yolo = value.value<std::string>();
+    for (auto &value : object["Scene"].as_array()) {
+        auto yolo = boost::json::value_to<std::string>(value);
 
         if (yolo == "*") {
             for (auto& [_, scene] : sw::OpenGLModule::sceneManager().getScenes())
-                scene->resources.addNeededResource(key, path, type);
+                scene->resources.addNeededResource(name, path, type);
         } else {
             std::shared_ptr<sw::Scene> currentScene = sw::OpenGLModule::m_sceneManager.getScene(yolo);
-            currentScene->resources.addNeededResource(key, path, type);
+            currentScene->resources.addNeededResource(name, path, type);
         }
     }
 }
 
 void sw::OpenGLModule::loadResourcesFile(const std::string &path)
 {
-    std::ifstream in(path);
-    jsnp::Data data(path);
+    std::string file = sw::File::ReadFile(path);
+    boost::json::value json = boost::json::parse(file);
 
-    if (!in)
-        sw::Speech::Error("sw::LoadResourcesFile - Unable to open file <" + path + ">", "4710");
-    else
-        for (auto token : data()) {
-            auto& obj = token.second.value<jsnp::Object>();
-            if (obj["Scene"].second.value<jsnp::Array>().size() == 0) {
-                sw::Speech::Warning("sw::LoadResourcesFile - tag Scene not found!", "3710");
-                continue;
-            }
-            addResourcesOnReqScene(token);
+    for (auto &[name, token] : json.as_object()) {
+        auto& obj = token.as_object();
+        if (obj["Scene"].as_array().empty()) {
+            sw::Speech::Warning("sw::LoadResourcesFile - tag Scene not found!", "3710");
+            continue;
         }
+        addResourcesOnReqScene(name, obj);
+    }
 }
 
 void sw::OpenGLModule::CheckOpenOperation()
