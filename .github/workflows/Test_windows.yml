@@ -12,7 +12,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  LIBRARIES_VERSION: 1
+  LIBRARIES_VERSION: 2
 
 jobs:
   Test_windows:
