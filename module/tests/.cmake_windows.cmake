@@ -4,6 +4,8 @@ set( EXEC SWEngine-tests )
 set( EXT cpp )
 
 add_definitions(-DYAML_CPP_STATIC_DEFINE)
+add_definitions(-DBOOST_JSON_NO_LIB)
+add_definitions(-DBOOST_CONTAINER_NO_LIB)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
     set(DEBUG_SUFFIX "d")
@@ -14,7 +16,6 @@ endif()
 ## IMPORTED SHARED LIBRARY NAME
 set(SHARED_LIB_NAME
         glfw3
-        Jsnp${DEBUG_SUFFIX}
         freetype
         sndfile
         assimp-vc134-mtd
@@ -24,7 +25,6 @@ set(SHARED_LIB_NAME
 ## IMPORTED SHARED LIBRARY LOCATION
 set(SHARED_LIB_LOC
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
-        ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/Jsnp.dll
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/freetype.dll
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/assimp-vc143-mt${DEBUG_SUFFIX}.dll
@@ -34,7 +34,6 @@ set(SHARED_LIB_LOC
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/glfw3.lib
-        ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/Jsnp${DEBUG_SUFFIX}.lib
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/freetype.lib
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/sndfile.lib
         ${CMAKE_SOURCE_DIR}/../../libraries/${CMAKE_BUILD_TYPE}/assimp-vc143-mt${DEBUG_SUFFIX}.lib

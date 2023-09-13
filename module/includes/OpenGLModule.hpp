@@ -65,8 +65,6 @@ namespace sw
             static void CheckOpenOperation();
             [[nodiscard]] std::string type() const;
 
-            std::shared_ptr<sw::AResources> createResourceInstance();
-
             static void setFrameRateLimit(unsigned int frameRate);
     }; // class OpenGLModule
 } // namespace sw

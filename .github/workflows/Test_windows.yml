@@ -12,7 +12,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  LIBRARIES_VERSION: 1
+  LIBRARIES_VERSION: 2
 
 jobs:
   Test_windows:
@@ -23,10 +23,10 @@ jobs:
 
       - name: Download libraries
         run: |
-          Invoke-WebRequest -OutFile "libraries.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=${{env.LIBRARIES_VERSION}}&p=installer"
-          .\libraries.exe > out.txt
-          xcopy.exe /E /I .\libraries\${{env.LIBRARIES_VERSION}}\ .\libraries\
-          
+          Invoke-WebRequest -OutFile "package.swfp" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=${{env.LIBRARIES_VERSION}}&p=libraries"
+          Invoke-WebRequest -OutFile "SWUnpacker.exe" -Uri "https://api.creative-rift.com/api/download?platform=windows&v=1&p=unpacker"
+          .\SWUnpacker.exe package.swfp .\libraries\
+
       - name: Config tests
         run: |
           cd module\tests
@@ -35,7 +35,6 @@ jobs:
           mkdir build
           cd build
           cmake -B ${{github.workspace}}\module\tests\build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
-          ls ${{github.workspace}}\module\tests\${{env.BUILD_TYPE}}
 
       - name: Build tests
         run: |

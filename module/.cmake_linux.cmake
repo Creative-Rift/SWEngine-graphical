@@ -13,13 +13,11 @@ set( FT freetype )
 ## IMPORTED SHARED LIBRARY NAME
 set( SHARED_LIB_NAME
         glfw3
-        Jsnp
         yaml-cpp
         )
 ## IMPORTED SHARED LIBRARY LOCATION
 set( SHARED_LIB_LOCATION
         ${CMAKE_SOURCE_DIR}/libraries/libglfw.so
-        ${CMAKE_SOURCE_DIR}/libraries/libJsnp.so
         ${CMAKE_SOURCE_DIR}/libraries/libyaml-cpp.so
         )
 ## <=====================================>

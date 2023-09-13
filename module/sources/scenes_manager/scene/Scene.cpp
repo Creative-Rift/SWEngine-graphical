@@ -11,6 +11,8 @@
  * Description:
  */
 
+#include <fstream>
+
 #include "managers/Managers.hpp"
 #include "scenes_manager/scene/Scene.hpp"
 #include "SceneLoadEvent.hpp"
