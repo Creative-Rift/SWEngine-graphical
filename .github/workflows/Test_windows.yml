@@ -34,7 +34,7 @@ jobs:
           xcopy.exe ..\libraries\config.yaml .\${{env.BUILD_TYPE}}\
           mkdir build
           cd build
-          cmake -B ${{github.workspace}}\tests\build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
+          cmake -B ${{github.workspace}}\tests\build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ../..
 
       - name: Build tests
         run: |
@@ -43,5 +43,5 @@ jobs:
 
       - name: Run tests
         run: |
-          cd ${{github.workspace}}\tests\${{env.BUILD_TYPE}}
-          .\SWEngine-tests.exe
+          cd ${{github.workspace}}\tests\out\${{env.BUILD_TYPE}}
+          ..\SWEngine-tests.exe
