@@ -1,20 +1,3 @@
-## CMAKE VAR
-## <=====================================>
-cmake_minimum_required( VERSION 3.20 )
-set( CMAKE_CXX_STANDARD 20 )
-set( CMAKE_CXX_STANDARD_REQUIRED True )
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
-set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
-set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
-## <=====================================>
-
-project( "SWEngine-test"
-        VERSION
-        0.1
-        DESCRIPTION
-        "All test for a graphical module"
-        )
-
 set(PREFIX_MESSAGE "[SWEngine-OpenGL] ")
 
 ## SOURCE FOLDERS
@@ -63,10 +46,7 @@ message(${PREFIX_MESSAGE} "Project location: " ${CMAKE_SOURCE_DIR})
 
 if (WIN32)
     message(${PREFIX_MESSAGE} "Windows system detected, prepare project...")
-    include(.cmake_windows.cmake)
-elseif(UNIX)
-    message(${PREFIX_MESSAGE} "Linux system detected, prepare project...")
-    include(.cmake_linux.cmake)
+    include(cmake/windows.cmake)
 else()
     message(FATAL_ERROR "System not supported!")
 endif()

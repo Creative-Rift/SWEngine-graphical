@@ -1,7 +1,8 @@
 ## PROJECT VAR
 ## <=====================================>
-set( EXEC SWEngine-OpenGLModule )
+set( EXEC "SWEngine-tests" )
 set( EXT cpp )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out/ )
 
 add_definitions(-DYAML_CPP_STATIC_DEFINE)
 add_definitions(-DBOOST_JSON_NO_LIB)
@@ -14,22 +15,23 @@ else()
 endif()
 
 ## IMPORTED SHARED LIBRARY NAME
-set( SHARED_LIB_NAME
+set(SHARED_LIB_NAME
         glfw3
         freetype
         sndfile
-        assimp-vc143-mtd
+        assimp-vc134-mtd
         OpenAL32
         )
 
 ## IMPORTED SHARED LIBRARY LOCATION
-set( SHARED_LIB_LOCATION
+set(SHARED_LIB_LOC
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/freetype.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/sndfile.dll
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/assimp-vc143-mt${DEBUG_SUFFIX}.dll
         ${CMAKE_SOURCE_DIR}/libraries/openal/OpenAL32.dll
         )
+
 ## IMPORTED SHARED LIBRARY .lib file
 set( SHARED_LIB
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/glfw3.lib
@@ -48,12 +50,10 @@ set( STATIC_LIB_NAME
 set( STATIC_LIB
         ${CMAKE_SOURCE_DIR}/libraries/${CMAKE_BUILD_TYPE}/yaml-cpp${DEBUG_SUFFIX}.lib
         )
-## <=====================================>
-
 
 ## GET SOURCES
 ## <=====================================>
-foreach(filePath ${SRC_FOLDERS})
+foreach(filePath ${SRC_FOLDERS_T})
     string(APPEND TMP "${filePath}*.${EXT};")
     string(APPEND TMP "${filePath}*.c;")
 endforeach()
@@ -64,19 +64,13 @@ file(GLOB SRC ${TMP})
 ## OUTPUT
 ## <=====================================>
 ## EXECUTABLE
-# add_executable(${EXEC} ${SRC})
-
-## or SHARED LIB
-add_library(${EXEC} SHARED ${SRC})
-
-## or STATIC LIB
-# add_library(${EXEC} STATIC ${SRC})
+add_executable(${EXEC} ${SRC})
 ## <=====================================>
 
 
 ## ADD INCLUDES
 ## <=====================================>
-target_include_directories(${EXEC} PUBLIC ${INC_FOLDERS})
+target_include_directories(${EXEC} PUBLIC ${INC_FOLDERS_T})
 ## <=====================================>
 
 ## ADD PARAMETER
@@ -131,3 +125,30 @@ if (${CMAKE_BUILD_TYPE} MATCHES Debug)
     set_target_properties(${EXEC} PROPERTIES
             DEBUG_POSTFIX "d")
 endif()
+
+# Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
+if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+    cmake_policy(SET CMP0135 NEW)
+endif()
+
+## PACKAGE LINKING
+## <=====================================>
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+target_link_libraries(${EXEC}
+        PUBLIC
+        gtest_main
+        )
+
+include(GoogleTest)
+gtest_discover_tests(${EXEC})
+## <=====================================>
