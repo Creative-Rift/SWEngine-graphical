@@ -3,7 +3,12 @@
         style="height: 200px">
 </p>
 
-# ShipWreck Engine OpenGLModule ⚓
+# ShipWreck Engine OpenGLModule (Archived ⚓
+
+## Important
+This project is now archived. Why? because there are too mush architectural issue that affect the future update. \
+This is **not** the end of the project you can follow the new version [here](https://github.com/Creative-Rift/SWEngine). \
+This new project contain a better documentation, improved architecture for GameObject, Component, ... and now fully opensource.
 
 ## Description
 
